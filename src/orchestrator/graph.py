@@ -6,6 +6,7 @@ from __future__ import annotations
 
 from langgraph.graph import END, StateGraph
 
+from src.orchestrator.narrate import narrate
 from src.agents.analysis_agent import AnalysisAgent
 from src.agents.sql_agent import SQLAgent
 from src.agents.viz_agent import VisualizationAgent
@@ -41,8 +42,20 @@ def agent_node(state: SessionState):
         sql_result = sql_agent.run(state["question"])
 
         if sql_result["ok"]:
-            state["result"] = analysis_agent.run(sql_result["answer"])
+
+            answer = narrate(
+                state["question"],
+                "sql",
+                sql_result["answer"]
+            )
+
+            state["result"] = {
+                "ok": True,
+                "answer": answer
+            }
+
         else:
+
             state["result"] = sql_result
 
     elif selected == "viz":
