@@ -1,63 +1,70 @@
+import json
+
+from src.llm import build_llm
+
+AGENTS = {
+    "sql": "Retrieve or aggregate data from the database.",
+    "viz": "Generate charts or visualizations.",
+    "analysis": "Perform statistical analysis.",
+    "report": "Generate a report summarizing the session."
+}
+
+SYSTEM_PROMPT = f"""
+You are a routing assistant.
+
+Your task is to choose which agent should answer the user's question.
+
+Available agents:
+
+{json.dumps(AGENTS, indent=2)}
+
+Reply ONLY with valid JSON.
+
+Example:
+
+{{"agent":"sql"}}
 """
-Simple router.
-
-Decides which agent should handle the user's request.
-"""
-
-from __future__ import annotations
 
 
-def route(question: str) -> str:
+def keyword_route(question: str) -> str:
     """
-    Route a question to the appropriate agent.
+    Fallback router if the LLM fails.
     """
 
     q = question.lower()
 
-    sql_keywords = [
-        "sales",
-        "profit",
-        "customer",
-        "order",
-        "quantity",
-        "discount",
-        "state",
-        "city",
-        "region",
-        "category",
-        "product",
-        "table",
-        "average",
-        "sum",
-        "count",
-        "maximum",
-        "minimum",
-        "total",
-    ]
-
-    viz_keywords = [
-        "plot",
-        "chart",
-        "graph",
-        "histogram",
-        "bar",
-        "line",
-        "scatter",
-        "visualize",
-    ]
-
-    report_keywords = [
-        "report",
-        "summary",
-    ]
-
-    if any(word in q for word in viz_keywords):
+    if any(word in q for word in ["plot", "chart", "graph", "visual"]):
         return "viz"
 
-    if any(word in q for word in report_keywords):
+    if any(word in q for word in ["average", "correlation", "variance", "distribution"]):
+        return "analysis"
+
+    if "report" in q:
         return "report"
 
-    if any(word in q for word in sql_keywords):
-        return "sql"
+    return "sql"
 
-    return "analysis"
+
+def route(question: str) -> str:
+
+    llm = build_llm()
+
+    try:
+
+        response = llm.invoke([
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": question}
+        ])
+
+        raw = response.content.strip()
+
+        data = json.loads(raw)
+
+        if data["agent"] in AGENTS:
+            return data["agent"]
+
+    except Exception:
+
+        pass
+
+    return keyword_route(question)

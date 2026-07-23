@@ -5,7 +5,11 @@ def main():
 
     llm = build_llm()
 
-    print(type(llm))
+    response = llm.invoke(
+        "Say only: Groq connection successful."
+    )
+
+    print(response.content)
 
 
 if __name__ == "__main__":

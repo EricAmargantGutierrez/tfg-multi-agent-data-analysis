@@ -1,21 +1,17 @@
 from src.orchestrator.router import route
 
 
-def main():
+questions = [
+    "How many orders are there?",
+    "Create a bar chart of sales by region.",
+    "Calculate the average profit.",
+    "Generate the final report."
+]
 
-    questions = [
-        "How many orders are there?",
-        "Show total sales by region",
-        "Create a bar chart",
-        "Generate a report",
-        "Why are profits decreasing?",
-    ]
+for q in questions:
 
-    for q in questions:
-        print(q)
-        print(" ->", route(q))
-        print()
+    print(q)
 
+    print(route(q))
 
-if __name__ == "__main__":
-    main()
+    print()

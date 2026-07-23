@@ -27,11 +27,7 @@ class Settings(BaseSettings):
     # LLM
     # ------------------------------------------------------------------
 
-    llm_provider: str = Field(default="openai")
-    llm_model: str = Field(default="gpt-4o-mini")
-
-    openai_api_key: str | None = None
-    groq_api_key: str | None = None
+    default_model: str = Field(default="groq")
 
     # ------------------------------------------------------------------
     # Database
