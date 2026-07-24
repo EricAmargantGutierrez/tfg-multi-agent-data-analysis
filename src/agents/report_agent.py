@@ -1,38 +1,75 @@
+from __future__ import annotations
+
+import json
 from pathlib import Path
 
 from src.agents.base import BaseAgent
+from src.core.paths import RESULTS_DIR
+from src.llm import build_llm
+
+
+SYSTEM_PROMPT = """
+You are a senior data analyst.
+
+Write a professional report based on a conversation between a user and a
+multi-agent data analysis system.
+
+The report should contain:
+
+# Executive Summary
+
+# Questions Asked
+
+# Key Findings
+
+# Conclusions
+
+Use Markdown.
+Be concise.
+Do not invent information.
+"""
 
 
 class ReportAgent(BaseAgent):
 
     def __init__(self):
+
         super().__init__("report")
 
     def run(self, history):
 
-        report = "# Session Report\n\n"
+        try:
 
-        for i, turn in enumerate(history, start=1):
+            llm = build_llm()
 
-            report += f"## Question {i}\n"
-            report += f"{turn['question']}\n\n"
+            prompt = json.dumps(history, indent=2)
 
-            report += "### Answer\n"
+            response = llm.invoke([
+                {
+                    "role": "system",
+                    "content": SYSTEM_PROMPT,
+                },
+                {
+                    "role": "user",
+                    "content": prompt,
+                },
+            ])
 
-            answer = turn["answer"]
+            RESULTS_DIR.mkdir(exist_ok=True)
 
-            if isinstance(answer, dict):
-                report += str(answer)
-            else:
-                report += answer
+            output = RESULTS_DIR / "session_report.md"
 
-            report += "\n\n"
+            output.write_text(
+                response.content,
+                encoding="utf-8",
+            )
 
-        output = Path("results/session_report.md")
-        output.write_text(report, encoding="utf-8")
+            return self.success(
+                {
+                    "path": str(output)
+                }
+            )
 
-        return self.success(
-            {
-                "path": str(output)
-            }
-        )
+        except Exception as e:
+
+            return self.error(str(e))

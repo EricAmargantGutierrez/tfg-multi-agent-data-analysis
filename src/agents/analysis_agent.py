@@ -1,33 +1,62 @@
 from __future__ import annotations
 
+import json
+
 from src.agents.base import BaseAgent
+from src.llm import build_llm
+
+
+SYSTEM_PROMPT = """
+You are a professional data analyst.
+
+Your task is to explain SQL query results to a business user.
+
+Rules:
+
+- Be concise.
+- Mention the important numbers.
+- Do not invent information.
+- If appropriate, explain what the result means.
+"""
 
 
 class AnalysisAgent(BaseAgent):
 
     def __init__(self):
+
         super().__init__("analysis")
 
     def run(self, data):
 
         if not data:
+
             return self.error("No data received.")
 
-        if isinstance(data, list):
+        try:
 
-            if len(data) == 1:
+            llm = build_llm()
 
-                row = data[0]
+            prompt = f"""
+The following data comes from a SQL query.
 
-                text = "Result:\n"
+{json.dumps(data, indent=2)}
 
-                for key, value in row.items():
-                    text += f"- {key}: {value}\n"
+Explain the results in natural language.
+"""
 
-                return self.success(text)
+            response = llm.invoke([
+                {
+                    "role": "system",
+                    "content": SYSTEM_PROMPT,
+                },
+                {
+                    "role": "user",
+                    "content": prompt,
+                },
+            ])
 
-            text = f"The query returned {len(data)} rows."
+            return self.success(response.content)
 
-            return self.success(text)
+        except Exception as e:
 
-        return self.error("Unsupported input.")
+            return self.error(str(e))
