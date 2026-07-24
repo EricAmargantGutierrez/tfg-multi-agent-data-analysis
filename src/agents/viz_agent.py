@@ -1,48 +1,21 @@
-from __future__ import annotations
-
-from pathlib import Path
-
-import matplotlib.pyplot as plt
-
 from src.agents.base import BaseAgent
-from src.database.manager import DatabaseManager
-from src.core.paths import RESULTS_DIR
+from src.database.chart_engine import generate_chart_core
 
 
 class VisualizationAgent(BaseAgent):
 
     def __init__(self):
+
         super().__init__("viz")
-        self.db = DatabaseManager()
 
-    def run(self, question: str):
+    def run(self, question):
 
-        rows = self.db.execute("""
-            SELECT region,
-                   SUM(sales) AS total_sales
-            FROM orders
-            GROUP BY region
-            ORDER BY total_sales DESC
-        """)
+        try:
 
-        regions = [r["region"] for r in rows]
-        sales = [r["total_sales"] for r in rows]
+            result = generate_chart_core(question)
 
-        plt.figure(figsize=(8,5))
-        plt.bar(regions, sales)
-        plt.title("Sales by Region")
-        plt.xlabel("Region")
-        plt.ylabel("Sales")
-        plt.tight_layout()
+            return self.success(result)
 
-        RESULTS_DIR.mkdir(exist_ok=True)
+        except Exception as e:
 
-        output = RESULTS_DIR / "sales_by_region.png"
-
-        plt.savefig(output)
-        plt.close()
-
-        return self.success({
-            "path": str(output),
-            "rows": rows
-        })
+            return self.error(str(e))
