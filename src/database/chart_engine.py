@@ -10,33 +10,47 @@ from src.agents.safety import validate_sql_readonly
 from src.config.settings import settings
 from src.core.paths import RESULTS_DIR
 from src.llm import build_llm
+from src.database.sql_engine import get_schema
 
 
 SYSTEM_PROMPT = """
-You generate chart specifications.
+You generate chart specifications for a SQLite database.
 
 Return ONLY valid JSON.
 
-Example:
+The database is SQLite.
+
+VERY IMPORTANT:
+
+Dates are stored as ISO strings.
+
+To extract months use:
+
+strftime('%Y-%m', order_date)
+
+Never use:
+
+EXTRACT(...)
+DATE_TRUNC(...)
+MONTH(...)
+YEAR(...)
+
+Return JSON exactly like:
 
 {
-    "chart_type":"bar",
-    "sql":"SELECT region, SUM(sales) AS total_sales FROM orders GROUP BY region ORDER BY total_sales DESC",
-    "title":"Sales by Region",
-    "xlabel":"Region",
+    "chart_type":"line",
+    "sql":"SELECT strftime('%Y-%m', order_date) AS month, SUM(sales) AS total_sales FROM orders GROUP BY month ORDER BY month",
+    "title":"Monthly Sales",
+    "xlabel":"Month",
     "ylabel":"Sales"
 }
 
 Rules:
 
-- chart_type must be one of:
-bar
-line
-scatter
-hist
-
-- SQL must be read only.
-- Do not explain anything.
+- Output ONLY JSON.
+- SQL must be valid SQLite.
+- SQL must be read-only.
+- No explanations.
 """
 
 
@@ -97,35 +111,83 @@ def render(spec, rows):
     return str(output)
 
 
-def generate_chart_core(question):
+def generate_chart_core(question, max_retries=3):
 
     llm = build_llm()
 
-    response = llm.invoke([
-        {
-            "role":"system",
-            "content":SYSTEM_PROMPT
-        },
-        {
-            "role":"user",
-            "content":question
-        }
-    ])
+    error_context = None
+    last_error = ""
 
-    raw = response.content.strip()
+    for attempt in range(1, max_retries + 1):
 
-    raw = raw.replace("```json","")
-    raw = raw.replace("```","")
+        user_prompt = question
 
-    spec = json.loads(raw)
+        if error_context:
 
-    rows = execute(spec["sql"])
+            user_prompt += f"""
 
-    path = render(spec, rows)
+Previous attempt failed.
+
+Error:
+
+{error_context}
+
+Return corrected JSON.
+"""
+
+        response = llm.invoke([
+            {
+                "role": "system",
+                "content": SYSTEM_PROMPT
+            },
+            {
+                "role": "user",
+                "content": f"""
+        Schema:
+
+        {get_schema()}
+
+        Question:
+
+        {question}
+        """
+            }
+        ])
+
+        raw = response.content.strip()
+
+        raw = raw.replace("```json", "")
+        raw = raw.replace("```", "")
+
+        try:
+
+            spec = json.loads(raw)
+
+            rows = execute(spec["sql"])
+
+            path = render(spec, rows)
+
+            return {
+                "ok": True,
+                "path": path,
+                "rows": rows,
+                "spec": spec,
+                "attempts": attempt,
+                "retried": attempt > 1,
+                "error": None
+            }
+
+        except Exception as e:
+
+            last_error = str(e)
+            error_context = last_error
 
     return {
-        "ok":True,
-        "path":path,
-        "rows":rows,
-        "spec":spec
+        "ok": False,
+        "path": None,
+        "rows": None,
+        "spec": None,
+        "attempts": max_retries,
+        "retried": True,
+        "error": last_error
     }

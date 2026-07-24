@@ -7,7 +7,7 @@ class SQLAgent(BaseAgent):
     def __init__(self):
         super().__init__("sql")
 
-    def run(self, question):
+    def run(self, question: str):
 
         result = run_sql_core(question)
 
