@@ -1,21 +1,18 @@
-from src.agents.base import BaseAgent
+from fastmcp import FastMCP
+
 from src.database.chart_engine import generate_chart_core
 
 
-class VisualizationAgent(BaseAgent):
+mcp = FastMCP("VisualizationAgent")
 
-    def __init__(self):
 
-        super().__init__("viz")
+@mcp.tool()
+def generate_chart(question: str) -> dict:
+    """
+    Natural language question -> chart.
+    """
+    return generate_chart_core(question)
 
-    def run(self, question):
 
-        try:
-
-            result = generate_chart_core(question)
-
-            return self.success(result)
-
-        except Exception as e:
-
-            return self.error(str(e))
+if __name__ == "__main__":
+    mcp.run()

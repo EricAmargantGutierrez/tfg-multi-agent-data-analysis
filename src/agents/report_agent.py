@@ -3,7 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from src.agents.base import BaseAgent
+from fastmcp import FastMCP
+
 from src.core.paths import RESULTS_DIR
 from src.llm import build_llm
 
@@ -30,46 +31,55 @@ Do not invent information.
 """
 
 
-class ReportAgent(BaseAgent):
+mcp = FastMCP("ReportAgent")
 
-    def __init__(self):
 
-        super().__init__("report")
+@mcp.tool()
+def generate_report(history: list) -> dict:
+    """
+    Generate the final Markdown report.
+    """
 
-    def run(self, history):
+    try:
 
-        try:
+        llm = build_llm()
 
-            llm = build_llm()
+        prompt = json.dumps(history, indent=2)
 
-            prompt = json.dumps(history, indent=2)
+        response = llm.invoke([
+            {
+                "role": "system",
+                "content": SYSTEM_PROMPT,
+            },
+            {
+                "role": "user",
+                "content": prompt,
+            },
+        ])
 
-            response = llm.invoke([
-                {
-                    "role": "system",
-                    "content": SYSTEM_PROMPT,
-                },
-                {
-                    "role": "user",
-                    "content": prompt,
-                },
-            ])
+        RESULTS_DIR.mkdir(exist_ok=True)
 
-            RESULTS_DIR.mkdir(exist_ok=True)
+        output = RESULTS_DIR / "session_report.md"
 
-            output = RESULTS_DIR / "session_report.md"
+        output.write_text(
+            response.content,
+            encoding="utf-8",
+        )
 
-            output.write_text(
-                response.content,
-                encoding="utf-8",
-            )
+        return {
+            "ok": True,
+            "answer": {
+                "path": str(output)
+            }
+        }
 
-            return self.success(
-                {
-                    "path": str(output)
-                }
-            )
+    except Exception as e:
 
-        except Exception as e:
+        return {
+            "ok": False,
+            "error": str(e)
+        }
 
-            return self.error(str(e))
+
+if __name__ == "__main__":
+    mcp.run()

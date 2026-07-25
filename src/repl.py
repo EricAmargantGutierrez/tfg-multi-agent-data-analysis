@@ -2,14 +2,15 @@
 Interactive REPL.
 """
 
+import anyio
+
 from src.orchestrator.graph import answer
-from src.agents.report_agent import ReportAgent
+from src.orchestrator.mcp_clients import call_agent_tool
 
 
 def main():
 
     history = []
-    report_agent = ReportAgent()
 
     print("\nMulti-Agent Data Analysis System")
     print("Type 'exit' to quit.\n")
@@ -27,16 +28,15 @@ def main():
 
         if result["ok"]:
 
-            if isinstance(result["answer"], dict):
+            if "path" in result:
+                print("Chart created.")
+                print(result["path"])
 
-                if "path" in result["answer"]:
-                    print("Chart created.")
-                    print(result["answer"]["path"])
-                else:
-                    print(result["answer"])
+            elif "answer" in result:
+                print(result["answer"])
 
             else:
-                print(result["answer"])
+                print(result)
 
         else:
             print(result["error"])
@@ -45,7 +45,13 @@ def main():
 
     print("\nGenerating report...")
 
-    result = report_agent.run(history)
+    result = anyio.run(
+        call_agent_tool,
+        "report",
+        {
+            "history": history,
+        },
+    )
 
     print(f"Report saved to {result['answer']['path']}")
 

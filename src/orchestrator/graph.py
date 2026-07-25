@@ -4,23 +4,13 @@ LangGraph orchestrator.
 
 from __future__ import annotations
 
+import anyio
+
 from langgraph.graph import END, StateGraph
 
-from src.orchestrator.narrate import narrate
-from src.agents.analysis_agent import AnalysisAgent
-from src.agents.sql_agent import SQLAgent
-from src.agents.viz_agent import VisualizationAgent
+from src.orchestrator.mcp_clients import call_agent_tool
 from src.orchestrator.router import route
 from src.orchestrator.state import SessionState
-
-
-# ------------------------------------------------------------------
-# Agents
-# ------------------------------------------------------------------
-
-sql_agent = SQLAgent()
-viz_agent = VisualizationAgent()
-analysis_agent = AnalysisAgent()
 
 
 # ------------------------------------------------------------------
@@ -39,34 +29,55 @@ def agent_node(state: SessionState):
 
     if selected == "sql":
 
-        sql_result = sql_agent.run(state["question"])
+        # Step 1: SQL Agent
+        sql_result = anyio.run(
+            call_agent_tool,
+            "sql",
+            {
+                "question": state["question"],
+            },
+        )
 
-        if sql_result["ok"]:
-
-            answer = narrate(
-                state["question"],
-                "sql",
-                sql_result["answer"]
-            )
-
-            state["result"] = {
-                "ok": True,
-                "answer": answer
-            }
-
-        else:
-
+        if not sql_result["ok"]:
             state["result"] = sql_result
+            return state
+
+        # Step 2: Analysis Agent
+        analysis_result = anyio.run(
+            call_agent_tool,
+            "analysis",
+            {
+                "data": sql_result,
+            },
+        )
+
+        state["result"] = analysis_result
 
     elif selected == "viz":
 
-        state["result"] = viz_agent.run(state["question"])
+        state["result"] = anyio.run(
+            call_agent_tool,
+            "viz",
+            {
+                "question": state["question"],
+            },
+        )
+
+    elif selected == "report":
+
+        state["result"] = anyio.run(
+            call_agent_tool,
+            "report",
+            {
+                "history": state["history"],
+            },
+        )
 
     else:
 
         state["result"] = {
             "ok": False,
-            "error": f"{selected} agent not implemented yet."
+            "error": f"Unknown route: {selected}",
         }
 
     return state
@@ -100,14 +111,16 @@ def answer(question: str, history: list | None = None):
 
     state = {
         "question": question,
-        "history": history
+        "history": history,
     }
 
     result = graph.invoke(state)
 
-    history.append({
-        "question": question,
-        "answer": result["result"]
-    })
+    history.append(
+        {
+            "question": question,
+            "answer": result["result"],
+        }
+    )
 
     return result["result"]

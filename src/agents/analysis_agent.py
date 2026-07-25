@@ -2,7 +2,8 @@ from __future__ import annotations
 
 import json
 
-from src.agents.base import BaseAgent
+from fastmcp import FastMCP
+
 from src.llm import build_llm
 
 
@@ -20,23 +21,26 @@ Rules:
 """
 
 
-class AnalysisAgent(BaseAgent):
+mcp = FastMCP("AnalysisAgent")
 
-    def __init__(self):
 
-        super().__init__("analysis")
+@mcp.tool()
+def run_analysis(data: dict) -> dict:
+    """
+    Explain SQL query results.
+    """
 
-    def run(self, data):
+    if not data:
+        return {
+            "ok": False,
+            "error": "No data received."
+        }
 
-        if not data:
+    try:
 
-            return self.error("No data received.")
+        llm = build_llm()
 
-        try:
-
-            llm = build_llm()
-
-            prompt = f"""
+        prompt = f"""
 The following data comes from a SQL query.
 
 {json.dumps(data, indent=2)}
@@ -44,19 +48,29 @@ The following data comes from a SQL query.
 Explain the results in natural language.
 """
 
-            response = llm.invoke([
-                {
-                    "role": "system",
-                    "content": SYSTEM_PROMPT,
-                },
-                {
-                    "role": "user",
-                    "content": prompt,
-                },
-            ])
+        response = llm.invoke([
+            {
+                "role": "system",
+                "content": SYSTEM_PROMPT,
+            },
+            {
+                "role": "user",
+                "content": prompt,
+            },
+        ])
 
-            return self.success(response.content)
+        return {
+            "ok": True,
+            "answer": response.content,
+        }
 
-        except Exception as e:
+    except Exception as e:
 
-            return self.error(str(e))
+        return {
+            "ok": False,
+            "error": str(e),
+        }
+
+
+if __name__ == "__main__":
+    mcp.run()

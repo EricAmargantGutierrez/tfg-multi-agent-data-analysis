@@ -1,17 +1,18 @@
-from src.agents.base import BaseAgent
+from fastmcp import FastMCP
+
 from src.database.sql_engine import run_sql_core
 
 
-class SQLAgent(BaseAgent):
+mcp = FastMCP("SQLAgent")
 
-    def __init__(self):
-        super().__init__("sql")
 
-    def run(self, question: str):
+@mcp.tool()
+def run_sql(question: str) -> dict:
+    """
+    Natural language question -> SQL.
+    """
+    return run_sql_core(question)
 
-        result = run_sql_core(question)
 
-        if result["ok"]:
-            return self.success(result)
-
-        return self.error(result["error"])
+if __name__ == "__main__":
+    mcp.run()
