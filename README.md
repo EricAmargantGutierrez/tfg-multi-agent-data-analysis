@@ -2,10 +2,12 @@
 
 Bachelor's Thesis (TFG)
 
-**Author:** Eric Amargant Gutiérrez
-**Degree:** Bachelor's Degree in Mathematical Engineering in Data Science
-**University:** Universitat Pompeu Fabra (UPF)
-**TFG Supervisor:** Piotr Przybyła
+| | |
+|---|---|
+| **Author** | Eric Amargant Gutiérrez |
+| **Degree** | Bachelor's Degree in Mathematical Engineering in Data Science |
+| **University** | Universitat Pompeu Fabra (UPF) |
+| **TFG Supervisor** | Piotr Przybyła |
 
 ---
 
