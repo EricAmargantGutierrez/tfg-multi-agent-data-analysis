@@ -28,7 +28,7 @@ def main():
 
         if result["ok"]:
 
-            if "path" in result:
+            if result.get("path") is not None:
                 print("Chart created.")
                 print(result["path"])
 

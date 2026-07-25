@@ -1,8 +1,6 @@
 # Development Log
 
-## Project
-
-**Title:** Multi-Agent Conversational Data Analysis System
+**Project:** Multi-Agent Conversational Data Analysis System
 
 
 **Author:** Eric Amargant Gutiérrez
@@ -12,120 +10,138 @@
 
 ---
 
-# Phase 1 — Core System Implementation
+# Project Objective
 
-## Objective
+Develop a conversational system capable of answering natural language questions over structured datasets using a modular multi-agent architecture based on the Model Context Protocol (MCP).
 
-Implement the complete architecture proposed for the conversational data analysis system.
-
-The goal of this phase is to obtain a functional prototype capable of answering natural language questions over structured data using a multi-agent architecture based on MCP.
+The project combines Large Language Models, LangGraph orchestration, SQLite databases, and specialized agents for data retrieval, analysis, visualization, and report generation.
 
 ---
 
-## Main Components Implemented
+# Milestone 1 — Project Initialization
 
-### Dataset
-
-* Superstore dataset
-* SQLite database
-* Automatic ingestion pipeline
-* Dataset validation
-
----
-
-### LLM Integration
-
-Implemented a provider-independent LLM interface supporting:
-
-* Groq
-* Ollama
-* OpenAI
-* Anthropic
-
-The active provider is selected through the project configuration.
+- Defined the project objectives.
+- Selected the Superstore dataset as the experimental dataset.
+- Designed the initial project structure.
+- Selected the main technologies:
+  - Python
+  - LangGraph
+  - FastMCP
+  - SQLite
+  - LangChain
 
 ---
 
-### Multi-Agent Architecture
+# Milestone 2 — Database
 
-Implemented four independent MCP agents:
+Implemented the data layer.
 
-* SQL Agent
-* Analysis Agent
-* Visualization Agent
-* Report Agent
+Completed tasks:
 
-Each agent exposes a single MCP tool with a well-defined responsibility.
+- Dataset validation.
+- Automatic ingestion pipeline.
+- Database normalization.
+- SQLite database creation.
 
 ---
 
-### Orchestrator
+# Milestone 3 — LLM Integration
 
-Implemented using LangGraph.
+Implemented a provider-independent LLM interface.
+
+Currently supported providers:
+
+- Groq
+- Ollama
+- OpenAI
+- Anthropic
+
+The active provider can be selected through the project configuration.
+
+---
+
+# Milestone 4 — Multi-Agent Architecture
+
+Implemented four independent MCP agents.
+
+- SQL Agent
+- Analysis Agent
+- Visualization Agent
+- Report Agent
+
+Each agent exposes a single MCP tool and has a clearly defined responsibility.
+
+---
+
+# Milestone 5 — LangGraph Orchestrator
+
+Implemented the orchestration layer.
 
 Responsibilities include:
 
-* Question routing
-* Agent invocation
-* Conversation state management
-* Session history management
+- LLM-based routing.
+- Agent invocation.
+- Conversation state management.
+- Conversation history management.
 
 ---
 
-### SQL Agent
+# Milestone 6 — SQL Agent
 
-Features:
+Implemented:
 
-* Natural language to SQL generation
-* SQLite schema awareness
-* Read-only SQL validation
-* Automatic retry after execution errors
-
----
-
-### Analysis Agent
-
-Receives SQL query results and generates natural-language explanations using an LLM.
+- Natural language to SQL generation.
+- SQLite schema awareness.
+- Read-only SQL validation.
+- Automatic retry after execution errors.
 
 ---
 
-### Visualization Agent
+# Milestone 7 — Analysis Agent
 
-Generates charts directly from natural language requests.
-
-Outputs figures into the `results/` directory.
+Implemented the analysis agent responsible for transforming SQL query results into concise natural-language explanations.
 
 ---
 
-### Report Agent
+# Milestone 8 — Visualization Agent
 
-Generates a Markdown report summarizing the interaction session.
+Implemented automatic chart generation from natural language requests.
 
----
-
-### Interactive Interface
-
-Implemented a command-line REPL supporting conversational interaction with the system.
+Generated figures are stored in the `results/` directory.
 
 ---
 
-## Current Status
+# Milestone 9 — Report Agent
 
-Phase 1 has been completed successfully.
-
-The system can:
-
-* answer analytical questions,
-* execute SQL queries,
-* explain results,
-* generate charts,
-* generate session reports,
-* maintain conversation history.
+Implemented automatic generation of Markdown reports summarizing each interaction session.
 
 ---
 
-## Next Phase
+# Milestone 10 — Interactive Interface
 
-Design and implement a rigorous evaluation methodology for the proposed architecture.
+Implemented a command-line conversational interface (REPL) allowing users to interact with the complete system.
 
-This phase will define evaluation metrics, establish suitable baselines, and experimentally assess the performance of the system.
+---
+
+# Phase 1 Completed
+
+The first phase of the project has been successfully completed.
+
+The current implementation includes:
+
+- complete multi-agent architecture;
+- MCP communication between components;
+- LangGraph orchestration;
+- conversational interaction;
+- SQL generation and execution;
+- natural-language explanations;
+- automatic chart generation;
+- automatic report generation.
+
+---
+
+# Next Phase
+
+The next stage of the project focuses on designing and implementing the evaluation methodology.
+
+The evaluation will define suitable benchmarks, establish baseline approaches, measure the quality of the generated answers, evaluate the robustness of the architecture, and analyze the performance of the proposed system.
