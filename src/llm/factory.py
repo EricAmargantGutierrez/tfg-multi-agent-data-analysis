@@ -4,12 +4,14 @@ from dotenv import load_dotenv
 
 from src.llm.registry import MODELS
 
+from src.config.settings import settings
+
 load_dotenv()
 
 
 def build_llm(model_name: str | None = None, temperature: float = 0):
 
-    model_name = model_name or os.getenv("TFG_MODEL", "groq")
+    model_name = model_name or settings.default_model
 
     config = MODELS[model_name]
 
