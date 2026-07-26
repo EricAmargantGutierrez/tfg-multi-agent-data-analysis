@@ -26,26 +26,19 @@ def main():
 
         print("\nAssistant >")
 
-        if result["ok"]:
+        print(result["answer"])
 
-            if result.get("path") is not None:
-                print("Chart created.")
-                print(result["path"])
+        raw = result.get("raw", {})
 
-            elif "answer" in result:
-                print(result["answer"])
+        if raw.get("path"):
 
-            else:
-                print(result)
-
-        else:
-            print(result["error"])
+            print(f"\nGenerated file: {raw['path']}")
 
         print()
 
     print("\nGenerating report...")
 
-    result = anyio.run(
+    report = anyio.run(
         call_agent_tool,
         "report",
         {
@@ -53,7 +46,13 @@ def main():
         },
     )
 
-    print(f"Report saved to {result['answer']['path']}")
+    if report["ok"]:
+
+        print(f"Report saved to {report['answer']['path']}")
+
+    else:
+
+        print(f"Error generating report: {report['error']}")
 
 
 if __name__ == "__main__":

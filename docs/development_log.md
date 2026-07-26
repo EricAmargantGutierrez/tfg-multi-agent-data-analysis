@@ -2,9 +2,7 @@
 
 **Project:** Multi-Agent Conversational Data Analysis System
 
-
 **Author:** Eric Amargant Gutiérrez
-
 
 **Supervisor:** Piotr Przybyła
 
@@ -14,11 +12,13 @@
 
 Develop a conversational system capable of answering natural language questions over structured datasets using a modular multi-agent architecture based on the Model Context Protocol (MCP).
 
-The project combines Large Language Models, LangGraph orchestration, SQLite databases, and specialized agents for data retrieval, analysis, visualization, and report generation.
+The project combines Large Language Models, LangGraph orchestration, SQLite databases, and specialized agents for SQL querying, statistical analysis, visualization, and report generation.
 
 ---
 
 # Milestone 1 — Project Initialization
+
+Completed tasks:
 
 - Defined the project objectives.
 - Selected the Superstore dataset as the experimental dataset.
@@ -62,7 +62,7 @@ The active provider can be selected through the project configuration.
 
 # Milestone 4 — Multi-Agent Architecture
 
-Implemented four independent MCP agents.
+Implemented the complete multi-agent architecture composed of four independent MCP agents.
 
 - SQL Agent
 - Analysis Agent
@@ -77,12 +77,13 @@ Each agent exposes a single MCP tool and has a clearly defined responsibility.
 
 Implemented the orchestration layer.
 
-Responsibilities include:
+Completed tasks:
 
 - LLM-based routing.
-- Agent invocation.
+- MCP agent invocation.
 - Conversation state management.
 - Conversation history management.
+- Centralized natural-language narration of agent outputs.
 
 ---
 
@@ -93,13 +94,25 @@ Implemented:
 - Natural language to SQL generation.
 - SQLite schema awareness.
 - Read-only SQL validation.
-- Automatic retry after execution errors.
+- Automatic retry after SQL generation or execution errors.
 
 ---
 
 # Milestone 7 — Analysis Agent
 
-Implemented the analysis agent responsible for transforming SQL query results into concise natural-language explanations.
+Implemented a dedicated statistical analysis agent.
+
+Completed features:
+
+- Descriptive statistics.
+- Correlation analysis.
+- Covariance computation.
+- Independent t-tests.
+- Linear regression.
+- Principal Component Analysis (PCA).
+- K-Means clustering.
+
+The agent retrieves the required data from SQLite, performs the requested computation using Python scientific libraries, and returns structured results to the orchestrator.
 
 ---
 
@@ -107,7 +120,12 @@ Implemented the analysis agent responsible for transforming SQL query results in
 
 Implemented automatic chart generation from natural language requests.
 
-Generated figures are stored in the `results/` directory.
+Completed tasks:
+
+- Automatic SQL generation.
+- Data retrieval.
+- Matplotlib chart generation.
+- Figure storage in the `results/` directory.
 
 ---
 
@@ -121,27 +139,43 @@ Implemented automatic generation of Markdown reports summarizing each interactio
 
 Implemented a command-line conversational interface (REPL) allowing users to interact with the complete system.
 
+The REPL supports conversational sessions and automatically generates a session report when the interaction finishes.
+
 ---
 
 # Phase 1 Completed
 
-The first phase of the project has been successfully completed.
+Phase 1 of the project has been successfully completed.
 
-The current implementation includes:
+The implemented system includes:
 
 - complete multi-agent architecture;
-- MCP communication between components;
+- MCP-based communication;
 - LangGraph orchestration;
 - conversational interaction;
+- LLM-based routing;
 - SQL generation and execution;
-- natural-language explanations;
-- automatic chart generation;
-- automatic report generation.
+- statistical analysis and machine learning;
+- automatic visualization generation;
+- centralized natural-language response generation;
+- automatic session report generation;
+- support for multiple LLM providers.
+
+The complete architecture has been implemented and validated through functional testing of all supported agent capabilities.
 
 ---
 
 # Next Phase
 
-The next stage of the project focuses on designing and implementing the evaluation methodology.
+Phase 2 focuses on the evaluation of the proposed architecture.
 
-The evaluation will define suitable benchmarks, establish baseline approaches, measure the quality of the generated answers, evaluate the robustness of the architecture, and analyze the performance of the proposed system.
+The evaluation will include:
+
+- definition of a benchmark composed of representative analytical questions;
+- establishment of suitable baseline approaches;
+- quantitative evaluation of answer correctness;
+- evaluation of routing accuracy;
+- robustness analysis;
+- latency and performance measurements;
+- qualitative analysis of generated visualizations;
+- systematic error analysis.

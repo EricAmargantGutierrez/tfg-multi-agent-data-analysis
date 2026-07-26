@@ -2,13 +2,13 @@
 
 Bachelor's Thesis (TFG)
 
-**Author:** Eric Amargant Gutiérrez  
+**Author:** Eric Amargant Gutiérrez
 
 
-**Degree:** Bachelor's Degree in Mathematical Engineering in Data Science  
+**Degree:** Bachelor's Degree in Mathematical Engineering in Data Science
 
 
-**University:** Universitat Pompeu Fabra (UPF)  
+**University:** Universitat Pompeu Fabra (UPF)
 
 
 **Supervisor:** Piotr Przybyła
@@ -19,11 +19,20 @@ Bachelor's Thesis (TFG)
 
 This project implements a conversational system that answers natural language questions over structured datasets using a modular multi-agent architecture.
 
-The system combines Large Language Models (LLMs), LangGraph for orchestration, and the Model Context Protocol (MCP) to coordinate specialized agents responsible for SQL generation, data analysis, visualization, and report generation.
+The system combines Large Language Models (LLMs), LangGraph for orchestration, and the Model Context Protocol (MCP) to coordinate specialized agents responsible for SQL querying, statistical analysis, visualization, and report generation.
 
 The objective is to investigate how agent-based architectures can improve natural language interaction with structured data while maintaining a clear separation of responsibilities between system components.
 
 ---
+
+## Architecture
+
+<p align="center">
+  <img src="docs/architecture-diagram.svg" width="900">
+</p>
+
+---
+
 
 ## Features
 
@@ -31,9 +40,10 @@ The objective is to investigate how agent-based architectures can improve natura
 - LangGraph orchestration
 - LLM-based routing
 - Natural language to SQL generation
+- Statistical analysis and machine learning
 - Automatic SQL validation and self-correction
-- Natural language explanations
 - Automatic chart generation
+- Natural language response generation
 - Session report generation
 - Conversation history management
 - Support for multiple LLM providers
@@ -45,11 +55,11 @@ The objective is to investigate how agent-based architectures can improve natura
 The system consists of four specialized MCP agents coordinated by a LangGraph orchestrator.
 
 - **SQL Agent** – Generates and executes read-only SQL queries.
-- **Analysis Agent** – Explains SQL query results in natural language.
+- **Analysis Agent** – Performs statistical analyses and machine learning over the retrieved data.
 - **Visualization Agent** – Generates charts from natural language requests.
 - **Report Agent** – Produces a Markdown report summarizing the interaction.
 
-The orchestrator is responsible for routing user requests, invoking the appropriate agent, maintaining the conversation history, and returning the final response.
+The orchestrator is responsible for routing user requests, invoking the appropriate agent, maintaining the conversation history, and generating the final response presented to the user.
 
 A detailed description of the architecture is available in `docs/architecture.md`.
 
@@ -62,6 +72,10 @@ A detailed description of the architecture is available in `docs/architecture.md
 - FastMCP
 - LangChain
 - SQLite
+- pandas
+- NumPy
+- SciPy
+- scikit-learn
 - Matplotlib
 - Groq (default)
 - Ollama
@@ -75,6 +89,7 @@ A detailed description of the architecture is available in `docs/architecture.md
 ```text
 src/
 ├── agents/
+├── analysis/
 ├── config/
 ├── core/
 ├── database/
@@ -128,8 +143,9 @@ Example questions:
 
 - How many orders are there?
 - Which region has the highest sales?
+- What is the correlation between discount and profit?
+- Run a PCA on the numeric variables.
 - Show a line chart of monthly sales.
-- Create a bar chart of sales by region.
 
 ---
 
@@ -146,9 +162,9 @@ Additional documentation is available in the `docs/` directory.
 
 **Version:** v1.0
 
-Phase 1 of the project has been completed. The current implementation includes the complete multi-agent architecture, MCP-based communication, LangGraph orchestration, conversational interaction, visualization generation, and automatic report generation.
+Phase 1 has been completed. The current implementation includes the complete multi-agent architecture, MCP-based communication, LangGraph orchestration, conversational interaction, statistical analysis, visualization generation, and automatic report generation.
 
-The next stage of the project focuses on designing and implementing the evaluation methodology for the proposed architecture.
+Phase 2 will focus on the systematic evaluation of the proposed architecture through benchmark design, baseline comparison, and quantitative and qualitative performance analysis.
 
 ---
 

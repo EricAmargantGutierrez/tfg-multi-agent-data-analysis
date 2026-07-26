@@ -9,6 +9,7 @@ import anyio
 from langgraph.graph import END, StateGraph
 
 from src.orchestrator.mcp_clients import call_agent_tool
+from src.orchestrator.narrate import narrate
 from src.orchestrator.router import route
 from src.orchestrator.state import SessionState
 
@@ -29,8 +30,7 @@ def agent_node(state: SessionState):
 
     if selected == "sql":
 
-        # Step 1: SQL Agent
-        sql_result = anyio.run(
+        state["result"] = anyio.run(
             call_agent_tool,
             "sql",
             {
@@ -38,20 +38,15 @@ def agent_node(state: SessionState):
             },
         )
 
-        if not sql_result["ok"]:
-            state["result"] = sql_result
-            return state
+    elif selected == "analysis":
 
-        # Step 2: Analysis Agent
-        analysis_result = anyio.run(
+        state["result"] = anyio.run(
             call_agent_tool,
             "analysis",
             {
-                "data": sql_result,
+                "question": state["question"],
             },
         )
-
-        state["result"] = analysis_result
 
     elif selected == "viz":
 
@@ -116,11 +111,25 @@ def answer(question: str, history: list | None = None):
 
     result = graph.invoke(state)
 
+    agent = result["route"]
+    raw_result = result["result"]
+
     history.append(
         {
             "question": question,
-            "answer": result["result"],
+            "agent": agent,
+            "result": raw_result,
         }
     )
 
-    return result["result"]
+    narrated = narrate(
+        question=question,
+        agent=agent,
+        result=raw_result,
+    )
+
+    return {
+        "ok": raw_result["ok"],
+        "answer": narrated,
+        "raw": raw_result,
+    }

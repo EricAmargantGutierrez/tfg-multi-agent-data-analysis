@@ -1,0 +1,139 @@
+<svg viewBox="0 0 1280 940" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Helvetica, Arial, sans-serif">
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+    <marker id="arrowDash" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="1280" height="940" fill="#f8fafc"/>
+
+  <!-- Title -->
+  <text x="640" y="36" text-anchor="middle" font-size="24" font-weight="700" fill="#0f172a">Multi-Agent Conversational Data Analysis System</text>
+  <text x="640" y="58" text-anchor="middle" font-size="14" fill="#64748b">Architecture Overview</text>
+
+  <!-- User -->
+  <circle cx="640" cy="108" r="22" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+  <circle cx="640" cy="100" r="7" fill="#334155"/>
+  <path d="M628,116 a12,10 0 0,1 24,0" fill="#334155"/>
+  <text x="640" y="146" text-anchor="middle" font-size="13" fill="#334155" font-weight="600">User</text>
+
+  <path d="M640,131 L640,166" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- REPL -->
+  <rect x="540" y="168" width="200" height="56" rx="10" fill="#334155"/>
+  <text x="640" y="192" text-anchor="middle" font-size="15" font-weight="600" fill="#ffffff">REPL</text>
+  <text x="640" y="210" text-anchor="middle" font-size="10.5" fill="#cbd5e1">Interactive CLI</text>
+
+  <path d="M640,224 L640,253" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Orchestrator -->
+  <rect x="390" y="255" width="500" height="128" rx="14" fill="#4338ca"/>
+  <text x="640" y="285" text-anchor="middle" font-size="18" font-weight="700" fill="#ffffff">LangGraph Orchestrator</text>
+  <text x="640" y="302" text-anchor="middle" font-size="10.5" fill="#c7d2fe">conversation state · MCP tool invocation · final response</text>
+
+  <rect x="415" y="312" width="140" height="46" rx="8" fill="#6366f1"/>
+  <text x="485" y="331" text-anchor="middle" font-size="12.5" font-weight="600" fill="#ffffff">Router</text>
+  <text x="485" y="347" text-anchor="middle" font-size="9.5" fill="#e0e7ff">selects agent</text>
+
+  <rect x="570" y="312" width="140" height="46" rx="8" fill="#6366f1"/>
+  <text x="640" y="331" text-anchor="middle" font-size="12.5" font-weight="600" fill="#ffffff">Narrator</text>
+  <text x="640" y="347" text-anchor="middle" font-size="9.5" fill="#e0e7ff">structured → NL</text>
+
+  <rect x="725" y="312" width="140" height="46" rx="8" fill="#6366f1"/>
+  <text x="795" y="331" text-anchor="middle" font-size="12.5" font-weight="600" fill="#ffffff">History</text>
+  <text x="795" y="347" text-anchor="middle" font-size="9.5" fill="#e0e7ff">session memory</text>
+
+  <!-- Grouping box for agents -->
+  <rect x="70" y="410" width="1140" height="155" rx="16" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6,5"/>
+  <text x="640" y="400" text-anchor="middle" font-size="12.5" fill="#64748b" font-weight="600">Specialized MCP Agents — each exposes exactly one MCP tool</text>
+
+  <!-- Fan-out arrows from orchestrator to agents (bidirectional) -->
+  <path d="M640,383 L220,432" stroke="#475569" stroke-width="1.75" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <path d="M640,383 L500,432" stroke="#475569" stroke-width="1.75" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <path d="M640,383 L780,432" stroke="#475569" stroke-width="1.75" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <path d="M640,383 L1060,432" stroke="#475569" stroke-width="1.75" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+
+  <!-- SQL Agent -->
+  <rect x="90" y="432" width="260" height="112" rx="12" fill="#059669"/>
+  <text x="220" y="462" text-anchor="middle" font-size="14.5" font-weight="700" fill="#ffffff">SQL Agent</text>
+  <text x="220" y="482" text-anchor="middle" font-size="10.5" fill="#d1fae5">NL → read-only SQL</text>
+  <text x="220" y="497" text-anchor="middle" font-size="10.5" fill="#d1fae5">validates + self-corrects</text>
+  <text x="220" y="512" text-anchor="middle" font-size="10.5" fill="#d1fae5">only agent with direct DB access</text>
+
+  <!-- Analysis Agent -->
+  <rect x="370" y="432" width="260" height="112" rx="12" fill="#d97706"/>
+  <text x="500" y="462" text-anchor="middle" font-size="14.5" font-weight="700" fill="#ffffff">Analysis Agent</text>
+  <text x="500" y="482" text-anchor="middle" font-size="10.5" fill="#ffedd5">stats &amp; ML (plan → DataFrame)</text>
+  <text x="500" y="497" text-anchor="middle" font-size="10.5" fill="#ffedd5">correlation · t-test · regression</text>
+  <text x="500" y="512" text-anchor="middle" font-size="10.5" fill="#ffedd5">PCA · K-Means</text>
+
+  <!-- Visualization Agent -->
+  <rect x="650" y="432" width="260" height="112" rx="12" fill="#7c3aed"/>
+  <text x="780" y="462" text-anchor="middle" font-size="14.5" font-weight="700" fill="#ffffff">Visualization Agent</text>
+  <text x="780" y="482" text-anchor="middle" font-size="10.5" fill="#ede9fe">NL request → SQL → chart</text>
+  <text x="780" y="497" text-anchor="middle" font-size="10.5" fill="#ede9fe">rendered with Matplotlib</text>
+  <text x="780" y="512" text-anchor="middle" font-size="10.5" fill="#ede9fe">saved to results/</text>
+
+  <!-- Report Agent -->
+  <rect x="930" y="432" width="260" height="112" rx="12" fill="#e11d48"/>
+  <text x="1060" y="462" text-anchor="middle" font-size="14.5" font-weight="700" fill="#ffffff">Report Agent</text>
+  <text x="1060" y="482" text-anchor="middle" font-size="10.5" fill="#ffe4e6">summarizes full session</text>
+  <text x="1060" y="497" text-anchor="middle" font-size="10.5" fill="#ffe4e6">findings + conclusions</text>
+  <text x="1060" y="512" text-anchor="middle" font-size="10.5" fill="#ffe4e6">Markdown → results/</text>
+
+  <!-- SQLite cylinder -->
+  <g>
+    <path d="M290,620 a70,14 0 1,0 140,0 a70,14 0 1,0 -140,0" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
+    <path d="M290,620 L290,672 a70,14 0 0,0 140,0 L430,620" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
+    <path d="M290,620 a70,14 0 0,0 140,0" fill="none" stroke="#475569" stroke-width="1.5"/>
+    <text x="360" y="652" text-anchor="middle" font-size="11.5" font-weight="600" fill="#334155">SQLite</text>
+    <text x="360" y="705" text-anchor="middle" font-size="11.5" fill="#475569" font-weight="600">Superstore Database</text>
+  </g>
+
+  <!-- Results folder -->
+  <g>
+    <path d="M865,608 h40 l10,12 h75 v55 h-125 z" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
+    <text x="920" y="652" text-anchor="middle" font-size="11.5" font-weight="600" fill="#334155">results/</text>
+    <text x="920" y="705" text-anchor="middle" font-size="11.5" fill="#475569" font-weight="600">charts &amp; reports</text>
+  </g>
+
+  <!-- SQL Agent -> SQLite (solid) -->
+  <path d="M225,544 L330,608" stroke="#475569" stroke-width="1.75" marker-end="url(#arrow)"/>
+  <!-- Analysis Agent -> SQLite (dashed, direct read confirmed in code) -->
+  <path d="M480,544 L390,608" stroke="#94a3b8" stroke-width="1.75" stroke-dasharray="5,4" marker-end="url(#arrowDash)"/>
+  <!-- Visualization Agent -> results -->
+  <path d="M790,544 L900,608" stroke="#475569" stroke-width="1.75" marker-end="url(#arrow)"/>
+  <!-- Report Agent -> results -->
+  <path d="M1050,544 L950,608" stroke="#475569" stroke-width="1.75" marker-end="url(#arrow)"/>
+
+  <!-- Legend -->
+  <rect x="70" y="770" width="450" height="110" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="90" y="795" font-size="12.5" font-weight="700" fill="#0f172a">Legend</text>
+
+  <path d="M90,812 L130,812" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="140" y="816" font-size="11" fill="#334155">Invocation / structured result (orchestrator ⇄ agent)</text>
+
+  <path d="M90,834 L130,834" stroke="#94a3b8" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arrowDash)"/>
+  <text x="140" y="838" font-size="11" fill="#334155">Direct data read from SQLite</text>
+
+  <rect x="90" y="850" width="16" height="16" rx="3" fill="#4338ca"/>
+  <text x="115" y="862" font-size="11" fill="#334155">Orchestration layer</text>
+
+  <rect x="290" y="850" width="16" height="16" rx="3" fill="#059669"/>
+  <text x="315" y="862" font-size="11" fill="#334155">MCP agents (color-coded)</text>
+
+  <!-- Flow steps note -->
+  <rect x="560" y="770" width="650" height="110" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="580" y="795" font-size="12.5" font-weight="700" fill="#0f172a">Typical Flow</text>
+  <text x="580" y="815" font-size="11" fill="#334155">1. User asks a question in the REPL → sent to the orchestrator</text>
+  <text x="580" y="833" font-size="11" fill="#334155">2. Router (LLM) selects one of the four agents; agent runs its task</text>
+  <text x="580" y="851" font-size="11" fill="#334155">3. Narrator turns the structured result into natural language</text>
+  <text x="580" y="869" font-size="11" fill="#334155">4. On session end, the Report Agent writes a Markdown summary to results/</text>
+
+  <text x="640" y="915" text-anchor="middle" font-size="10.5" fill="#94a3b8">Phase 1 — v1.0 · TFG: Multi-Agent Conversational Data Analysis System · UPF</text>
+</svg>

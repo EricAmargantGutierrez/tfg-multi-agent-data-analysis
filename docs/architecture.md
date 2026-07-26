@@ -4,11 +4,21 @@
 
 The Multi-Agent Conversational Data Analysis System is designed as a modular architecture in which each component has a single well-defined responsibility.
 
-The system allows users to ask natural language questions about structured datasets. User requests are routed by an orchestrator to specialized agents that retrieve information, generate visualizations, explain results, or produce reports.
+The system allows users to ask natural language questions about structured datasets. User requests are routed by an orchestrator to specialized agents that retrieve information, perform statistical analysis, generate visualizations, and produce reports.
 
 The architecture combines Large Language Models (LLMs), LangGraph, the Model Context Protocol (MCP), and SQLite to provide a flexible and extensible conversational interface for data analysis.
 
+
 ---
+
+# System Architecture
+
+<p align="center">
+  <img src="architecture-diagram.svg" width="900">
+</p>
+
+---
+
 
 ## High-Level Architecture
 
@@ -17,6 +27,7 @@ The system consists of the following main components:
 - Interactive REPL
 - LangGraph Orchestrator
 - LLM-based Router
+- LLM Narrator
 - SQL Agent
 - Analysis Agent
 - Visualization Agent
@@ -51,10 +62,11 @@ Its responsibilities include:
 - maintaining the conversation state;
 - selecting the appropriate agent;
 - invoking MCP tools;
+- generating the final natural-language response using an LLM narrator;
 - storing conversation history;
 - returning the final response to the user.
 
-The orchestrator does not perform any data analysis itself. Instead, it delegates each task to the appropriate specialized agent.
+The orchestrator does not perform any data analysis itself. Instead, it delegates each task to the appropriate specialized component.
 
 ---
 
@@ -82,17 +94,31 @@ Its responsibilities include:
 - generating SQL statements using an LLM;
 - validating that generated SQL is read-only;
 - executing queries against the database;
-- automatically retrying when execution errors occur.
+- automatically retrying when SQL generation or execution errors occur.
 
-The SQL Agent is the only component allowed to directly access the database.
+Both the SQL Agent and the Analysis Agent access the SQLite database independently. The SQL Agent executes analytical SQL queries requested by the user, whereas the Analysis Agent retrieves the data required for statistical computations before performing the analysis locally using Python.
 
 ---
 
 ### Analysis Agent
 
-The Analysis Agent receives the structured output produced by the SQL Agent.
+The Analysis Agent performs statistical analyses and machine learning computations over the dataset.
 
-Its role is to generate concise natural-language explanations that summarize the results returned by SQL queries.
+Instead of generating SQL directly from the user's request, the agent first asks an LLM to determine:
+
+- which statistical analysis should be performed;
+- which database columns are required.
+
+The agent then retrieves the required data from SQLite, loads it into a pandas DataFrame, executes the requested computation using specialized Python libraries, and returns the structured result to the orchestrator.
+
+Currently supported analyses include:
+
+- descriptive statistics;
+- correlation and covariance;
+- t-tests;
+- linear regression;
+- Principal Component Analysis (PCA);
+- K-Means clustering.
 
 ---
 
@@ -102,8 +128,8 @@ The Visualization Agent generates figures directly from natural language request
 
 The agent:
 
-- creates an appropriate SQL query;
-- retrieves the required data;
+- generates the SQL query required to retrieve the requested data;
+- executes the query;
 - generates a chart using Matplotlib;
 - stores the resulting figure in the `results/` directory.
 
@@ -121,6 +147,14 @@ It produces a Markdown document containing:
 - conclusions.
 
 The generated report is automatically saved in the `results/` directory.
+
+---
+
+### LLM Narrator
+
+The narrator converts the structured outputs returned by the different agents into concise natural-language responses.
+
+Unlike the specialized agents, the narrator does not perform computations or access the database. Its only responsibility is to communicate the results in a readable form while preserving the information returned by the agents.
 
 ---
 
@@ -147,10 +181,11 @@ A typical interaction follows these steps:
 2. The orchestrator receives the request.
 3. The router selects the appropriate agent.
 4. The selected MCP agent performs the requested task.
-5. The result is returned to the orchestrator.
-6. The orchestrator stores the interaction in the conversation history.
-7. The final answer is presented to the user.
-8. When the session ends, the Report Agent generates a Markdown report.
+5. The structured result is returned to the orchestrator.
+6. The orchestrator invokes the LLM narrator to generate the final natural-language response.
+7. The interaction is stored in the conversation history.
+8. The final answer is presented to the user.
+9. When the session ends, the Report Agent generates a Markdown report.
 
 ---
 
@@ -161,7 +196,9 @@ Several design decisions guided the implementation:
 - Each agent exposes exactly one MCP tool.
 - Every agent has a single clearly defined responsibility.
 - The SQL Agent is the only component allowed to execute database queries.
+- Statistical analyses are performed using Python libraries whenever SQL is not the most appropriate solution.
 - SQL validation prevents non-read-only statements from being executed.
+- Natural-language narration is centralized in the orchestrator instead of individual agents.
 - Conversation history is maintained by the orchestrator instead of individual agents.
 - LLM providers are abstracted behind a common interface, allowing different models to be used without modifying the architecture.
 
@@ -176,7 +213,7 @@ The current implementation has several limitations:
 - The system currently supports a single SQLite database.
 - Visualization capabilities are limited to the implemented chart types.
 - The router selects a single agent for each request.
-- Long conversation histories are passed entirely to the Report Agent without summarization.
+- Long conversation histories are passed entirely to the Report Agent without prior summarization.
 
 These limitations provide opportunities for future improvements.
 
@@ -187,7 +224,7 @@ These limitations provide opportunities for future improvements.
 Possible future extensions include:
 
 - support for additional databases;
-- more specialized agents;
+- additional analytical agents (e.g., forecasting or anomaly detection);
 - richer visualization capabilities;
 - retrieval-augmented generation (RAG);
 - multi-agent collaboration within a single query;
@@ -197,6 +234,8 @@ Possible future extensions include:
 
 ## Current Status
 
-The implementation of the proposed architecture has been completed.
+Phase 1 of the project has been completed.
 
-The next phase of the project focuses on defining an evaluation methodology to assess the effectiveness, robustness, and performance of the proposed conversational system.
+The current implementation includes the complete multi-agent architecture, MCP-based communication, LangGraph orchestration, conversational interaction, statistical analysis, visualization generation, automatic report generation, and support for multiple LLM providers.
+
+The next phase of the project focuses on defining and implementing a rigorous evaluation methodology to assess the correctness, robustness, efficiency, and usability of the proposed conversational system.

@@ -7,13 +7,18 @@ from fastmcp import Client
 from src.agents.sql_agent import mcp as sql_mcp
 from src.agents.viz_agent import mcp as viz_mcp
 from src.agents.analysis_agent import mcp as analysis_mcp
+from src.agents.analysis_agent import mcp as analysis_mcp
 from src.agents.report_agent import mcp as report_mcp
 
 
 AGENT_REGISTRY = {
     "sql": (sql_mcp, "src.agents.sql_agent", "run_sql"),
     "viz": (viz_mcp, "src.agents.viz_agent", "generate_chart"),
-    "analysis": (analysis_mcp, "src.agents.analysis_agent", "run_analysis"),
+    "analysis": (
+        analysis_mcp,
+        "src.agents.analysis_agent",
+        "run_analysis",
+    ),
     "report": (report_mcp, "src.agents.report_agent", "generate_report"),
 }
 

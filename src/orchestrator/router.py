@@ -4,8 +4,8 @@ from src.llm import build_llm
 
 AGENTS = {
     "sql": "Retrieve or aggregate data from the database.",
+    "analysis": "Perform statistical or machine learning analyses over the dataset.",
     "viz": "Generate charts or visualizations.",
-    "analysis": "Perform statistical analysis.",
     "report": "Generate a report summarizing the session."
 }
 
@@ -27,16 +27,36 @@ Example:
 
 
 def keyword_route(question: str) -> str:
-    """
-    Fallback router if the LLM fails.
-    """
 
     q = question.lower()
 
-    if any(word in q for word in ["plot", "chart", "graph", "visual"]):
+    if any(word in q for word in [
+        "plot",
+        "chart",
+        "graph",
+        "visual",
+    ]):
         return "viz"
 
-    if any(word in q for word in ["average", "correlation", "variance", "distribution"]):
+    if any(word in q for word in [
+        "mean",
+        "average",
+        "median",
+        "mode",
+        "variance",
+        "standard deviation",
+        "std",
+        "correlation",
+        "covariance",
+        "regression",
+        "pca",
+        "principal component",
+        "cluster",
+        "kmeans",
+        "t-test",
+        "ttest",
+        "statistics",
+    ]):
         return "analysis"
 
     if "report" in q:
