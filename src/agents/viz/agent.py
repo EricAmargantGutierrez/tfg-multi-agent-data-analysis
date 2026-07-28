@@ -1,16 +1,13 @@
 from fastmcp import FastMCP
 
-from src.database.chart_engine import generate_chart_core
-
+from src.agents.viz.engine import generate_chart_core
 
 mcp = FastMCP("VisualizationAgent")
 
 
 @mcp.tool()
 def generate_chart(question: str) -> dict:
-    """
-    Natural language question -> chart.
-    """
+    """Natural language question -> chart."""
     return generate_chart_core(question)
 
 

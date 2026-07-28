@@ -1,11 +1,9 @@
 """
 Convert raw agent outputs into human-readable responses.
 """
-
 from __future__ import annotations
 
 from src.llm import build_llm
-
 
 SYSTEM_PROMPT = """
 You are a data analyst.
@@ -23,53 +21,26 @@ Rules:
 """
 
 
-def narrate(
-    question: str,
-    agent: str,
-    result: dict,
-) -> str:
-    """
-    Convert an agent's raw output into natural language.
-    """
-
+def narrate(question: str, agent: str, result: dict) -> str:
     if not result.get("ok", False):
-
         return result.get("error", "Unknown error.")
 
     if agent == "report":
-
-        return (
-            f"Report successfully generated.\n\n"
-            f"Location: {result['answer']['path']}"
-        )
+        path = result.get("answer", {}).get("path", "unknown location")
+        return f"Report successfully generated.\n\nLocation: {path}"
 
     llm = build_llm()
 
-    prompt = f"""
-User question:
-
-{question}
-
-Agent:
-
-{agent}
-
-Raw output:
-
-{result}
-
-Generate the final response for the user.
-"""
+    prompt = (
+        f"User question:\n\n{question}\n\n"
+        f"Agent:\n\n{agent}\n\n"
+        f"Raw output:\n\n{result}\n\n"
+        "Generate the final response for the user."
+    )
 
     response = llm.invoke([
-        {
-            "role": "system",
-            "content": SYSTEM_PROMPT,
-        },
-        {
-            "role": "user",
-            "content": prompt,
-        },
+        {"role": "system", "content": SYSTEM_PROMPT},
+        {"role": "user", "content": prompt},
     ])
 
     return response.content

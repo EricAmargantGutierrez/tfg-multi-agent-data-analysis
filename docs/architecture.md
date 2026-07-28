@@ -2,240 +2,112 @@
 
 ## Overview
 
-The Multi-Agent Conversational Data Analysis System is designed as a modular architecture in which each component has a single well-defined responsibility.
-
-The system allows users to ask natural language questions about structured datasets. User requests are routed by an orchestrator to specialized agents that retrieve information, perform statistical analysis, generate visualizations, and produce reports.
-
-The architecture combines Large Language Models (LLMs), LangGraph, the Model Context Protocol (MCP), and SQLite to provide a flexible and extensible conversational interface for data analysis.
-
-
----
-
-# System Architecture
-
-<p align="center">
-  <img src="architecture-diagram.svg" width="900">
-</p>
-
----
-
-
-## High-Level Architecture
-
-The system consists of the following main components:
-
-- Interactive REPL
-- LangGraph Orchestrator
-- LLM-based Router
-- LLM Narrator
-- SQL Agent
-- Analysis Agent
-- Visualization Agent
-- Report Agent
-- SQLite Database
-
-The orchestrator coordinates the interaction between all agents while maintaining the conversation history.
-
----
+The Multi-Agent Conversational Data Analysis System answers natural
+language questions over the Superstore dataset. A LangGraph orchestrator
+routes each question to one of four specialized MCP agents (SQL,
+Analysis, Visualization, Report), which independently generate and
+execute their own read-only queries against a shared SQLite database.
 
 ## Components
 
-### REPL
+- **REPL** (`src/repl.py`) — command-line interface: receives questions,
+  calls the orchestrator, prints answers, triggers the end-of-session
+  report.
+- **Orchestrator** (`src/orchestrator/`) — routes each question, invokes
+  the selected agent over MCP, narrates the structured result, and
+  accumulates conversation history.
+- **Router** (`src/orchestrator/router.py`) — an LLM decides which agent
+  handles a question; a keyword-based fallback (`keyword_route`) covers
+  cases where the LLM is unavailable or returns garbage. Report intent is
+  checked first, so a question that mentions both "report" and a
+  statistical term (e.g. "generate a report showing the average profit")
+  still routes correctly.
+- **SQL / Viz / Analysis / Report Agents** (`src/agents/*/`) — each is an
+  MCP server exposing one tool. Each has: `agent.py` (thin MCP wrapper),
+  `engine.py` (the actual logic, directly unit-testable without FastMCP),
+  and `prompts.py` (its system prompt).
+- **Narrator** (`src/orchestrator/narrate.py`) — turns an agent's
+  structured output into a natural-language response. Never touches the
+  database itself.
 
-The REPL provides the command-line interface through which users interact with the system.
+## Who is allowed to touch the database
 
-Its responsibilities are:
+**Design decision (deliberate deviation from the original proposal):**
+three agents — SQL, Visualization, and Analysis — each independently
+decide their own query rather than the orchestrator chaining SQL output
+into the other agents. This is more decoupled than the original
+single-SQL-Agent design, but it means "who can touch the DB" needs one
+consistent answer, not three separate ones.
 
-- receive user questions;
-- send requests to the orchestrator;
-- display answers;
-- generate the final session report when the interaction ends.
+**The answer: all three go through `src/core/db.py`, and nothing else
+opens a connection to the database.** That module:
 
----
+- opens every connection read-only (`file:...?mode=ro`), so a bug
+  downstream of it cannot mutate the database, regardless of which agent
+  triggered it;
+- is the single place schema introspection (`get_schema`,
+  `get_valid_columns`) is defined, instead of being reimplemented per
+  agent;
+- offers two access patterns depending on the agent's needs:
+  - `run_readonly_query` / `run_readonly_query_dicts` — for SQL and Viz,
+    which let the LLM write complete, free-form SQL text (validated by
+    `src/agents/safety.py` before execution);
+  - `build_select` / `load_dataframe_readonly` — for Analysis, which
+    never lets the LLM write raw SQL. Instead the LLM produces a
+    structured plan (columns + filters), validated as a Pydantic
+    `AnalysisPlan`, and `build_select` compiles it into a parameterized
+    query — filter *values* are bound as SQL parameters, never
+    string-interpolated.
 
-### LangGraph Orchestrator
+## Conversation history — what it's actually used for
 
-The orchestrator is responsible for coordinating the complete execution flow.
+`SessionState.history` accumulates every turn's `(question, agent,
+result)`. **Only the Report Agent consumes it.** Routing and narration
+only ever see the current question — each turn is resolved independently.
 
-Its responsibilities include:
-
-- maintaining the conversation state;
-- selecting the appropriate agent;
-- invoking MCP tools;
-- generating the final natural-language response using an LLM narrator;
-- storing conversation history;
-- returning the final response to the user.
-
-The orchestrator does not perform any data analysis itself. Instead, it delegates each task to the appropriate specialized component.
-
----
-
-### Router
-
-The router uses an LLM to determine which agent should answer each user request.
-
-Currently, four possible routes are supported:
-
-- SQL Agent
-- Analysis Agent
-- Visualization Agent
-- Report Agent
-
-If the LLM fails to produce a valid routing decision, a keyword-based fallback router is used.
-
----
-
-### SQL Agent
-
-The SQL Agent transforms natural language questions into SQLite queries.
-
-Its responsibilities include:
-
-- generating SQL statements using an LLM;
-- validating that generated SQL is read-only;
-- executing queries against the database;
-- automatically retrying when SQL generation or execution errors occur.
-
-Both the SQL Agent and the Analysis Agent access the SQLite database independently. The SQL Agent executes analytical SQL queries requested by the user, whereas the Analysis Agent retrieves the data required for statistical computations before performing the analysis locally using Python.
-
----
-
-### Analysis Agent
-
-The Analysis Agent performs statistical analyses and machine learning computations over the dataset.
-
-Instead of generating SQL directly from the user's request, the agent first asks an LLM to determine:
-
-- which statistical analysis should be performed;
-- which database columns are required.
-
-The agent then retrieves the required data from SQLite, loads it into a pandas DataFrame, executes the requested computation using specialized Python libraries, and returns the structured result to the orchestrator.
-
-Currently supported analyses include:
-
-- descriptive statistics;
-- correlation and covariance;
-- t-tests;
-- linear regression;
-- Principal Component Analysis (PCA);
-- K-Means clustering.
-
----
-
-### Visualization Agent
-
-The Visualization Agent generates figures directly from natural language requests.
-
-The agent:
-
-- generates the SQL query required to retrieve the requested data;
-- executes the query;
-- generates a chart using Matplotlib;
-- stores the resulting figure in the `results/` directory.
-
----
-
-### Report Agent
-
-The Report Agent summarizes the complete interaction session.
-
-It produces a Markdown document containing:
-
-- executive summary;
-- questions asked;
-- key findings;
-- conclusions.
-
-The generated report is automatically saved in the `results/` directory.
-
----
-
-### LLM Narrator
-
-The narrator converts the structured outputs returned by the different agents into concise natural-language responses.
-
-Unlike the specialized agents, the narrator does not perform computations or access the database. Its only responsibility is to communicate the results in a readable form while preserving the information returned by the agents.
-
----
-
-## Database
-
-The system currently uses a SQLite database generated from the Superstore dataset.
-
-The ingestion pipeline:
-
-- validates the dataset;
-- normalizes column names;
-- converts date fields;
-- creates the SQLite database.
-
-Only read-only SQL queries are permitted during normal operation.
-
----
+This is a deliberate scope boundary, not a gap: the original proposal
+specifies history being handed to the Report Agent at the end of a
+session; it does not specify multi-turn reference resolution ("what
+about last year?" referring to a previous answer). Supporting that would
+require feeding recent history into every router/agent prompt, which adds
+real cost, latency, and an open NLP problem (reference resolution)
+outside the evaluation plan. It's listed under Future Extensions instead.
 
 ## Execution Flow
 
-A typical interaction follows these steps:
-
-1. The user submits a question through the REPL.
-2. The orchestrator receives the request.
-3. The router selects the appropriate agent.
-4. The selected MCP agent performs the requested task.
-5. The structured result is returned to the orchestrator.
-6. The orchestrator invokes the LLM narrator to generate the final natural-language response.
-7. The interaction is stored in the conversation history.
-8. The final answer is presented to the user.
-9. When the session ends, the Report Agent generates a Markdown report.
-
----
-
-## Design Decisions
-
-Several design decisions guided the implementation:
-
-- Each agent exposes exactly one MCP tool.
-- Every agent has a single clearly defined responsibility.
-- The SQL Agent is the only component allowed to execute database queries.
-- Statistical analyses are performed using Python libraries whenever SQL is not the most appropriate solution.
-- SQL validation prevents non-read-only statements from being executed.
-- Natural-language narration is centralized in the orchestrator instead of individual agents.
-- Conversation history is maintained by the orchestrator instead of individual agents.
-- LLM providers are abstracted behind a common interface, allowing different models to be used without modifying the architecture.
-
-These decisions improve modularity, maintainability, and extensibility.
-
----
+1. User submits a question via the REPL.
+2. `router.route()` picks an agent (LLM decision, keyword fallback if the
+   LLM call fails or is invalid).
+3. The orchestrator invokes that agent's MCP tool (`mcp_clients.py`,
+   in-memory transport by default, real stdio subprocesses via
+   `TFG_MCP_TRANSPORT=stdio`).
+4. The agent's `engine.py` runs its self-correcting loop
+   (`src/core/retry.py`, shared by all three data agents): generate ->
+   execute -> on failure, feed the error back to the LLM and retry, up to
+   `max_retries`.
+5. The structured result returns to the orchestrator.
+6. `narrate.py` turns it into a natural-language response (skipped for
+   error results and for the Report Agent's own success message, both of
+   which are already human-readable).
+7. `(question, agent, result)` is appended to `history`.
+8. When the session ends, the full history is handed to the Report Agent.
 
 ## Current Limitations
 
-The current implementation has several limitations:
-
-- The system currently supports a single SQLite database.
-- Visualization capabilities are limited to the implemented chart types.
-- The router selects a single agent for each request.
-- Long conversation histories are passed entirely to the Report Agent without prior summarization.
-
-These limitations provide opportunities for future improvements.
-
----
+- Single SQLite database, single table.
+- No multi-turn reference resolution (see above).
+- The Analysis Agent's filter language covers `= != > >= < <= LIKE IN
+  BETWEEN` against real columns — enough for region/category/date-range
+  filtering, not arbitrary boolean expressions.
+- The subprocess/self-correction sandbox model has no execution sandbox
+  beyond SQL validation — no agent here executes arbitrary LLM-generated
+  Python (unlike some designs), which limits risk but also limits
+  analytical flexibility to what `src/agents/analysis/statistics.py`
+  implements.
 
 ## Future Extensions
 
-Possible future extensions include:
-
-- support for additional databases;
-- additional analytical agents (e.g., forecasting or anomaly detection);
-- richer visualization capabilities;
-- retrieval-augmented generation (RAG);
-- multi-agent collaboration within a single query;
-- distributed deployment of MCP agents.
-
----
-
-## Current Status
-
-Phase 1 of the project has been completed.
-
-The current implementation includes the complete multi-agent architecture, MCP-based communication, LangGraph orchestration, conversational interaction, statistical analysis, visualization generation, automatic report generation, and support for multiple LLM providers.
-
-The next phase of the project focuses on defining and implementing a rigorous evaluation methodology to assess the correctness, robustness, efficiency, and usability of the proposed conversational system.
+- Multi-turn reference resolution using recent (not full) history.
+- Additional statistical analyses / forecasting.
+- Multi-table dataset (e.g. Olist) to stress-test JOIN handling.
+- Full containerization (Docker Compose, one container per agent).

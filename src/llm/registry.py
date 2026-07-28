@@ -9,24 +9,8 @@ class ModelConfig:
 
 
 MODELS = {
-    "groq": ModelConfig(
-        name="groq",
-        provider="groq",
-        model="llama-3.3-70b-versatile",
-    ),
-    "ollama": ModelConfig(
-        name="ollama",
-        provider="ollama",
-        model="llama3.1:8b",
-    ),
-    "openai": ModelConfig(
-        name="openai",
-        provider="openai",
-        model="gpt-4o",
-    ),
-    "anthropic": ModelConfig(
-        name="anthropic",
-        provider="anthropic",
-        model="claude-sonnet-4-5",
-    ),
+    "groq": ModelConfig(name="groq", provider="groq", model="llama-3.3-70b-versatile"),
+    "ollama": ModelConfig(name="ollama", provider="ollama", model="llama3.1:8b"),
+    "openai": ModelConfig(name="openai", provider="openai", model="gpt-4o"),
+    "anthropic": ModelConfig(name="anthropic", provider="anthropic", model="claude-sonnet-4-5"),
 }

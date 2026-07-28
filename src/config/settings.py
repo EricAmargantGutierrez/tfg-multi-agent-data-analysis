@@ -8,37 +8,18 @@ from src.core.paths import PROJECT_ROOT
 
 class Settings(BaseSettings):
     """
-    Global configuration for the application.
-
-    Values can come from:
-    1. Default values defined below.
-    2. The .env file.
-    3. Environment variables.
+    Global configuration. Values come from (in order of precedence):
+    env vars > .env file > defaults below.
     """
-
-    # ------------------------------------------------------------------
-    # Project
-    # ------------------------------------------------------------------
 
     project_name: str = "Multi-Agent Conversational Data Analysis"
     version: str = "0.1.0"
 
-    # ------------------------------------------------------------------
-    # LLM
-    # ------------------------------------------------------------------
-
+    # Which entry in src.llm.registry.MODELS to use when no model_key is
+    # explicitly passed to build_llm().
     default_model: str = Field(default="groq")
 
-    # ------------------------------------------------------------------
-    # Database
-    # ------------------------------------------------------------------
-
     database_path: Path = PROJECT_ROOT / "data" / "superstore.db"
-
-    # ------------------------------------------------------------------
-    # Logging
-    # ------------------------------------------------------------------
-
     log_level: str = "INFO"
 
     model_config = SettingsConfigDict(
