@@ -17,7 +17,7 @@ class Settings(BaseSettings):
 
     # Which entry in src.llm.registry.MODELS to use when no model_key is
     # explicitly passed to build_llm().
-    default_model: str = Field(default="groq")
+    default_model: str = Field(default="groq", validation_alias="TFG_MODEL")
 
     database_path: Path = PROJECT_ROOT / "data" / "superstore.db"
     log_level: str = "INFO"
