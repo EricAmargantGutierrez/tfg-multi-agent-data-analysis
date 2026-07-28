@@ -1,0 +1,538 @@
+[
+    {
+        "id": 1,
+        "category": "sql",
+        "task_type": "count",
+        "difficulty": "easy",
+        "question": "How many orders are there?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT COUNT(*) AS total_orders FROM orders;"
+        },
+        "ground_truth": [
+            [
+                9994
+            ]
+        ]
+    },
+    {
+        "id": 2,
+        "category": "sql",
+        "task_type": "count_distinct",
+        "difficulty": "easy",
+        "question": "How many customers are there?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT COUNT(DISTINCT customer_id) AS total_customers FROM orders;"
+        },
+        "ground_truth": [
+            [
+                793
+            ]
+        ]
+    },
+    {
+        "id": 3,
+        "category": "sql",
+        "task_type": "ranking",
+        "difficulty": "easy",
+        "question": "Which region has the highest sales?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT region, SUM(sales) AS total_sales FROM orders GROUP BY region ORDER BY total_sales DESC LIMIT 1;"
+        },
+        "ground_truth": [
+            [
+                "West",
+                725457.8245
+            ]
+        ]
+    },
+    {
+        "id": 4,
+        "category": "sql",
+        "task_type": "ranking",
+        "difficulty": "easy",
+        "question": "Which category generated the highest profit?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT category, SUM(profit) AS total_profit FROM orders GROUP BY category ORDER BY total_profit DESC LIMIT 1;"
+        },
+        "ground_truth": [
+            [
+                "Technology",
+                145454.9481
+            ]
+        ]
+    },
+    {
+        "id": 5,
+        "category": "sql",
+        "task_type": "group_by",
+        "difficulty": "easy",
+        "question": "What are the total sales by region?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT region, SUM(sales) AS total_sales FROM orders GROUP BY region ORDER BY region;"
+        },
+        "ground_truth": [
+            [
+                "Central",
+                501239.8908
+            ],
+            [
+                "East",
+                678781.24
+            ],
+            [
+                "South",
+                391721.905
+            ],
+            [
+                "West",
+                725457.8245
+            ]
+        ]
+    },
+    {
+        "id": 6,
+        "category": "sql",
+        "task_type": "top_k",
+        "difficulty": "easy",
+        "question": "Show the five most profitable products.",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT product_name, SUM(profit) AS total_profit FROM orders GROUP BY product_name ORDER BY total_profit DESC LIMIT 5;"
+        },
+        "ground_truth": [
+            [
+                "Canon imageCLASS 2200 Advanced Copier",
+                25199.928
+            ],
+            [
+                "Fellowes PB500 Electric Punch Plastic Comb Binding Machine with Manual Bind",
+                7753.039
+            ],
+            [
+                "Hewlett Packard LaserJet 3310 Copier",
+                6983.8836
+            ],
+            [
+                "Canon PC1060 Personal Laser Copier",
+                4570.9347
+            ],
+            [
+                "HP Designjet T520 Inkjet Large Format Printer - 24\" Color",
+                4094.9766
+            ]
+        ]
+    },
+    {
+        "id": 7,
+        "category": "sql",
+        "task_type": "ranking",
+        "difficulty": "easy",
+        "question": "Which customer placed the most orders?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT customer_name, COUNT(*) AS total_orders FROM orders GROUP BY customer_name ORDER BY total_orders DESC LIMIT 1;"
+        },
+        "ground_truth": [
+            [
+                "William Brown",
+                37
+            ]
+        ]
+    },
+    {
+        "id": 8,
+        "category": "sql",
+        "task_type": "aggregation",
+        "difficulty": "easy",
+        "question": "What is the total profit?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT SUM(profit) AS total_profit FROM orders;"
+        },
+        "ground_truth": [
+            [
+                286397.0217
+            ]
+        ]
+    },
+    {
+        "id": 9,
+        "category": "sql",
+        "task_type": "distinct",
+        "difficulty": "easy",
+        "question": "List all product categories.",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT DISTINCT category FROM orders ORDER BY category;"
+        },
+        "ground_truth": [
+            [
+                "Furniture"
+            ],
+            [
+                "Office Supplies"
+            ],
+            [
+                "Technology"
+            ]
+        ]
+    },
+    {
+        "id": 10,
+        "category": "sql",
+        "task_type": "filter_count",
+        "difficulty": "easy",
+        "question": "How many orders were shipped using Second Class?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT COUNT(*) AS total_orders FROM orders WHERE ship_mode = 'Second Class';"
+        },
+        "ground_truth": [
+            [
+                1945
+            ]
+        ]
+    },
+    {
+        "id": 11,
+        "category": "sql",
+        "task_type": "ranking",
+        "difficulty": "medium",
+        "question": "Who generated the largest amount of revenue?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT customer_name, SUM(sales) AS total_sales FROM orders GROUP BY customer_name ORDER BY total_sales DESC LIMIT 1;"
+        },
+        "ground_truth": [
+            [
+                "Sean Miller",
+                25043.05
+            ]
+        ]
+    },
+    {
+        "id": 12,
+        "category": "sql",
+        "task_type": "ranking",
+        "difficulty": "medium",
+        "question": "Which state sold the most products?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT state, SUM(quantity) AS total_quantity FROM orders GROUP BY state ORDER BY total_quantity DESC LIMIT 1;"
+        },
+        "ground_truth": [
+            [
+                "California",
+                7667
+            ]
+        ]
+    },
+    {
+        "id": 13,
+        "category": "sql",
+        "task_type": "ranking",
+        "difficulty": "medium",
+        "question": "Which city earned the greatest profit?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT city, SUM(profit) AS total_profit FROM orders GROUP BY city ORDER BY total_profit DESC LIMIT 1;"
+        },
+        "ground_truth": [
+            [
+                "New York City",
+                62036.9837
+            ]
+        ]
+    },
+    {
+        "id": 14,
+        "category": "sql",
+        "task_type": "ranking",
+        "difficulty": "medium",
+        "question": "Which shipping mode appears most frequently?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT ship_mode, COUNT(*) AS total FROM orders GROUP BY ship_mode ORDER BY total DESC LIMIT 1;"
+        },
+        "ground_truth": [
+            [
+                "Standard Class",
+                5968
+            ]
+        ]
+    },
+    {
+        "id": 15,
+        "category": "sql",
+        "task_type": "count_distinct",
+        "difficulty": "medium",
+        "question": "How many distinct product names are there?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT COUNT(DISTINCT product_name) AS total_products FROM orders;"
+        },
+        "ground_truth": [
+            [
+                1850
+            ]
+        ]
+    },
+    {
+        "id": 16,
+        "category": "sql",
+        "task_type": "ranking",
+        "difficulty": "medium",
+        "question": "Which segment contributes the largest share of sales?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT segment, SUM(sales) AS total_sales FROM orders GROUP BY segment ORDER BY total_sales DESC LIMIT 1;"
+        },
+        "ground_truth": [
+            [
+                "Consumer",
+                1161401.345
+            ]
+        ]
+    },
+    {
+        "id": 17,
+        "category": "sql",
+        "task_type": "top_k",
+        "difficulty": "medium",
+        "question": "Find the order with the highest sales.",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT order_id, sales FROM orders ORDER BY sales DESC LIMIT 1;"
+        },
+        "ground_truth": [
+            [
+                "CA-2014-145317",
+                22638.48
+            ]
+        ]
+    },
+    {
+        "id": 18,
+        "category": "sql",
+        "task_type": "count_distinct",
+        "difficulty": "medium",
+        "question": "How many unique cities are represented?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT COUNT(DISTINCT city) AS total_cities FROM orders;"
+        },
+        "ground_truth": [
+            [
+                531
+            ]
+        ]
+    },
+    {
+        "id": 19,
+        "category": "sql",
+        "task_type": "ranking",
+        "difficulty": "medium",
+        "question": "Which region generated the least profit?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT region, SUM(profit) AS total_profit FROM orders GROUP BY region ORDER BY total_profit ASC LIMIT 1;"
+        },
+        "ground_truth": [
+            [
+                "Central",
+                39706.3625
+            ]
+        ]
+    },
+    {
+        "id": 20,
+        "category": "sql",
+        "task_type": "ranking",
+        "difficulty": "medium",
+        "question": "Which category contains the greatest number of orders?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT category, COUNT(*) AS total_orders FROM orders GROUP BY category ORDER BY total_orders DESC LIMIT 1;"
+        },
+        "ground_truth": [
+            [
+                "Office Supplies",
+                6026
+            ]
+        ]
+    },
+    {
+        "id": 21,
+        "category": "sql",
+        "task_type": "ranking",
+        "difficulty": "hard",
+        "question": "Where does the business seem to perform best in terms of revenue?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT region, SUM(sales) AS total_sales FROM orders GROUP BY region ORDER BY total_sales DESC LIMIT 1;"
+        },
+        "ground_truth": [
+            [
+                "West",
+                725457.8245
+            ]
+        ]
+    },
+    {
+        "id": 22,
+        "category": "sql",
+        "task_type": "ranking",
+        "difficulty": "hard",
+        "question": "Which customer appears to buy the most often?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT customer_name, COUNT(*) AS total_orders FROM orders GROUP BY customer_name ORDER BY total_orders DESC LIMIT 1;"
+        },
+        "ground_truth": [
+            [
+                "William Brown",
+                37
+            ]
+        ]
+    },
+    {
+        "id": 23,
+        "category": "sql",
+        "task_type": "ranking",
+        "difficulty": "hard",
+        "question": "Which region generated the highest total profit?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT region, SUM(profit) AS total_profit FROM orders GROUP BY region ORDER BY total_profit DESC LIMIT 1;"
+        },
+        "ground_truth": [
+            [
+                "West",
+                108418.4489
+            ]
+        ]
+    },
+    {
+        "id": 24,
+        "category": "sql",
+        "task_type": "ranking",
+        "difficulty": "hard",
+        "question": "Which product has generated the greatest revenue overall?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT product_name, SUM(sales) AS total_sales FROM orders GROUP BY product_name ORDER BY total_sales DESC LIMIT 1;"
+        },
+        "ground_truth": [
+            [
+                "Canon imageCLASS 2200 Advanced Copier",
+                61599.824
+            ]
+        ]
+    },
+    {
+        "id": 25,
+        "category": "sql",
+        "task_type": "ranking",
+        "difficulty": "hard",
+        "question": "Which shipping option do customers prefer the most?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT ship_mode, COUNT(*) AS total FROM orders GROUP BY ship_mode ORDER BY total DESC LIMIT 1;"
+        },
+        "ground_truth": [
+            [
+                "Standard Class",
+                5968
+            ]
+        ]
+    },
+    {
+        "id": 26,
+        "category": "sql",
+        "task_type": "ranking",
+        "difficulty": "hard",
+        "question": "Which market segment seems to dominate sales?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT segment, SUM(sales) AS total_sales FROM orders GROUP BY segment ORDER BY total_sales DESC LIMIT 1;"
+        },
+        "ground_truth": [
+            [
+                "Consumer",
+                1161401.345
+            ]
+        ]
+    },
+    {
+        "id": 27,
+        "category": "sql",
+        "task_type": "ranking",
+        "difficulty": "hard",
+        "question": "Which state accumulated the highest total profit?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT state, SUM(profit) AS total_profit FROM orders GROUP BY state ORDER BY total_profit DESC LIMIT 1;"
+        },
+        "ground_truth": [
+            [
+                "California",
+                76381.3871
+            ]
+        ]
+    },
+    {
+        "id": 28,
+        "category": "sql",
+        "task_type": "ranking",
+        "difficulty": "hard",
+        "question": "Which product sold the greatest number of units?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT product_name, SUM(quantity) AS total_quantity FROM orders GROUP BY product_name ORDER BY total_quantity DESC LIMIT 1;"
+        },
+        "ground_truth": [
+            [
+                "Staples",
+                215
+            ]
+        ]
+    },
+    {
+        "id": 29,
+        "category": "sql",
+        "task_type": "count",
+        "difficulty": "hard",
+        "question": "How many purchases have been registered in total?",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT COUNT(*) AS total_orders FROM orders;"
+        },
+        "ground_truth": [
+            [
+                9994
+            ]
+        ]
+    },
+    {
+        "id": 30,
+        "category": "sql",
+        "task_type": "ranking",
+        "difficulty": "hard",
+        "question": "Identify the most successful region according to sales.",
+        "expected_agent": "sql",
+        "reference": {
+            "sql": "SELECT region, SUM(sales) AS total_sales FROM orders GROUP BY region ORDER BY total_sales DESC LIMIT 1;"
+        },
+        "ground_truth": [
+            [
+                "West",
+                725457.8245
+            ]
+        ]
+    }
+]
