@@ -1,5 +1,5 @@
-category,n_questions,system_correctness_pct,baseline_correctness_pct,architecture_value_pct,avg_latency_s,baseline_avg_latency_s,retry_rate_pct,retry_success_rate_pct,correctness_easy_pct,correctness_medium_pct,correctness_hard_pct
-sql,30,100.0,33.33,66.67,2.983,2.834,0.0,,100.0,100.0,100.0
-analysis,15,100.0,20.0,80.0,3.015,2.625,0.0,,100.0,100.0,100.0
-visualization,10,100.0,80.0,20.0,3.82,0.526,0.0,,100.0,100.0,100.0
-routing (all categories),55,90.91,,,1.457,,,,,,
+category,n_questions,system_correctness_pct,baseline_correctness_pct,architecture_value_pct,avg_latency_s,baseline_avg_latency_s,retry_rate_pct,retry_success_rate_pct,correctness_easy_pct,baseline_correctness_easy_pct,correctness_medium_pct,baseline_correctness_medium_pct,correctness_hard_pct,baseline_correctness_hard_pct
+sql,30,100.0,33.33,66.67,2.983,2.834,0.0,,100.0,60.0,100.0,20.0,100.0,20.0
+analysis,15,100.0,20.0,80.0,3.015,2.625,0.0,,100.0,33.33,100.0,33.33,100.0,0.0
+visualization,10,100.0,80.0,20.0,3.82,0.526,0.0,,100.0,100.0,100.0,75.0,100.0,66.67
+routing (all categories),55,90.91,,,1.457,,,,,,,,,

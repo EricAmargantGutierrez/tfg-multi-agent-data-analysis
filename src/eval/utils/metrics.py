@@ -95,6 +95,12 @@ def build_summary() -> list[dict]:
         for difficulty in ("easy", "medium", "hard"):
             val = _accuracy_by_difficulty(agent_results, difficulty) if agent_results else None
             row[f"correctness_{difficulty}_pct"] = round(val, 2) if val is not None else None
+            # Baseline never retries by design (see baselines/single_agent.py) --
+            # included explicitly so the per-difficulty degradation pattern can
+            # be compared side-by-side with the real agent's, not just guessed
+            # at from the console printout.
+            baseline_val = _accuracy_by_difficulty(baseline_results, difficulty) if baseline_results else None
+            row[f"baseline_correctness_{difficulty}_pct"] = round(baseline_val, 2) if baseline_val is not None else None
 
         rows.append(row)
 
@@ -113,6 +119,9 @@ def build_summary() -> list[dict]:
             "correctness_easy_pct": None,
             "correctness_medium_pct": None,
             "correctness_hard_pct": None,
+            "baseline_correctness_easy_pct": None,
+            "baseline_correctness_medium_pct": None,
+            "baseline_correctness_hard_pct": None,
         }
         rows.append(routing_row)
 
