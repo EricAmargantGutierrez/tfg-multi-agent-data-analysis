@@ -29,10 +29,21 @@ def render(spec: ChartSpec, rows: list[dict]) -> str:
         raise ValueError("No rows returned.")
 
     chart = spec.chart_type
-    plt.figure(figsize=(8, 5))
     keys = list(rows[0].keys())
     x = keys[0]
     y = keys[1] if len(keys) > 1 else None
+
+    # Drop rows with a NULL in a plotted column -- matplotlib raises an
+    # opaque TypeError on None labels/values rather than skipping them,
+    # and a NULL category/value is a data-quality issue, not something
+    # the chart itself should crash on.
+    before = len(rows)
+    rows = [r for r in rows if r[x] is not None and (y is None or r[y] is not None)]
+    if not rows:
+        raise ValueError("All rows had a NULL value in the plotted column(s).")
+    dropped = before - len(rows)
+
+    plt.figure(figsize=(8, 5))
 
     if chart == "bar":
         plt.bar([r[x] for r in rows], [r[y] for r in rows])

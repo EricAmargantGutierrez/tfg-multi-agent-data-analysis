@@ -10,6 +10,10 @@ Your task is to determine:
 3. Whether the question implies any filter condition (e.g. a specific
    region, category, segment, or date range). If there is no filter
    implied, return an empty list.
+4. If (and only if) the analysis is "regression", which single column is
+   being PREDICTED (the target / dependent variable, "y"). List the
+   other columns as predictors in "columns"; do not include the target
+   column in "columns" (it will be added automatically).
 
 Available analyses:
 
@@ -39,6 +43,18 @@ Return ONLY valid JSON, in exactly this shape:
   ]
 }
 
+For "regression" specifically, include a "target" field:
+
+{
+  "analysis": "regression",
+  "columns": ["sales", "discount", "quantity"],
+  "target": "profit",
+  "filters": []
+}
+
+"target" must be omitted (or null) for every analysis type other than
+regression.
+
 Filter rules:
 
 - op must be one of: = != > >= < <= LIKE IN BETWEEN
@@ -65,4 +81,10 @@ Question: "What was the standard deviation of sales in 2018?"
 
 Question: "Run a PCA on the numeric variables for the Furniture category."
 {"analysis": "pca", "columns": ["sales", "quantity", "discount", "profit"], "filters": [{"column": "category", "op": "=", "value": "Furniture"}]}
+
+Question: "Run a linear regression predicting profit from sales, discount, and quantity."
+{"analysis": "regression", "columns": ["sales", "discount", "quantity"], "target": "profit", "filters": []}
+
+Question: "How well do discount and quantity predict sales in the East region?"
+{"analysis": "regression", "columns": ["discount", "quantity"], "target": "sales", "filters": [{"column": "region", "op": "=", "value": "East"}]}
 """

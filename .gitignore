@@ -23,9 +23,10 @@ venv/
 # SQLite databases
 *.db
 
-# Generated reports
-results/
-reports/
+# Generated chart images and session reports (regenerable by rerunning
+# the system -- NOT the evaluation results, which ARE tracked)
+results/*.png
+results/*.md
 
 # Python packaging
 build/

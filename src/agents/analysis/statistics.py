@@ -15,9 +15,14 @@ EXCLUDED_COLUMNS = {"postal_code", "row_id", "order_id"}
 
 
 def _numeric(df: pd.DataFrame) -> pd.DataFrame:
+    """Numeric columns, with any row containing NaN in them dropped.
+    Without this, scipy/sklearn functions (regression, PCA, KMeans) raise
+    on missing data instead of handling it -- unlike pandas' own
+    .mean()/.median()/etc., which already skip NaN by default. Made
+    uniform here so every analysis function behaves consistently."""
     numeric = df.select_dtypes(include=[np.number])
     numeric = numeric.drop(columns=[c for c in EXCLUDED_COLUMNS if c in numeric.columns], errors="ignore")
-    return numeric
+    return numeric.dropna()
 
 
 def _single(df: pd.DataFrame) -> pd.Series:
@@ -62,16 +67,34 @@ def compute_ttest(df):
     return {"analysis": "ttest", "result": {"t_statistic": float(statistic), "p_value": float(p)}}
 
 
-def compute_regression(df):
+def compute_regression(df, target=None):
+    """target: the column name to predict (y). Everything else numeric is a
+    predictor (X). If target is None, falls back to the old "last column"
+    convention for backward compatibility -- but callers should always pass
+    target now; see AnalysisPlan.target."""
     numeric = _numeric(df)
     if numeric.shape[1] < 2:
         raise ValueError("Regression requires at least two numeric columns.")
-    X = numeric.iloc[:, :-1]
-    y = numeric.iloc[:, -1]
+
+    if target is None:
+        X = numeric.iloc[:, :-1]
+        y = numeric.iloc[:, -1]
+        target = numeric.columns[-1]
+    else:
+        if target not in numeric.columns:
+            raise ValueError(
+                f"Regression target '{target}' not found among numeric columns: {list(numeric.columns)}"
+            )
+        X = numeric.drop(columns=[target])
+        y = numeric[target]
+        if X.shape[1] < 1:
+            raise ValueError("Regression requires at least one predictor column besides the target.")
+
     model = LinearRegression()
     model.fit(X, y)
     return {"analysis": "regression", "result": {
-        "coefficients": model.coef_.tolist(), "intercept": float(model.intercept_), "r2": float(model.score(X, y))}}
+        "coefficients": model.coef_.tolist(), "intercept": float(model.intercept_),
+        "r2": float(model.score(X, y)), "target": target, "predictors": list(X.columns)}}
 
 
 def compute_pca(df):

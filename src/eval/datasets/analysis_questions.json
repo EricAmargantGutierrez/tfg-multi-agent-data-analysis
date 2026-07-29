@@ -1,0 +1,396 @@
+[
+    {
+        "id": 1,
+        "category": "analysis",
+        "task_type": "mean",
+        "difficulty": "easy",
+        "question": "What is the average discount given to customers?",
+        "expected_agent": "analysis",
+        "reference": {
+            "analysis": "mean",
+            "columns": [
+                "discount"
+            ],
+            "filters": []
+        },
+        "ground_truth": {
+            "analysis": "mean",
+            "result": 0.1562027216329798
+        }
+    },
+    {
+        "id": 2,
+        "category": "analysis",
+        "task_type": "median",
+        "difficulty": "easy",
+        "question": "What is the median profit?",
+        "expected_agent": "analysis",
+        "reference": {
+            "analysis": "median",
+            "columns": [
+                "profit"
+            ],
+            "filters": []
+        },
+        "ground_truth": {
+            "analysis": "median",
+            "result": 8.6665
+        }
+    },
+    {
+        "id": 3,
+        "category": "analysis",
+        "task_type": "std",
+        "difficulty": "easy",
+        "question": "What is the standard deviation of sales?",
+        "expected_agent": "analysis",
+        "reference": {
+            "analysis": "std",
+            "columns": [
+                "sales"
+            ],
+            "filters": []
+        },
+        "ground_truth": {
+            "analysis": "std",
+            "result": 623.2451005086808
+        }
+    },
+    {
+        "id": 4,
+        "category": "analysis",
+        "task_type": "mean",
+        "difficulty": "medium",
+        "question": "What is the average profit in the West region?",
+        "expected_agent": "analysis",
+        "reference": {
+            "analysis": "mean",
+            "columns": [
+                "profit"
+            ],
+            "filters": [
+                {
+                    "column": "region",
+                    "op": "=",
+                    "value": "West"
+                }
+            ]
+        },
+        "ground_truth": {
+            "analysis": "mean",
+            "result": 33.84903181392445
+        }
+    },
+    {
+        "id": 5,
+        "category": "analysis",
+        "task_type": "correlation",
+        "difficulty": "medium",
+        "question": "What is the correlation between discount and profit?",
+        "expected_agent": "analysis",
+        "reference": {
+            "analysis": "correlation",
+            "columns": [
+                "discount",
+                "profit"
+            ],
+            "filters": []
+        },
+        "ground_truth": {
+            "analysis": "correlation",
+            "result": {
+                "correlation": -0.21948745637176847,
+                "p_value": 2.702294436198141e-109
+            }
+        }
+    },
+    {
+        "id": 6,
+        "category": "analysis",
+        "task_type": "variance",
+        "difficulty": "medium",
+        "question": "What is the variance of quantity sold in the Technology category?",
+        "expected_agent": "analysis",
+        "reference": {
+            "analysis": "variance",
+            "columns": [
+                "quantity"
+            ],
+            "filters": [
+                {
+                    "column": "category",
+                    "op": "=",
+                    "value": "Technology"
+                }
+            ]
+        },
+        "ground_truth": {
+            "analysis": "variance",
+            "result": 4.9143279987282815
+        }
+    },
+    {
+        "id": 7,
+        "category": "analysis",
+        "task_type": "ttest",
+        "difficulty": "medium",
+        "question": "Is there a statistically significant difference between discount and profit values?",
+        "expected_agent": "analysis",
+        "reference": {
+            "analysis": "ttest",
+            "columns": [
+                "discount",
+                "profit"
+            ],
+            "filters": []
+        },
+        "note": "Matches the current implementation, which runs an independent t-test between two numeric COLUMNS (not two groups of the same variable split by a category). See development_log.md limitations.",
+        "ground_truth": {
+            "analysis": "ttest",
+            "result": {
+                "t_statistic": -12.162604769282508,
+                "p_value": 8.516844349630498e-34
+            }
+        }
+    },
+    {
+        "id": 8,
+        "category": "analysis",
+        "task_type": "covariance",
+        "difficulty": "medium",
+        "question": "What is the covariance between quantity and discount?",
+        "expected_agent": "analysis",
+        "reference": {
+            "analysis": "covariance",
+            "columns": [
+                "quantity",
+                "discount"
+            ],
+            "filters": []
+        },
+        "ground_truth": {
+            "analysis": "covariance",
+            "result": {
+                "covariance": 0.0039612052030577995
+            }
+        }
+    },
+    {
+        "id": 9,
+        "category": "analysis",
+        "task_type": "mean",
+        "difficulty": "medium",
+        "question": "What is the average sales in the East region for the Furniture category?",
+        "expected_agent": "analysis",
+        "reference": {
+            "analysis": "mean",
+            "columns": [
+                "sales"
+            ],
+            "filters": [
+                {
+                    "column": "region",
+                    "op": "=",
+                    "value": "East"
+                },
+                {
+                    "column": "category",
+                    "op": "=",
+                    "value": "Furniture"
+                }
+            ]
+        },
+        "ground_truth": {
+            "analysis": "mean",
+            "result": 346.5743826955075
+        }
+    },
+    {
+        "id": 10,
+        "category": "analysis",
+        "task_type": "regression",
+        "difficulty": "hard",
+        "question": "Run a linear regression predicting profit from sales, discount, and quantity.",
+        "expected_agent": "analysis",
+        "reference": {
+            "analysis": "regression",
+            "columns": [
+                "sales",
+                "discount",
+                "quantity"
+            ],
+            "target": "profit",
+            "filters": []
+        },
+        "ground_truth": {
+            "analysis": "regression",
+            "result": {
+                "coefficients": [
+                    0.18001014387230668,
+                    -233.45700112679995,
+                    -2.962176486653817
+                ],
+                "intercept": 34.97212970801346,
+                "r2": 0.272724776926177,
+                "target": "profit",
+                "predictors": [
+                    "sales",
+                    "discount",
+                    "quantity"
+                ]
+            }
+        }
+    },
+    {
+        "id": 11,
+        "category": "analysis",
+        "task_type": "pca",
+        "difficulty": "hard",
+        "question": "Run a PCA on sales, quantity, discount, and profit.",
+        "expected_agent": "analysis",
+        "reference": {
+            "analysis": "pca",
+            "columns": [
+                "sales",
+                "quantity",
+                "discount",
+                "profit"
+            ],
+            "filters": []
+        },
+        "ground_truth": {
+            "analysis": "pca",
+            "result": {
+                "explained_variance_ratio": [
+                    0.9079448399982131,
+                    0.092044364191151,
+                    1.0705041116708308e-05,
+                    9.076951913022934e-08
+                ]
+            }
+        }
+    },
+    {
+        "id": 12,
+        "category": "analysis",
+        "task_type": "kmeans",
+        "difficulty": "hard",
+        "question": "Cluster orders into 3 groups based on sales, quantity, discount, and profit.",
+        "expected_agent": "analysis",
+        "reference": {
+            "analysis": "kmeans",
+            "columns": [
+                "sales",
+                "quantity",
+                "discount",
+                "profit"
+            ],
+            "filters": []
+        },
+        "ground_truth": {
+            "analysis": "kmeans",
+            "result": {
+                "centroids": [
+                    [
+                        135.89983563242578,
+                        3.6834191988224143,
+                        0.15755020502575962,
+                        13.812210608768778
+                    ],
+                    [
+                        1806.6755504273506,
+                        5.893162393162392,
+                        0.12955128205128208,
+                        248.61632457264963
+                    ],
+                    [
+                        10608.891066666667,
+                        5.466666666666667,
+                        0.13333333333333333,
+                        2578.443113333333
+                    ]
+                ],
+                "inertia": 1444364350.9210992
+            }
+        }
+    },
+    {
+        "id": 13,
+        "category": "analysis",
+        "task_type": "correlation",
+        "difficulty": "hard",
+        "question": "What is the correlation between discount and profit for orders placed in 2017?",
+        "expected_agent": "analysis",
+        "reference": {
+            "analysis": "correlation",
+            "columns": [
+                "discount",
+                "profit"
+            ],
+            "filters": [
+                {
+                    "column": "order_date",
+                    "op": "LIKE",
+                    "value": "2017-%"
+                }
+            ]
+        },
+        "ground_truth": {
+            "analysis": "correlation",
+            "result": {
+                "correlation": -0.21834264258443495,
+                "p_value": 4.907726214832138e-37
+            }
+        }
+    },
+    {
+        "id": 14,
+        "category": "analysis",
+        "task_type": "std",
+        "difficulty": "hard",
+        "question": "What is the standard deviation of profit for the Technology category?",
+        "expected_agent": "analysis",
+        "reference": {
+            "analysis": "std",
+            "columns": [
+                "profit"
+            ],
+            "filters": [
+                {
+                    "column": "category",
+                    "op": "=",
+                    "value": "Technology"
+                }
+            ]
+        },
+        "ground_truth": {
+            "analysis": "std",
+            "result": 428.8166330051747
+        }
+    },
+    {
+        "id": 15,
+        "category": "analysis",
+        "task_type": "median",
+        "difficulty": "hard",
+        "question": "What is the median sales value in the South region?",
+        "expected_agent": "analysis",
+        "reference": {
+            "analysis": "median",
+            "columns": [
+                "sales"
+            ],
+            "filters": [
+                {
+                    "column": "region",
+                    "op": "=",
+                    "value": "South"
+                }
+            ]
+        },
+        "ground_truth": {
+            "analysis": "median",
+            "result": 54.593999999999994
+        }
+    }
+]

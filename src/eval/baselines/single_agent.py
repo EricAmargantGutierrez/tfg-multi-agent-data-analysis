@@ -1,104 +1,56 @@
 """
-Baseline single-agent implementation.
+src/eval/baselines/single_agent.py
 
-Unlike the multi-agent architecture, this baseline performs the entire
-SQL generation process using a single LLM call without any specialised
-agent routing or self-correction.
+The baseline: same LLM, schema + question, ONE plain-language instruction
+to write a single SQL query. No specialized system prompt, no retry, no
+agent routing, no statistical/charting capability.
 
-It is used only for evaluation purposes.
+Deliberately does NOT reuse src/agents/sql/prompts.py's tuned prompt
+(ranking-question rules, worked examples, aggregation conventions). If it
+did, this would only measure "does the retry loop help" -- reusing the
+tuned prompt would silently smuggle the real SQL Agent's prompt
+engineering into the "baseline", understating the architecture's value.
+The whole point of a baseline is a deliberately minimal comparison point.
+
+Used across ALL question categories, not just SQL ones: for analysis and
+visualization questions, this still only ever writes SQL. Whether it can
+approximate the right answer this way (e.g. AVG for "mean") or simply
+cannot express the question at all (correlation, PCA, KMeans have no
+SQLite equivalent) is itself the finding the evaluation is measuring.
 """
-
 from __future__ import annotations
 
-import sqlite3
-from pathlib import Path
 from typing import Any
 
-from src.database.sql_engine import (
-    get_schema,
-    generate_sql,
-)
-
-from src.agents.safety import (
-    validate_sql_readonly,
-)
-
-from src.config.settings import settings
+from src.agents.safety import UnsafeSQLError
+from src.core.db import get_schema, run_readonly_query
 from src.llm import build_llm
 
+MINIMAL_SYSTEM_PROMPT = """
+You are a SQL assistant. Given a database schema and a question, write a
+single SQL query that answers it as best you can.
 
-DB_PATH = settings.database_path
-MAX_ROWS = 1000
-
-
-def execute_query(sql: str, db_path: Path = DB_PATH) -> dict[str, Any]:
-
-    sql = validate_sql_readonly(sql)
-
-    uri = f"file:{db_path}?mode=ro"
-
-    connection = sqlite3.connect(uri, uri=True)
-
-    try:
-
-        cursor = connection.execute(sql)
-
-        columns = [d[0] for d in cursor.description]
-
-        rows = cursor.fetchmany(MAX_ROWS)
-
-    finally:
-
-        connection.close()
-
-    return {
-        "columns": columns,
-        "rows": [list(r) for r in rows],
-        "sql": sql,
-    }
+Return ONLY the SQL query. No explanation, no markdown formatting.
+"""
 
 
-def run_single_agent(question: str) -> dict[str, Any]:
-
-    llm = build_llm()
-
+def run_single_agent(question: str, model_key: str | None = None) -> dict[str, Any]:
+    llm = build_llm(model_key)
     schema = get_schema()
 
-    sql = generate_sql(
-        question,
-        schema,
-        llm,
-    )
+    response = llm.invoke([
+        {"role": "system", "content": MINIMAL_SYSTEM_PROMPT},
+        {"role": "user", "content": f"Schema:\n{schema}\n\nQuestion: {question}"},
+    ])
+    text = response.content if isinstance(response.content, str) else str(response.content)
+    sql = text.replace("```sql", "").replace("```", "").strip()
 
     try:
-
-        result = execute_query(sql)
-
-        result.update(
-            ok=True,
-            attempts=1,
-            retried=False,
-            error=None,
-        )
-
+        result = run_readonly_query(sql)
+        result.update(ok=True, attempts=1, retried=False, error=None)
         return result
-
-    except Exception as e:
-
+    except (UnsafeSQLError, Exception) as e:
         return {
-
-            "ok": False,
-
-            "columns": [],
-
-            "rows": [],
-
-            "sql": sql,
-
-            "attempts": 1,
-
-            "retried": False,
-
-            "error": str(e),
-
+            "ok": False, "columns": [], "rows": [], "sql": sql,
+            "attempts": 1, "retried": False, "error": f"{type(e).__name__}: {e}",
         }

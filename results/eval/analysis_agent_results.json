@@ -1,0 +1,515 @@
+[
+  {
+    "id": 1,
+    "category": "analysis",
+    "task_type": "mean",
+    "difficulty": "easy",
+    "question": "What is the average discount given to customers?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 1.6458,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "result": {
+        "analysis": "mean",
+        "result": 0.1562027216329798
+      },
+      "analysis": "mean",
+      "columns": [
+        "discount"
+      ],
+      "filters": [],
+      "sql": "SELECT discount FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 2,
+    "category": "analysis",
+    "task_type": "median",
+    "difficulty": "easy",
+    "question": "What is the median profit?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 0.5736,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "result": {
+        "analysis": "median",
+        "result": 8.6665
+      },
+      "analysis": "median",
+      "columns": [
+        "profit"
+      ],
+      "filters": [],
+      "sql": "SELECT profit FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 3,
+    "category": "analysis",
+    "task_type": "std",
+    "difficulty": "easy",
+    "question": "What is the standard deviation of sales?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 0.5133,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "result": {
+        "analysis": "std",
+        "result": 623.2451005086808
+      },
+      "analysis": "std",
+      "columns": [
+        "sales"
+      ],
+      "filters": [],
+      "sql": "SELECT sales FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 4,
+    "category": "analysis",
+    "task_type": "mean",
+    "difficulty": "medium",
+    "question": "What is the average profit in the West region?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 0.5603,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "result": {
+        "analysis": "mean",
+        "result": 33.84903181392445
+      },
+      "analysis": "mean",
+      "columns": [
+        "profit"
+      ],
+      "filters": [
+        {
+          "column": "region",
+          "op": "=",
+          "value": "West"
+        }
+      ],
+      "sql": "SELECT profit FROM orders WHERE region = ?",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 5,
+    "category": "analysis",
+    "task_type": "correlation",
+    "difficulty": "medium",
+    "question": "What is the correlation between discount and profit?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 0.4294,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "result": {
+        "analysis": "correlation",
+        "result": {
+          "correlation": -0.21948745637176847,
+          "p_value": 2.702294436198141e-109
+        }
+      },
+      "analysis": "correlation",
+      "columns": [
+        "discount",
+        "profit"
+      ],
+      "filters": [],
+      "sql": "SELECT discount, profit FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 6,
+    "category": "analysis",
+    "task_type": "variance",
+    "difficulty": "medium",
+    "question": "What is the variance of quantity sold in the Technology category?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 0.6857,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "result": {
+        "analysis": "variance",
+        "result": 4.9143279987282815
+      },
+      "analysis": "variance",
+      "columns": [
+        "quantity"
+      ],
+      "filters": [
+        {
+          "column": "category",
+          "op": "=",
+          "value": "Technology"
+        }
+      ],
+      "sql": "SELECT quantity FROM orders WHERE category = ?",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 7,
+    "category": "analysis",
+    "task_type": "ttest",
+    "difficulty": "medium",
+    "question": "Is there a statistically significant difference between discount and profit values?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 0.4766,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "result": {
+        "analysis": "ttest",
+        "result": {
+          "t_statistic": -12.162604769282508,
+          "p_value": 8.516844349630498e-34
+        }
+      },
+      "analysis": "ttest",
+      "columns": [
+        "discount",
+        "profit"
+      ],
+      "filters": [],
+      "sql": "SELECT discount, profit FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 8,
+    "category": "analysis",
+    "task_type": "covariance",
+    "difficulty": "medium",
+    "question": "What is the covariance between quantity and discount?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 0.4841,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "result": {
+        "analysis": "covariance",
+        "result": {
+          "covariance": 0.0039612052030577995
+        }
+      },
+      "analysis": "covariance",
+      "columns": [
+        "quantity",
+        "discount"
+      ],
+      "filters": [],
+      "sql": "SELECT quantity, discount FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 9,
+    "category": "analysis",
+    "task_type": "mean",
+    "difficulty": "medium",
+    "question": "What is the average sales in the East region for the Furniture category?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 0.5357,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "result": {
+        "analysis": "mean",
+        "result": 346.5743826955075
+      },
+      "analysis": "mean",
+      "columns": [
+        "sales"
+      ],
+      "filters": [
+        {
+          "column": "region",
+          "op": "=",
+          "value": "East"
+        },
+        {
+          "column": "category",
+          "op": "=",
+          "value": "Furniture"
+        }
+      ],
+      "sql": "SELECT sales FROM orders WHERE region = ? AND category = ?",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 10,
+    "category": "analysis",
+    "task_type": "regression",
+    "difficulty": "hard",
+    "question": "Run a linear regression predicting profit from sales, discount, and quantity.",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 2.7802,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "result": {
+        "analysis": "regression",
+        "result": {
+          "coefficients": [
+            0.18001014387230668,
+            -233.45700112679995,
+            -2.962176486653817
+          ],
+          "intercept": 34.97212970801346,
+          "r2": 0.272724776926177,
+          "target": "profit",
+          "predictors": [
+            "sales",
+            "discount",
+            "quantity"
+          ]
+        }
+      },
+      "analysis": "regression",
+      "columns": [
+        "sales",
+        "discount",
+        "quantity",
+        "profit"
+      ],
+      "filters": [],
+      "sql": "SELECT sales, discount, quantity, profit FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 11,
+    "category": "analysis",
+    "task_type": "pca",
+    "difficulty": "hard",
+    "question": "Run a PCA on sales, quantity, discount, and profit.",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 7.6509,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "result": {
+        "analysis": "pca",
+        "result": {
+          "explained_variance_ratio": [
+            0.9079448399982131,
+            0.092044364191151,
+            1.0705041116708308e-05,
+            9.076951913022934e-08
+          ]
+        }
+      },
+      "analysis": "pca",
+      "columns": [
+        "sales",
+        "quantity",
+        "discount",
+        "profit"
+      ],
+      "filters": [],
+      "sql": "SELECT sales, quantity, discount, profit FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 12,
+    "category": "analysis",
+    "task_type": "kmeans",
+    "difficulty": "hard",
+    "question": "Cluster orders into 3 groups based on sales, quantity, discount, and profit.",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 6.7737,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "result": {
+        "analysis": "kmeans",
+        "result": {
+          "centroids": [
+            [
+              135.89983563242578,
+              3.6834191988224143,
+              0.15755020502575962,
+              13.812210608768778
+            ],
+            [
+              1806.6755504273506,
+              5.893162393162392,
+              0.12955128205128208,
+              248.61632457264963
+            ],
+            [
+              10608.891066666667,
+              5.466666666666667,
+              0.13333333333333333,
+              2578.443113333333
+            ]
+          ],
+          "inertia": 1444364350.9210992
+        }
+      },
+      "analysis": "kmeans",
+      "columns": [
+        "sales",
+        "quantity",
+        "discount",
+        "profit"
+      ],
+      "filters": [],
+      "sql": "SELECT sales, quantity, discount, profit FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 13,
+    "category": "analysis",
+    "task_type": "correlation",
+    "difficulty": "hard",
+    "question": "What is the correlation between discount and profit for orders placed in 2017?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 7.8701,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "result": {
+        "analysis": "correlation",
+        "result": {
+          "correlation": -0.21834264258443495,
+          "p_value": 4.907726214832138e-37
+        }
+      },
+      "analysis": "correlation",
+      "columns": [
+        "discount",
+        "profit"
+      ],
+      "filters": [
+        {
+          "column": "order_date",
+          "op": "LIKE",
+          "value": "2017-%"
+        }
+      ],
+      "sql": "SELECT discount, profit FROM orders WHERE order_date LIKE ?",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 14,
+    "category": "analysis",
+    "task_type": "std",
+    "difficulty": "hard",
+    "question": "What is the standard deviation of profit for the Technology category?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 6.9792,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "result": {
+        "analysis": "std",
+        "result": 428.8166330051747
+      },
+      "analysis": "std",
+      "columns": [
+        "profit"
+      ],
+      "filters": [
+        {
+          "column": "category",
+          "op": "=",
+          "value": "Technology"
+        }
+      ],
+      "sql": "SELECT profit FROM orders WHERE category = ?",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 15,
+    "category": "analysis",
+    "task_type": "median",
+    "difficulty": "hard",
+    "question": "What is the median sales value in the South region?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 7.2591,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "result": {
+        "analysis": "median",
+        "result": 54.593999999999994
+      },
+      "analysis": "median",
+      "columns": [
+        "sales"
+      ],
+      "filters": [
+        {
+          "column": "region",
+          "op": "=",
+          "value": "South"
+        }
+      ],
+      "sql": "SELECT sales FROM orders WHERE region = ?",
+      "error": null
+    },
+    "error": null
+  }
+]

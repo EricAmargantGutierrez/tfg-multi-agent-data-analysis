@@ -38,6 +38,31 @@ def test_analysis_plan_requires_at_least_one_column():
         AnalysisPlan(analysis="mean", columns=[], filters=[])
 
 
+def test_analysis_plan_regression_requires_target():
+    with pytest.raises(ValidationError):
+        AnalysisPlan(analysis="regression", columns=["sales", "discount"], filters=[])
+
+
+def test_analysis_plan_regression_with_target_ok():
+    plan = AnalysisPlan(analysis="regression", columns=["sales", "discount"], target="profit", filters=[])
+    assert plan.target == "profit"
+
+
+def test_analysis_plan_regression_auto_includes_target_in_columns():
+    plan = AnalysisPlan(analysis="regression", columns=["sales", "discount"], target="profit", filters=[])
+    assert "profit" in plan.columns
+
+
+def test_analysis_plan_non_regression_does_not_require_target():
+    plan = AnalysisPlan(analysis="mean", columns=["profit"], filters=[])
+    assert plan.target is None
+
+
+def test_analysis_plan_target_is_normalized():
+    plan = AnalysisPlan(analysis="regression", columns=["Sales", "Discount"], target="Profit Margin", filters=[])
+    assert plan.target == "profit_margin"
+
+
 # --- ChartSpec / RoutingDecision -----------------------------------------
 
 def test_chart_spec_rejects_unsupported_type():
