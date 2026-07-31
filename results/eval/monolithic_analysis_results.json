@@ -8,14 +8,11 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.8468,
+    "latency_seconds": 0.85,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "result": {
-        "analysis": "mean",
-        "result": 0.1562027216329798
-      },
+      "action": "analysis",
       "analysis": "mean",
       "columns": [
         "discount"
@@ -23,6 +20,10 @@
       "target": null,
       "filters": [],
       "sql": "SELECT discount FROM orders",
+      "result": {
+        "analysis": "mean",
+        "result": 0.1562027216329798
+      },
       "error": null
     },
     "error": null
@@ -36,14 +37,11 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.0833,
+    "latency_seconds": 1.1316,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "result": {
-        "analysis": "median",
-        "result": 8.6665
-      },
+      "action": "analysis",
       "analysis": "median",
       "columns": [
         "profit"
@@ -51,6 +49,10 @@
       "target": null,
       "filters": [],
       "sql": "SELECT profit FROM orders",
+      "result": {
+        "analysis": "median",
+        "result": 8.6665
+      },
       "error": null
     },
     "error": null
@@ -64,14 +66,11 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.2404,
+    "latency_seconds": 0.9559,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "result": {
-        "analysis": "std",
-        "result": 623.2451005086808
-      },
+      "action": "analysis",
       "analysis": "std",
       "columns": [
         "sales"
@@ -79,6 +78,10 @@
       "target": null,
       "filters": [],
       "sql": "SELECT sales FROM orders",
+      "result": {
+        "analysis": "std",
+        "result": 623.2451005086808
+      },
       "error": null
     },
     "error": null
@@ -92,14 +95,11 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.1761,
+    "latency_seconds": 1.3173,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "result": {
-        "analysis": "mean",
-        "result": 33.84903181392445
-      },
+      "action": "analysis",
       "analysis": "mean",
       "columns": [
         "profit"
@@ -113,6 +113,10 @@
         }
       ],
       "sql": "SELECT profit FROM orders WHERE region = ?",
+      "result": {
+        "analysis": "mean",
+        "result": 33.84903181392445
+      },
       "error": null
     },
     "error": null
@@ -126,17 +130,11 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.9969,
+    "latency_seconds": 2.1139,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "result": {
-        "analysis": "correlation",
-        "result": {
-          "correlation": -0.21948745637176847,
-          "p_value": 2.702294436198141e-109
-        }
-      },
+      "action": "analysis",
       "analysis": "correlation",
       "columns": [
         "discount",
@@ -145,6 +143,13 @@
       "target": null,
       "filters": [],
       "sql": "SELECT discount, profit FROM orders",
+      "result": {
+        "analysis": "correlation",
+        "result": {
+          "correlation": -0.21948745637176847,
+          "p_value": 2.702294436198141e-109
+        }
+      },
       "error": null
     },
     "error": null
@@ -158,14 +163,11 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.3568,
+    "latency_seconds": 0.8633,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "result": {
-        "analysis": "variance",
-        "result": 4.9143279987282815
-      },
+      "action": "analysis",
       "analysis": "variance",
       "columns": [
         "quantity"
@@ -179,6 +181,10 @@
         }
       ],
       "sql": "SELECT quantity FROM orders WHERE category = ?",
+      "result": {
+        "analysis": "variance",
+        "result": 4.9143279987282815
+      },
       "error": null
     },
     "error": null
@@ -190,20 +196,14 @@
     "difficulty": "medium",
     "question": "Is there a statistically significant difference between discount and profit values?",
     "expected_agent": "analysis",
-    "correct": true,
+    "correct": false,
     "ok": true,
-    "latency_seconds": 1.2048,
+    "latency_seconds": 0.8889,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "result": {
-        "analysis": "ttest",
-        "result": {
-          "t_statistic": -12.162604769282508,
-          "p_value": 8.516844349630498e-34
-        }
-      },
-      "analysis": "ttest",
+      "action": "analysis",
+      "analysis": "correlation",
       "columns": [
         "discount",
         "profit"
@@ -211,6 +211,13 @@
       "target": null,
       "filters": [],
       "sql": "SELECT discount, profit FROM orders",
+      "result": {
+        "analysis": "correlation",
+        "result": {
+          "correlation": -0.21948745637176847,
+          "p_value": 2.702294436198141e-109
+        }
+      },
       "error": null
     },
     "error": null
@@ -224,16 +231,11 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.942,
+    "latency_seconds": 1.3855,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "result": {
-        "analysis": "covariance",
-        "result": {
-          "covariance": 0.0039612052030577995
-        }
-      },
+      "action": "analysis",
       "analysis": "covariance",
       "columns": [
         "quantity",
@@ -242,6 +244,12 @@
       "target": null,
       "filters": [],
       "sql": "SELECT quantity, discount FROM orders",
+      "result": {
+        "analysis": "covariance",
+        "result": {
+          "covariance": 0.0039612052030577995
+        }
+      },
       "error": null
     },
     "error": null
@@ -253,34 +261,22 @@
     "difficulty": "medium",
     "question": "What is the average sales in the East region for the Furniture category?",
     "expected_agent": "analysis",
-    "correct": true,
+    "correct": false,
     "ok": true,
-    "latency_seconds": 1.3571,
+    "latency_seconds": 1.4589,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "result": {
-        "analysis": "mean",
-        "result": 346.5743826955075
-      },
-      "analysis": "mean",
+      "action": "sql",
       "columns": [
-        "sales"
+        "average_sales"
       ],
-      "target": null,
-      "filters": [
-        {
-          "column": "region",
-          "op": "=",
-          "value": "East"
-        },
-        {
-          "column": "category",
-          "op": "=",
-          "value": "Furniture"
-        }
+      "rows": [
+        [
+          346.5743826955075
+        ]
       ],
-      "sql": "SELECT sales FROM orders WHERE region = ? AND category = ?",
+      "sql": "SELECT AVG(sales) AS average_sales FROM orders WHERE region = 'East' AND category = 'Furniture'",
       "error": null
     },
     "error": null
@@ -294,10 +290,21 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.0059,
+    "latency_seconds": 1.6325,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "analysis",
+      "analysis": "regression",
+      "columns": [
+        "sales",
+        "discount",
+        "quantity",
+        "profit"
+      ],
+      "target": "profit",
+      "filters": [],
+      "sql": "SELECT sales, discount, quantity, profit FROM orders",
       "result": {
         "analysis": "regression",
         "result": {
@@ -316,16 +323,6 @@
           ]
         }
       },
-      "analysis": "regression",
-      "columns": [
-        "sales",
-        "discount",
-        "quantity",
-        "profit"
-      ],
-      "target": "profit",
-      "filters": [],
-      "sql": "SELECT sales, discount, quantity, profit FROM orders",
       "error": null
     },
     "error": null
@@ -339,10 +336,21 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.1892,
+    "latency_seconds": 1.279,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "analysis",
+      "analysis": "pca",
+      "columns": [
+        "sales",
+        "quantity",
+        "discount",
+        "profit"
+      ],
+      "target": null,
+      "filters": [],
+      "sql": "SELECT sales, quantity, discount, profit FROM orders",
       "result": {
         "analysis": "pca",
         "result": {
@@ -354,16 +362,6 @@
           ]
         }
       },
-      "analysis": "pca",
-      "columns": [
-        "sales",
-        "quantity",
-        "discount",
-        "profit"
-      ],
-      "target": null,
-      "filters": [],
-      "sql": "SELECT sales, quantity, discount, profit FROM orders",
       "error": null
     },
     "error": null
@@ -377,10 +375,21 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.1074,
+    "latency_seconds": 3.7408,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "analysis",
+      "analysis": "kmeans",
+      "columns": [
+        "sales",
+        "quantity",
+        "discount",
+        "profit"
+      ],
+      "target": null,
+      "filters": [],
+      "sql": "SELECT sales, quantity, discount, profit FROM orders",
       "result": {
         "analysis": "kmeans",
         "result": {
@@ -407,16 +416,6 @@
           "inertia": 1444364350.9210992
         }
       },
-      "analysis": "kmeans",
-      "columns": [
-        "sales",
-        "quantity",
-        "discount",
-        "profit"
-      ],
-      "target": null,
-      "filters": [],
-      "sql": "SELECT sales, quantity, discount, profit FROM orders",
       "error": null
     },
     "error": null
@@ -430,17 +429,11 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.9735,
+    "latency_seconds": 1.6579,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "result": {
-        "analysis": "correlation",
-        "result": {
-          "correlation": -0.21834264258443495,
-          "p_value": 4.907726214832138e-37
-        }
-      },
+      "action": "analysis",
       "analysis": "correlation",
       "columns": [
         "discount",
@@ -455,6 +448,13 @@
         }
       ],
       "sql": "SELECT discount, profit FROM orders WHERE order_date LIKE ?",
+      "result": {
+        "analysis": "correlation",
+        "result": {
+          "correlation": -0.21834264258443495,
+          "p_value": 4.907726214832138e-37
+        }
+      },
       "error": null
     },
     "error": null
@@ -468,14 +468,11 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.0024,
+    "latency_seconds": 0.9771,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "result": {
-        "analysis": "std",
-        "result": 428.8166330051747
-      },
+      "action": "analysis",
       "analysis": "std",
       "columns": [
         "profit"
@@ -489,6 +486,10 @@
         }
       ],
       "sql": "SELECT profit FROM orders WHERE category = ?",
+      "result": {
+        "analysis": "std",
+        "result": 428.8166330051747
+      },
       "error": null
     },
     "error": null
@@ -502,14 +503,11 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.3407,
+    "latency_seconds": 0.9878,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "result": {
-        "analysis": "median",
-        "result": 54.593999999999994
-      },
+      "action": "analysis",
       "analysis": "median",
       "columns": [
         "sales"
@@ -523,6 +521,10 @@
         }
       ],
       "sql": "SELECT sales FROM orders WHERE region = ?",
+      "result": {
+        "analysis": "median",
+        "result": 54.593999999999994
+      },
       "error": null
     },
     "error": null

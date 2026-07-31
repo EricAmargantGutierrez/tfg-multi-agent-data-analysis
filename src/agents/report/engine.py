@@ -11,13 +11,19 @@ import json
 
 from src.agents.report.prompts import SYSTEM_PROMPT
 from src.core.paths import RESULTS_DIR
+from src.core.summarize import summarize_large_rows
 from src.llm import build_llm
 
 
 def generate_report_core(history: list) -> dict:
     try:
         llm = build_llm()
-        prompt = json.dumps(history, indent=2)
+        # Each turn's raw result can contain a large row list (e.g. a
+        # boxplot/scatter/histogram result, or an unaggregated SQL
+        # query) -- summarized before serializing, or a session with a
+        # few large-row charts can blow a single request past the
+        # provider's token limit. See src/core/summarize.py.
+        prompt = json.dumps(summarize_large_rows(history), indent=2)
 
         response = llm.invoke([
             {"role": "system", "content": SYSTEM_PROMPT},

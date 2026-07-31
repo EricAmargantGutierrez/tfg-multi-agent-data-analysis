@@ -190,3 +190,40 @@ BASELINE_CHECKERS = {
     "visualization": check_baseline_sql_shaped,
     "analysis": check_baseline_analysis,
 }
+
+
+# ---------------------------------------------------------------------
+# Monolithic baseline scoring: it can choose action="sql" (rows: list of
+# lists) or action="chart" (rows: list of dicts, from sqlite3.Row) for
+# the SAME question -- both are compared against the same list-of-lists
+# ground truth SQL and Visualization questions already share (visualization
+# ground truth is generated the same way SQL's is: raw rows from the
+# reference SQL, not chart-specific). Normalizing here means the checker
+# doesn't need to know or care which action the model picked; it only
+# checks whether the underlying DATA is right, which is the actual
+# question being scored either way.
+# ---------------------------------------------------------------------
+def check_monolithic_rows(answer: dict, ground_truth: list[list]) -> bool:
+    if not answer.get("ok"):
+        return False
+    rows = answer.get("rows")
+    if not rows:
+        return False
+    row_lists = [list(r.values()) for r in rows] if isinstance(rows[0], dict) else rows
+    return rows_match(row_lists, ground_truth)
+
+
+def check_monolithic_analysis(answer: dict, ground_truth: dict) -> bool:
+    # If the model picked action="sql" instead of "analysis" for a
+    # question that structurally needs real statistics, `answer` won't
+    # have a "result" dict in the expected shape and this correctly (and
+    # informatively) returns False -- a real finding: "chose the wrong
+    # capability for this question", not a scorer bug.
+    return check_analysis(answer, ground_truth)
+
+
+MONOLITHIC_CHECKERS = {
+    "sql": check_monolithic_rows,
+    "visualization": check_monolithic_rows,
+    "analysis": check_monolithic_analysis,
+}

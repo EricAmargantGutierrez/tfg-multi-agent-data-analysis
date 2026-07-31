@@ -8,16 +8,13 @@
     "expected_agent": "viz",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.6122,
+    "latency_seconds": 1.6475,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/fb6fae8e40974053a70fe0a915698388.png",
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/4ffc77b5234d408db94e51f8d76884b4.png",
       "rows": [
-        {
-          "category": "Technology",
-          "total_sales": 836154.033
-        },
         {
           "category": "Furniture",
           "total_sales": 741999.7953
@@ -25,11 +22,15 @@
         {
           "category": "Office Supplies",
           "total_sales": 719047.032
+        },
+        {
+          "category": "Technology",
+          "total_sales": 836154.033
         }
       ],
       "spec": {
         "chart_type": "bar",
-        "sql": "SELECT category, SUM(sales) AS total_sales FROM orders GROUP BY category ORDER BY total_sales DESC",
+        "sql": "SELECT category, SUM(sales) AS total_sales FROM orders GROUP BY category",
         "title": "Total Sales by Category",
         "xlabel": "Category",
         "ylabel": "Total Sales"
@@ -47,15 +48,16 @@
     "expected_agent": "viz",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.1576,
+    "latency_seconds": 1.448,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/6a34359a8aa349d2927a6db525db85d8.png",
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/ebe034e3c963413990793a872ddd7e21.png",
       "rows": [
         {
-          "region": "West",
-          "total_profit": 108418.4489
+          "region": "Central",
+          "total_profit": 39706.3625
         },
         {
           "region": "East",
@@ -66,13 +68,13 @@
           "total_profit": 46749.4303
         },
         {
-          "region": "Central",
-          "total_profit": 39706.3625
+          "region": "West",
+          "total_profit": 108418.4489
         }
       ],
       "spec": {
         "chart_type": "bar",
-        "sql": "SELECT region, SUM(profit) AS total_profit FROM orders GROUP BY region ORDER BY total_profit DESC",
+        "sql": "SELECT region, SUM(profit) AS total_profit FROM orders GROUP BY region",
         "title": "Total Profit by Region",
         "xlabel": "Region",
         "ylabel": "Total Profit"
@@ -90,11 +92,12 @@
     "expected_agent": "viz",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.4952,
+    "latency_seconds": 1.8049,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/4d48ce8f237243cab6fc0461fcaf987f.png",
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/501131e326ec47248d6ff1aae17840a5.png",
       "rows": [
         {
           "segment": "Consumer",
@@ -129,32 +132,33 @@
     "expected_agent": "viz",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.1499,
+    "latency_seconds": 1.8757,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/0b543f2bfbef4148b1d7a370bc9709c9.png",
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/dd5e9729230b4b778bf098fd547b396a.png",
       "rows": [
         {
           "ship_mode": "First Class",
-          "avg_discount": 0.1646098829648895
-        },
-        {
-          "ship_mode": "Standard Class",
-          "avg_discount": 0.1600234584450402
+          "average_discount": 0.1646098829648895
         },
         {
           "ship_mode": "Same Day",
-          "avg_discount": 0.15239410681399632
+          "average_discount": 0.15239410681399632
         },
         {
           "ship_mode": "Second Class",
-          "avg_discount": 0.13889460154241648
+          "average_discount": 0.13889460154241648
+        },
+        {
+          "ship_mode": "Standard Class",
+          "average_discount": 0.1600234584450402
         }
       ],
       "spec": {
         "chart_type": "bar",
-        "sql": "SELECT ship_mode, AVG(discount) AS avg_discount FROM orders GROUP BY ship_mode ORDER BY avg_discount DESC",
+        "sql": "SELECT ship_mode, AVG(discount) AS average_discount FROM orders GROUP BY ship_mode",
         "title": "Average Discount by Ship Mode",
         "xlabel": "Ship Mode",
         "ylabel": "Average Discount"
@@ -172,11 +176,12 @@
     "expected_agent": "viz",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.844,
+    "latency_seconds": 1.402,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/0524fbb0319942a0bbce9508c23ba81c.png",
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/77865a41c76c443b9872a88a156778a7.png",
       "rows": [
         {
           "month": "2017-01",
@@ -229,7 +234,7 @@
       ],
       "spec": {
         "chart_type": "line",
-        "sql": "SELECT strftime('%Y-%m', order_date) AS month, SUM(sales) AS total_sales FROM orders WHERE strftime('%Y', order_date) = '2017' GROUP BY strftime('%Y-%m', order_date) ORDER BY month",
+        "sql": "SELECT strftime('%Y-%m', order_date) AS month, SUM(sales) AS total_sales FROM orders WHERE strftime('%Y', order_date) = '2017' GROUP BY month ORDER BY month",
         "title": "Monthly Sales in 2017",
         "xlabel": "Month",
         "ylabel": "Sales"
@@ -247,11 +252,12 @@
     "expected_agent": "viz",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.5702,
+    "latency_seconds": 1.7025,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/551cda9924ce4759b2c6a2e2297d9927.png",
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/ec2385506a434b6eb6fd6d628c336e1c.png",
       "rows": [
         {
           "sub_category": "Binders",
@@ -342,11 +348,12 @@
     "expected_agent": "viz",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.3247,
+    "latency_seconds": 1.949,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/bb57ddf63c344eb1b7ac4d0fd08b0d37.png",
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/959ba9c13367442bb69f9c05c42bcbbc.png",
       "rows": [
         {
           "profit": 41.9136
@@ -3369,11 +3376,12 @@
     "expected_agent": "viz",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.5341,
+    "latency_seconds": 1.8245,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/048f2ecec3e147c4b251397032f7b629.png",
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/93ec01a512ee41f3b9f6d66e6bb43798.png",
       "rows": [
         {
           "sales": 261.96
@@ -6379,8 +6387,8 @@
       "spec": {
         "chart_type": "histogram",
         "sql": "SELECT sales FROM orders WHERE sales < 500",
-        "title": "Distribution of Sales Under $500",
-        "xlabel": "Sales ($)",
+        "title": "Histogram of Sales Under $500",
+        "xlabel": "Sales",
         "ylabel": "Frequency"
       },
       "error": null
@@ -6396,11 +6404,12 @@
     "expected_agent": "viz",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.263,
+    "latency_seconds": 1.2815,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/cccec867899841cc846f8fb17e78bc76.png",
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/9975c5b0e7554afca5b36b04243cf58e.png",
       "rows": [
         {
           "discount": 0.2,
@@ -10406,7 +10415,7 @@
       "spec": {
         "chart_type": "scatter",
         "sql": "SELECT discount, profit FROM orders WHERE category = 'Technology'",
-        "title": "Discount vs Profit - Technology Category",
+        "title": "Discount vs Profit (Technology Category)",
         "xlabel": "Discount",
         "ylabel": "Profit"
       },
@@ -10421,944 +10430,69 @@
     "difficulty": "hard",
     "question": "Show a line chart of profit over time for the East region in 2017.",
     "expected_agent": "viz",
-    "correct": false,
+    "correct": true,
     "ok": true,
-    "latency_seconds": 4.1442,
+    "latency_seconds": 1.4687,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/8326f6496db842aabb3af0c7fb516f71.png",
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/a9c9e3dcef4845e697e0aa0f4b098817.png",
       "rows": [
         {
-          "order_date": "2017-01-01",
-          "total_profit": 8.5568
+          "month": "2017-01",
+          "total_profit": 355.8694
         },
         {
-          "order_date": "2017-01-09",
-          "total_profit": -228.7425
+          "month": "2017-02",
+          "total_profit": 494.4531
         },
         {
-          "order_date": "2017-01-12",
-          "total_profit": 35.064
+          "month": "2017-03",
+          "total_profit": 1188.1279
         },
         {
-          "order_date": "2017-01-15",
-          "total_profit": 322.3862
+          "month": "2017-04",
+          "total_profit": 1199.5098
         },
         {
-          "order_date": "2017-01-19",
-          "total_profit": 53.3043
+          "month": "2017-05",
+          "total_profit": 843.9141
         },
         {
-          "order_date": "2017-01-20",
-          "total_profit": 3.3302
+          "month": "2017-06",
+          "total_profit": 3101.7598
         },
         {
-          "order_date": "2017-01-27",
-          "total_profit": 1.6239000000000037
+          "month": "2017-07",
+          "total_profit": 1118.1236999999999
         },
         {
-          "order_date": "2017-01-28",
-          "total_profit": 157.4685
+          "month": "2017-08",
+          "total_profit": 2182.9194
         },
         {
-          "order_date": "2017-01-29",
-          "total_profit": 2.8779999999999997
+          "month": "2017-09",
+          "total_profit": 2492.6463
         },
         {
-          "order_date": "2017-02-02",
-          "total_profit": 24.343200000000003
+          "month": "2017-10",
+          "total_profit": 7637.8817
         },
         {
-          "order_date": "2017-02-03",
-          "total_profit": 31.510800000000003
+          "month": "2017-11",
+          "total_profit": 9390.2568
         },
         {
-          "order_date": "2017-02-04",
-          "total_profit": 8.4942
-        },
-        {
-          "order_date": "2017-02-06",
-          "total_profit": 111.66739999999999
-        },
-        {
-          "order_date": "2017-02-10",
-          "total_profit": 11.3288
-        },
-        {
-          "order_date": "2017-02-11",
-          "total_profit": 6.2468
-        },
-        {
-          "order_date": "2017-02-13",
-          "total_profit": 18.0804
-        },
-        {
-          "order_date": "2017-02-16",
-          "total_profit": 106.6877
-        },
-        {
-          "order_date": "2017-02-17",
-          "total_profit": -81.5233
-        },
-        {
-          "order_date": "2017-02-24",
-          "total_profit": 249.3929
-        },
-        {
-          "order_date": "2017-02-28",
-          "total_profit": 8.2242
-        },
-        {
-          "order_date": "2017-03-02",
-          "total_profit": 165.3548
-        },
-        {
-          "order_date": "2017-03-06",
-          "total_profit": 28.6879
-        },
-        {
-          "order_date": "2017-03-07",
-          "total_profit": 56.111399999999996
-        },
-        {
-          "order_date": "2017-03-10",
-          "total_profit": -6.566399999999999
-        },
-        {
-          "order_date": "2017-03-11",
-          "total_profit": -196.384
-        },
-        {
-          "order_date": "2017-03-12",
-          "total_profit": 32.1678
-        },
-        {
-          "order_date": "2017-03-13",
-          "total_profit": 305.7528
-        },
-        {
-          "order_date": "2017-03-16",
-          "total_profit": -37.4478
-        },
-        {
-          "order_date": "2017-03-17",
-          "total_profit": 140.9972
-        },
-        {
-          "order_date": "2017-03-19",
-          "total_profit": 15.7124
-        },
-        {
-          "order_date": "2017-03-20",
-          "total_profit": 65.962
-        },
-        {
-          "order_date": "2017-03-21",
-          "total_profit": 2.8782
-        },
-        {
-          "order_date": "2017-03-23",
-          "total_profit": 28.935000000000002
-        },
-        {
-          "order_date": "2017-03-24",
-          "total_profit": 339.3148
-        },
-        {
-          "order_date": "2017-03-25",
-          "total_profit": 2.9835
-        },
-        {
-          "order_date": "2017-03-26",
-          "total_profit": 4.612399999999997
-        },
-        {
-          "order_date": "2017-03-27",
-          "total_profit": 1.5008
-        },
-        {
-          "order_date": "2017-03-30",
-          "total_profit": -4.7625
-        },
-        {
-          "order_date": "2017-03-31",
-          "total_profit": 242.3176
-        },
-        {
-          "order_date": "2017-04-01",
-          "total_profit": 19.3185
-        },
-        {
-          "order_date": "2017-04-02",
-          "total_profit": 2.8912
-        },
-        {
-          "order_date": "2017-04-03",
-          "total_profit": 7.6416
-        },
-        {
-          "order_date": "2017-04-04",
-          "total_profit": 62.197700000000005
-        },
-        {
-          "order_date": "2017-04-08",
-          "total_profit": 632.4618999999999
-        },
-        {
-          "order_date": "2017-04-09",
-          "total_profit": 111.6667
-        },
-        {
-          "order_date": "2017-04-10",
-          "total_profit": 149.0568
-        },
-        {
-          "order_date": "2017-04-11",
-          "total_profit": -3.2788000000000004
-        },
-        {
-          "order_date": "2017-04-12",
-          "total_profit": 31.347
-        },
-        {
-          "order_date": "2017-04-13",
-          "total_profit": 1.683
-        },
-        {
-          "order_date": "2017-04-14",
-          "total_profit": 61.614900000000006
-        },
-        {
-          "order_date": "2017-04-16",
-          "total_profit": -10.054
-        },
-        {
-          "order_date": "2017-04-17",
-          "total_profit": 5.2773
-        },
-        {
-          "order_date": "2017-04-20",
-          "total_profit": 6.9111
-        },
-        {
-          "order_date": "2017-04-21",
-          "total_profit": 227.205
-        },
-        {
-          "order_date": "2017-04-22",
-          "total_profit": 0.0
-        },
-        {
-          "order_date": "2017-04-23",
-          "total_profit": 81.578
-        },
-        {
-          "order_date": "2017-04-24",
-          "total_profit": 10.5548
-        },
-        {
-          "order_date": "2017-04-28",
-          "total_profit": 1.504
-        },
-        {
-          "order_date": "2017-04-29",
-          "total_profit": -67.4841
-        },
-        {
-          "order_date": "2017-04-30",
-          "total_profit": -132.5828
-        },
-        {
-          "order_date": "2017-05-02",
-          "total_profit": 12.993
-        },
-        {
-          "order_date": "2017-05-03",
-          "total_profit": -164.4722
-        },
-        {
-          "order_date": "2017-05-04",
-          "total_profit": -10.9857
-        },
-        {
-          "order_date": "2017-05-05",
-          "total_profit": 3.2064
-        },
-        {
-          "order_date": "2017-05-06",
-          "total_profit": 29.6
-        },
-        {
-          "order_date": "2017-05-08",
-          "total_profit": -25.839
-        },
-        {
-          "order_date": "2017-05-11",
-          "total_profit": 12.7368
-        },
-        {
-          "order_date": "2017-05-12",
-          "total_profit": 102.959
-        },
-        {
-          "order_date": "2017-05-13",
-          "total_profit": 25.328999999999994
-        },
-        {
-          "order_date": "2017-05-14",
-          "total_profit": 200.3118
-        },
-        {
-          "order_date": "2017-05-16",
-          "total_profit": -55.256
-        },
-        {
-          "order_date": "2017-05-18",
-          "total_profit": 6.388299999999999
-        },
-        {
-          "order_date": "2017-05-19",
-          "total_profit": 313.0254
-        },
-        {
-          "order_date": "2017-05-21",
-          "total_profit": 78.0183
-        },
-        {
-          "order_date": "2017-05-25",
-          "total_profit": 228.1843
-        },
-        {
-          "order_date": "2017-05-28",
-          "total_profit": 87.7147
-        },
-        {
-          "order_date": "2017-06-01",
-          "total_profit": -102.7319
-        },
-        {
-          "order_date": "2017-06-02",
-          "total_profit": 1.7574999999999998
-        },
-        {
-          "order_date": "2017-06-03",
-          "total_profit": -57.02040000000001
-        },
-        {
-          "order_date": "2017-06-08",
-          "total_profit": 5.0764
-        },
-        {
-          "order_date": "2017-06-10",
-          "total_profit": 19.9185
-        },
-        {
-          "order_date": "2017-06-12",
-          "total_profit": 192.4886
-        },
-        {
-          "order_date": "2017-06-16",
-          "total_profit": 109.7832
-        },
-        {
-          "order_date": "2017-06-17",
-          "total_profit": 1676.3121999999998
-        },
-        {
-          "order_date": "2017-06-19",
-          "total_profit": 31.877899999999997
-        },
-        {
-          "order_date": "2017-06-20",
-          "total_profit": 121.87519999999999
-        },
-        {
-          "order_date": "2017-06-21",
-          "total_profit": 230.95919999999998
-        },
-        {
-          "order_date": "2017-06-22",
-          "total_profit": -30.7927
-        },
-        {
-          "order_date": "2017-06-24",
-          "total_profit": 137.6095
-        },
-        {
-          "order_date": "2017-06-25",
-          "total_profit": -5.0098
-        },
-        {
-          "order_date": "2017-06-26",
-          "total_profit": 472.798
-        },
-        {
-          "order_date": "2017-06-27",
-          "total_profit": 31.941
-        },
-        {
-          "order_date": "2017-06-29",
-          "total_profit": 201.79160000000002
-        },
-        {
-          "order_date": "2017-06-30",
-          "total_profit": 63.12580000000001
-        },
-        {
-          "order_date": "2017-07-03",
-          "total_profit": 49.68239999999999
-        },
-        {
-          "order_date": "2017-07-06",
-          "total_profit": 3.5616999999999996
-        },
-        {
-          "order_date": "2017-07-07",
-          "total_profit": 37.284099999999995
-        },
-        {
-          "order_date": "2017-07-08",
-          "total_profit": 146.1988
-        },
-        {
-          "order_date": "2017-07-09",
-          "total_profit": 262.18539999999996
-        },
-        {
-          "order_date": "2017-07-11",
-          "total_profit": 17.238
-        },
-        {
-          "order_date": "2017-07-12",
-          "total_profit": 1.1925
-        },
-        {
-          "order_date": "2017-07-13",
-          "total_profit": 12.080300000000001
-        },
-        {
-          "order_date": "2017-07-14",
-          "total_profit": -201.0476
-        },
-        {
-          "order_date": "2017-07-15",
-          "total_profit": 71.472
-        },
-        {
-          "order_date": "2017-07-16",
-          "total_profit": -1.0196
-        },
-        {
-          "order_date": "2017-07-17",
-          "total_profit": 129.9066
-        },
-        {
-          "order_date": "2017-07-18",
-          "total_profit": 56.948499999999996
-        },
-        {
-          "order_date": "2017-07-20",
-          "total_profit": 63.1536
-        },
-        {
-          "order_date": "2017-07-21",
-          "total_profit": -42.53
-        },
-        {
-          "order_date": "2017-07-22",
-          "total_profit": 14.0859
-        },
-        {
-          "order_date": "2017-07-23",
-          "total_profit": 28.488599999999998
-        },
-        {
-          "order_date": "2017-07-25",
-          "total_profit": -45.0461
-        },
-        {
-          "order_date": "2017-07-27",
-          "total_profit": 140.00029999999998
-        },
-        {
-          "order_date": "2017-07-29",
-          "total_profit": 22.2444
-        },
-        {
-          "order_date": "2017-07-30",
-          "total_profit": -10.5672
-        },
-        {
-          "order_date": "2017-07-31",
-          "total_profit": 362.61109999999996
-        },
-        {
-          "order_date": "2017-08-03",
-          "total_profit": 5.369
-        },
-        {
-          "order_date": "2017-08-06",
-          "total_profit": 348.7122
-        },
-        {
-          "order_date": "2017-08-07",
-          "total_profit": 31.6896
-        },
-        {
-          "order_date": "2017-08-11",
-          "total_profit": 12.4416
-        },
-        {
-          "order_date": "2017-08-12",
-          "total_profit": 438.408
-        },
-        {
-          "order_date": "2017-08-13",
-          "total_profit": 5.9211
-        },
-        {
-          "order_date": "2017-08-15",
-          "total_profit": -312.3676
-        },
-        {
-          "order_date": "2017-08-17",
-          "total_profit": -230.85659999999996
-        },
-        {
-          "order_date": "2017-08-18",
-          "total_profit": 91.7003
-        },
-        {
-          "order_date": "2017-08-19",
-          "total_profit": 191.6865
-        },
-        {
-          "order_date": "2017-08-20",
-          "total_profit": 10.4754
-        },
-        {
-          "order_date": "2017-08-21",
-          "total_profit": 1637.3138000000001
-        },
-        {
-          "order_date": "2017-08-22",
-          "total_profit": -83.8752
-        },
-        {
-          "order_date": "2017-08-24",
-          "total_profit": 77.406
-        },
-        {
-          "order_date": "2017-08-25",
-          "total_profit": -87.1392
-        },
-        {
-          "order_date": "2017-08-27",
-          "total_profit": 45.32890000000002
-        },
-        {
-          "order_date": "2017-08-29",
-          "total_profit": 0.7056
-        },
-        {
-          "order_date": "2017-09-01",
-          "total_profit": 39.066
-        },
-        {
-          "order_date": "2017-09-02",
-          "total_profit": 419.8839
-        },
-        {
-          "order_date": "2017-09-03",
-          "total_profit": 209.5822
-        },
-        {
-          "order_date": "2017-09-04",
-          "total_profit": 25.9378
-        },
-        {
-          "order_date": "2017-09-07",
-          "total_profit": 177.3817
-        },
-        {
-          "order_date": "2017-09-08",
-          "total_profit": 4.8290999999999995
-        },
-        {
-          "order_date": "2017-09-09",
-          "total_profit": -352.0784
-        },
-        {
-          "order_date": "2017-09-10",
-          "total_profit": -6.078800000000001
-        },
-        {
-          "order_date": "2017-09-12",
-          "total_profit": 136.4902
-        },
-        {
-          "order_date": "2017-09-14",
-          "total_profit": 321.9833
-        },
-        {
-          "order_date": "2017-09-15",
-          "total_profit": 637.2975
-        },
-        {
-          "order_date": "2017-09-16",
-          "total_profit": -365.25320000000005
-        },
-        {
-          "order_date": "2017-09-17",
-          "total_profit": 235.134
-        },
-        {
-          "order_date": "2017-09-18",
-          "total_profit": 12.571800000000001
-        },
-        {
-          "order_date": "2017-09-19",
-          "total_profit": 12.1626
-        },
-        {
-          "order_date": "2017-09-20",
-          "total_profit": 1571.7964
-        },
-        {
-          "order_date": "2017-09-21",
-          "total_profit": -1.5264
-        },
-        {
-          "order_date": "2017-09-22",
-          "total_profit": -709.5388
-        },
-        {
-          "order_date": "2017-09-24",
-          "total_profit": 12.151500000000006
-        },
-        {
-          "order_date": "2017-09-25",
-          "total_profit": 115.50880000000001
-        },
-        {
-          "order_date": "2017-09-28",
-          "total_profit": -1.8585
-        },
-        {
-          "order_date": "2017-09-29",
-          "total_profit": -90.5617
-        },
-        {
-          "order_date": "2017-09-30",
-          "total_profit": 87.7653
-        },
-        {
-          "order_date": "2017-10-01",
-          "total_profit": 767.2005
-        },
-        {
-          "order_date": "2017-10-02",
-          "total_profit": 40.2438
-        },
-        {
-          "order_date": "2017-10-03",
-          "total_profit": 97.7607
-        },
-        {
-          "order_date": "2017-10-04",
-          "total_profit": 8.5914
-        },
-        {
-          "order_date": "2017-10-05",
-          "total_profit": 1427.1478000000002
-        },
-        {
-          "order_date": "2017-10-06",
-          "total_profit": 225.3724
-        },
-        {
-          "order_date": "2017-10-08",
-          "total_profit": 14.3568
-        },
-        {
-          "order_date": "2017-10-09",
-          "total_profit": 12.862000000000002
-        },
-        {
-          "order_date": "2017-10-12",
-          "total_profit": 88.14900000000002
-        },
-        {
-          "order_date": "2017-10-13",
-          "total_profit": 278.0212
-        },
-        {
-          "order_date": "2017-10-14",
-          "total_profit": 18.4534
-        },
-        {
-          "order_date": "2017-10-15",
-          "total_profit": 6.003
-        },
-        {
-          "order_date": "2017-10-16",
-          "total_profit": 175.136
-        },
-        {
-          "order_date": "2017-10-17",
-          "total_profit": 15.7132
-        },
-        {
-          "order_date": "2017-10-19",
-          "total_profit": -16.9038
-        },
-        {
-          "order_date": "2017-10-20",
-          "total_profit": 18.67470000000001
-        },
-        {
-          "order_date": "2017-10-21",
-          "total_profit": -68.9026
-        },
-        {
-          "order_date": "2017-10-22",
-          "total_profit": 4601.7137
-        },
-        {
-          "order_date": "2017-10-23",
-          "total_profit": 2.4832000000000005
-        },
-        {
-          "order_date": "2017-10-26",
-          "total_profit": -81.46300000000001
-        },
-        {
-          "order_date": "2017-10-28",
-          "total_profit": 34.2971
-        },
-        {
-          "order_date": "2017-10-29",
-          "total_profit": 22.5408
-        },
-        {
-          "order_date": "2017-10-30",
-          "total_profit": -49.569599999999994
-        },
-        {
-          "order_date": "2017-11-01",
-          "total_profit": 111.1411
-        },
-        {
-          "order_date": "2017-11-02",
-          "total_profit": -298.6003
-        },
-        {
-          "order_date": "2017-11-03",
-          "total_profit": -7.2722999999999995
-        },
-        {
-          "order_date": "2017-11-04",
-          "total_profit": -49.9172
-        },
-        {
-          "order_date": "2017-11-05",
-          "total_profit": 290.839
-        },
-        {
-          "order_date": "2017-11-06",
-          "total_profit": 147.1894
-        },
-        {
-          "order_date": "2017-11-07",
-          "total_profit": -132.6278
-        },
-        {
-          "order_date": "2017-11-08",
-          "total_profit": 145.392
-        },
-        {
-          "order_date": "2017-11-09",
-          "total_profit": 1031.9044
-        },
-        {
-          "order_date": "2017-11-10",
-          "total_profit": 439.2271
-        },
-        {
-          "order_date": "2017-11-11",
-          "total_profit": 3.6288
-        },
-        {
-          "order_date": "2017-11-12",
-          "total_profit": -136.0395
-        },
-        {
-          "order_date": "2017-11-13",
-          "total_profit": -653.4591
-        },
-        {
-          "order_date": "2017-11-14",
-          "total_profit": 41.272800000000004
-        },
-        {
-          "order_date": "2017-11-16",
-          "total_profit": 180.77700000000002
-        },
-        {
-          "order_date": "2017-11-17",
-          "total_profit": 5519.818
-        },
-        {
-          "order_date": "2017-11-18",
-          "total_profit": 44.4983
-        },
-        {
-          "order_date": "2017-11-19",
-          "total_profit": 597.8951999999999
-        },
-        {
-          "order_date": "2017-11-20",
-          "total_profit": 555.2625
-        },
-        {
-          "order_date": "2017-11-21",
-          "total_profit": 17.8118
-        },
-        {
-          "order_date": "2017-11-23",
-          "total_profit": 1.2336
-        },
-        {
-          "order_date": "2017-11-24",
-          "total_profit": 321.2883
-        },
-        {
-          "order_date": "2017-11-26",
-          "total_profit": 343.131
-        },
-        {
-          "order_date": "2017-11-27",
-          "total_profit": 38.2827
-        },
-        {
-          "order_date": "2017-11-28",
-          "total_profit": 268.4059
-        },
-        {
-          "order_date": "2017-11-30",
-          "total_profit": 569.1741
-        },
-        {
-          "order_date": "2017-12-01",
-          "total_profit": 314.0094
-        },
-        {
-          "order_date": "2017-12-02",
-          "total_profit": -121.65349999999998
-        },
-        {
-          "order_date": "2017-12-03",
-          "total_profit": 72.9897
-        },
-        {
-          "order_date": "2017-12-04",
-          "total_profit": 63.6899
-        },
-        {
-          "order_date": "2017-12-05",
-          "total_profit": 191.33079999999998
-        },
-        {
-          "order_date": "2017-12-07",
-          "total_profit": 25.5968
-        },
-        {
-          "order_date": "2017-12-08",
-          "total_profit": 135.7504
-        },
-        {
-          "order_date": "2017-12-09",
-          "total_profit": 6.444600000000001
-        },
-        {
-          "order_date": "2017-12-10",
-          "total_profit": 172.0673
-        },
-        {
-          "order_date": "2017-12-11",
-          "total_profit": 416.6457
-        },
-        {
-          "order_date": "2017-12-13",
-          "total_profit": 7.1994
-        },
-        {
-          "order_date": "2017-12-14",
-          "total_profit": 432.3557
-        },
-        {
-          "order_date": "2017-12-16",
-          "total_profit": 10.43
-        },
-        {
-          "order_date": "2017-12-17",
-          "total_profit": 77.41460000000001
-        },
-        {
-          "order_date": "2017-12-18",
-          "total_profit": 719.0751
-        },
-        {
-          "order_date": "2017-12-20",
-          "total_profit": 176.91150000000002
-        },
-        {
-          "order_date": "2017-12-21",
-          "total_profit": 178.99779999999998
-        },
-        {
-          "order_date": "2017-12-22",
-          "total_profit": 178.76430000000002
-        },
-        {
-          "order_date": "2017-12-23",
-          "total_profit": 48.0951
-        },
-        {
-          "order_date": "2017-12-24",
-          "total_profit": 90.7573
-        },
-        {
-          "order_date": "2017-12-25",
-          "total_profit": -31.2132
-        },
-        {
-          "order_date": "2017-12-26",
-          "total_profit": -2.61
-        },
-        {
-          "order_date": "2017-12-27",
-          "total_profit": -31.974200000000003
-        },
-        {
-          "order_date": "2017-12-28",
-          "total_profit": 56.4337
-        },
-        {
-          "order_date": "2017-12-29",
-          "total_profit": 2.9547
-        },
-        {
-          "order_date": "2017-12-30",
-          "total_profit": 34.6365
+          "month": "2017-12",
+          "total_profit": 3225.0994
         }
       ],
       "spec": {
         "chart_type": "line",
-        "sql": "SELECT order_date, SUM(profit) AS total_profit FROM orders WHERE region = 'East' AND strftime('%Y', order_date) = '2017' GROUP BY order_date ORDER BY order_date",
-        "title": "Profit Over Time - East Region (2017)",
-        "xlabel": "Date",
+        "sql": "SELECT strftime('%Y-%m', order_date) AS month, SUM(profit) AS total_profit FROM orders WHERE region = 'East' AND strftime('%Y', order_date) = '2017' GROUP BY month ORDER BY month",
+        "title": "Profit Over Time - East Region 2017",
+        "xlabel": "Month",
         "ylabel": "Profit"
       },
       "error": null

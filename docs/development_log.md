@@ -2,9 +2,7 @@
 
 **Project:** Multi-Agent Conversational Data Analysis System
 
-
 **Author:** Eric Amargant Gutiérrez
-
 
 **Supervisor:** Piotr Przybyła
 
@@ -25,109 +23,49 @@ Completed tasks:
 - Defined the project objectives.
 - Selected the Superstore dataset as the experimental dataset.
 - Designed the initial project structure.
-- Selected the main technologies:
-  - Python
-  - LangGraph
-  - FastMCP
-  - SQLite
-  - LangChain
+- Selected the main technologies: Python, LangGraph, FastMCP, SQLite, LangChain.
 
 ---
 
 # Milestone 2 — Database
 
-Implemented the data layer.
-
-Completed tasks:
-
-- Dataset validation.
-- Automatic ingestion pipeline.
-- Database normalization.
-- SQLite database creation.
+Implemented the data layer: dataset validation, automatic ingestion pipeline, database normalization, SQLite database creation.
 
 ---
 
 # Milestone 3 — LLM Integration
 
-Implemented a provider-independent LLM interface.
-
-Currently supported providers:
-
-- Groq
-- Ollama
-- OpenAI
-- Anthropic
-
-The active provider can be selected through the project configuration.
+Implemented a provider-independent LLM interface. Currently supported providers: Groq, Ollama, OpenAI, Anthropic. The active provider is selected via `TFG_MODEL` in project configuration.
 
 ---
 
 # Milestone 4 — Multi-Agent Architecture
 
-Implemented the complete multi-agent architecture composed of four independent MCP agents.
-
-- SQL Agent
-- Analysis Agent
-- Visualization Agent
-- Report Agent
-
-Each agent exposes a single MCP tool and has a clearly defined responsibility.
+Implemented the complete multi-agent architecture composed of four independent MCP agents: SQL Agent, Analysis Agent, Visualization Agent, Report Agent. Each agent exposes a single MCP tool and has a clearly defined responsibility.
 
 ---
 
 # Milestone 5 — LangGraph Orchestrator
 
-Implemented the orchestration layer.
-
-Completed tasks:
-
-- LLM-based routing.
-- MCP agent invocation.
-- Conversation state management.
-- Conversation history management.
-- Centralized natural-language narration of agent outputs.
+Implemented the orchestration layer: LLM-based routing, MCP agent invocation, conversation state management, conversation history management, centralized natural-language narration of agent outputs.
 
 ---
 
 # Milestone 6 — SQL Agent
 
-Implemented:
-
-- Natural language to SQL generation.
-- SQLite schema awareness.
-- Read-only SQL validation.
-- Automatic retry after SQL generation or execution errors.
+Implemented natural language to SQL generation, SQLite schema awareness, read-only SQL validation, automatic retry after SQL generation or execution errors.
 
 ---
 
 # Milestone 7 — Analysis Agent
 
-Implemented a dedicated statistical analysis agent.
-
-Completed features:
-
-- Descriptive statistics.
-- Correlation analysis.
-- Covariance computation.
-- Independent t-tests.
-- Linear regression.
-- Principal Component Analysis (PCA).
-- K-Means clustering.
-
-The agent retrieves the required data from SQLite, performs the requested computation using Python scientific libraries, and returns structured results to the orchestrator.
+Implemented a dedicated statistical analysis agent: descriptive statistics, correlation, covariance, independent t-tests, linear regression, PCA, K-Means clustering. The agent retrieves data from SQLite, computes using Python scientific libraries, and returns structured results.
 
 ---
 
 # Milestone 8 — Visualization Agent
 
-Implemented automatic chart generation from natural language requests.
-
-Completed tasks:
-
-- Automatic SQL generation.
-- Data retrieval.
-- Matplotlib chart generation.
-- Figure storage in the `results/` directory.
+Implemented automatic chart generation from natural language requests: automatic SQL generation, data retrieval, Matplotlib chart generation, figure storage in `results/`.
 
 ---
 
@@ -139,200 +77,189 @@ Implemented automatic generation of Markdown reports summarizing each interactio
 
 # Milestone 10 — Interactive Interface
 
-Implemented a command-line conversational interface (REPL) allowing users to interact with the complete system.
-
-The REPL supports conversational sessions and automatically generates a session report when the interaction finishes.
+Implemented a command-line conversational interface (REPL) allowing users to interact with the complete system, including automatic session report generation.
 
 ---
 
 # Milestone 11 — Architecture Cleanup & Correctness Fixes
 
-A review of the Phase 1 implementation surfaced several issues that were
-addressed before moving to Phase 2 (evaluation), since correctness bugs
-found during evaluation would be far more expensive to trace back.
+Reviewed the Phase 1 implementation before moving to evaluation. Structural changes: consistent `agent.py` + `engine.py` + `prompts.py` layout per agent; centralized all SQLite access in `src/core/db.py` (previously inconsistent read-only/read-write access across agents); extracted the shared self-correction loop (`src/core/retry.py`) and JSON-parsing helper (`src/core/llm_json.py`); introduced Pydantic models (`src/models/schemas.py`).
 
-Structural changes:
+Correctness fixes: Analysis Agent filtering (previously no `WHERE` clause was possible at all — any filtered question silently computed over the entire table); router keyword ordering bug; SQL injection defense-in-depth (structural rejection of stacked statements); ingestion date-handling hardening; removed three stale test files referencing code that no longer existed.
 
-- Reorganized each agent into a consistent `agent.py` (MCP wrapper) +
-  `engine.py` (core logic) + `prompts.py` (system prompt) layout. The
-  Report Agent previously kept its logic inline in the MCP wrapper; it
-  now follows the same pattern as the other three.
-- Centralized all SQLite access into a single module (`src/core/db.py`).
-  Previously, three agents each opened their own connection
-  independently and inconsistently: the SQL Agent opened the database
-  read-only, but the Visualization and Analysis Agents opened it
-  read-write. All three now go through the same read-only chokepoint.
-- Extracted the self-correcting retry loop (previously duplicated,
-  nearly identically, in all three data agents) into a single shared
-  helper (`src/core/retry.py`).
-- Extracted the "parse LLM JSON output" logic (previously duplicated in
-  two agents and reimplemented a third time, differently, in the router)
-  into a single shared helper (`src/core/llm_json.py`).
-- Introduced Pydantic models (`src/models/schemas.py`) for
-  LLM-produced structured objects (analysis plans, chart specs, routing
-  decisions), replacing hand-rolled manual key checks.
-
-Correctness fixes:
-
-- **Analysis Agent filtering.** The Analysis Agent could previously only
-  select whole columns with no `WHERE` clause, so any question with a
-  condition in it (e.g. "average profit in the West region") silently
-  computed over the entire table and returned a confidently wrong
-  answer with no error. Fixed by adding a `filters` field to the
-  planner's output schema, compiled into a parameterized SQL `WHERE`
-  clause (filter values are bound as SQL parameters, never
-  string-interpolated).
-- **Router keyword ordering.** The keyword-based routing fallback
-  checked for statistical terms before checking for report intent, so a
-  question like "generate a report showing the average profit" was
-  misrouted to the Analysis Agent instead of the Report Agent. Fixed by
-  checking report intent first.
-- **SQL injection defense-in-depth.** The read-only SQL guard relied on
-  a forbidden-keyword scan to incidentally catch stacked statements
-  (e.g. `SELECT 1; DROP TABLE orders` was blocked only because `DROP`
-  happens to be a forbidden keyword). Added an explicit check that
-  rejects any additional statement by structure.
-- **Ingestion date handling.** Hardened `src/ingest.py` with an explicit
-  date format (`%m/%d/%Y`) instead of relying on pandas to infer it, and
-  added a post-ingestion sanity assertion that a year-grouped date query
-  returns real, non-null totals before ingestion is allowed to succeed.
-- Removed three stale test files (`test_database.py`, `test_settings.py`,
-  `test_sql_agent.py`) that referenced classes and modules no longer
-  present in the codebase (`DatabaseManager`, `Settings.llm_provider`,
-  a `SQLAgent` class) — confirmed via `ImportError`/`AttributeError`
-  before removal, not assumed.
-
-The full file-by-file rationale is recorded in `MIGRATION.md`. The
-restructured system was verified end-to-end (stub LLM + real SQLite +
-real FastMCP memory transport) before being merged, and confirmed again
-live against the real dataset and a live model afterward.
-
-Test suite: 51 automated tests (`tests/`), entirely offline, no API keys
-required, at the end of this milestone.
+Test suite: 51 automated tests, offline, at the end of this milestone.
 
 ---
 
-# Phase 1 Completed
+# Milestone 12 — First Evaluation Round (Groq)
 
-Phase 1 of the project has been successfully completed, including the
-Milestone 11 cleanup above.
+Designed and executed the initial empirical evaluation: 55 questions (30 SQL, 15 Analysis, 10 Visualization) against a minimal single-agent baseline, on Groq `llama-3.3-70b`.
 
-The implemented system includes:
+A real bug was found and fixed via this process: `compute_regression` selected its prediction target by column-list position rather than an explicit field — the live planner's natural column ordering silently swapped the regression target, producing a low-r² wrong answer with no error. Fixed by adding an explicit `target` field to `AnalysisPlan`.
 
-- complete multi-agent architecture;
-- MCP-based communication;
-- LangGraph orchestration;
-- conversational interaction;
-- LLM-based routing;
-- SQL generation and execution;
-- statistical analysis and machine learning, including column-level filtering;
-- automatic visualization generation;
-- centralized natural-language response generation;
-- automatic session report generation;
-- support for multiple LLM providers;
-- centralized, read-only database access;
-- an automated, offline test suite.
+Results: SQL 100% vs. baseline 33.3% (+66.7pp); Analysis 100% vs. baseline 20.0% (+80.0pp); Visualization 100% vs. baseline 80.0% (+20.0pp); routing accuracy 90.9%. Detailed failure analysis found that most of the SQL baseline's apparent gap was a prompt-discipline artifact (missing output-value convention), not a raw capability gap, while Analysis's gap was genuine and structural (SQLite cannot compute PCA/K-Means/regression). Test suite: 78 tests.
 
 ---
 
-# Milestone 12 — Evaluation
+# Milestone 13 — Evaluation Consolidation, New Baseline, Bug Fixes, Multi-Provider Final Run
 
-Designed and executed the full empirical evaluation of the multi-agent
-architecture against a single-agent baseline, per the evaluation plan in
-the project proposal.
+Substantial follow-up work before treating the evaluation as complete.
 
-## Benchmark design
+## Evaluation harness consolidation
 
-- **55 questions** across three categories: 30 SQL, 15 Analysis, 10
-  Visualization, each spanning easy/medium/hard difficulty. The SQL set
-  was written first; Analysis and Visualization sets were added to cover
-  every capability implemented in `statistics.py` and every chart type
-  supported by the Visualization Agent.
-- **Ground truth computed by execution, never by LLM.** SQL and
-  Visualization ground truth is generated by running hand-written
-  reference SQL directly against the database. Analysis ground truth is
-  generated by running a hand-written reference plan (columns + filters
-  + target) through the same trusted, deterministic `statistics.py`
-  functions the real agent uses — never by asking an LLM what the
-  "right" answer is, which would be circular.
-- **Scoring is on structured output only, never narrated prose** — every
-  agent already returns structured data (rows, or a statistics result
-  dict) before the narration step touches it, so comparison is a plain
-  numeric-tolerance / order-independent check, with no ambiguity from
-  how an LLM might phrase a correct answer.
-- **Baseline design.** The same LLM, given the schema and the question,
-  with a deliberately minimal, generic prompt ("write one SQL query") —
-  not the real agents' tuned prompts. This isolates the value of the
-  full agent architecture (specialized prompts + retry + real Python
-  execution for statistics) rather than just measuring "does a better
-  prompt help."
-- **Routing accuracy measured independently** of answer correctness: for
-  every question, `router.route()` is checked against the question's
-  expected agent, separately from whether the chosen agent then answered
-  correctly.
+The original evaluation harness had grown to 7 separate benchmark scripts,
+with real duplication: routing accuracy and pipeline latency were each
+re-asking the same 55 questions independently, both through
+`graph.answer()`. Consolidated to 3 files:
+- `correctness_benchmark.py` — replaces 5 previous files (per-category
+  correctness scripts + the baseline runner), now also runs the new
+  monolithic side (see below).
+- `pipeline_benchmark.py` — merges the former separate routing-accuracy
+  and pipeline-latency scripts into one pass, since both were measuring
+  properties of the same `graph.answer()` call.
+- `report_agent_benchmark.py` — unchanged in scope, hardened for
+  resumability (see below).
 
-## A real bug found and fixed via this process
+## A second, stronger baseline: the monolithic agent
 
-Building the evaluation surfaced a genuine correctness bug, not just a
-benchmark artifact: `compute_regression` selected the prediction target
-(y) by taking whatever column happened to be *last* in the planner's
-column list — an implicit convention the LLM had no way of knowing.
-Asked to "predict profit from sales, discount, and quantity," the live
-planner naturally listed columns in question order (profit first), which
-silently swapped the regression target and produced a low-r² result with
-no error. Fixed by adding an explicit `target` field to `AnalysisPlan`
-(Pydantic-validated, required for `regression`), so the target is named,
-not inferred from position. Verified against the exact failure scenario
-before and after the fix, and confirmed the retry loop correctly
-self-corrects if the LLM forgets to include it.
+`src/eval/baselines/monolithic_agent.py` — a single agent with access to
+all three real capabilities (SQL execution, statistics, chart rendering),
+deciding for itself which to use, versus the four specialized agents +
+router. This isolates a different question than the minimal baseline:
+not "does having tools help at all" but "does splitting those tools
+across separate agents add value, beyond just having them available to
+one agent." Built to reuse the exact same execution code as the real
+agents (`src.core.db`, `statistics.py`, `viz.engine.render()` — imported
+directly, not reimplemented).
 
-## Results
+**A methodological flaw was found and corrected during this work**: the
+first version of the monolithic agent's system prompt was a hand-written
+206-word summary of the specialized agents' rules, versus their real
+combined ~845 words — missing entire sections (SQL's worked examples,
+Viz's warning against unsupported date functions, Analysis's filter
+examples). This would have confounded "architecture" with "less detailed
+prompting" in any resulting gap. Fixed by importing the three real system
+prompts verbatim and concatenating them, so the monolithic agent has
+provably the same instructions as the real agents, differing only in
+architecture.
 
-| Category | System correctness | Baseline correctness | Architecture value |
-|---|---|---|---|
-| SQL | 100% (30/30) | 33.3% | +66.7pp |
-| Analysis | 100% (15/15) | 20.0%\* | +80.0pp |
-| Visualization | 100% (10/10) | 80.0% | +20.0pp |
+## Two real production bugs found and fixed
 
-Routing accuracy across all 55 questions: **90.9%** (5 misroutes, all
-between `sql` and `analysis` on questions with ambiguous phrasing).
+1. **Token-limit bug in narration and report generation** (see
+   `docs/architecture.md`, "Protecting the LLM from its own agents'
+   output size"). Found via a real `413 Request too large` error on a
+   1,000-row scatter chart result during evaluation, and independently
+   via a ~14,700-token single request during report generation for a
+   session containing a large-row chart. Fixed with a shared
+   `src/core/summarize.py`, used by both `narrate.py` and
+   `report/engine.py`.
+2. **NaN crash in `compute_regression`/`compute_pca`/`compute_kmeans`**
+   (see `docs/architecture.md`, "Robustness to missing/invalid data").
+   Found while building the Analysis ground-truth generator against a
+   dataset with missing values (not the project's actual dataset, which
+   has none — a defensive fix for future robustness).
 
-\* Baseline correctness on the Analysis set varied slightly between two
-runs (26.7% and 20.0%) taken hours apart, using the same 15 questions and
-the same model. This reflects the inherent non-determinism of live LLM
-sampling, not a measurement error — the real Analysis Agent's own
-correctness was stable at 93–100% across the same runs. Retry rate was
-0% across every category in this evaluation run: the self-correction
-loop was never exercised by the model used (Groq `llama-3.3-70b`), which
-means retry effectiveness is not yet empirically measured and would need
-either harder questions or a weaker model to observe.
+## Benchmark resumability
 
-Concrete, characterized baseline failure modes (not just "it got it
-wrong"): missing SQLite functions (`STDDEV`, `VARIANCE`, `CORR`,
-`QUANTILE` do not exist), a genuine SQL syntax error attempting nested
-aggregates for covariance, no attempt at dimensionality reduction for
-PCA (returned raw columns unchanged), and for K-Means, a hardcoded
-`CASE WHEN` rule dressed up as clustering rather than a real
-unsupervised algorithm — a "plausible but conceptually wrong" failure,
-notably different from a clean SQL error.
+`correctness_benchmark.py`, `pipeline_benchmark.py`, and
+`report_agent_benchmark.py` all gained `--categories`/`--side`/
+`--sessions` flags with safe merge logic: re-running only the
+incomplete portion preserves already-completed results on disk instead
+of overwriting the whole file. Added after repeatedly losing partial
+progress to rate limits and infrastructure interruptions during this
+phase. Also added: automatic stop after 3 consecutive failures (instead
+of grinding through a fully-exhausted quota), per-pass warm-up calls
+(each of the 9 correctness passes, 3 pipeline categories, and 5 report
+sessions independently exercises a cold model/prompt-shape cost before
+being timed for real — a single global warm-up call was found, by
+direct measurement, to be insufficient once more than one genuinely
+different call shape was involved).
+
+## Multi-provider evaluation journey
+
+The complete evaluation (all 4 dimensions: correctness x3 sides,
+pipeline/routing, Report Agent) was run to completion on three different
+providers over the course of this milestone:
+
+- **Groq** (`llama-3.3-70b`) — completed correctness runs; pipeline runs
+  repeatedly interrupted by free-tier daily/per-minute token limits.
+- **Ollama** (`llama3.1:8b`, local) — completed correctness runs (agent/
+  baseline/monolithic, all 3 categories). Pipeline runs failed
+  repeatedly: isolated router testing showed the local 8B model
+  genuinely, reproducibly misrouting unambiguous SQL questions to the
+  Analysis Agent (a real model-capability limitation, not a code
+  defect — confirmed via the same router logic that performs correctly
+  on the other two providers) and separately, sustained local inference
+  caused WSL memory exhaustion and likely thermal throttling, both
+  legitimate, reportable infrastructure limitations of local-model
+  deployment.
+- **Anthropic** (`claude-haiku-4.5`) — the only provider on which all
+  four dimensions completed cleanly on a single, consistent model. Used
+  as the primary reported dataset.
+
+## Final results (Anthropic, primary dataset)
+
+| Category | Real system | Baseline | Monolithic | Architecture value | Decomposition value |
+|---|---|---|---|---|---|
+| SQL | 93.3% | 76.7% | 90.0% | +16.7pp | +3.3pp |
+| Analysis | 100% | 20.0% | 86.7% | +80.0pp | +13.3pp |
+| Visualization | 90.0% | 50.0% | 100% | +40.0pp | -10.0pp |
+
+Routing accuracy: 90.9%. Retry rate: 0% (now confirmed across all three
+providers — a robust finding, not missing data).
+
+A full failure analysis was performed for every non-correct result
+across all runs (see `results_and_failure_analysis.md`). Two findings
+stand out:
+
+1. **A real limitation in the evaluation's own scoring**, not the
+   system: the baseline scorer assumes correlation/covariance are
+   structurally inexpressible in one SQL query; Claude's baseline
+   derived the correct closed-form Pearson formula manually and matched
+   the real system's value almost exactly, but was scored incorrect by
+   design regardless.
+2. **Cross-provider robustness**: the real, specialized-agent system's
+   correctness stays in an 80-100% band regardless of the underlying
+   model (Ollama 8B, Groq 70B, Claude Haiku); the baseline swings far
+   more widely (20-77%) depending on provider. The architecture's value
+   includes making the system robust to model choice, not only raw
+   capability uplift on any single model.
+
+## Report Agent — qualitative evaluation completed
+
+5 curated multi-question sessions run through the real orchestrator,
+rated by hand (accuracy, completeness, no-fabrication, fluency; 1-5
+each). Mean: accuracy 3.4/5, completeness 5.0/5, no-fabrication 3.4/5,
+fluency 5.0/5. Fluency and completeness are consistently strong. Real
+issues found: an invented, statistically meaningless metric in one
+session (direct violation of the agent's own "do not invent
+information" instruction); genuine arithmetic errors and a cross-turn
+misattribution in another; and, most significantly, a session where the
+report described a t-test result as indicating "correlation" — which a
+t-test does not measure — independently confirming the `compute_ttest`
+limitation documented in `docs/architecture.md` produces a real,
+misleading claim in output a user would read and trust, not merely a
+theoretical concern.
 
 ## Test suite
 
-Grew to 78 automated tests, still entirely offline, including regression
-tests for the routing bug, the analysis filter fix, and the new
-regression-target validation.
+Grew to 103 automated tests, still entirely offline, including tests for
+the monolithic agent (run against the real database with dynamically
+computed expected values, not hardcoded numbers), the shared summarizer,
+the report engine's token-limit fix, and the warm-up helper.
 
 ---
 
 # Phase 2 Completed
 
-The empirical evaluation is complete: benchmark, ground truth, baseline,
-scoring, and full results are in `src/eval/` and `results/eval/`.
+The empirical evaluation is complete: benchmark, ground truth, three-way
+correctness comparison, routing/latency measurement, retry data, and
+qualitative Report Agent review, cross-validated across three model
+providers. Full results and failure analysis in
+`results_and_failure_analysis.md`.
 
 # Remaining Work
 
-- Qualitative rating (1–5 fluency/usefulness) on a sample of narrated
-  answers — a manual step by design, not automated.
-- Thesis write-up: Evaluation Methodology, Results, and Failure Analysis
-  chapters, drawing on `results/eval/summary.csv` and the per-question
-  result files.
+- Thesis write-up: Methodology, Results, and Failure Analysis chapters,
+  drawing directly on `results_and_failure_analysis.md` and the
+  per-question result files in `results/eval/`.

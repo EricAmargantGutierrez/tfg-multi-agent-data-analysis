@@ -3,14 +3,8 @@
 Bachelor's Thesis (TFG)
 
 **Author:** Eric Amargant Gutiérrez
-
-
 **Degree:** Bachelor's Degree in Mathematical Engineering in Data Science
-
-
 **University:** Universitat Pompeu Fabra (UPF)
-
-
 **Supervisor:** Piotr Przybyła
 
 ---
@@ -25,10 +19,10 @@ specialized agents responsible for SQL querying, statistical analysis,
 visualization, and report generation.
 
 The objective is to investigate how agent-based architectures can improve
-natural language interaction with structured data while maintaining a
-clear separation of responsibilities between system components, and to
-empirically evaluate how much that architecture actually buys you over a
-single, minimally-prompted LLM.
+natural language interaction with structured data, and to empirically
+evaluate how much that architecture actually buys you — over a single,
+minimally-prompted LLM, and over a single agent with the same tools but
+no architectural split — across multiple different underlying models.
 
 ---
 
@@ -52,12 +46,19 @@ LangGraph orchestrator:
 The orchestrator routes user requests, invokes the appropriate agent over
 MCP, maintains the conversation history, and generates the final response
 presented to the user. All database access is centralized through
-`src/core/db.py`, opened strictly read-only.
+`src/core/db.py`, opened strictly read-only. Large result sets are
+summarized (`src/core/summarize.py`) before being sent to an LLM for
+narration or report generation, to avoid exceeding provider request
+limits.
 
 A detailed description of the architecture is available in
-[`docs/architecture.md`](docs/architecture.md). The rationale for the
-restructure applied on top of the original design is documented in
-[`MIGRATION.md`](MIGRATION.md) and [`MIGRATION_EVAL.md`](MIGRATION_EVAL.md).
+[`docs/architecture.md`](docs/architecture.md). The evaluation
+methodology, full results, and failure analysis are in
+[`results_and_failure_analysis.md`](results_and_failure_analysis.md).
+The rationale for the restructure applied on top of the original design
+is documented in [`MIGRATION.md`](MIGRATION.md); the full evaluation-phase
+development log is in
+[`docs/development_log.md`](docs/development_log.md) (Milestones 12-13).
 
 ---
 
@@ -74,7 +75,9 @@ restructure applied on top of the original design is documented in
 - Session report generation
 - Conversation history (accumulated per session, consumed by the Report Agent)
 - Support for multiple LLM providers (Groq, Ollama, OpenAI, Anthropic)
-- A full empirical evaluation against a single-agent baseline (see below)
+- A full empirical evaluation against two baselines — a minimal
+  no-context LLM, and a single agent with identical tools but no
+  architectural split — cross-validated across three model providers
 
 ---
 
@@ -88,7 +91,7 @@ restructure applied on top of the original design is documented in
 - pandas, NumPy, SciPy, scikit-learn
 - Matplotlib
 - Pydantic (structured validation of LLM outputs)
-- Groq (default), Ollama, OpenAI, Anthropic
+- Groq, Ollama, OpenAI, Anthropic
 
 ---
 
@@ -106,17 +109,26 @@ src/
 │   ├── db.py               the only module that opens SQLite
 │   ├── retry.py            shared self-correction loop
 │   ├── llm_json.py         shared "parse LLM JSON output" helper
+│   ├── summarize.py        shared large-row-list summarizer (for LLM prompts)
 │   └── paths.py
 ├── config/settings.py
-├── llm/                    provider-agnostic LLM factory + model registry
-├── models/schemas.py       Pydantic validation (AnalysisPlan, ChartSpec, ...)
-├── orchestrator/           router, MCP client, narrator, LangGraph graph
-├── eval/                   evaluation: benchmark, ground truth, baseline, metrics
-├── ingest.py                CSV -> SQLite
-└── repl.py                  interactive CLI
+├── llm/                     provider-agnostic LLM factory + model registry
+├── models/schemas.py        Pydantic validation (AnalysisPlan, ChartSpec, ...)
+├── orchestrator/             router, MCP client, narrator, LangGraph graph
+├── eval/
+│   ├── datasets/              55 questions (sql, analysis, visualization)
+│   ├── ground_truth/          generators, executed against the real DB
+│   ├── checks.py               scoring logic (structured output, tolerance-based)
+│   ├── baselines/               single_agent.py (minimal) + monolithic_agent.py
+│   ├── benchmarks/              correctness_benchmark.py, pipeline_benchmark.py,
+│   │                            report_agent_benchmark.py
+│   ├── utils/                  evaluator.py, metrics.py, warmup.py
+│   └── run_all.py
+├── ingest.py                  CSV -> SQLite
+└── repl.py                    interactive CLI
 
 scripts/manual_check/        manual live-API smoke scripts (not part of pytest)
-tests/                       pytest suite, offline, no API keys needed
+tests/                       pytest suite, offline, no API keys needed (103 tests)
 docs/                        architecture.md, architecture-diagram.svg, development_log.md
 data/                        superstore.csv, superstore.db (gitignored)
 results/                     generated charts (gitignored) + results/eval/ (tracked)
@@ -147,7 +159,9 @@ pip install -r requirements.txt
 ```
 
 Copy `.env.example` to `.env` and add the key(s) for the model provider(s)
-you'll use.
+you'll use. Note: `claude.ai` / `console.anthropic.com` subscriptions
+(e.g. Claude Pro) do **not** include API access — API usage is billed
+separately, pay-as-you-go, via the Anthropic Console.
 
 Place the Superstore CSV at `data/superstore.csv`
 ([Kaggle: vivek468/superstore-dataset-final](https://kaggle.com/datasets/vivek468/superstore-dataset-final)),
@@ -188,35 +202,46 @@ python -m src.eval.ground_truth.generate_sql_ground_truth
 python -m src.eval.ground_truth.generate_analysis_ground_truth
 python -m src.eval.ground_truth.generate_visualization_ground_truth
 
-# 2. Run everything (real agents + baseline + routing accuracy)
+# 2. Run everything: correctness (real agents + minimal baseline +
+#    monolithic baseline, all 3 categories) + pipeline (latency + routing)
 python -m src.eval.run_all
 
-# 3. See results/eval/summary.csv
+# 3. Report Agent -- separate, qualitative, not part of run_all
+python -m src.eval.benchmarks.report_agent_benchmark
+
+# 4. See results/eval/summary.csv and results/eval/report_agent_review.md
 ```
 
-### Results (55-question benchmark, Groq `llama-3.3-70b`)
+All three benchmark scripts (`correctness_benchmark.py`,
+`pipeline_benchmark.py`, `report_agent_benchmark.py`) support resuming an
+interrupted run without re-spending on already-completed work
+(`--side`/`--categories`/`--sessions`).
 
-| Category | System correctness | Baseline correctness | Architecture value |
-|---|---|---|---|
-| SQL | 100% (30/30) | 33.3% | +66.7pp |
-| Analysis | 100% (15/15) | ~20–27%\* | +73–80pp |
-| Visualization | 100% (10/10) | 80.0% | +20.0pp |
+### Results (55-question benchmark; primary run: Anthropic Claude Haiku 4.5)
 
-Routing accuracy across all 55 questions: **90.9%**.
+| Category | Real system | Baseline | Monolithic | Architecture value | Decomposition value |
+|---|---|---|---|---|---|
+| SQL | 93.3% | 76.7% | 90.0% | +16.7pp | +3.3pp |
+| Analysis | 100% | 20.0% | 86.7% | +80.0pp | +13.3pp |
+| Visualization | 90.0% | 50.0% | 100% | +40.0pp | -10.0pp |
 
-\* Baseline correctness on Analysis varied slightly between runs due to
-LLM sampling non-determinism; the real Analysis Agent was stable at
-93–100%. See `docs/development_log.md` (Milestone 12) for the full
-discussion, including characterized baseline failure modes (missing
-SQLite statistical functions, a hardcoded rule masquerading as K-Means
-clustering, etc.) and a genuine bug found and fixed during evaluation
-(the Analysis Agent's regression target was inferred from column-list
-position rather than being explicit — fixed via `AnalysisPlan.target`).
+Routing accuracy: 90.9%. Full latency, retry, and difficulty-tier
+breakdowns, plus a complete question-by-question failure analysis (which
+misses are genuine capability gaps vs. question-design ambiguities vs.
+scoring-convention artifacts, including a real limitation found in the
+evaluation's own scoring logic) are in
+[`results_and_failure_analysis.md`](results_and_failure_analysis.md).
 
-The baseline uses a deliberately minimal prompt (not the tuned agent
-prompts), isolating the value of the full architecture rather than just
-measuring prompt quality — see `docs/architecture.md` for the full
-methodology and its documented limitations.
+**Cross-model robustness** (evaluated on Groq `llama-3.3-70b`, Ollama
+`llama3.1:8b`, and Anthropic `claude-haiku-4.5`): the real, specialized
+system's correctness stays in an 80-100% band regardless of the
+underlying model; the minimal baseline swings 20-77% depending on
+provider. See §5 of the results document.
+
+Both baselines use a deliberately minimal (no-tools) or identical
+(same-tools, no-split) prompt respectively — isolating, separately,
+whether tool access matters and whether decomposition itself matters.
+See `docs/architecture.md` and the results document for full methodology.
 
 ---
 
@@ -226,7 +251,7 @@ methodology and its documented limitations.
 PYTHONPATH=. pytest tests/ -v
 ```
 
-Runs entirely offline — no API key required (78 tests). For manual,
+Runs entirely offline — no API key required (103 tests). For manual,
 live-API checks (actual LLM calls), see `scripts/manual_check/`.
 
 ---
@@ -234,11 +259,15 @@ live-API checks (actual LLM calls), see `scripts/manual_check/`.
 ## Documentation
 
 - [`docs/architecture.md`](docs/architecture.md) — system architecture,
-  execution flow, and the design decisions behind it.
+  execution flow, and the design decisions behind it, including two real
+  production bugs found and fixed during evaluation.
 - [`docs/development_log.md`](docs/development_log.md) — project
-  implementation log, including the full evaluation writeup (Milestone 12).
-- [`MIGRATION.md`](MIGRATION.md) / [`MIGRATION_EVAL.md`](MIGRATION_EVAL.md)
-  — records of the architecture restructure and the evaluation build.
+  implementation log (Milestones 1-13).
+- [`results_and_failure_analysis.md`](results_and_failure_analysis.md)
+  — full evaluation results, question-by-question failure
+  classification, cross-model robustness analysis, and Report Agent
+  qualitative review.
+- [`MIGRATION.md`](MIGRATION.md) — record of the architecture restructure.
 
 ---
 
@@ -247,12 +276,14 @@ live-API checks (actual LLM calls), see `scripts/manual_check/`.
 **Phase 1 (system implementation)** and **Phase 2 (evaluation)** are both
 complete. The system includes the full multi-agent architecture,
 centralized read-only database access, an automated offline test suite
-(78 tests), and a complete empirical evaluation against a single-agent
-baseline with routing accuracy, retry statistics, and latency comparisons.
+(103 tests), and a complete empirical evaluation against two baselines
+(minimal and monolithic), including routing accuracy, retry statistics,
+and latency comparisons, cross-validated across three independent model
+providers.
 
-Remaining: a manual qualitative (1–5) rating of narrated answer quality,
-and the thesis write-up itself (Evaluation Methodology, Results, and
-Failure Analysis chapters).
+Remaining: the thesis write-up itself (Methodology, Results, and Failure
+Analysis chapters), drawing directly on
+`results_and_failure_analysis.md`.
 
 ---
 

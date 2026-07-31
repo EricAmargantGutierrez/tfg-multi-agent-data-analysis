@@ -8,19 +8,20 @@
     "expected_agent": "sql",
     "correct": false,
     "ok": true,
-    "latency_seconds": 0.9142,
+    "latency_seconds": 1.4627,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
-        "COUNT(DISTINCT order_id)"
+        "total_orders"
       ],
       "rows": [
         [
           5009
         ]
       ],
-      "sql": "SELECT COUNT(DISTINCT order_id) FROM orders",
+      "sql": "SELECT COUNT(DISTINCT order_id) AS total_orders FROM orders",
       "error": null
     },
     "error": null
@@ -34,19 +35,20 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.1424,
+    "latency_seconds": 0.8975,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
-        "COUNT(DISTINCT customer_id)"
+        "total_customers"
       ],
       "rows": [
         [
           793
         ]
       ],
-      "sql": "SELECT COUNT(DISTINCT customer_id) FROM orders",
+      "sql": "SELECT COUNT(DISTINCT customer_id) AS total_customers FROM orders",
       "error": null
     },
     "error": null
@@ -60,10 +62,11 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.1377,
+    "latency_seconds": 0.9537,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
         "region",
         "total_sales"
@@ -74,7 +77,7 @@
           725457.8245
         ]
       ],
-      "sql": "SELECT region, SUM(sales) as total_sales\nFROM orders\nGROUP BY region\nORDER BY total_sales DESC\nLIMIT 1",
+      "sql": "SELECT region, SUM(sales) AS total_sales FROM orders GROUP BY region ORDER BY total_sales DESC LIMIT 1",
       "error": null
     },
     "error": null
@@ -88,10 +91,11 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.7193,
+    "latency_seconds": 1.0547,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
         "category",
         "total_profit"
@@ -102,7 +106,7 @@
           145454.9481
         ]
       ],
-      "sql": "SELECT category, SUM(profit) as total_profit\nFROM orders\nGROUP BY category\nORDER BY total_profit DESC\nLIMIT 1",
+      "sql": "SELECT category, SUM(profit) AS total_profit FROM orders GROUP BY category ORDER BY total_profit DESC LIMIT 1",
       "error": null
     },
     "error": null
@@ -116,10 +120,11 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.5849,
+    "latency_seconds": 1.1164,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
         "region",
         "total_sales"
@@ -142,7 +147,7 @@
           391721.905
         ]
       ],
-      "sql": "SELECT region, SUM(sales) as total_sales\nFROM orders\nGROUP BY region\nORDER BY total_sales DESC",
+      "sql": "SELECT region, SUM(sales) AS total_sales FROM orders GROUP BY region ORDER BY total_sales DESC",
       "error": null
     },
     "error": null
@@ -156,10 +161,11 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.5769,
+    "latency_seconds": 1.3779,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
         "product_name",
         "total_profit"
@@ -186,7 +192,7 @@
           4094.9766
         ]
       ],
-      "sql": "SELECT product_name, SUM(profit) as total_profit\nFROM orders\nGROUP BY product_name\nORDER BY total_profit DESC\nLIMIT 5",
+      "sql": "SELECT product_name, SUM(profit) AS total_profit FROM orders GROUP BY product_name ORDER BY total_profit DESC LIMIT 5",
       "error": null
     },
     "error": null
@@ -198,23 +204,24 @@
     "difficulty": "easy",
     "question": "Which customer placed the most orders?",
     "expected_agent": "sql",
-    "correct": false,
+    "correct": true,
     "ok": true,
-    "latency_seconds": 1.0941,
+    "latency_seconds": 1.1335,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
         "customer_name",
-        "order_count"
+        "total_orders"
       ],
       "rows": [
         [
-          "Emily Phan",
-          17
+          "William Brown",
+          37
         ]
       ],
-      "sql": "SELECT customer_name, COUNT(DISTINCT order_id) as order_count\nFROM orders\nGROUP BY customer_name\nORDER BY order_count DESC\nLIMIT 1",
+      "sql": "SELECT customer_name, COUNT(*) AS total_orders FROM orders GROUP BY customer_name ORDER BY total_orders DESC LIMIT 1",
       "error": null
     },
     "error": null
@@ -228,19 +235,20 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.9477,
+    "latency_seconds": 0.7496,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
-        "SUM(profit)"
+        "total_profit"
       ],
       "rows": [
         [
           286397.0217
         ]
       ],
-      "sql": "SELECT SUM(profit) FROM orders",
+      "sql": "SELECT SUM(profit) AS total_profit FROM orders",
       "error": null
     },
     "error": null
@@ -254,10 +262,11 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.8878,
+    "latency_seconds": 1.2677,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
         "category"
       ],
@@ -286,19 +295,20 @@
     "expected_agent": "sql",
     "correct": false,
     "ok": true,
-    "latency_seconds": 0.7829,
+    "latency_seconds": 0.8083,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
-        "COUNT(DISTINCT order_id)"
+        "total_orders"
       ],
       "rows": [
         [
           964
         ]
       ],
-      "sql": "SELECT COUNT(DISTINCT order_id) FROM orders WHERE ship_mode = 'Second Class'",
+      "sql": "SELECT COUNT(DISTINCT order_id) AS total_orders FROM orders WHERE ship_mode = 'Second Class'",
       "error": null
     },
     "error": null
@@ -312,10 +322,11 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.9165,
+    "latency_seconds": 0.9576,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
         "customer_name",
         "total_revenue"
@@ -326,7 +337,7 @@
           25043.05
         ]
       ],
-      "sql": "SELECT customer_name, SUM(sales) as total_revenue\nFROM orders\nGROUP BY customer_name\nORDER BY total_revenue DESC\nLIMIT 1",
+      "sql": "SELECT customer_name, SUM(sales) AS total_revenue FROM orders GROUP BY customer_name ORDER BY total_revenue DESC LIMIT 1",
       "error": null
     },
     "error": null
@@ -340,10 +351,11 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.9881,
+    "latency_seconds": 1.1259,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
         "state",
         "total_quantity"
@@ -354,7 +366,7 @@
           7667
         ]
       ],
-      "sql": "SELECT state, SUM(quantity) as total_quantity\nFROM orders\nGROUP BY state\nORDER BY total_quantity DESC\nLIMIT 1",
+      "sql": "SELECT state, SUM(quantity) AS total_quantity FROM orders GROUP BY state ORDER BY total_quantity DESC LIMIT 1",
       "error": null
     },
     "error": null
@@ -368,10 +380,11 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.7675,
+    "latency_seconds": 1.1315,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
         "city",
         "total_profit"
@@ -382,7 +395,7 @@
           62036.9837
         ]
       ],
-      "sql": "SELECT city, SUM(profit) as total_profit\nFROM orders\nGROUP BY city\nORDER BY total_profit DESC\nLIMIT 1",
+      "sql": "SELECT city, SUM(profit) AS total_profit FROM orders GROUP BY city ORDER BY total_profit DESC LIMIT 1",
       "error": null
     },
     "error": null
@@ -396,10 +409,11 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.9082,
+    "latency_seconds": 1.1018,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
         "ship_mode",
         "frequency"
@@ -410,7 +424,7 @@
           5968
         ]
       ],
-      "sql": "SELECT ship_mode, COUNT(*) as frequency\nFROM orders\nGROUP BY ship_mode\nORDER BY frequency DESC\nLIMIT 1",
+      "sql": "SELECT ship_mode, COUNT(*) AS frequency FROM orders GROUP BY ship_mode ORDER BY frequency DESC LIMIT 1",
       "error": null
     },
     "error": null
@@ -424,19 +438,20 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.9625,
+    "latency_seconds": 0.9199,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
-        "COUNT(DISTINCT product_name)"
+        "distinct_product_names"
       ],
       "rows": [
         [
           1850
         ]
       ],
-      "sql": "SELECT COUNT(DISTINCT product_name) FROM orders",
+      "sql": "SELECT COUNT(DISTINCT product_name) AS distinct_product_names FROM orders",
       "error": null
     },
     "error": null
@@ -450,10 +465,11 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.8039,
+    "latency_seconds": 1.4492,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
         "segment",
         "total_sales"
@@ -464,7 +480,7 @@
           1161401.345
         ]
       ],
-      "sql": "SELECT segment, SUM(sales) as total_sales\nFROM orders\nGROUP BY segment\nORDER BY total_sales DESC\nLIMIT 1",
+      "sql": "SELECT segment, SUM(sales) AS total_sales FROM orders GROUP BY segment ORDER BY total_sales DESC LIMIT 1",
       "error": null
     },
     "error": null
@@ -476,61 +492,24 @@
     "difficulty": "medium",
     "question": "Find the order with the highest sales.",
     "expected_agent": "sql",
-    "correct": false,
+    "correct": true,
     "ok": true,
-    "latency_seconds": 0.6646,
+    "latency_seconds": 0.9474,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
-        "row_id",
         "order_id",
-        "order_date",
-        "ship_date",
-        "ship_mode",
-        "customer_id",
-        "customer_name",
-        "segment",
-        "country",
-        "city",
-        "state",
-        "postal_code",
-        "region",
-        "product_id",
-        "category",
-        "sub_category",
-        "product_name",
-        "sales",
-        "quantity",
-        "discount",
-        "profit"
+        "sales"
       ],
       "rows": [
         [
-          2698,
           "CA-2014-145317",
-          "2014-03-18",
-          "2014-03-23",
-          "Standard Class",
-          "SM-20320",
-          "Sean Miller",
-          "Home Office",
-          "United States",
-          "Jacksonville",
-          "Florida",
-          32216,
-          "South",
-          "TEC-MA-10002412",
-          "Technology",
-          "Machines",
-          "Cisco TelePresence System EX90 Videoconferencing Unit",
-          22638.48,
-          6,
-          0.5,
-          -1811.0784
+          22638.48
         ]
       ],
-      "sql": "SELECT * FROM orders ORDER BY sales DESC LIMIT 1",
+      "sql": "SELECT order_id, sales FROM orders ORDER BY sales DESC LIMIT 1",
       "error": null
     },
     "error": null
@@ -544,19 +523,20 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.2811,
+    "latency_seconds": 0.9663,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
-        "COUNT(DISTINCT city)"
+        "unique_cities"
       ],
       "rows": [
         [
           531
         ]
       ],
-      "sql": "SELECT COUNT(DISTINCT city) FROM orders",
+      "sql": "SELECT COUNT(DISTINCT city) AS unique_cities FROM orders",
       "error": null
     },
     "error": null
@@ -570,10 +550,11 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.9755,
+    "latency_seconds": 1.4873,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
         "region",
         "total_profit"
@@ -584,7 +565,7 @@
           39706.3625
         ]
       ],
-      "sql": "SELECT region, SUM(profit) as total_profit\nFROM orders\nGROUP BY region\nORDER BY total_profit ASC\nLIMIT 1",
+      "sql": "SELECT region, SUM(profit) AS total_profit FROM orders GROUP BY region ORDER BY total_profit ASC LIMIT 1",
       "error": null
     },
     "error": null
@@ -596,23 +577,24 @@
     "difficulty": "medium",
     "question": "Which category contains the greatest number of orders?",
     "expected_agent": "sql",
-    "correct": false,
+    "correct": true,
     "ok": true,
-    "latency_seconds": 1.0299,
+    "latency_seconds": 1.3076,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
         "category",
-        "order_count"
+        "total_orders"
       ],
       "rows": [
         [
           "Office Supplies",
-          3742
+          6026
         ]
       ],
-      "sql": "SELECT category, COUNT(DISTINCT order_id) as order_count\nFROM orders\nGROUP BY category\nORDER BY order_count DESC\nLIMIT 1",
+      "sql": "SELECT category, COUNT(*) AS total_orders FROM orders GROUP BY category ORDER BY total_orders DESC LIMIT 1",
       "error": null
     },
     "error": null
@@ -626,57 +608,37 @@
     "expected_agent": "sql",
     "correct": false,
     "ok": true,
-    "latency_seconds": 1.0666,
+    "latency_seconds": 1.7428,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "columns": [
-        "state",
-        "total_revenue"
-      ],
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/d9af8f4f835c462dbb7000aa46eb6cd2.png",
       "rows": [
-        [
-          "California",
-          457687.6315
-        ],
-        [
-          "New York",
-          310876.271
-        ],
-        [
-          "Texas",
-          170188.0458
-        ],
-        [
-          "Washington",
-          138641.27
-        ],
-        [
-          "Pennsylvania",
-          116511.914
-        ],
-        [
-          "Florida",
-          89473.708
-        ],
-        [
-          "Illinois",
-          80166.101
-        ],
-        [
-          "Ohio",
-          78258.136
-        ],
-        [
-          "Michigan",
-          76269.614
-        ],
-        [
-          "Virginia",
-          70636.72
-        ]
+        {
+          "region": "West",
+          "total_sales": 725457.8245
+        },
+        {
+          "region": "East",
+          "total_sales": 678781.24
+        },
+        {
+          "region": "Central",
+          "total_sales": 501239.8908
+        },
+        {
+          "region": "South",
+          "total_sales": 391721.905
+        }
       ],
-      "sql": "SELECT \n  state,\n  SUM(sales) as total_revenue\nFROM orders\nGROUP BY state\nORDER BY total_revenue DESC\nLIMIT 10",
+      "spec": {
+        "chart_type": "bar",
+        "sql": "SELECT region, SUM(sales) AS total_sales FROM orders GROUP BY region ORDER BY total_sales DESC",
+        "title": "Total Sales Revenue by Region",
+        "xlabel": "Region",
+        "ylabel": "Total Sales"
+      },
       "error": null
     },
     "error": null
@@ -688,23 +650,24 @@
     "difficulty": "hard",
     "question": "Which customer appears to buy the most often?",
     "expected_agent": "sql",
-    "correct": false,
+    "correct": true,
     "ok": true,
-    "latency_seconds": 1.2494,
+    "latency_seconds": 1.1542,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
         "customer_name",
-        "order_count"
+        "total_orders"
       ],
       "rows": [
         [
-          "Emily Phan",
-          17
+          "William Brown",
+          37
         ]
       ],
-      "sql": "SELECT customer_name, COUNT(DISTINCT order_id) as order_count\nFROM orders\nGROUP BY customer_name\nORDER BY order_count DESC\nLIMIT 1",
+      "sql": "SELECT customer_name, COUNT(*) AS total_orders FROM orders GROUP BY customer_name ORDER BY total_orders DESC LIMIT 1",
       "error": null
     },
     "error": null
@@ -718,10 +681,11 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.271,
+    "latency_seconds": 1.123,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
         "region",
         "total_profit"
@@ -732,7 +696,7 @@
           108418.4489
         ]
       ],
-      "sql": "SELECT region, SUM(profit) as total_profit\nFROM orders\nGROUP BY region\nORDER BY total_profit DESC\nLIMIT 1",
+      "sql": "SELECT region, SUM(profit) AS total_profit FROM orders GROUP BY region ORDER BY total_profit DESC LIMIT 1",
       "error": null
     },
     "error": null
@@ -746,10 +710,11 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.0168,
+    "latency_seconds": 0.9707,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
         "product_name",
         "total_revenue"
@@ -760,7 +725,7 @@
           61599.824
         ]
       ],
-      "sql": "SELECT product_name, SUM(sales) as total_revenue\nFROM orders\nGROUP BY product_name\nORDER BY total_revenue DESC\nLIMIT 1",
+      "sql": "SELECT product_name, SUM(sales) AS total_revenue FROM orders GROUP BY product_name ORDER BY total_revenue DESC LIMIT 1",
       "error": null
     },
     "error": null
@@ -774,13 +739,14 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.0658,
+    "latency_seconds": 0.9833,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
         "ship_mode",
-        "count"
+        "total_orders"
       ],
       "rows": [
         [
@@ -788,7 +754,7 @@
           5968
         ]
       ],
-      "sql": "SELECT ship_mode, COUNT(*) as count\nFROM orders\nGROUP BY ship_mode\nORDER BY count DESC\nLIMIT 1",
+      "sql": "SELECT ship_mode, COUNT(*) AS total_orders FROM orders GROUP BY ship_mode ORDER BY total_orders DESC LIMIT 1",
       "error": null
     },
     "error": null
@@ -802,10 +768,11 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.898,
+    "latency_seconds": 1.2397,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
         "segment",
         "total_sales"
@@ -816,7 +783,7 @@
           1161401.345
         ]
       ],
-      "sql": "SELECT segment, SUM(sales) as total_sales\nFROM orders\nGROUP BY segment\nORDER BY total_sales DESC\nLIMIT 1",
+      "sql": "SELECT segment, SUM(sales) AS total_sales FROM orders GROUP BY segment ORDER BY total_sales DESC LIMIT 1",
       "error": null
     },
     "error": null
@@ -830,10 +797,11 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.9516,
+    "latency_seconds": 0.9624,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
         "state",
         "total_profit"
@@ -844,7 +812,7 @@
           76381.3871
         ]
       ],
-      "sql": "SELECT state, SUM(profit) as total_profit\nFROM orders\nGROUP BY state\nORDER BY total_profit DESC\nLIMIT 1",
+      "sql": "SELECT state, SUM(profit) AS total_profit FROM orders GROUP BY state ORDER BY total_profit DESC LIMIT 1",
       "error": null
     },
     "error": null
@@ -858,10 +826,11 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.1465,
+    "latency_seconds": 0.99,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
         "product_name",
         "total_quantity"
@@ -872,7 +841,7 @@
           215
         ]
       ],
-      "sql": "SELECT product_name, SUM(quantity) as total_quantity\nFROM orders\nGROUP BY product_name\nORDER BY total_quantity DESC\nLIMIT 1",
+      "sql": "SELECT product_name, SUM(quantity) AS total_quantity FROM orders GROUP BY product_name ORDER BY total_quantity DESC LIMIT 1",
       "error": null
     },
     "error": null
@@ -886,10 +855,11 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.7278,
+    "latency_seconds": 1.4415,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
         "total_purchases"
       ],
@@ -898,7 +868,7 @@
           9994
         ]
       ],
-      "sql": "SELECT COUNT(*) as total_purchases FROM orders",
+      "sql": "SELECT COUNT(*) AS total_purchases FROM orders",
       "error": null
     },
     "error": null
@@ -912,10 +882,11 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.8693,
+    "latency_seconds": 0.9986,
     "attempts": 1,
     "retried": false,
     "answer": {
+      "action": "sql",
       "columns": [
         "region",
         "total_sales"
@@ -926,7 +897,7 @@
           725457.8245
         ]
       ],
-      "sql": "SELECT region, SUM(sales) as total_sales\nFROM orders\nGROUP BY region\nORDER BY total_sales DESC\nLIMIT 1",
+      "sql": "SELECT region, SUM(sales) AS total_sales FROM orders GROUP BY region ORDER BY total_sales DESC LIMIT 1",
       "error": null
     },
     "error": null

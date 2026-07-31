@@ -3,6 +3,7 @@ Convert raw agent outputs into human-readable responses.
 """
 from __future__ import annotations
 
+from src.core.summarize import summarize_large_rows
 from src.llm import build_llm
 
 SYSTEM_PROMPT = """
@@ -34,7 +35,7 @@ def narrate(question: str, agent: str, result: dict) -> str:
     prompt = (
         f"User question:\n\n{question}\n\n"
         f"Agent:\n\n{agent}\n\n"
-        f"Raw output:\n\n{result}\n\n"
+        f"Raw output:\n\n{summarize_large_rows(result)}\n\n"
         "Generate the final response for the user."
     )
 

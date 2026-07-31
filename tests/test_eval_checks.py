@@ -1,7 +1,15 @@
 import json
 from pathlib import Path
 
-from src.eval.checks import check_analysis, check_chart_data, check_sql, numbers_close, rows_match
+from src.eval.checks import (
+    check_analysis,
+    check_chart_data,
+    check_monolithic_analysis,
+    check_monolithic_rows,
+    check_sql,
+    numbers_close,
+    rows_match,
+)
 
 DATASETS = Path(__file__).resolve().parents[1] / "src" / "eval" / "datasets"
 
@@ -119,6 +127,30 @@ def test_analysis_ground_truth_is_self_consistent():
             continue
         answer = {"ok": True, "result": gt}
         assert check_analysis(answer, gt), f"Self-check failed for question {q['id']}"
+
+
+def test_check_monolithic_rows_handles_sql_shaped_output():
+    answer = {"ok": True, "action": "sql", "rows": [["West", 725457.82]]}
+    assert check_monolithic_rows(answer, [["West", 725457.8245]])
+
+
+def test_check_monolithic_rows_handles_chart_shaped_output():
+    # action="chart" returns list-of-dicts (sqlite3.Row), not list-of-lists
+    answer = {"ok": True, "action": "chart", "rows": [{"region": "West", "total_sales": 725457.82}]}
+    assert check_monolithic_rows(answer, [["West", 725457.8245]])
+
+
+def test_check_monolithic_rows_rejects_wrong_data_regardless_of_action():
+    answer = {"ok": True, "action": "sql", "rows": [["East", 1.0]]}
+    assert not check_monolithic_rows(answer, [["West", 725457.8245]])
+
+
+def test_check_monolithic_analysis_fails_gracefully_on_wrong_action():
+    # picked action="sql" for a question that needed real statistics --
+    # no "result" key in the expected shape, must fail cleanly not crash
+    answer = {"ok": True, "action": "sql", "rows": [[33.85]]}
+    gt = {"analysis": "correlation", "result": {"correlation": -0.22, "p_value": 0.001}}
+    assert not check_monolithic_analysis(answer, gt)
 
 
 def test_visualization_ground_truth_is_self_consistent():

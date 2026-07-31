@@ -6,9 +6,9 @@
     "difficulty": "easy",
     "question": "How many orders are there?",
     "expected_agent": "sql",
-    "correct": true,
+    "correct": false,
     "ok": true,
-    "latency_seconds": 1.5236,
+    "latency_seconds": 1.7065,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -17,10 +17,10 @@
       ],
       "rows": [
         [
-          9994
+          5009
         ]
       ],
-      "sql": "SELECT COUNT(order_id) AS total_orders FROM orders",
+      "sql": "SELECT\n    COUNT(DISTINCT order_id) AS total_orders\nFROM orders",
       "error": null
     },
     "error": null
@@ -34,7 +34,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.5634,
+    "latency_seconds": 2.1889,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -46,7 +46,7 @@
           793
         ]
       ],
-      "sql": "SELECT COUNT(DISTINCT customer_name) AS total_customers FROM orders",
+      "sql": "SELECT\n    COUNT(DISTINCT customer_id) AS total_customers\nFROM orders",
       "error": null
     },
     "error": null
@@ -60,7 +60,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 2.8682,
+    "latency_seconds": 1.1845,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -74,7 +74,7 @@
           725457.8245
         ]
       ],
-      "sql": "SELECT \n    region, \n    SUM(sales) AS total_sales\nFROM \n    orders\nGROUP BY \n    region\nORDER BY \n    total_sales DESC\nLIMIT 1",
+      "sql": "SELECT\n    region,\n    SUM(sales) AS total_sales\nFROM orders\nGROUP BY region\nORDER BY total_sales DESC\nLIMIT 1",
       "error": null
     },
     "error": null
@@ -88,7 +88,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 3.6962,
+    "latency_seconds": 0.818,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -102,7 +102,7 @@
           145454.9481
         ]
       ],
-      "sql": "SELECT \n    category, \n    SUM(profit) AS total_profit\nFROM orders\nGROUP BY category\nORDER BY total_profit DESC\nLIMIT 1",
+      "sql": "SELECT\n    category,\n    SUM(profit) AS total_profit\nFROM orders\nGROUP BY category\nORDER BY total_profit DESC\nLIMIT 1",
       "error": null
     },
     "error": null
@@ -116,7 +116,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 3.1294,
+    "latency_seconds": 1.2205,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -142,7 +142,7 @@
           725457.8245
         ]
       ],
-      "sql": "SELECT \n    region, \n    SUM(sales) AS total_sales\nFROM \n    orders\nGROUP BY \n    region",
+      "sql": "SELECT\n    region,\n    SUM(sales) AS total_sales\nFROM orders\nGROUP BY region\nORDER BY region",
       "error": null
     },
     "error": null
@@ -156,7 +156,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 3.1915,
+    "latency_seconds": 1.3,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -186,7 +186,7 @@
           4094.9766
         ]
       ],
-      "sql": "SELECT \n    product_name, \n    SUM(profit) AS total_profit\nFROM \n    orders\nGROUP BY \n    product_name\nORDER BY \n    total_profit DESC\nLIMIT 5",
+      "sql": "SELECT\n    product_name,\n    SUM(profit) AS total_profit\nFROM orders\nGROUP BY product_name\nORDER BY total_profit DESC\nLIMIT 5",
       "error": null
     },
     "error": null
@@ -200,7 +200,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 2.8134,
+    "latency_seconds": 0.8372,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -214,7 +214,7 @@
           37
         ]
       ],
-      "sql": "SELECT \n    customer_name, \n    COUNT(*) AS total_orders\nFROM orders\nGROUP BY customer_name\nORDER BY total_orders DESC\nLIMIT 1",
+      "sql": "SELECT\n    customer_name,\n    COUNT(*) AS total_orders\nFROM orders\nGROUP BY customer_name\nORDER BY total_orders DESC\nLIMIT 1",
       "error": null
     },
     "error": null
@@ -228,7 +228,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 2.5463,
+    "latency_seconds": 1.0746,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -240,7 +240,7 @@
           286397.0217
         ]
       ],
-      "sql": "SELECT SUM(profit) AS total_profit FROM orders",
+      "sql": "SELECT\n    SUM(profit) AS total_profit\nFROM orders",
       "error": null
     },
     "error": null
@@ -254,7 +254,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 2.501,
+    "latency_seconds": 0.8446,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -272,7 +272,7 @@
           "Technology"
         ]
       ],
-      "sql": "SELECT DISTINCT category FROM orders",
+      "sql": "SELECT DISTINCT category\nFROM orders\nORDER BY category",
       "error": null
     },
     "error": null
@@ -286,7 +286,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 2.5727,
+    "latency_seconds": 0.8708,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -298,7 +298,7 @@
           1945
         ]
       ],
-      "sql": "SELECT \n    COUNT(order_id) AS total_orders\nFROM \n    orders\nWHERE \n    ship_mode = 'Second Class'",
+      "sql": "SELECT\n    COUNT(*) AS total_orders\nFROM orders\nWHERE ship_mode = 'Second Class'",
       "error": null
     },
     "error": null
@@ -312,7 +312,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 2.6727,
+    "latency_seconds": 0.9486,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -326,7 +326,7 @@
           25043.05
         ]
       ],
-      "sql": "SELECT \n    customer_name, \n    SUM(sales) AS total_revenue\nFROM \n    orders\nGROUP BY \n    customer_name\nORDER BY \n    total_revenue DESC\nLIMIT 1",
+      "sql": "SELECT\n    customer_name,\n    SUM(sales) AS total_revenue\nFROM orders\nGROUP BY customer_name\nORDER BY total_revenue DESC\nLIMIT 1",
       "error": null
     },
     "error": null
@@ -340,7 +340,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 2.5524,
+    "latency_seconds": 1.281,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -354,7 +354,7 @@
           7667
         ]
       ],
-      "sql": "SELECT \n    state, \n    SUM(quantity) AS total_quantity\nFROM \n    orders\nGROUP BY \n    state\nORDER BY \n    total_quantity DESC\nLIMIT 1",
+      "sql": "SELECT\n    state,\n    SUM(quantity) AS total_quantity\nFROM orders\nGROUP BY state\nORDER BY total_quantity DESC\nLIMIT 1",
       "error": null
     },
     "error": null
@@ -368,7 +368,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 2.5877,
+    "latency_seconds": 0.9764,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -382,7 +382,7 @@
           62036.9837
         ]
       ],
-      "sql": "SELECT \n    city, \n    SUM(profit) AS total_profit\nFROM \n    orders\nGROUP BY \n    city\nORDER BY \n    total_profit DESC\nLIMIT 1",
+      "sql": "SELECT\n    city,\n    SUM(profit) AS total_profit\nFROM orders\nGROUP BY city\nORDER BY total_profit DESC\nLIMIT 1",
       "error": null
     },
     "error": null
@@ -396,7 +396,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 2.4987,
+    "latency_seconds": 0.9385,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -410,7 +410,7 @@
           5968
         ]
       ],
-      "sql": "SELECT \n    ship_mode, \n    COUNT(*) AS frequency\nFROM \n    orders\nGROUP BY \n    ship_mode\nORDER BY \n    frequency DESC\nLIMIT 1",
+      "sql": "SELECT\n    ship_mode,\n    COUNT(*) AS frequency\nFROM orders\nGROUP BY ship_mode\nORDER BY frequency DESC\nLIMIT 1",
       "error": null
     },
     "error": null
@@ -424,19 +424,19 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 2.5217,
+    "latency_seconds": 1.0699,
     "attempts": 1,
     "retried": false,
     "answer": {
       "columns": [
-        "total_product_names"
+        "distinct_product_names"
       ],
       "rows": [
         [
           1850
         ]
       ],
-      "sql": "SELECT COUNT(DISTINCT product_name) AS total_product_names FROM orders",
+      "sql": "SELECT\n    COUNT(DISTINCT product_name) AS distinct_product_names\nFROM orders",
       "error": null
     },
     "error": null
@@ -450,7 +450,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 3.5893,
+    "latency_seconds": 0.9523,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -464,7 +464,7 @@
           1161401.345
         ]
       ],
-      "sql": "SELECT \n    segment,\n    SUM(sales) AS total_sales\nFROM orders\nGROUP BY segment\nORDER BY total_sales DESC\nLIMIT 1",
+      "sql": "SELECT\n    segment,\n    SUM(sales) AS total_sales\nFROM orders\nGROUP BY segment\nORDER BY total_sales DESC\nLIMIT 1",
       "error": null
     },
     "error": null
@@ -478,7 +478,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 2.5006,
+    "latency_seconds": 0.9817,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -492,7 +492,7 @@
           22638.48
         ]
       ],
-      "sql": "SELECT \n    order_id, \n    sales\nFROM \n    orders\nORDER BY \n    sales DESC\nLIMIT 1",
+      "sql": "SELECT\n    order_id,\n    sales\nFROM orders\nORDER BY sales DESC\nLIMIT 1",
       "error": null
     },
     "error": null
@@ -506,7 +506,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 2.5009,
+    "latency_seconds": 0.8438,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -518,7 +518,7 @@
           531
         ]
       ],
-      "sql": "SELECT COUNT(DISTINCT city) AS unique_cities FROM orders",
+      "sql": "SELECT\n    COUNT(DISTINCT city) AS unique_cities\nFROM orders",
       "error": null
     },
     "error": null
@@ -532,7 +532,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 2.738,
+    "latency_seconds": 1.5318,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -546,7 +546,7 @@
           39706.3625
         ]
       ],
-      "sql": "SELECT \n    region, \n    SUM(profit) AS total_profit\nFROM \n    orders\nGROUP BY \n    region\nORDER BY \n    total_profit ASC\nLIMIT 1",
+      "sql": "SELECT\n    region,\n    SUM(profit) AS total_profit\nFROM orders\nGROUP BY region\nORDER BY total_profit ASC\nLIMIT 1",
       "error": null
     },
     "error": null
@@ -558,9 +558,9 @@
     "difficulty": "medium",
     "question": "Which category contains the greatest number of orders?",
     "expected_agent": "sql",
-    "correct": true,
+    "correct": false,
     "ok": true,
-    "latency_seconds": 2.5606,
+    "latency_seconds": 1.7679,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -571,10 +571,10 @@
       "rows": [
         [
           "Office Supplies",
-          6026
+          3742
         ]
       ],
-      "sql": "SELECT \n    category,\n    COUNT(order_id) AS total_orders\nFROM orders\nGROUP BY category\nORDER BY total_orders DESC\nLIMIT 1",
+      "sql": "SELECT\n    category,\n    COUNT(DISTINCT order_id) AS total_orders\nFROM orders\nGROUP BY category\nORDER BY total_orders DESC\nLIMIT 1",
       "error": null
     },
     "error": null
@@ -588,7 +588,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 2.6969,
+    "latency_seconds": 1.1682,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -602,7 +602,7 @@
           725457.8245
         ]
       ],
-      "sql": "SELECT \n    region,\n    SUM(sales) AS total_revenue\nFROM \n    orders\nGROUP BY \n    region\nORDER BY \n    total_revenue DESC\nLIMIT 1",
+      "sql": "SELECT\n    region,\n    SUM(sales) AS total_revenue\nFROM orders\nGROUP BY region\nORDER BY total_revenue DESC\nLIMIT 1",
       "error": null
     },
     "error": null
@@ -616,7 +616,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 2.6467,
+    "latency_seconds": 0.841,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -630,7 +630,7 @@
           37
         ]
       ],
-      "sql": "SELECT \n    customer_name, \n    COUNT(*) AS total_orders\nFROM \n    orders\nGROUP BY \n    customer_name\nORDER BY \n    total_orders DESC\nLIMIT 1",
+      "sql": "SELECT\n    customer_name,\n    COUNT(*) AS total_orders\nFROM orders\nGROUP BY customer_name\nORDER BY total_orders DESC\nLIMIT 1",
       "error": null
     },
     "error": null
@@ -644,7 +644,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 2.8071,
+    "latency_seconds": 0.8379,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -658,7 +658,7 @@
           108418.4489
         ]
       ],
-      "sql": "SELECT \n    region, \n    SUM(profit) AS total_profit\nFROM orders\nGROUP BY region\nORDER BY total_profit DESC\nLIMIT 1",
+      "sql": "SELECT\n    region,\n    SUM(profit) AS total_profit\nFROM orders\nGROUP BY region\nORDER BY total_profit DESC\nLIMIT 1",
       "error": null
     },
     "error": null
@@ -672,7 +672,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 2.4928,
+    "latency_seconds": 1.2239,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -686,7 +686,7 @@
           61599.824
         ]
       ],
-      "sql": "SELECT \n    product_name, \n    SUM(sales) AS total_revenue\nFROM \n    orders\nGROUP BY \n    product_name\nORDER BY \n    total_revenue DESC\nLIMIT 1",
+      "sql": "SELECT\n    product_name,\n    SUM(sales) AS total_revenue\nFROM orders\nGROUP BY product_name\nORDER BY total_revenue DESC\nLIMIT 1",
       "error": null
     },
     "error": null
@@ -700,7 +700,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 2.5732,
+    "latency_seconds": 1.2414,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -714,7 +714,7 @@
           5968
         ]
       ],
-      "sql": "SELECT \n    ship_mode, \n    COUNT(*) AS total_orders\nFROM \n    orders\nGROUP BY \n    ship_mode\nORDER BY \n    total_orders DESC\nLIMIT 1",
+      "sql": "SELECT\n    ship_mode,\n    COUNT(*) AS total_orders\nFROM orders\nGROUP BY ship_mode\nORDER BY total_orders DESC\nLIMIT 1",
       "error": null
     },
     "error": null
@@ -728,7 +728,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 3.5482,
+    "latency_seconds": 0.9699,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -742,7 +742,7 @@
           1161401.345
         ]
       ],
-      "sql": "SELECT \n    segment,\n    SUM(sales) AS total_sales\nFROM orders\nGROUP BY segment\nORDER BY total_sales DESC\nLIMIT 1",
+      "sql": "SELECT\n    segment,\n    SUM(sales) AS total_sales\nFROM orders\nGROUP BY segment\nORDER BY total_sales DESC\nLIMIT 1",
       "error": null
     },
     "error": null
@@ -756,7 +756,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 4.6042,
+    "latency_seconds": 0.8678,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -770,7 +770,7 @@
           76381.3871
         ]
       ],
-      "sql": "SELECT \n    state, \n    SUM(profit) AS total_profit\nFROM \n    orders\nGROUP BY \n    state\nORDER BY \n    total_profit DESC\nLIMIT 1",
+      "sql": "SELECT\n    state,\n    SUM(profit) AS total_profit\nFROM orders\nGROUP BY state\nORDER BY total_profit DESC\nLIMIT 1",
       "error": null
     },
     "error": null
@@ -784,7 +784,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 5.6609,
+    "latency_seconds": 0.9703,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -798,7 +798,7 @@
           215
         ]
       ],
-      "sql": "SELECT \n    product_name, \n    SUM(quantity) AS total_quantity\nFROM orders\nGROUP BY product_name\nORDER BY total_quantity DESC\nLIMIT 1",
+      "sql": "SELECT\n    product_name,\n    SUM(quantity) AS total_quantity\nFROM orders\nGROUP BY product_name\nORDER BY total_quantity DESC\nLIMIT 1",
       "error": null
     },
     "error": null
@@ -812,7 +812,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 4.5276,
+    "latency_seconds": 1.08,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -824,7 +824,7 @@
           9994
         ]
       ],
-      "sql": "SELECT COUNT(*) AS total_purchases FROM orders",
+      "sql": "SELECT\n    COUNT(*) AS total_purchases\nFROM orders",
       "error": null
     },
     "error": null
@@ -838,7 +838,7 @@
     "expected_agent": "sql",
     "correct": true,
     "ok": true,
-    "latency_seconds": 5.804,
+    "latency_seconds": 0.9808,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -852,7 +852,7 @@
           725457.8245
         ]
       ],
-      "sql": "SELECT \n    region, \n    SUM(sales) AS total_sales\nFROM \n    orders\nGROUP BY \n    region\nORDER BY \n    total_sales DESC\nLIMIT 1",
+      "sql": "SELECT\n    region,\n    SUM(sales) AS total_sales\nFROM orders\nGROUP BY region\nORDER BY total_sales DESC\nLIMIT 1",
       "error": null
     },
     "error": null
