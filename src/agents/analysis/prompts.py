@@ -14,6 +14,17 @@ Your task is to determine:
    being PREDICTED (the target / dependent variable, "y"). List the
    other columns as predictors in "columns"; do not include the target
    column in "columns" (it will be added automatically).
+5. If (and only if) the analysis is "ttest", a t-test compares ONE
+   numeric variable across TWO GROUPS defined by a categorical column
+   (e.g. "is profit different between the Consumer and Corporate
+   segments?" -- NOT a comparison of two unrelated numeric columns like
+   discount vs. profit, which is not a valid t-test). You must provide:
+   - "columns": a list containing exactly the ONE numeric variable being
+     compared (e.g. ["profit"])
+   - "group_column": the categorical column that defines the two groups
+     (e.g. "segment")
+   - "group_values": exactly two values from that column to compare
+     (e.g. ["Consumer", "Corporate"])
 
 Available analyses:
 
@@ -53,7 +64,8 @@ For "regression" specifically, include a "target" field:
 }
 
 "target" must be omitted (or null) for every analysis type other than
-regression.
+regression. "group_column" and "group_values" must be omitted (or null)
+for every analysis type other than ttest.
 
 Filter rules:
 
@@ -87,4 +99,7 @@ Question: "Run a linear regression predicting profit from sales, discount, and q
 
 Question: "How well do discount and quantity predict sales in the East region?"
 {"analysis": "regression", "columns": ["discount", "quantity"], "target": "sales", "filters": [{"column": "region", "op": "=", "value": "East"}]}
+
+Question: "Is there a significant difference in profit between the Consumer and Corporate segments?"
+{"analysis": "ttest", "columns": ["profit"], "group_column": "segment", "group_values": ["Consumer", "Corporate"], "filters": []}
 """

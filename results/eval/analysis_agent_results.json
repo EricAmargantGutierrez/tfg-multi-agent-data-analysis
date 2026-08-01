@@ -8,7 +8,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.8468,
+    "latency_seconds": 1.3398,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -36,7 +36,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.0833,
+    "latency_seconds": 4.4115,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -64,7 +64,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.2404,
+    "latency_seconds": 0.9137,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -92,7 +92,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.1761,
+    "latency_seconds": 1.1109,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -126,7 +126,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.9969,
+    "latency_seconds": 1.2192,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -158,7 +158,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.3568,
+    "latency_seconds": 0.984,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -188,29 +188,37 @@
     "category": "analysis",
     "task_type": "ttest",
     "difficulty": "medium",
-    "question": "Is there a statistically significant difference between discount and profit values?",
+    "question": "Is there a significant difference in profit between the Consumer and Corporate segments?",
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.2048,
+    "latency_seconds": 1.059,
     "attempts": 1,
     "retried": false,
     "answer": {
       "result": {
         "analysis": "ttest",
         "result": {
-          "t_statistic": -12.162604769282508,
-          "p_value": 8.516844349630498e-34
+          "t_statistic": -0.8555511671728538,
+          "p_value": 0.3922774231363087,
+          "value_column": "profit",
+          "group_column": "segment",
+          "group_a": "Consumer",
+          "group_a_mean": 25.8368732806781,
+          "group_a_n": 5191,
+          "group_b": "Corporate",
+          "group_b_mean": 30.456666887417217,
+          "group_b_n": 3020
         }
       },
       "analysis": "ttest",
       "columns": [
-        "discount",
-        "profit"
+        "profit",
+        "segment"
       ],
       "target": null,
       "filters": [],
-      "sql": "SELECT discount, profit FROM orders",
+      "sql": "SELECT profit, segment FROM orders",
       "error": null
     },
     "error": null
@@ -224,7 +232,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.942,
+    "latency_seconds": 0.9615,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -255,7 +263,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.3571,
+    "latency_seconds": 1.7506,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -294,7 +302,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.0059,
+    "latency_seconds": 1.0872,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -339,7 +347,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.1892,
+    "latency_seconds": 1.5952,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -377,7 +385,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.1074,
+    "latency_seconds": 0.9928,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -389,19 +397,19 @@
               135.89983563242578,
               3.6834191988224143,
               0.15755020502575962,
-              13.812210608768781
+              13.812210608768778
             ],
             [
               1806.6755504273506,
               5.893162393162392,
               0.12955128205128208,
-              248.6163245726496
+              248.61632457264963
             ],
             [
               10608.891066666667,
               5.466666666666667,
               0.13333333333333333,
-              2578.4431133333333
+              2578.443113333333
             ]
           ],
           "inertia": 1444364350.9210992
@@ -430,7 +438,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.9735,
+    "latency_seconds": 0.996,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -468,7 +476,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.0024,
+    "latency_seconds": 1.1121,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -502,7 +510,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.3407,
+    "latency_seconds": 0.9746,
     "attempts": 1,
     "retried": false,
     "answer": {

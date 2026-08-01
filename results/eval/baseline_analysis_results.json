@@ -8,7 +8,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.786,
+    "latency_seconds": 0.8896,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -34,7 +34,7 @@
     "expected_agent": "analysis",
     "correct": false,
     "ok": false,
-    "latency_seconds": 0.6818,
+    "latency_seconds": 0.7481,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -54,7 +54,7 @@
     "expected_agent": "analysis",
     "correct": false,
     "ok": false,
-    "latency_seconds": 0.7459,
+    "latency_seconds": 0.7795,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -74,7 +74,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.0244,
+    "latency_seconds": 0.9965,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -98,9 +98,9 @@
     "difficulty": "medium",
     "question": "What is the correlation between discount and profit?",
     "expected_agent": "analysis",
-    "correct": false,
+    "correct": true,
     "ok": true,
-    "latency_seconds": 1.9927,
+    "latency_seconds": 1.6753,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -126,7 +126,7 @@
     "expected_agent": "analysis",
     "correct": false,
     "ok": false,
-    "latency_seconds": 0.987,
+    "latency_seconds": 0.9922,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -142,20 +142,47 @@
     "category": "analysis",
     "task_type": "ttest",
     "difficulty": "medium",
-    "question": "Is there a statistically significant difference between discount and profit values?",
+    "question": "Is there a significant difference in profit between the Consumer and Corporate segments?",
     "expected_agent": "analysis",
     "correct": false,
-    "ok": false,
-    "latency_seconds": 1.6686,
+    "ok": true,
+    "latency_seconds": 57.8136,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "columns": [],
-      "rows": [],
-      "sql": "SELECT\n  COUNT(*) as n,\n  AVG(discount) as avg_discount,\n  AVG(profit) as avg_profit,\n  STDEV(discount) as stdev_discount,\n  STDEV(profit) as stdev_profit,\n  CORR(discount, profit) as correlation,\n  SUM(CASE WHEN discount > 0 AND profit < 0 THEN 1 ELSE 0 END) as discounted_negative_profit_count,\n  SUM(CASE WHEN discount = 0 AND profit > 0 THEN 1 ELSE 0 END) as no_discount_positive_profit_count\nFROM orders\nWHERE discount IS NOT NULL AND profit IS NOT NULL;",
-      "error": "OperationalError: no such function: STDEV"
+      "columns": [
+        "segment",
+        "order_count",
+        "total_profit",
+        "avg_profit",
+        "min_profit",
+        "max_profit",
+        "std_dev"
+      ],
+      "rows": [
+        [
+          "Consumer",
+          5191,
+          134119.21,
+          25.84,
+          -6599.98,
+          6719.98,
+          242.57
+        ],
+        [
+          "Corporate",
+          3020,
+          91979.13,
+          30.46,
+          -3839.99,
+          8399.98,
+          231.95
+        ]
+      ],
+      "sql": "SELECT \n  segment,\n  COUNT(*) as order_count,\n  ROUND(SUM(profit), 2) as total_profit,\n  ROUND(AVG(profit), 2) as avg_profit,\n  ROUND(MIN(profit), 2) as min_profit,\n  ROUND(MAX(profit), 2) as max_profit,\n  ROUND(SQRT(SUM((profit - (SELECT AVG(profit) FROM orders o2 WHERE o2.segment = orders.segment)) * (profit - (SELECT AVG(profit) FROM orders o2 WHERE o2.segment = orders.segment))) / COUNT(*)), 2) as std_dev\nFROM orders\nWHERE segment IN ('Consumer', 'Corporate')\nGROUP BY segment\nORDER BY segment",
+      "error": null
     },
-    "error": "OperationalError: no such function: STDEV"
+    "error": null
   },
   {
     "id": 8,
@@ -164,9 +191,9 @@
     "difficulty": "medium",
     "question": "What is the covariance between quantity and discount?",
     "expected_agent": "analysis",
-    "correct": false,
+    "correct": true,
     "ok": true,
-    "latency_seconds": 1.2153,
+    "latency_seconds": 1.2039,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -192,7 +219,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.8876,
+    "latency_seconds": 0.8742,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -218,13 +245,13 @@
     "expected_agent": "analysis",
     "correct": false,
     "ok": false,
-    "latency_seconds": 2.8729,
+    "latency_seconds": 2.6715,
     "attempts": 1,
     "retried": false,
     "answer": {
       "columns": [],
       "rows": [],
-      "sql": "I cannot write a single SQL query that performs linear regression, as SQL is not designed for statistical modeling. Linear regression requires computational capabilities beyond standard SQL.\n\nHowever, if your database system supports it (like PostgreSQL with extensions), here's an approach:\n\n\nSELECT\n  regr_slope(profit, sales) as sales_slope,\n  regr_slope(profit, discount) as discount_slope,\n  regr_slope(profit, quantity) as quantity_slope,\n  regr_intercept(profit, sales) as intercept,\n  regr_r2(profit, sales) as r_squared\nFROM orders\nWHERE profit IS NOT NULL AND sales IS NOT NULL AND discount IS NOT NULL AND quantity IS NOT NULL;\n\n\nFor a proper linear regression with multiple variables, you would need to use a statistical tool (Python with scikit-learn, R, etc.) or export the data and process it externally.\n\nIf you need just the data to perform regression elsewhere:\n\n\nSELECT sales, discount, quantity, profit FROM orders WHERE profit IS NOT NULL AND sales IS NOT NULL AND discount IS NOT NULL AND quantity IS NOT NULL;",
+      "sql": "I cannot write a single SQL query that performs linear regression, as SQL is not designed for statistical modeling. Linear regression requires mathematical computations (matrix operations, least squares calculations) that are beyond SQL's capabilities.\n\nTo solve this problem, you would need to:\n\n1. Extract the data with SQL:\n\nSELECT sales, discount, quantity, profit FROM orders WHERE profit IS NOT NULL AND sales IS NOT NULL AND discount IS NOT NULL AND quantity IS NOT NULL\n\n\n2. Use a statistical tool or programming language (Python with scikit-learn, R, etc.) to perform the linear regression on the extracted data.\n\nIf you need the SQL query to prepare the data for regression analysis in another tool, here it is:\n\n\nSELECT sales, discount, quantity, profit FROM orders WHERE profit IS NOT NULL AND sales IS NOT NULL AND discount IS NOT NULL AND quantity IS NOT NULL",
       "error": "UnsafeSQLError: Only SELECT queries are allowed."
     },
     "error": "UnsafeSQLError: Only SELECT queries are allowed."
@@ -238,7 +265,7 @@
     "expected_agent": "analysis",
     "correct": false,
     "ok": false,
-    "latency_seconds": 2.3371,
+    "latency_seconds": 2.445,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -258,7 +285,7 @@
     "expected_agent": "analysis",
     "correct": false,
     "ok": true,
-    "latency_seconds": 1.6567,
+    "latency_seconds": 1.2982,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -8284,9 +8311,9 @@
     "difficulty": "hard",
     "question": "What is the correlation between discount and profit for orders placed in 2017?",
     "expected_agent": "analysis",
-    "correct": false,
+    "correct": true,
     "ok": true,
-    "latency_seconds": 1.5707,
+    "latency_seconds": 1.8222,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -8312,7 +8339,7 @@
     "expected_agent": "analysis",
     "correct": false,
     "ok": false,
-    "latency_seconds": 0.9245,
+    "latency_seconds": 1.0901,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -8332,7 +8359,7 @@
     "expected_agent": "analysis",
     "correct": false,
     "ok": false,
-    "latency_seconds": 1.586,
+    "latency_seconds": 0.9947,
     "attempts": 1,
     "retried": false,
     "answer": {

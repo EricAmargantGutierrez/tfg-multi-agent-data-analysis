@@ -48,6 +48,8 @@ class AnalysisPlan(BaseModel):
     analysis: str
     columns: list[str] = Field(min_length=1)
     target: str | None = None
+    group_column: str | None = None
+    group_values: list[str] | None = None
     filters: list[Filter] = Field(default_factory=list)
 
     @field_validator("columns")
@@ -60,6 +62,11 @@ class AnalysisPlan(BaseModel):
     def _normalize_target(cls, target: str | None) -> str | None:
         return target.lower().replace(" ", "_") if target else target
 
+    @field_validator("group_column")
+    @classmethod
+    def _normalize_group_column(cls, group_column: str | None) -> str | None:
+        return group_column.lower().replace(" ", "_") if group_column else group_column
+
     @model_validator(mode="after")
     def _require_target_for_regression(self) -> "AnalysisPlan":
         if self.analysis == "regression":
@@ -70,6 +77,22 @@ class AnalysisPlan(BaseModel):
                 )
             if self.target not in self.columns:
                 self.columns = [*self.columns, self.target]
+
+        if self.analysis == "ttest":
+            if not self.group_column or not self.group_values:
+                raise ValueError(
+                    "analysis='ttest' requires 'group_column' (the categorical "
+                    "column that defines the two groups) and 'group_values' "
+                    "(exactly 2 values from that column to compare)."
+                )
+            if len(self.group_values) != 2:
+                raise ValueError(
+                    f"analysis='ttest' requires exactly 2 group_values, got "
+                    f"{len(self.group_values)}."
+                )
+            if self.group_column not in self.columns:
+                self.columns = [*self.columns, self.group_column]
+
         return self
 
 

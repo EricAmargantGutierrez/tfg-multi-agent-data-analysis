@@ -88,7 +88,12 @@ def _check_dict_result(actual: dict, expected: dict) -> bool:
         return False
     for key, e_val in e.items():
         a_val = a.get(key)
-        if a_val is None or not numbers_close(a_val, e_val):
+        if a_val is None:
+            return False
+        if _is_number(e_val):
+            if not numbers_close(a_val, e_val):
+                return False
+        elif a_val != e_val:
             return False
     return True
 
@@ -153,36 +158,57 @@ CHECKERS = {
 # ---------------------------------------------------------------------
 # Baseline scoring: the baseline only ever returns {columns, rows} from a
 # single bare SQL query, never a structured "analysis result". For SQL
-# and Viz questions that shape already matches ground truth directly. For
-# Analysis questions, only scalar types (mean, count, min, max -- the ones
-# SQLite can compute natively) can possibly be answered this way; dict/ML
-# types (correlation, covariance, ttest, regression, pca, kmeans) are
-# scored as incorrect by construction, since a single SQL query cannot
-# express them. That is the finding, not a scoring bug.
+# and Viz questions that shape already matches ground truth directly.
+#
+# For Analysis questions: this used to auto-reject anything outside
+# {mean, count, min, max, ...} on the assumption a single SQL query
+# structurally cannot express correlation/covariance/ttest. That
+# assumption was WRONG -- evaluation showed a capable model deriving the
+# correct closed-form Pearson correlation formula manually in raw SQL,
+# matching the real system almost exactly, yet scored incorrect purely
+# by this design, not because the math was wrong. Fixed: correlation,
+# covariance, and (group-based) ttest are now genuinely checked against
+# the key metric in the baseline's returned row. regression/pca/kmeans
+# remain auto-rejected -- those genuinely require iterative optimization
+# or matrix decomposition that a single, non-procedural SQL SELECT
+# cannot express, which is a real structural limit, not an assumption.
 # ---------------------------------------------------------------------
 def check_baseline_sql_shaped(answer: dict, ground_truth: list[list]) -> bool:
     return check_sql(answer, ground_truth)
+
+
+_BASELINE_STRUCTURALLY_IMPOSSIBLE = {"regression", "pca", "kmeans"}
+_BASELINE_DICT_KEY = {"correlation": "correlation", "covariance": "covariance", "ttest": "t_statistic"}
 
 
 def check_baseline_analysis(answer: dict, ground_truth: dict) -> bool:
     if not answer.get("ok") or ground_truth is None:
         return False
     analysis_type = ground_truth.get("analysis")
-    if analysis_type not in _SCALAR_TYPES:
-        return False
 
     rows = answer.get("rows")
     if not rows or not rows[0]:
         return False
-
     candidates = [v for v in rows[0] if _is_number(v)]
     if not candidates:
         return False
 
-    expected = ground_truth.get("result")
-    if not _is_number(expected):
-        return False
-    return any(numbers_close(c, expected) for c in candidates)
+    if analysis_type in _SCALAR_TYPES:
+        expected = ground_truth.get("result")
+        if not _is_number(expected):
+            return False
+        return any(numbers_close(c, expected) for c in candidates)
+
+    if analysis_type in _DICT_TYPES:
+        key = _BASELINE_DICT_KEY.get(analysis_type)
+        expected = ground_truth.get("result", {}).get(key) if key else None
+        if not _is_number(expected):
+            return False
+        return any(numbers_close(c, expected) for c in candidates)
+
+    # regression / pca / kmeans: genuinely infeasible in one plain SQL
+    # SELECT -- this is the real finding, not an assumption.
+    return False
 
 
 BASELINE_CHECKERS = {

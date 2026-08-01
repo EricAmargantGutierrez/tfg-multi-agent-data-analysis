@@ -31,6 +31,9 @@ def compute_ground_truth(reference: dict) -> dict:
     target = reference.get("target")
     if target and target not in columns:
         columns = [*columns, target]
+    group_column = reference.get("group_column")
+    if group_column and group_column not in columns:
+        columns = [*columns, group_column]
 
     sql, params = build_select(
         columns=columns,
@@ -41,6 +44,8 @@ def compute_ground_truth(reference: dict) -> dict:
     function = ANALYSIS_FUNCTIONS[reference["analysis"]]
     if reference["analysis"] == "regression":
         return function(df, target=target)
+    if reference["analysis"] == "ttest":
+        return function(df, group_column=group_column, group_values=reference.get("group_values"))
     return function(df)
 
 

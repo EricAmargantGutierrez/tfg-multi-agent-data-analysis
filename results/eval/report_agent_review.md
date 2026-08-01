@@ -305,87 +305,87 @@ The Consumer segment dominates order volume, accounting for more than half of al
 **Q1** _(routed to: sql)_: Where does the business seem to perform best in terms of revenue?
 **A1:** Based on the analysis, the business performs best in the **West region**, which generated **$725,457.82** in total revenue.
 
-**Q2** _(routed to: analysis)_: Is there a statistically significant difference between discount and profit values?
-**A2:** # Statistical Significance Analysis
+**Q2** _(routed to: analysis)_: Is there a significant difference in profit between the Consumer and Corporate segments?
+**A2:** # Profit Difference Between Consumer and Corporate Segments
 
-Yes, there is a **statistically significant difference** between discount and profit values.
+**No, there is not a statistically significant difference** in profit between these segments.
 
 ## Key Findings:
 
-- **T-statistic:** -12.16
-- **P-value:** 8.52 × 10⁻³⁴ (extremely small)
-- **Sample size:** 9,994 orders
+- **Consumer segment**: Average profit of $25.84 (n=5,191 orders)
+- **Corporate segment**: Average profit of $30.46 (n=3,020 orders)
+- **P-value**: 0.392
 
-The p-value is far below the standard significance threshold of 0.05, providing very strong evidence that discount and profit values differ significantly from each other. The negative t-statistic indicates that one variable tends to be systematically lower than the other.
+While the Corporate segment shows a higher average profit by about $4.62, the p-value of 0.392 is well above the standard significance threshold of 0.05. This means the observed difference could easily occur by chance, so we cannot conclude there is a meaningful difference between the two segments.
 
 **Q3** _(routed to: analysis)_: Cluster orders into 3 groups based on sales, quantity, discount, and profit.
 **A3:** # Clustering Results
 
 I've successfully clustered 9,994 orders into 3 groups based on sales, quantity, discount, and profit using K-means clustering.
 
-## Cluster Characteristics:
+## The 3 Clusters:
 
-**Cluster 1 (Small Orders):**
+**Cluster 1 - Small Orders:**
 - Average Sales: $135.90
 - Average Quantity: 3.68 units
 - Average Discount: 15.76%
 - Average Profit: $13.81
 
-**Cluster 2 (Medium Orders):**
+**Cluster 2 - Medium Orders:**
 - Average Sales: $1,806.68
 - Average Quantity: 5.89 units
 - Average Discount: 12.96%
 - Average Profit: $248.62
 
-**Cluster 3 (Large Orders):**
+**Cluster 3 - Large Orders:**
 - Average Sales: $10,608.89
 - Average Quantity: 5.47 units
 - Average Discount: 13.33%
 - Average Profit: $2,578.44
 
-The three clusters clearly represent small, medium, and large order segments, with profit scaling significantly with sales volume while discount rates remain relatively consistent across groups.
+The clustering clearly separates orders by their sales value and profitability, with larger orders generating significantly higher profits despite having similar quantities and discount rates across groups.
 
 ### Generated report
 ```markdown
-# Professional Data Analysis Report
+# Data Analysis Report
 
 ## Executive Summary
 
-This analysis examined business performance across three key dimensions: regional revenue distribution, the relationship between discount and profit variables, and customer segmentation patterns. The findings reveal concentrated revenue performance in the West region, a statistically significant inverse relationship between discounts and profits, and three distinct customer segments with markedly different value profiles.
+This report summarizes findings from a multi-agent data analysis system examining business performance across regions, customer segments, and order characteristics. The analysis reveals that the West region is the strongest revenue performer, profit differences between customer segments are not statistically significant, and orders naturally segment into three distinct clusters based on transaction characteristics.
 
 ## Questions Asked
 
 1. Where does the business seem to perform best in terms of revenue?
-2. Is there a statistically significant difference between discount and profit values?
+2. Is there a significant difference in profit between the Consumer and Corporate segments?
 3. Cluster orders into 3 groups based on sales, quantity, discount, and profit.
 
 ## Key Findings
 
-### Regional Revenue Performance
-- The **West region** is the top-performing region with **$725,457.82** in total revenue
-- This analysis was based on aggregated sales data across all orders
+### Regional Performance
+- The **West region** generates the highest revenue at **$725,457.82**, significantly outperforming other regions.
 
-### Discount-Profit Relationship
-- A **statistically significant relationship** exists between discount and profit values (p-value: 8.52 × 10⁻³⁴)
-- The t-statistic of **-12.16** indicates a **negative correlation**: higher discounts are associated with lower profits
-- This relationship is highly significant and unlikely to occur by chance
+### Segment Profitability
+- **Consumer segment** average profit: $25.84 per order (n=5,191)
+- **Corporate segment** average profit: $30.46 per order (n=3,020)
+- Statistical significance: **Not significant** (p-value = 0.392)
+- The observed profit difference between segments is within normal variation and cannot be considered statistically meaningful.
 
-### Customer Segmentation (K-Means Clustering)
-Three distinct customer segments were identified:
+### Order Clustering Analysis
+Three distinct order clusters were identified:
 
 | Cluster | Avg Sales | Avg Quantity | Avg Discount | Avg Profit |
 |---------|-----------|--------------|--------------|-----------|
-| 1 (Low-Value) | $135.90 | 3.68 units | 15.76% | $13.81 |
-| 2 (Mid-Value) | $1,806.68 | 5.89 units | 12.96% | $248.62 |
-| 3 (High-Value) | $10,608.89 | 5.47 units | 13.33% | $2,578.44 |
+| Low-Value | $135.90 | 3.68 units | 15.8% | $13.81 |
+| Mid-Value | $1,806.68 | 5.89 units | 13.0% | $248.62 |
+| High-Value | $10,608.89 | 5.47 units | 13.3% | $2,578.44 |
 
 ## Conclusions
 
-1. **Geographic Focus**: The West region demonstrates superior revenue generation and may warrant increased investment or serve as a model for other regions.
+1. **Geographic focus**: The West region should be prioritized for continued investment and growth initiatives.
 
-2. **Discount Strategy**: The strong negative correlation between discounts and profits suggests that aggressive discounting practices are eroding profitability. A review of discount policies is recommended.
+2. **Segment strategy**: Consumer and Corporate segments show comparable profitability. Segment-specific strategies should be based on factors other than profit margins.
 
-3. **Segment-Based Approach**: Three distinct customer segments exist with vastly different profit contributions. High-value customers (Cluster 3) generate approximately **186 times more profit** than low-value customers (Cluster 1), despite similar discount rates. Targeted strategies for each segment could optimize overall profitability.
+3. **Order value segmentation**: Orders naturally fall into three tiers with dramatically different profit profiles. Business strategies should differentiate between low-value, mid-value, and high-value transactions, with particular emphasis on high-value order acquisition and retention.
 ```
 
 

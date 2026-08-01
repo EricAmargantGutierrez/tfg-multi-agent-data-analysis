@@ -59,12 +59,43 @@ def compute_covariance(df):
     return {"analysis": "covariance", "result": {"covariance": float(covariance)}}
 
 
-def compute_ttest(df):
-    numeric = _numeric(df)
-    if numeric.shape[1] < 2:
-        raise ValueError("t-test requires two numeric columns.")
-    statistic, p = ttest_ind(numeric.iloc[:, 0], numeric.iloc[:, 1], equal_var=False)
-    return {"analysis": "ttest", "result": {"t_statistic": float(statistic), "p_value": float(p)}}
+def compute_ttest(df, group_column=None, group_values=None):
+    """Compares ONE numeric variable across TWO groups defined by a
+    categorical column (e.g. profit in the Consumer segment vs. profit in
+    the Corporate segment) -- the standard meaning of a t-test.
+
+    Previously this compared two numeric COLUMNS directly as independent
+    samples (e.g. discount vs. profit) -- not a real two-group hypothesis
+    test, since the two "samples" were different variables on different
+    scales. group_column/group_values fixes this; see AnalysisPlan."""
+    if group_column is None or group_values is None:
+        raise ValueError("compute_ttest requires group_column and group_values "
+                          "(a t-test compares one variable across two groups).")
+    if group_column not in df.columns:
+        raise ValueError(f"group_column '{group_column}' not found in the data.")
+
+    numeric = _numeric(df.drop(columns=[group_column], errors="ignore"))
+    if numeric.shape[1] < 1:
+        raise ValueError("t-test requires at least one numeric column to compare across groups.")
+    value_column = numeric.columns[0]
+
+    a_label, b_label = group_values
+    group_a = df.loc[df[group_column] == a_label, value_column].dropna()
+    group_b = df.loc[df[group_column] == b_label, value_column].dropna()
+
+    if len(group_a) < 2 or len(group_b) < 2:
+        raise ValueError(
+            f"Not enough data to compare: '{a_label}' has {len(group_a)} rows, "
+            f"'{b_label}' has {len(group_b)} rows (need at least 2 each)."
+        )
+
+    statistic, p = ttest_ind(group_a, group_b, equal_var=False)
+    return {"analysis": "ttest", "result": {
+        "t_statistic": float(statistic), "p_value": float(p),
+        "value_column": value_column, "group_column": group_column,
+        "group_a": a_label, "group_a_mean": float(group_a.mean()), "group_a_n": int(len(group_a)),
+        "group_b": b_label, "group_b_mean": float(group_b.mean()), "group_b_n": int(len(group_b)),
+    }}
 
 
 def compute_regression(df, target=None):

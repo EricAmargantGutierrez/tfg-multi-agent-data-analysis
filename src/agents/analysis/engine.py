@@ -56,6 +56,8 @@ def execute_analysis(plan: AnalysisPlan, dataframe: pd.DataFrame) -> dict:
     function = ANALYSIS_FUNCTIONS[plan.analysis]
     if plan.analysis == "regression":
         return function(dataframe, target=plan.target)
+    if plan.analysis == "ttest":
+        return function(dataframe, group_column=plan.group_column, group_values=plan.group_values)
     return function(dataframe)
 
 
@@ -79,6 +81,8 @@ def run_analysis_core(question: str, model_key: str | None = None, max_retries: 
             "analysis": plan.analysis,
             "columns": plan.columns,
             "target": plan.target,
+            "group_column": plan.group_column,
+            "group_values": plan.group_values,
             "filters": [f.model_dump() for f in plan.filters],
             "rows": len(dataframe),
             "sql": sql,
@@ -90,6 +94,7 @@ def run_analysis_core(question: str, model_key: str | None = None, max_retries: 
         max_retries=max_retries,
         failure_defaults={
             "question": question, "analysis": None, "columns": None,
-            "target": None, "filters": None, "sql": None, "result": None,
+            "target": None, "group_column": None, "group_values": None,
+            "filters": None, "sql": None, "result": None,
         },
     )

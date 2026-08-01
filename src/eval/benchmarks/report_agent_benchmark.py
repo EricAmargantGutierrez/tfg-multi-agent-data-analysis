@@ -75,7 +75,7 @@ SESSIONS = [
         "label": "Mixed, harder / ambiguous phrasing",
         "questions": [
             "Where does the business seem to perform best in terms of revenue?",
-            "Is there a statistically significant difference between discount and profit values?",
+            "Is there a significant difference in profit between the Consumer and Corporate segments?",
             "Cluster orders into 3 groups based on sales, quantity, discount, and profit.",
         ],
     },

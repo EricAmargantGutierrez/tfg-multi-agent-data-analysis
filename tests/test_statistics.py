@@ -41,3 +41,48 @@ def test_regression_unknown_target_raises():
     import pytest
     with pytest.raises(ValueError):
         compute_regression(_df(), target="not_a_real_column")
+
+
+# --- compute_ttest: group comparison, not column-vs-column -----------------
+
+def _group_df():
+    import pandas as pd
+    return pd.DataFrame({
+        "segment": ["A", "A", "A", "A", "B", "B", "B", "B"],
+        "value": [10, 12, 11, 9, 20, 22, 21, 19],
+    })
+
+
+def test_ttest_compares_two_groups_correctly():
+    from src.agents.analysis.statistics import compute_ttest
+    result = compute_ttest(_group_df(), group_column="segment", group_values=["A", "B"])
+    r = result["result"]
+    assert r["group_a"] == "A"
+    assert r["group_b"] == "B"
+    assert r["group_a_mean"] == 10.5
+    assert r["group_b_mean"] == 20.5
+    # groups are clearly different -> small p-value
+    assert r["p_value"] < 0.01
+
+
+def test_ttest_requires_group_column_and_values():
+    import pytest
+    from src.agents.analysis.statistics import compute_ttest
+    with pytest.raises(ValueError):
+        compute_ttest(_group_df())
+
+
+def test_ttest_unknown_group_column_raises():
+    import pytest
+    from src.agents.analysis.statistics import compute_ttest
+    with pytest.raises(ValueError):
+        compute_ttest(_group_df(), group_column="not_a_column", group_values=["A", "B"])
+
+
+def test_ttest_insufficient_group_data_raises():
+    import pytest
+    import pandas as pd
+    from src.agents.analysis.statistics import compute_ttest
+    df = pd.DataFrame({"segment": ["A", "A", "B"], "value": [1, 2, 3]})
+    with pytest.raises(ValueError):
+        compute_ttest(df, group_column="segment", group_values=["A", "B"])  # B has only 1 row

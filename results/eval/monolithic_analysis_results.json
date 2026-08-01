@@ -6,24 +6,22 @@
     "difficulty": "easy",
     "question": "What is the average discount given to customers?",
     "expected_agent": "analysis",
-    "correct": true,
+    "correct": false,
     "ok": true,
-    "latency_seconds": 0.85,
+    "latency_seconds": 0.8833,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "action": "analysis",
-      "analysis": "mean",
+      "action": "sql",
       "columns": [
-        "discount"
+        "average_discount"
       ],
-      "target": null,
-      "filters": [],
-      "sql": "SELECT discount FROM orders",
-      "result": {
-        "analysis": "mean",
-        "result": 0.1562027216329798
-      },
+      "rows": [
+        [
+          0.1562027216329798
+        ]
+      ],
+      "sql": "SELECT AVG(discount) AS average_discount FROM orders",
       "error": null
     },
     "error": null
@@ -37,7 +35,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.1316,
+    "latency_seconds": 0.9018,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -66,7 +64,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.9559,
+    "latency_seconds": 1.6562,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -93,30 +91,22 @@
     "difficulty": "medium",
     "question": "What is the average profit in the West region?",
     "expected_agent": "analysis",
-    "correct": true,
+    "correct": false,
     "ok": true,
-    "latency_seconds": 1.3173,
+    "latency_seconds": 1.2136,
     "attempts": 1,
     "retried": false,
     "answer": {
-      "action": "analysis",
-      "analysis": "mean",
+      "action": "sql",
       "columns": [
-        "profit"
+        "average_profit"
       ],
-      "target": null,
-      "filters": [
-        {
-          "column": "region",
-          "op": "=",
-          "value": "West"
-        }
+      "rows": [
+        [
+          33.84903181392445
+        ]
       ],
-      "sql": "SELECT profit FROM orders WHERE region = ?",
-      "result": {
-        "analysis": "mean",
-        "result": 33.84903181392445
-      },
+      "sql": "SELECT AVG(profit) AS average_profit FROM orders WHERE region = 'West'",
       "error": null
     },
     "error": null
@@ -130,7 +120,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 2.1139,
+    "latency_seconds": 1.397,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -163,7 +153,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.8633,
+    "latency_seconds": 1.1564,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -194,28 +184,36 @@
     "category": "analysis",
     "task_type": "ttest",
     "difficulty": "medium",
-    "question": "Is there a statistically significant difference between discount and profit values?",
+    "question": "Is there a significant difference in profit between the Consumer and Corporate segments?",
     "expected_agent": "analysis",
-    "correct": false,
+    "correct": true,
     "ok": true,
-    "latency_seconds": 0.8889,
-    "attempts": 1,
-    "retried": false,
+    "latency_seconds": 2.3458,
+    "attempts": 2,
+    "retried": true,
     "answer": {
       "action": "analysis",
-      "analysis": "correlation",
+      "analysis": "ttest",
       "columns": [
-        "discount",
-        "profit"
+        "profit",
+        "segment"
       ],
       "target": null,
       "filters": [],
-      "sql": "SELECT discount, profit FROM orders",
+      "sql": "SELECT profit, segment FROM orders",
       "result": {
-        "analysis": "correlation",
+        "analysis": "ttest",
         "result": {
-          "correlation": -0.21948745637176847,
-          "p_value": 2.702294436198141e-109
+          "t_statistic": -0.8555511671728538,
+          "p_value": 0.3922774231363087,
+          "value_column": "profit",
+          "group_column": "segment",
+          "group_a": "Consumer",
+          "group_a_mean": 25.8368732806781,
+          "group_a_n": 5191,
+          "group_b": "Corporate",
+          "group_b_mean": 30.456666887417217,
+          "group_b_n": 3020
         }
       },
       "error": null
@@ -231,7 +229,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.3855,
+    "latency_seconds": 1.4406,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -263,7 +261,7 @@
     "expected_agent": "analysis",
     "correct": false,
     "ok": true,
-    "latency_seconds": 1.4589,
+    "latency_seconds": 0.978,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -290,7 +288,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.6325,
+    "latency_seconds": 1.277,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -336,7 +334,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.279,
+    "latency_seconds": 0.968,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -375,7 +373,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 3.7408,
+    "latency_seconds": 2.3442,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -404,7 +402,7 @@
               1806.6755504273506,
               5.893162393162392,
               0.12955128205128208,
-              248.6163245726496
+              248.61632457264957
             ],
             [
               10608.891066666667,
@@ -429,7 +427,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.6579,
+    "latency_seconds": 0.9731,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -468,7 +466,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.9771,
+    "latency_seconds": 0.9962,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -503,7 +501,7 @@
     "expected_agent": "analysis",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.9878,
+    "latency_seconds": 1.9612,
     "attempts": 1,
     "retried": false,
     "answer": {

@@ -153,6 +153,50 @@ def test_check_monolithic_analysis_fails_gracefully_on_wrong_action():
     assert not check_monolithic_analysis(answer, gt)
 
 
+# --- Baseline analysis: correlation/covariance/ttest are now genuinely
+# checked, not auto-rejected -- regression/pca/kmeans remain auto-rejected
+# since those really are infeasible in one plain SQL SELECT. ---
+
+def test_baseline_analysis_scores_correct_correlation():
+    from src.eval.checks import check_baseline_analysis
+    answer = {"ok": True, "rows": [[-0.2195]]}
+    gt = {"analysis": "correlation", "result": {"correlation": -0.2195, "p_value": 1e-100}}
+    assert check_baseline_analysis(answer, gt)
+
+
+def test_baseline_analysis_rejects_wrong_correlation():
+    from src.eval.checks import check_baseline_analysis
+    answer = {"ok": True, "rows": [[0.5]]}
+    gt = {"analysis": "correlation", "result": {"correlation": -0.2195, "p_value": 1e-100}}
+    assert not check_baseline_analysis(answer, gt)
+
+
+def test_baseline_analysis_scores_correct_covariance():
+    from src.eval.checks import check_baseline_analysis
+    answer = {"ok": True, "rows": [[0.00396]]}
+    gt = {"analysis": "covariance", "result": {"covariance": 0.00396}}
+    assert check_baseline_analysis(answer, gt)
+
+
+def test_baseline_analysis_scores_correct_ttest_via_t_statistic():
+    from src.eval.checks import check_baseline_analysis
+    answer = {"ok": True, "rows": [[-0.8556, 0.392]]}
+    gt = {"analysis": "ttest", "result": {"t_statistic": -0.8556, "p_value": 0.392}}
+    assert check_baseline_analysis(answer, gt)
+
+
+def test_baseline_analysis_still_rejects_regression_pca_kmeans():
+    from src.eval.checks import check_baseline_analysis
+    for analysis_type, key_result in [
+        ("regression", {"r2": 0.27}),
+        ("pca", {"explained_variance_ratio": [0.5, 0.3, 0.2]}),
+        ("kmeans", {"inertia": 1000.0}),
+    ]:
+        answer = {"ok": True, "rows": [[0.27]]}
+        gt = {"analysis": analysis_type, "result": key_result}
+        assert not check_baseline_analysis(answer, gt), f"{analysis_type} should remain auto-rejected"
+
+
 def test_visualization_ground_truth_is_self_consistent():
     with open(DATASETS / "visualization_questions.json", encoding="utf-8") as f:
         questions = json.load(f)

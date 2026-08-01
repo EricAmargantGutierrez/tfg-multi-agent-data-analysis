@@ -110,7 +110,12 @@ def _execute_analysis(spec: dict[str, Any], valid_columns: set[str]) -> dict[str
     )
     dataframe = load_dataframe_readonly(sql, params)
     function = ANALYSIS_FUNCTIONS[plan.analysis]
-    result = function(dataframe, target=plan.target) if plan.analysis == "regression" else function(dataframe)
+    if plan.analysis == "regression":
+        result = function(dataframe, target=plan.target)
+    elif plan.analysis == "ttest":
+        result = function(dataframe, group_column=plan.group_column, group_values=plan.group_values)
+    else:
+        result = function(dataframe)
 
     return {
         "action": "analysis", "analysis": plan.analysis, "columns": plan.columns,

@@ -63,6 +63,33 @@ def test_analysis_plan_target_is_normalized():
     assert plan.target == "profit_margin"
 
 
+def test_analysis_plan_ttest_requires_group_column_and_values():
+    with pytest.raises(ValidationError):
+        AnalysisPlan(analysis="ttest", columns=["profit"], filters=[])
+
+
+def test_analysis_plan_ttest_requires_exactly_two_group_values():
+    with pytest.raises(ValidationError):
+        AnalysisPlan(analysis="ttest", columns=["profit"], group_column="segment",
+                     group_values=["Consumer"], filters=[])
+    with pytest.raises(ValidationError):
+        AnalysisPlan(analysis="ttest", columns=["profit"], group_column="segment",
+                     group_values=["Consumer", "Corporate", "Home Office"], filters=[])
+
+
+def test_analysis_plan_ttest_with_valid_groups_ok():
+    plan = AnalysisPlan(analysis="ttest", columns=["profit"], group_column="segment",
+                        group_values=["Consumer", "Corporate"], filters=[])
+    assert plan.group_column == "segment"
+    assert "segment" in plan.columns
+
+
+def test_analysis_plan_non_ttest_does_not_require_group_fields():
+    plan = AnalysisPlan(analysis="mean", columns=["profit"], filters=[])
+    assert plan.group_column is None
+    assert plan.group_values is None
+
+
 # --- ChartSpec / RoutingDecision -----------------------------------------
 
 def test_chart_spec_rejects_unsupported_type():

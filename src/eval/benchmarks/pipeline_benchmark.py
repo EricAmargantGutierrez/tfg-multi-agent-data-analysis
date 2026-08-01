@@ -9,7 +9,7 @@ for every question, capturing BOTH:
 
 These used to be two separate scripts (pipeline_latency_benchmark.py and
 the routing-check part of multiagent_benchmark.py) that each re-asked all
-55 questions independently -- pure waste, since both call graph.answer()
+55 questions independently -- not useful, since both call graph.answer()
 and the routing decision is already known the moment you time the call.
 
 Does NOT re-score answer correctness -- that's correctness_benchmark.py,

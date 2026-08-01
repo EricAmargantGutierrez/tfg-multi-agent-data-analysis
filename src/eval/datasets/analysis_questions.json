@@ -134,22 +134,33 @@
         "category": "analysis",
         "task_type": "ttest",
         "difficulty": "medium",
-        "question": "Is there a statistically significant difference between discount and profit values?",
+        "question": "Is there a significant difference in profit between the Consumer and Corporate segments?",
         "expected_agent": "analysis",
         "reference": {
             "analysis": "ttest",
             "columns": [
-                "discount",
                 "profit"
+            ],
+            "group_column": "segment",
+            "group_values": [
+                "Consumer",
+                "Corporate"
             ],
             "filters": []
         },
-        "note": "Matches the current implementation, which runs an independent t-test between two numeric COLUMNS (not two groups of the same variable split by a category). See development_log.md limitations.",
         "ground_truth": {
             "analysis": "ttest",
             "result": {
-                "t_statistic": -12.162604769282508,
-                "p_value": 8.516844349630498e-34
+                "t_statistic": -0.8555511671728538,
+                "p_value": 0.3922774231363087,
+                "value_column": "profit",
+                "group_column": "segment",
+                "group_a": "Consumer",
+                "group_a_mean": 25.8368732806781,
+                "group_a_n": 5191,
+                "group_b": "Corporate",
+                "group_b_mean": 30.456666887417217,
+                "group_b_n": 3020
             }
         }
     },
