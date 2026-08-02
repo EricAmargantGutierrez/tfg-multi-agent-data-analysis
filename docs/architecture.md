@@ -64,13 +64,13 @@ production.
 
 `compute_ttest` compares ONE numeric variable across TWO groups defined
 by a categorical column (e.g. profit in the Consumer segment vs. the
-Corporate segment) — the standard meaning of a t-test. This was not the
+Corporate segment), the standard meaning of a t-test. This was not the
 original implementation: an earlier version compared two numeric
 *columns* directly as independent samples (e.g. discount vs. profit),
 which isn't a valid two-group hypothesis test since the two "samples"
 were different variables on different scales. This was found during
 evaluation, both as a documented limitation and as a demonstrated,
-concrete problem — a generated session report described that flawed
+concrete problem, a generated session report described that flawed
 test's result as indicating "a negative correlation," which a t-test
 does not measure. Fixed by extending `AnalysisPlan` with `group_column`
 and `group_values` fields (exactly two values required); the planner
@@ -84,7 +84,7 @@ misleading claim no longer appears.
 
 `SessionState.history` accumulates every turn's `(question, agent,
 result)`. **Only the Report Agent consumes it.** Routing and narration
-only ever see the current question — each turn is resolved independently.
+only ever see the current question, each turn is resolved independently.
 This is a deliberate scope boundary matching the original proposal
 (history feeds the Report Agent; it does not enable multi-turn reference
 resolution).
@@ -115,16 +115,16 @@ resolution).
   BETWEEN` against real columns — enough for region/category/date-range
   filtering, not arbitrary boolean expressions.
 - The t-test currently compares exactly two groups from one categorical
-  column (e.g. two specific segments) — it doesn't support comparing more
+  column (e.g. two specific segments), it doesn't support comparing more
   than two groups (that would need ANOVA, a different test) or paired
   samples.
 - Row-cap interaction with `ORDER BY`: when a query's result exceeds
   `src.core.db.MAX_ROWS = 1000`, *which* 1,000 rows are returned depends
-  on sort order — two structurally equivalent queries with different (or
+  on sort order, two structurally equivalent queries with different (or
   absent) ordering can retrieve different row subsets from a table with
   more matching rows than the cap.
 - The subprocess/self-correction sandbox model has no execution sandbox
-  beyond SQL validation — no agent here executes arbitrary LLM-generated
+  beyond SQL validation, no agent here executes arbitrary LLM-generated
   Python, which limits risk but also limits analytical flexibility to
   what `src/agents/analysis/statistics.py` implements.
 
@@ -135,3 +135,4 @@ resolution).
 - Additional statistical analyses / forecasting.
 - Multi-table dataset (e.g. Olist) to stress-test JOIN handling.
 - Full containerization (Docker Compose, one container per agent).
+- Decentralized agent communication (Agents communicating directly with each other rather than through the orchestrator)

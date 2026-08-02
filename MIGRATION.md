@@ -1,8 +1,5 @@
 # Migration notes: old structure -> this restructure
 
-Apply this on top of your actual repo (this bundle was built and verified
-in an isolated sandbox, not against your live `.env`/keys).
-
 ## 1. Files to delete
 - `src/database/` (entire folder — contents moved, see table below)
 - `src/analysis/` (entire folder — moved into `src/agents/analysis/`)

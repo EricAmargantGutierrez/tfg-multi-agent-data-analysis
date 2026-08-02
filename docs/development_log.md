@@ -2,7 +2,9 @@
 
 **Project:** Multi-Agent Conversational Data Analysis System
 
+
 **Author:** Eric Amargant Gutiérrez
+
 
 **Supervisor:** Piotr Przybyła
 
@@ -34,7 +36,7 @@ Centralized all SQLite access in `src/core/db.py`; extracted shared self-correct
 
 # Milestone 13 — Evaluation Consolidation, New Baseline, Bug Fixes, Multi-Provider Final Run
 
-Consolidated 7 evaluation scripts to 3 (`correctness_benchmark.py`, `pipeline_benchmark.py`, `report_agent_benchmark.py`), removing a real redundancy (routing accuracy and pipeline latency were independently re-asking the same 55 questions). Added a second, stronger baseline: a monolithic agent with access to all three real capabilities, deciding for itself which to use — built to isolate "does decomposition into separate agents help" as distinct from "does having tools help at all." Found and corrected a methodological flaw in its own construction: the first version used a hand-written 206-word prompt summary vs. the specialized agents' real combined ~845 words, which would have confounded "architecture" with "less detailed prompting." Fixed by importing the real prompts verbatim.
+Consolidated 7 evaluation scripts to 3 (`correctness_benchmark.py`, `pipeline_benchmark.py`, `report_agent_benchmark.py`), removing a real redundancy (routing accuracy and pipeline latency were independently re-asking the same 55 questions). Added a second, stronger baseline: a monolithic agent with access to all three real capabilities, deciding for itself which to use, built to isolate "does decomposition into separate agents help" as distinct from "does having tools help at all." Found and corrected a methodological flaw in its own construction: the first version used a hand-written 206-word prompt summary vs. the specialized agents' real combined ~845 words, which would have confounded "architecture" with "less detailed prompting." Fixed by importing the real prompts verbatim.
 
 Found and fixed two more production bugs: a token-limit crash in narration/report generation from large row lists dumped directly into LLM prompts (fixed with a shared `src/core/summarize.py`), and a NaN-handling gap in the scikit-learn-based statistics functions.
 
@@ -51,7 +53,7 @@ The evaluation's own failure analysis (Milestone 13) surfaced two issues worth f
 ## Fix 1: `compute_ttest` now compares two groups, not two arbitrary columns
 
 Previous behavior: an independent t-test between two numeric *columns*
-directly (e.g. discount vs. profit) — not a valid two-group hypothesis
+directly (e.g. discount vs. profit), not a valid two-group hypothesis
 test, since the two "samples" were different variables on different
 scales. This was already a documented limitation, and the Milestone 13
 Report Agent review had directly demonstrated its real consequence: a
@@ -106,7 +108,7 @@ genuinely new, honest baseline behavior on the t-test question
 specifically: it computed a sophisticated per-group descriptive
 breakdown (mean, count, min, max, and a manually-derived standard
 deviation via a correlated subquery) but never computed the actual
-t-statistic — correctly scored incorrect, since the key metric genuinely
+t-statistic, correctly scored incorrect, since the key metric genuinely
 wasn't there. A real demonstration that the fixed scorer rewards genuine
 correct answers without becoming lenient.
 
@@ -125,7 +127,7 @@ fluency and completeness were already 5.0/5 and unaffected.
 Test suite: 116 tests.
 
 **Not re-run**: Groq and Ollama's correctness data predate both fixes and
-are not directly comparable to the corrected Anthropic figures — the
+are not directly comparable to the corrected Anthropic figures, the
 cross-provider *pattern* (architecture stable, baseline variable) still
 holds, but a full three-provider re-run was not repeated given the cost
 already invested, and this is stated explicitly as a limitation rather
@@ -139,7 +141,3 @@ The empirical evaluation is complete, including two real fixes found by
 the evaluation's own failure analysis and independently verified rather
 than just documented as limitations. Full results in
 `results_and_failure_analysis.md`.
-
-# Remaining Work
-
-- Thesis write-up, drawing on `results_and_failure_analysis.md`.

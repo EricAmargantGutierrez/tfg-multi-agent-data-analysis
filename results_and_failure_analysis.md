@@ -23,7 +23,7 @@ different question:
    (accuracy, completeness, fabrication, fluency) rather than scored
    automatically.
 
-All comparisons use structured output (rows, statistics results) — never
+All comparisons use structured output (rows, statistics results), never
 narrated prose, which can phrase an identical correct answer many
 different ways. The baseline uses a deliberately minimal, generic
 prompt, not the specialized agents' tuned prompts, to isolate the value
@@ -34,7 +34,7 @@ The benchmark (55 questions: 30 SQL, 15 Analysis, 10 Visualization,
 stratified easy/medium/hard) was run against three different model
 providers over the course of this evaluation. **The Anthropic run
 (`claude-haiku-4.5`) is the primary, complete dataset reported below**,
-including two corrections made after the initial full run — see §3.5 and
+including two corrections made after the initial full run, see §3.5 and
 §3.2 for what changed and why.
 
 ---
@@ -70,7 +70,7 @@ change; only how correctness is scored and computed did).
 | Visualization | 1.710s | 4.940s | 1.628s | 1.640s |
 
 The baseline's Analysis latency (5.086s) is notably higher than every
-other cell in this table — consistent with §3.5's finding that it now
+other cell in this table, consistent with §3.5's finding that it now
 attempts a genuinely more sophisticated manual SQL computation (per-group
 mean, count, min, max, and a manually-derived standard deviation via a
 correlated subquery) rather than a short, simple query.
@@ -96,7 +96,7 @@ from the original failure analysis.
 ### 3.2 FIXED: a real limitation in the evaluation's own scoring, not the baseline's capability
 
 **Original finding**: the baseline scorer assumed a bare SQL model could
-only possibly succeed at scalar statistics — correlation, covariance,
+only possibly succeed at scalar statistics; correlation, covariance,
 and t-test were scored `incorrect` automatically, regardless of the
 actual answer, on the assumption they're structurally inexpressible in
 one SQL query. This was falsified: Claude's baseline derived the correct
@@ -106,15 +106,15 @@ design.
 
 **Fix applied**: `check_baseline_analysis` now genuinely checks the key
 metric for correlation, covariance, and t-test (comparing the specific
-number — e.g. `t_statistic` — against what the baseline actually
+number, e.g. `t_statistic`, against what the baseline actually
 returned), rather than auto-rejecting them. Regression, PCA, and K-Means
-remain auto-rejected, correctly — those require iterative optimization
+remain auto-rejected, correctly, those require iterative optimization
 or matrix decomposition that a single, non-procedural SQL `SELECT`
 genuinely cannot express, which is a real structural limit, not an
 assumption.
 
 **Effect, confirmed by the re-run**: baseline Analysis correctness rose
-from 20.0% to 40.0% — not because the baseline got better, but because
+from 20.0% to 40.0%, not because the baseline got better, but because
 it was already this capable and the evaluation wasn't crediting it
 correctly. Verified directly: baseline's correlation answers (Q5, Q13)
 now score correct where they previously didn't, with no change to the
@@ -130,19 +130,19 @@ in Visualization at n=10. Not affected by this section's fixes.
 ### 3.4 Routing errors — unchanged from the initial run
 
 4 of 5 routing misses are mean/average/median questions sent to SQL
-instead of Analysis — a genuine SQL/Analysis boundary ambiguity, not
+instead of Analysis, a genuine SQL/Analysis boundary ambiguity, not
 random noise. Unaffected by the fixes here.
 
 ### 3.5 FIXED: `compute_ttest` now compares two groups, not two arbitrary columns
 
 **Original finding**: `compute_ttest` ran an independent t-test between
-two numeric *columns* directly (e.g. discount vs. profit) — not the
+two numeric *columns* directly (e.g. discount vs. profit), not the
 standard meaning of a t-test (one variable, compared across two
 *groups*, e.g. profit in the Consumer segment vs. the Corporate
 segment). This was a documented, known limitation, and evaluation
 confirmed it had a real consequence: the Report Agent's Session 5
 described this test's result as indicating "a negative correlation,"
-which a t-test does not measure — a genuinely misleading claim in a real
+which a t-test does not measure, a misleading claim in a real
 generated report, not just a theoretical concern.
 
 **Fix applied**: `AnalysisPlan` now has explicit `group_column` and
@@ -154,7 +154,7 @@ from the old ambiguous phrasing to a genuine group-comparison question
 Corporate segments?").
 
 **Effect, confirmed by the re-run**: the real Analysis Agent and the
-monolithic agent both now produce a statistically valid result —
+monolithic agent both now produce a statistically valid result, 
 `t_statistic=-0.856, p=0.392`, group means $25.84 (Consumer, n=5,191) vs.
 $30.46 (Corporate, n=3,020) — matching the independently-computed ground
 truth exactly. **The Report Agent's re-generated Session 5 confirms the
@@ -188,7 +188,7 @@ affected by this section's fixes.
 | **Mean** | **4.0/5** | **5.0/5** | **4.0/5** | **5.0/5** |
 
 Session 5's ratings improved from 2/5 (accuracy) and 2/5 (no
-fabrication) to 5/5 on both — a direct, measured consequence of the
+fabrication) to 5/5 on both, a direct, measured consequence of the
 `compute_ttest` fix in §3.5, not a re-interpretation of the same output.
 The re-generated report is accurate, correctly hedged, and does not
 misstate what the underlying statistical test measures. Mean accuracy
@@ -198,7 +198,7 @@ and no-fabrication scores across all five sessions rose from 3.4/5 to
 Sessions 1, 2, and 4 are unaffected by this round of fixes and retain
 their original ratings and issues (an invented, unrequested profit-margin
 statistic in Session 1; small arithmetic errors and a cross-turn
-misattribution in Session 4) — see the original failure analysis for
+misattribution in Session 4), see the original failure analysis for
 full detail on those.
 
 ---
@@ -206,14 +206,14 @@ full detail on those.
 ## 5. Cross-model robustness (Groq, Ollama, Anthropic)
 
 **Caveat on this section after the fixes**: the Groq and Ollama
-correctness data below predate both fixes in §3.2 and §3.5 — they were
+correctness data below predate both fixes in §3.2 and §3.5, they were
 run against the old column-vs-column `compute_ttest` and the old,
 overly conservative baseline scorer. The cross-provider *pattern*
 (architecture stable, baseline variable) still holds and is worth
 citing, but the exact Analysis percentages for Groq/Ollama are not
 directly comparable to the corrected Anthropic figures above. A full
 re-run on all three providers was not repeated, given the cost/time
-already invested — worth flagging explicitly as a limitation rather than
+already invested, worth flagging explicitly as a limitation rather than
 implying a false apples-to-apples comparison.
 
 ### 5.1 The architecture is stable across models; the baseline is not
@@ -256,7 +256,7 @@ fixes.
 - **A real correctness bug (`compute_ttest`) and a real evaluation
   scoring limitation were found, fixed, and the fix independently
   verified at three levels** (unit test, integration test against real
-  ground truth, and a re-generated Report Agent session) — a concrete
+  ground truth, and a re-generated Report Agent session), a concrete
   demonstration of the evaluation process finding and correcting real
   issues, not just producing a number.
 - Routing errors are concentrated at genuine capability boundaries
@@ -266,9 +266,9 @@ fixes.
   baseline's (pattern confirmed pre- and post-fix).
 
 **Not established, and should be stated as open questions:**
-- Retry/self-correction effectiveness — never empirically exercised.
-- Cost comparison across providers — not systematically measured.
+- Retry/self-correction effectiveness, never empirically exercised.
+- Cost comparison across providers, not systematically measured.
 - Whether decomposition value would hold at a larger question count.
-- **A full cross-provider re-run after the §3.2/§3.5 fixes** — only
+- **A full cross-provider re-run after the §3.2/§3.5 fixes**, only
   Anthropic was re-run; Groq and Ollama's Analysis figures reflect the
   pre-fix system and scorer.

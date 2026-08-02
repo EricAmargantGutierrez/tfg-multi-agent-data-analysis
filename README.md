@@ -3,8 +3,14 @@
 Bachelor's Thesis (TFG)
 
 **Author:** Eric Amargant Gutiérrez
+
+
 **Degree:** Bachelor's Degree in Mathematical Engineering in Data Science
+
+
 **University:** Universitat Pompeu Fabra (UPF)
+
+
 **Supervisor:** Piotr Przybyła
 
 ---
@@ -20,9 +26,9 @@ visualization, and report generation.
 
 The objective is to investigate how agent-based architectures can improve
 natural language interaction with structured data, and to empirically
-evaluate how much that architecture actually buys you — over a single,
+evaluate how much that architecture actually buys you, over a single,
 minimally-prompted LLM, and over a single agent with the same tools but
-no architectural split — across multiple different underlying models.
+no architectural split, across multiple different underlying models.
 
 ---
 
@@ -50,8 +56,21 @@ Full development log: [`docs/development_log.md`](docs/development_log.md).
 ## Repository Structure
 
 ```text
+README.md
+MIGRATION.md                             record of the architecture restructure
+results_and_failure_analysis.md          full evaluation results and failure analysis
+requirements.txt
+pyproject.toml
+
+data/                                    superstore.csv, superstore.db (gitignored)
+
+docs/
+├── architecture.md
+├── architecture-diagram.svg
+└── development_log.md
+
 src/
-├── agents/{sql,viz,analysis,report}/   agent.py + engine.py + prompts.py
+├── agents/{sql,viz,analysis,report}/    agent.py + engine.py + prompts.py
 ├── core/                                db.py, retry.py, llm_json.py, summarize.py, paths.py
 ├── config/settings.py
 ├── llm/                                 provider-agnostic LLM factory + registry
@@ -67,9 +86,10 @@ src/
 ├── ingest.py
 └── repl.py
 
-tests/          pytest suite, offline, no API keys needed (116 tests)
-docs/           architecture.md, architecture-diagram.svg, development_log.md
-results/eval/   tracked; charts (gitignored)
+scripts/manual_check/                    manual live-API smoke scripts (not part of pytest)
+tests/                                   pytest suite, offline, no API keys needed (116 tests)
+results/eval/                            tracked -- evaluation output (JSONs, summary.csv, report review)
+results/*.png, results/*.md              generated charts/session reports (gitignored, not tracked)
 ```
 
 ---
@@ -84,9 +104,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Copy `.env.example` to `.env` and add your provider key(s). Note: a
-`claude.ai` subscription does **not** include API access — that's billed
-separately via console.anthropic.com.
+Copy `.env.example` to `.env` and add your provider key(s).
 
 Place the Superstore CSV at `data/superstore.csv`
 ([Kaggle: vivek468/superstore-dataset-final](https://kaggle.com/datasets/vivek468/superstore-dataset-final)),
@@ -129,7 +147,7 @@ All benchmark scripts support resuming an interrupted run
 | Visualization | 90.0% | 50.0% | 100% | +40.0pp | -10.0pp |
 
 Routing accuracy: 90.9%. Full breakdowns and a complete question-by-question
-failure analysis — including two real issues found by this evaluation
+failure analysis, including two real issues found by this evaluation
 and fixed (a t-test implementation bug and a limitation in the
 evaluation's own scoring logic, both independently verified) — are in
 [`results_and_failure_analysis.md`](results_and_failure_analysis.md).
@@ -143,15 +161,6 @@ PYTHONPATH=. pytest tests/ -v
 ```
 
 116 tests, entirely offline.
-
----
-
-## Current Status
-
-Phase 1 (implementation) and Phase 2 (evaluation) are both complete,
-including two real fixes found by the evaluation's own failure analysis
-and independently verified rather than left as documented limitations.
-Remaining: the thesis write-up itself.
 
 ---
 
