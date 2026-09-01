@@ -1,6 +1,6 @@
 """
 Manual smoke check -- NOT part of the automated test suite (tests/), since
-it makes a real API call and needs a live key. Run by hand when you want
+it makes a real API call and needs a live key. Must be run by hand when you want
 to confirm your .env / provider config is working:
 
     PYTHONPATH=. python scripts/manual_check/check_llm_connection.py

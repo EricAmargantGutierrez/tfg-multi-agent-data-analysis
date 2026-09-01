@@ -259,7 +259,7 @@ fixes.
   ground truth, and a re-generated Report Agent session), a concrete
   demonstration of the evaluation process finding and correcting real
   issues, not just producing a number.
-- Routing errors are concentrated at genuine capability boundaries
+- Routing errors are concentrated at capability boundaries
   (SQL/Analysis overlap for simple aggregates), not distributed
   randomly.
 - The system's correctness is more stable across model choice than the

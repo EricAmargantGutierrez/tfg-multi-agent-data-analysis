@@ -9,7 +9,7 @@ Question -> LLM planner -> AnalysisPlan (analysis + columns + filters)
 
 The `filters` field is the fix for a real bug: previously the planner
 could only select whole columns with no WHERE clause, so any question
-with a condition in it ("average profit in the West region") silently
+with a condition in it ("average profit in the West region"), 
 computed over the entire table. Filter values are bound as SQL
 parameters (never string-interpolated), same defense-in-depth standard
 as the rest of the codebase.

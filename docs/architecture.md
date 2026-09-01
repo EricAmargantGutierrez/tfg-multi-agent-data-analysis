@@ -34,7 +34,7 @@ decide their own query. All three go through `src/core/db.py`, and
 nothing else opens a connection to the database; every connection is
 opened read-only, so a bug downstream cannot mutate the database
 regardless of which agent triggered it. Analysis never lets the LLM
-write raw SQL — it produces a structured plan (columns, filters, and
+write raw SQL, it produces a structured plan (columns, filters, and
 (for regression) a target / (for a t-test) a grouping column and two
 group values to compare), validated as a Pydantic `AnalysisPlan`, and
 `build_select` compiles it into a parameterized query.

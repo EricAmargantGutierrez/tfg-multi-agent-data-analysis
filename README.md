@@ -57,7 +57,6 @@ Full development log: [`docs/development_log.md`](docs/development_log.md).
 
 ```text
 README.md
-MIGRATION.md                             record of the architecture restructure
 results_and_failure_analysis.md          full evaluation results and failure analysis
 requirements.txt
 pyproject.toml
