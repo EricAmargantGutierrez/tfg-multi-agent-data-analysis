@@ -5,8 +5,9 @@
 The Multi-Agent Conversational Data Analysis System answers natural
 language questions over the Superstore dataset. A LangGraph orchestrator
 routes each question to one of four specialized MCP agents (Data Query,
-Analysis, Visualization, Report), which independently generate and
-execute their own read-only queries against a shared SQLite database.
+Analysis, Visualization, Report). The first three independently generate
+and execute their own read-only queries against a shared SQLite database;
+the Report Agent works only from accumulated session history.
 
 ## Components
 
@@ -22,7 +23,8 @@ execute their own read-only queries against a shared SQLite database.
 - **Data Query / Viz / Analysis / Report Agents** (`src/agents/*/`) — each is an
   MCP server exposing one tool. Each has: `agent.py` (thin MCP wrapper),
   `engine.py` (the actual logic, directly unit-testable without FastMCP),
-  and `prompts.py` (its system prompt).
+  and `prompts.py` (its system prompt); Analysis adds `statistics.py`
+  (the pandas/scikit-learn computations).
 - **Narrator** (`src/orchestrator/narrate.py`) — turns an agent's
   structured output into a natural-language response. Never touches the
   database itself.
@@ -53,32 +55,27 @@ LLM.
 ## Robustness to missing/invalid data
 
 `src/agents/analysis/statistics.py::_numeric()` drops any row containing
-`NaN` in the selected numeric columns before computing anything, so
-`compute_regression`/`compute_pca`/`compute_kmeans` (scikit-learn-based,
-unlike the pandas-based scalar statistics, which already handle NaN
-safely) can't crash on missing data. The project's dataset has zero
-missing values, so this is a defensive fix, not something observed in
-production.
+`NaN` in the selected numeric columns before computing anything. This
+matters for the scikit-learn-based functions (`compute_regression`,
+`compute_pca`, `compute_kmeans`), which would otherwise crash on missing
+data; the pandas-based scalar statistics already skip `NaN` safely. The
+project's dataset has zero missing values, so this is a defensive fix,
+not something observed in production.
 
 ## The t-test compares two groups, not two arbitrary columns
 
 `compute_ttest` compares ONE numeric variable across TWO groups defined
 by a categorical column (e.g. profit in the Consumer segment vs. the
-Corporate segment), the standard meaning of a t-test. This was not the
-original implementation: an earlier version compared two numeric
-*columns* directly as independent samples (e.g. discount vs. profit),
-which isn't a valid two-group hypothesis test since the two "samples"
-were different variables on different scales. This was found during
-evaluation, both as a documented limitation and as a demonstrated,
-concrete problem, a generated session report described that flawed
-test's result as indicating "a negative correlation," which a t-test
-does not measure. Fixed by extending `AnalysisPlan` with `group_column`
-and `group_values` fields (exactly two values required); the planner
-LLM now names which column defines the two groups and which two values
-to compare, and `compute_ttest` runs the real two-sample comparison.
-Verified against the real database, at the unit level, the integration
-level, and by re-generating the affected report and confirming the
-misleading claim no longer appears.
+Corporate segment), the standard meaning of a t-test. `AnalysisPlan`
+carries `group_column` and `group_values` (exactly two values, Pydantic-
+validated): the planner LLM names which column defines the groups and
+which two values to compare, and `compute_ttest` runs the real
+two-sample comparison.
+
+An earlier version compared two numeric *columns* directly as
+independent samples, which is not a valid two-group hypothesis test. It
+was found and fixed during evaluation; the full before/after account is
+in `results_and_failure_analysis.md` §3.5.
 
 ## Conversation history — what it's actually used for
 

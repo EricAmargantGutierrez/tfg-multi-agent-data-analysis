@@ -33,9 +33,9 @@ tuned prompts as the real agents, to isolate decomposition specifically.
 The benchmark (55 questions: 30 Data Query, 15 Analysis, 10 Visualization,
 stratified easy/medium/hard) was run against three different model
 providers over the course of this evaluation. **The Anthropic run
-(`claude-haiku-4.5`) is the primary, complete dataset reported below**,
-including two corrections made after the initial full run, see §3.5 and
-§3.2 for what changed and why.
+(`claude-haiku-4.5`) is the primary, complete dataset reported below.**
+Two issues found during the evaluation were fixed and the affected runs
+repeated; §3.2 and §3.5 give the full before/after.
 
 ---
 
@@ -49,11 +49,11 @@ including two corrections made after the initial full run, see §3.5 and
 | Analysis | 100% (15/15) | 40.0% (6/15) | 80.0% (12/15) | +60.0pp | +20.0pp |
 | Visualization | 90.0% (9/10) | 50.0% (5/10) | 100% (10/10) | +40.0pp | -10.0pp |
 
-**Analysis numbers changed from the initial run** (baseline was 20.0%,
-monolithic 86.7%, architecture value +80.0pp) after two corrections:
-fixing a real bug in `compute_ttest` (§3.5) and a real limitation in this
-evaluation's own scoring logic (§3.2). Both are described in detail
-below, with before/after evidence, not just a note that a number moved.
+The Analysis figures reflect two corrections made during the evaluation
+(before them: baseline 20.0%, monolithic 86.7%, architecture value
++80.0pp): a bug in `compute_ttest` (§3.5) and a limitation in this
+evaluation's own scoring logic (§3.2), both with before/after evidence
+below.
 
 ### 2.2 Routing accuracy
 
@@ -83,15 +83,14 @@ correlated subquery) rather than a short, simple query.
 
 ## 3. Failure analysis
 
-### 3.1 The "how many orders" ambiguity — unchanged from the initial run
+### 3.1 The "how many orders" ambiguity
 
 `COUNT(order_id)` (9,994 — line-item rows) vs. `COUNT(DISTINCT
 order_id)` (5,009 — order transactions). Claude consistently applies the
 DISTINCT interpretation everywhere "orders" is counted, including
 changing the winning entity on "which customer placed the most orders"
 ("Emily Phan" under DISTINCT vs. "William Brown" under the ground
-truth's convention). Not affected by the fixes in this section; retained
-from the original failure analysis.
+truth's convention). Not affected by the two fixes below.
 
 ### 3.2 FIXED: a real limitation in the evaluation's own scoring, not the baseline's capability
 
@@ -120,18 +119,18 @@ correctly. Verified directly: baseline's correlation answers (Q5, Q13)
 now score correct where they previously didn't, with no change to the
 baseline's actual behavior.
 
-### 3.3 The chart time-granularity ambiguity — unchanged from the initial run
+### 3.3 The chart time-granularity ambiguity
 
 "Line chart of profit over time for the East region in 2017" never
 specifies granularity. Three independent systems chose daily; only
 ground truth assumed monthly. Explains the -10pp "decomposition value"
-in Visualization at n=10. Not affected by this section's fixes.
+in Visualization at n=10.
 
-### 3.4 Routing errors — unchanged from the initial run
+### 3.4 Routing errors
 
 4 of 5 routing misses are mean/average/median questions sent to Data Query
 instead of Analysis, a genuine Data Query/Analysis boundary ambiguity, not
-random noise. Unaffected by the fixes here.
+random noise.
 
 ### 3.5 FIXED: `compute_ttest` now compares two groups, not two arbitrary columns
 
@@ -166,13 +165,12 @@ evaluation of a finding being not just documented but demonstrably
 resolved, with direct before/after evidence at every layer (unit test,
 integration test, and the generated report itself).
 
-### 3.6 Format-only misses and the row-cap ordering limitation — unchanged from the initial run
+### 3.6 Format-only misses and the row-cap ordering limitation
 
-`SELECT *` instead of requested columns; pre-binned histograms as an
-alternative (not wrong) representation; the `MAX_ROWS` + `ORDER BY`
-interaction affecting which rows get returned when a result exceeds the
-cap. See the original analysis for full detail — none of these are
-affected by this section's fixes.
+Minor, non-fix issues: `SELECT *` instead of the requested columns;
+pre-binned histograms as an alternative (not wrong) representation; and
+the `MAX_ROWS` + `ORDER BY` interaction, where *which* rows are returned
+depends on sort order once a result exceeds the 1,000-row cap.
 
 ---
 
@@ -195,11 +193,10 @@ misstate what the underlying statistical test measures. Mean accuracy
 and no-fabrication scores across all five sessions rose from 3.4/5 to
 4.0/5 as a direct result.
 
-Sessions 1, 2, and 4 are unaffected by this round of fixes and retain
-their original ratings and issues (an invented, unrequested profit-margin
-statistic in Session 1; small arithmetic errors and a cross-turn
-misattribution in Session 4), see the original failure analysis for
-full detail on those.
+Sessions 1, 2, and 4 are unaffected by the fixes and keep their ratings:
+Session 1 invents an unrequested profit-margin statistic (no-fabrication
+2/5); Session 4 has small arithmetic errors and a cross-turn
+misattribution.
 
 ---
 
@@ -234,12 +231,12 @@ of the underlying model; the baseline swings more widely. This pattern
 is unaffected by the fixes (they changed how correctly the baseline's
 *existing* answers were scored, not the system's own behavior).
 
-### 5.2 Retry rate and the Ollama infrastructure findings — unchanged
+### 5.2 Retry rate and the Ollama infrastructure findings
 
-See the original analysis: 0% retry rate across all three providers; the
-Ollama run's genuine model-level routing weakness and the local
-memory/thermal infrastructure issues, both unaffected by this round of
-fixes.
+0% retry rate across all three providers. The Ollama run also showed a
+genuine model-level routing weakness (misrouting unambiguous questions)
+and local memory/thermal limits under sustained inference; neither is
+affected by the fixes.
 
 ---
 

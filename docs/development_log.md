@@ -48,71 +48,13 @@ Full results and a question-by-question failure analysis in `results_and_failure
 
 # Milestone 14 — Two Real Fixes Found by the Failure Analysis, Applied and Verified
 
-The evaluation's own failure analysis (Milestone 13) surfaced two issues worth fixing properly rather than just documenting as limitations, given tokens/time were available. Both were fixed, tested at the unit and integration level against the real database, and the affected part of the evaluation was re-run to directly confirm the fix rather than assume it worked.
+The Milestone 13 failure analysis surfaced two issues worth fixing rather than just documenting. Both were fixed, covered by unit and integration tests against the real database, and the affected part of the evaluation was re-run to confirm the fix directly. Full before/after evidence is in `results_and_failure_analysis.md` §3.2 and §3.5; the summary:
 
-## Fix 1: `compute_ttest` now compares two groups, not two arbitrary columns
+**Fix 1 — `compute_ttest` now compares two groups, not two arbitrary columns.** The old version ran an independent t-test between two numeric *columns* (e.g. discount vs. profit), which is not a valid two-group hypothesis test; a generated report had described its result as "a negative correlation." `AnalysisPlan` gained `group_column` and `group_values` (exactly two, Pydantic-validated), `compute_ttest` now splits by the named categorical column, the benchmark question and its ground truth were rewritten to a genuine group comparison, and Report Agent Session 5 was regenerated. Session 5's accuracy and no-fabrication ratings moved from 2/5 to 5/5.
 
-Previous behavior: an independent t-test between two numeric *columns*
-directly (e.g. discount vs. profit), not a valid two-group hypothesis
-test, since the two "samples" were different variables on different
-scales. This was already a documented limitation, and the Milestone 13
-Report Agent review had directly demonstrated its real consequence: a
-generated report described this test's result as indicating "a negative
-correlation," which a t-test does not measure.
+**Fix 2 — baseline scoring no longer auto-rejects correlation/covariance/t-test.** The scorer had marked those `incorrect` automatically on the assumption a bare SQL model could not express them; in fact the baseline had derived the correct Pearson correlation in raw SQL and was penalised purely by scorer design. `check_baseline_analysis` now checks the actual returned metric. Regression, PCA, and K-Means stay auto-rejected (genuinely infeasible in one non-procedural `SELECT`). Baseline Analysis correctness moved from 20.0% to 40.0% with no change to the baseline's behavior.
 
-Fix: `AnalysisPlan` gained `group_column` and `group_values` fields
-(exactly two group values required, Pydantic-validated); `compute_ttest`
-now splits the data by the named categorical column and compares the
-named variable across the two named groups. The benchmark question
-itself was rewritten from the old ambiguous "difference between discount
-and profit values" phrasing to a genuine group-comparison question ("is
-there a significant difference in profit between the Consumer and
-Corporate segments?"), and its ground truth regenerated. The Report
-Agent benchmark's Session 5, which had used the old stale phrasing, was
-updated to match.
-
-Verified: unit tests (real group comparison, error handling for missing
-group data/columns); an integration test through the real Analysis
-Agent, matching independently-computed ground truth exactly
-(t=-0.856, p=0.392); and, most concretely, the re-generated Report Agent
-Session 5 now states the correct conclusion ("there is not a
-statistically significant difference... p-value of 0.392 is well above
-0.05") in place of the previous misleading claim — the accuracy and
-no-fabrication ratings for that session moved from 2/5 to 5/5 as a
-direct, measured result.
-
-## Fix 2: baseline scoring no longer auto-rejects correlation/covariance/t-test
-
-Previous behavior: the baseline scorer assumed a bare SQL model could
-only possibly succeed at scalar statistics (mean, count, etc.);
-correlation, covariance, and t-test were marked incorrect automatically,
-regardless of the actual answer. This was found to be a real limitation
-of the evaluation itself, not the baseline: Claude's baseline had
-manually derived the correct closed-form Pearson correlation formula in
-raw SQL and matched the real system's value almost exactly, but was
-scored `incorrect` purely by this design.
-
-Fix: `check_baseline_analysis` now genuinely checks the key metric for
-correlation, covariance, and t-test against the baseline's actual
-returned values. Regression, PCA, and K-Means remain auto-rejected —
-correctly: those require iterative optimization or matrix decomposition
-a single, non-procedural SQL `SELECT` cannot express, a real structural
-limit rather than an unverified assumption.
-
-Verified: unit tests covering correct and incorrect correlation/
-covariance/ttest cases, plus confirmation that regression/PCA/K-Means
-remain correctly rejected; and a real re-run, which moved baseline
-Analysis correctness from 20.0% to 40.0% with zero change to the
-baseline's actual behavior. Interestingly, the re-run also surfaced a
-genuinely new, honest baseline behavior on the t-test question
-specifically: it computed a sophisticated per-group descriptive
-breakdown (mean, count, min, max, and a manually-derived standard
-deviation via a correlated subquery) but never computed the actual
-t-statistic, correctly scored incorrect, since the key metric genuinely
-wasn't there. A real demonstration that the fixed scorer rewards genuine
-correct answers without becoming lenient.
-
-## Updated results (Anthropic, post-fix)
+Post-fix Anthropic results:
 
 | Category | Real system | Baseline | Monolithic | Architecture value | Decomposition value |
 |---|---|---|---|---|---|
@@ -120,18 +62,9 @@ correct answers without becoming lenient.
 | Analysis | 100% | 40.0% | 80.0% | +60.0pp | +20.0pp |
 | Visualization | 90.0% | 50.0% | 100% | +40.0pp | -10.0pp |
 
-Report Agent mean ratings rose from 3.4/5 to 4.0/5 (accuracy and
-no-fabrication), driven entirely by the Session 5 improvement above;
-fluency and completeness were already 5.0/5 and unaffected.
+Report Agent mean ratings rose from 3.4/5 to 4.0/5 (accuracy and no-fabrication), driven entirely by Session 5. Test suite: 116 tests.
 
-Test suite: 116 tests.
-
-**Not re-run**: Groq and Ollama's correctness data predate both fixes and
-are not directly comparable to the corrected Anthropic figures, the
-cross-provider *pattern* (architecture stable, baseline variable) still
-holds, but a full three-provider re-run was not repeated given the cost
-already invested, and this is stated explicitly as a limitation rather
-than implied to be current.
+**Not re-run**: Groq and Ollama's correctness data predate both fixes and are not directly comparable to the corrected Anthropic figures. The cross-provider *pattern* (architecture stable, baseline variable) still holds, but a full three-provider re-run was not repeated given the cost already invested; this is stated as a limitation, not implied to be current.
 
 ---
 

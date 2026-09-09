@@ -21,7 +21,7 @@ This project implements a conversational system that answers natural
 language questions over structured datasets using a modular multi-agent
 architecture. The system combines Large Language Models (LLMs), LangGraph
 for orchestration, and the Model Context Protocol (MCP) to coordinate
-specialized agents responsible for SQL querying, statistical analysis,
+specialized agents responsible for data querying, statistical analysis,
 visualization, and report generation.
 
 The objective is to investigate how agent-based architectures can improve
@@ -70,18 +70,19 @@ docs/
 └── development_log.md
 
 src/
-├── agents/{data_query,viz,analysis,report}/    agent.py + engine.py + prompts.py
+├── agents/{data_query,viz,analysis,report}/    agent.py + engine.py + prompts.py (analysis also has statistics.py)
 ├── core/                                db.py, retry.py, llm_json.py, summarize.py, paths.py
 ├── config/settings.py
 ├── llm/                                 provider-agnostic LLM factory + registry
 ├── models/schemas.py                    Pydantic validation
-├── orchestrator/                        router, MCP client, narrator, LangGraph graph
+├── orchestrator/                        router, MCP client, narrator, session state, LangGraph graph
 ├── eval/
 │   ├── datasets/                        55 questions (data_query, analysis, visualization)
 │   ├── ground_truth/                    generators, executed against the real DB
 │   ├── checks.py                        scoring logic
 │   ├── baselines/                       single_agent.py + monolithic_agent.py
 │   ├── benchmarks/                      correctness_benchmark.py, pipeline_benchmark.py, report_agent_benchmark.py
+│   ├── run_all.py                       correctness + pipeline benchmarks, then aggregates summary.csv
 │   └── utils/                           evaluator.py, metrics.py, warmup.py
 ├── ingest.py
 └── repl.py
