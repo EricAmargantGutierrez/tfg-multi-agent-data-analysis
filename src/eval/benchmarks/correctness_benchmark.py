@@ -27,7 +27,7 @@ import argparse
 from pathlib import Path
 
 from src.agents.analysis.engine import run_analysis_core
-from src.agents.sql.engine import run_sql_core
+from src.agents.data_query.engine import run_data_query_core
 from src.agents.viz.engine import generate_chart_core
 from src.eval.baselines.monolithic_agent import run_monolithic_agent
 from src.eval.baselines.single_agent import run_single_agent
@@ -38,7 +38,7 @@ from src.eval.checks import (
     check_chart_data,
     check_monolithic_analysis,
     check_monolithic_rows,
-    check_sql,
+    check_data_query,
 )
 from src.eval.utils.evaluator import run_benchmark
 
@@ -59,8 +59,8 @@ def _analysis_answer_fn(question: str) -> dict:
 # category -> (dataset file, real-agent fn, real-agent checker,
 #              baseline checker, monolithic checker)
 CATEGORIES = {
-    "sql": (
-        "sql_questions.json", run_sql_core, check_sql,
+    "data_query": (
+        "data_query_questions.json", run_data_query_core, check_data_query,
         check_baseline_sql_shaped, check_monolithic_rows,
     ),
     "analysis": (

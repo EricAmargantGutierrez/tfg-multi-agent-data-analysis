@@ -3,7 +3,7 @@ src/core/summarize.py
 
 Agent results can contain large row lists -- e.g. the Viz Agent's
 scatter/histogram/boxplot results, capped at src.core.db.MAX_ROWS = 1000,
-or a SQL Agent question with no aggregation ("list all products" ->
+or a Data Query Agent question with no aggregation ("list all products" ->
 ~1850 rows). Dumping these raw into an LLM prompt is neither useful (an
 LLM reading 1000 raw (x, y) pairs cannot summarize a chart any better
 than one reading a count + a few samples) nor safe -- it can push a

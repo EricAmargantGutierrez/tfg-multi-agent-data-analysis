@@ -35,7 +35,7 @@ DATASETS_DIR = Path(__file__).resolve().parents[1] / "datasets"
 OUTPUT_FILE = Path("results/eval/pipeline_results.json")
 
 DATASET_FILES = {
-    "sql": "sql_questions.json",
+    "data_query": "data_query_questions.json",
     "analysis": "analysis_questions.json",
     "visualization": "visualization_questions.json",
 }
@@ -73,7 +73,7 @@ def run(categories: list[str] | None = None) -> list[dict]:
         # graph.answer() routes internally to a different agent (each with
         # its own, differently-shaped system prompt) depending on the
         # question's category. A warm-up call using a SQL-style question
-        # only exercises the SQL Agent's prompt -- the first
+        # only exercises the Data Query Agent's prompt -- the first
         # Analysis-routed and first Visualization-routed question in this
         # same run would each still pay their own unwarmed cost otherwise.
         # So: warm up per category, using a real question from THAT

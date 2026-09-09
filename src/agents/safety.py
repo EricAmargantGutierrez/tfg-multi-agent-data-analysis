@@ -2,7 +2,7 @@
 src/agents/safety.py
 
 Read-only SQL guard shared by every agent that lets an LLM write raw SQL
-(SQL agent, Viz agent). The Analysis agent doesn't need this -- it never
+(Data Query agent, Viz agent). The Analysis agent doesn't need this -- it never
 lets the LLM write raw SQL text; see src/core/db.py::build_select.
 """
 import re

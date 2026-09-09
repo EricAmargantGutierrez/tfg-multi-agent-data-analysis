@@ -20,7 +20,7 @@ from pathlib import Path
 RESULTS_DIR = Path("results/eval")
 
 FILES = {
-    "sql": ("sql_agent_results.json", "baseline_sql_results.json", "monolithic_sql_results.json"),
+    "data_query": ("data_query_agent_results.json", "baseline_data_query_results.json", "monolithic_data_query_results.json"),
     "analysis": ("analysis_agent_results.json", "baseline_analysis_results.json", "monolithic_analysis_results.json"),
     "visualization": ("visualization_agent_results.json", "baseline_visualization_results.json", "monolithic_visualization_results.json"),
 }

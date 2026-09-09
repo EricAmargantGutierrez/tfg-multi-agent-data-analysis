@@ -17,7 +17,7 @@ def test_truncates_large_dict_row_lists():
 
 
 def test_truncates_large_list_of_lists_too():
-    # SQL Agent rows are list-of-lists, not list-of-dicts
+    # Data Query Agent rows are list-of-lists, not list-of-dicts
     big_rows = [[i, i * 2] for i in range(500)]
     result = {"ok": True, "rows": big_rows}
     summarized = summarize_large_rows(result)
@@ -36,7 +36,7 @@ def test_recurses_into_nested_history_structure():
     # turns, each with a nested "result" dict that may itself have rows.
     big_rows = [{"x": i} for i in range(50)]
     history = [
-        {"question": "q1", "agent": "sql", "result": {"ok": True, "rows": [["a", 1]]}},
+        {"question": "q1", "agent": "data_query", "result": {"ok": True, "rows": [["a", 1]]}},
         {"question": "q2", "agent": "viz", "result": {"ok": True, "rows": big_rows}},
     ]
     summarized = summarize_large_rows(history)

@@ -8,7 +8,7 @@ Matters most for local models (Ollama). Learned the hard way, twice:
   1. A trivial "Say OK" call did NOT absorb the cold-start cost of a
      real, longer, structured call -- the first real question still
      took 177s vs 7-15s for the rest.
-  2. A single warm-up using run_sql_core() only covered the SQL Agent's
+  2. A single warm-up using run_data_query_core() only covered the Data Query Agent's
      code path -- when correctness_benchmark.py moved on to the
      Baseline and Monolithic sides (different functions), EACH one's
      first call paid its own separate ~90s setup cost, because nothing
@@ -24,7 +24,7 @@ import time
 
 def warm_up(call_fn, question: str = "How many orders are there?", model_key: str | None = None) -> None:
     """call_fn: any callable taking a question string (optionally a
-    model_key kwarg) -- e.g. run_sql_core, run_single_agent,
+    model_key kwarg) -- e.g. run_data_query_core, run_single_agent,
     run_monolithic_agent, or src.orchestrator.graph.answer wrapped to
     match this signature. Failures are swallowed: a warm-up call exists
     to pay a cost, not to be scored -- if it errors, the real loop will
@@ -43,8 +43,8 @@ def warm_up(call_fn, question: str = "How many orders are there?", model_key: st
 
 
 def warm_up_model(model_key: str | None = None) -> None:
-    """Back-compat convenience: warms up via the SQL Agent specifically.
+    """Back-compat convenience: warms up via the Data Query Agent specifically.
     Prefer warm_up(your_actual_function) when the real timed loop uses a
     different function -- see the module docstring for why this matters."""
-    from src.agents.sql.engine import run_sql_core
-    warm_up(run_sql_core, model_key=model_key)
+    from src.agents.data_query.engine import run_data_query_core
+    warm_up(run_data_query_core, model_key=model_key)

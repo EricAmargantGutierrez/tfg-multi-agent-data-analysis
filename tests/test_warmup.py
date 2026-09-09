@@ -46,9 +46,9 @@ def test_warm_up_works_with_a_lambda_wrapping_a_different_signature():
 
 
 def test_warm_up_model_backcompat_wrapper(monkeypatch, capsys):
-    import src.agents.sql.engine as sql_engine_mod
-    monkeypatch.setattr(sql_engine_mod, "run_sql_core", lambda q, model_key=None: {"ok": True})
+    import src.agents.data_query.engine as data_query_engine_mod
+    monkeypatch.setattr(data_query_engine_mod, "run_data_query_core", lambda q, model_key=None: {"ok": True})
 
-    warm_up_model()  # must not raise, must warm up via run_sql_core internally
+    warm_up_model()  # must not raise, must warm up via run_data_query_core internally
     captured = capsys.readouterr()
     assert "warm-up took" in captured.out

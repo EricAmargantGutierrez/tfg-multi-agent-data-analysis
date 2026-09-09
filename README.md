@@ -39,7 +39,7 @@ no architectural split, across multiple different underlying models.
 </p>
 
 The system consists of four specialized MCP agents coordinated by a
-LangGraph orchestrator: **SQL Agent**, **Analysis Agent** (statistics and
+LangGraph orchestrator: **Data Query Agent**, **Analysis Agent** (statistics and
 ML, including column filters and group-based hypothesis testing),
 **Visualization Agent**, and **Report Agent**. All database access is
 centralized through `src/core/db.py`, opened strictly read-only. Large
@@ -70,14 +70,14 @@ docs/
 └── development_log.md
 
 src/
-├── agents/{sql,viz,analysis,report}/    agent.py + engine.py + prompts.py
+├── agents/{data_query,viz,analysis,report}/    agent.py + engine.py + prompts.py
 ├── core/                                db.py, retry.py, llm_json.py, summarize.py, paths.py
 ├── config/settings.py
 ├── llm/                                 provider-agnostic LLM factory + registry
 ├── models/schemas.py                    Pydantic validation
 ├── orchestrator/                        router, MCP client, narrator, LangGraph graph
 ├── eval/
-│   ├── datasets/                        55 questions (sql, analysis, visualization)
+│   ├── datasets/                        55 questions (data_query, analysis, visualization)
 │   ├── ground_truth/                    generators, executed against the real DB
 │   ├── checks.py                        scoring logic
 │   ├── baselines/                       single_agent.py + monolithic_agent.py
@@ -127,7 +127,7 @@ python -m src.repl
 ## Evaluation
 
 ```bash
-python -m src.eval.ground_truth.generate_sql_ground_truth
+python -m src.eval.ground_truth.generate_data_query_ground_truth
 python -m src.eval.ground_truth.generate_analysis_ground_truth
 python -m src.eval.ground_truth.generate_visualization_ground_truth
 
@@ -142,7 +142,7 @@ All benchmark scripts support resuming an interrupted run
 
 | Category | Real system | Baseline | Monolithic | Architecture value | Decomposition value |
 |---|---|---|---|---|---|
-| SQL | 93.3% | 76.7% | 90.0% | +16.7pp | +3.3pp |
+| Data Query | 93.3% | 76.7% | 90.0% | +16.7pp | +3.3pp |
 | Analysis | 100% | 40.0% | 80.0% | +60.0pp | +20.0pp |
 | Visualization | 90.0% | 50.0% | 100% | +40.0pp | -10.0pp |
 

@@ -105,4 +105,4 @@ class ChartSpec(BaseModel):
 
 
 class RoutingDecision(BaseModel):
-    agent: Literal["sql", "analysis", "viz", "report"]
+    agent: Literal["data_query", "analysis", "viz", "report"]

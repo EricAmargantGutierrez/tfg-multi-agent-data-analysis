@@ -5,10 +5,10 @@ The baseline: same LLM, schema + question, ONE plain-language instruction
 to write a single SQL query. No specialized system prompt, no retry, no
 agent routing, no statistical/charting capability.
 
-Deliberately does NOT reuse src/agents/sql/prompts.py's tuned prompt
+Deliberately does NOT reuse src/agents/data_query/prompts.py's tuned prompt
 (ranking-question rules, worked examples, aggregation conventions). If it
 did, this would only measure "does the retry loop help" -- reusing the
-tuned prompt would silently smuggle the real SQL Agent's prompt
+tuned prompt would silently smuggle the real Data Query Agent's prompt
 engineering into the "baseline", understating the architecture's value.
 The whole point of a baseline is a deliberately minimal comparison point.
 

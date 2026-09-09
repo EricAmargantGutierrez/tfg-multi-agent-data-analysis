@@ -21,7 +21,7 @@ def test_report_prompt_is_summarized_for_large_row_history(monkeypatch, tmp_path
 
     big_rows = [{"profit": i / 10} for i in range(800)]  # a realistic boxplot-sized result
     history = [
-        {"question": "How many orders are there?", "agent": "sql",
+        {"question": "How many orders are there?", "agent": "data_query",
          "result": {"ok": True, "columns": ["total"], "rows": [[9994]], "sql": "SELECT COUNT(*)..."}},
         {"question": "Show a boxplot of profit", "agent": "viz",
          "result": {"ok": True, "path": "/tmp/chart.png", "rows": big_rows,

@@ -1,12 +1,12 @@
 """
-src/eval/ground_truth/generate_sql_ground_truth.py
+src/eval/ground_truth/generate_data_query_ground_truth.py
 
 Executes each question's hand-written reference SQL against the real
 database and stores the actual result as ground_truth. No LLM involved --
 this is what makes it trustworthy as a scoring baseline.
 
 Run once, after `python -m src.ingest`, and whenever the dataset changes:
-    python -m src.eval.ground_truth.generate_sql_ground_truth
+    python -m src.eval.ground_truth.generate_data_query_ground_truth
 """
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ from pathlib import Path
 
 from src.config.settings import settings
 
-QUESTIONS_FILE = Path(__file__).resolve().parents[1] / "datasets" / "sql_questions.json"
+QUESTIONS_FILE = Path(__file__).resolve().parents[1] / "datasets" / "data_query_questions.json"
 
 
 def execute_query(sql: str) -> list[list]:

@@ -4,7 +4,7 @@
 
 The Multi-Agent Conversational Data Analysis System answers natural
 language questions over the Superstore dataset. A LangGraph orchestrator
-routes each question to one of four specialized MCP agents (SQL,
+routes each question to one of four specialized MCP agents (Data Query,
 Analysis, Visualization, Report), which independently generate and
 execute their own read-only queries against a shared SQLite database.
 
@@ -19,7 +19,7 @@ execute their own read-only queries against a shared SQLite database.
 - **Router** (`src/orchestrator/router.py`) — an LLM decides which agent
   handles a question; a keyword-based fallback (`keyword_route`) covers
   cases where the LLM is unavailable or returns garbage.
-- **SQL / Viz / Analysis / Report Agents** (`src/agents/*/`) — each is an
+- **Data Query / Viz / Analysis / Report Agents** (`src/agents/*/`) — each is an
   MCP server exposing one tool. Each has: `agent.py` (thin MCP wrapper),
   `engine.py` (the actual logic, directly unit-testable without FastMCP),
   and `prompts.py` (its system prompt).
@@ -29,7 +29,7 @@ execute their own read-only queries against a shared SQLite database.
 
 ## Who is allowed to touch the database
 
-Three agents — SQL, Visualization, and Analysis — each independently
+Three agents — Data Query, Visualization, and Analysis — each independently
 decide their own query. All three go through `src/core/db.py`, and
 nothing else opens a connection to the database; every connection is
 opened read-only, so a bug downstream cannot mutate the database

@@ -6,7 +6,7 @@ from src.eval.checks import (
     check_chart_data,
     check_monolithic_analysis,
     check_monolithic_rows,
-    check_sql,
+    check_data_query,
     numbers_close,
     rows_match,
 )
@@ -49,16 +49,16 @@ def test_rows_match_rejects_different_row_count():
     assert not rows_match([["West", 1]], [["West", 1], ["East", 2]])
 
 
-# --- check_sql / check_chart_data -----------------------------------------
+# --- check_data_query / check_chart_data -----------------------------------------
 
-def test_check_sql_ok():
+def test_check_data_query_ok():
     answer = {"ok": True, "rows": [["West", 725457.82]]}
-    assert check_sql(answer, [["West", 725457.8245]])
+    assert check_data_query(answer, [["West", 725457.8245]])
 
 
-def test_check_sql_fails_when_not_ok():
+def test_check_data_query_fails_when_not_ok():
     answer = {"ok": False, "rows": [["West", 725457.82]]}
-    assert not check_sql(answer, [["West", 725457.8245]])
+    assert not check_data_query(answer, [["West", 725457.8245]])
 
 
 def test_check_chart_data_ok():
@@ -106,16 +106,16 @@ def test_check_analysis_not_ok_fails():
 
 # --- Meta-test: real generated ground truth must pass against itself ------
 
-def test_sql_ground_truth_is_self_consistent():
-    """If the generator produced ground_truth, running check_sql with the
+def test_data_query_ground_truth_is_self_consistent():
+    """If the generator produced ground_truth, running check_data_query with the
     exact same rows as the 'answer' must return True. Not a tautology --
     this catches bugs in the checker's shape-handling against real data."""
-    with open(DATASETS / "sql_questions.json", encoding="utf-8") as f:
+    with open(DATASETS / "data_query_questions.json", encoding="utf-8") as f:
         questions = json.load(f)
     for q in questions:
         gt = q["ground_truth"]
         answer = {"ok": True, "rows": gt}
-        assert check_sql(answer, gt), f"Self-check failed for question {q['id']}"
+        assert check_data_query(answer, gt), f"Self-check failed for question {q['id']}"
 
 
 def test_analysis_ground_truth_is_self_consistent():

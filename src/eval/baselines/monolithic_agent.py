@@ -43,7 +43,7 @@ from src.llm import build_llm
 from src.models.schemas import AnalysisPlan, ChartSpec
 
 from src.agents.analysis.prompts import SYSTEM_PROMPT as _ANALYSIS_PROMPT
-from src.agents.sql.prompts import SYSTEM_PROMPT as _SQL_PROMPT
+from src.agents.data_query.prompts import SYSTEM_PROMPT as _SQL_PROMPT
 from src.agents.viz.prompts import SYSTEM_PROMPT as _VIZ_PROMPT
 
 # Built by embedding the three real specialized agents' prompts VERBATIM

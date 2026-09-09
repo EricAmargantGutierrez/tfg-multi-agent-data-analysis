@@ -6,7 +6,7 @@ The system was evaluated along four independent dimensions, each isolating a
 different question:
 
 1. **Correctness** — real specialized agents vs. two baselines, per
-   category (SQL, Analysis, Visualization), against ground truth computed
+   category (Data Query, Analysis, Visualization), against ground truth computed
    by direct execution (never by an LLM).
 2. **Decomposition value** — the real agents vs. a *monolithic* agent
    with identical tools and identical prompt content (the three
@@ -30,7 +30,7 @@ prompt, not the specialized agents' tuned prompts, to isolate the value
 of the architecture as a whole; the monolithic agent uses the *same*
 tuned prompts as the real agents, to isolate decomposition specifically.
 
-The benchmark (55 questions: 30 SQL, 15 Analysis, 10 Visualization,
+The benchmark (55 questions: 30 Data Query, 15 Analysis, 10 Visualization,
 stratified easy/medium/hard) was run against three different model
 providers over the course of this evaluation. **The Anthropic run
 (`claude-haiku-4.5`) is the primary, complete dataset reported below**,
@@ -45,7 +45,7 @@ including two corrections made after the initial full run, see §3.5 and
 
 | Category | Real system | Baseline | Monolithic | Architecture value | Decomposition value |
 |---|---|---|---|---|---|
-| SQL | 93.3% (28/30) | 76.7% (23/30) | 90.0% (27/30) | +16.7pp | +3.3pp |
+| Data Query | 93.3% (28/30) | 76.7% (23/30) | 90.0% (27/30) | +16.7pp | +3.3pp |
 | Analysis | 100% (15/15) | 40.0% (6/15) | 80.0% (12/15) | +60.0pp | +20.0pp |
 | Visualization | 90.0% (9/10) | 50.0% (5/10) | 100% (10/10) | +40.0pp | -10.0pp |
 
@@ -57,7 +57,7 @@ below, with before/after evidence, not just a note that a number moved.
 
 ### 2.2 Routing accuracy
 
-**90.9% overall** (50/55). Per category: SQL 100%, Visualization 100%,
+**90.9% overall** (50/55). Per category: Data Query 100%, Visualization 100%,
 Analysis 66.7%. Unaffected by the fixes above (routing behavior didn't
 change; only how correctness is scored and computed did).
 
@@ -65,7 +65,7 @@ change; only how correctness is scored and computed did).
 
 | Category | Agent-only | Full pipeline | Baseline | Monolithic |
 |---|---|---|---|---|
-| SQL | 1.117s | 3.500s | 1.078s | 1.127s |
+| Data Query | 1.117s | 3.500s | 1.078s | 1.127s |
 | Analysis | 1.367s | 3.817s | 5.086s | 1.366s |
 | Visualization | 1.710s | 4.940s | 1.628s | 1.640s |
 
@@ -129,8 +129,8 @@ in Visualization at n=10. Not affected by this section's fixes.
 
 ### 3.4 Routing errors — unchanged from the initial run
 
-4 of 5 routing misses are mean/average/median questions sent to SQL
-instead of Analysis, a genuine SQL/Analysis boundary ambiguity, not
+4 of 5 routing misses are mean/average/median questions sent to Data Query
+instead of Analysis, a genuine Data Query/Analysis boundary ambiguity, not
 random noise. Unaffected by the fixes here.
 
 ### 3.5 FIXED: `compute_ttest` now compares two groups, not two arbitrary columns
@@ -180,7 +180,7 @@ affected by this section's fixes.
 
 | Session | Accuracy | Completeness | No fabrication | Fluency |
 |---|---|---|---|---|
-| 1 — SQL, easy | 3/5 | 5/5 | 2/5 | 5/5 |
+| 1 — Data Query, easy | 3/5 | 5/5 | 2/5 | 5/5 |
 | 2 — Analysis | 4/5 | 5/5 | 4/5 | 5/5 |
 | 3 — Visualization | 5/5 | 5/5 | 5/5 | 5/5 |
 | 4 — Mixed, realistic | 3/5 | 5/5 | 4/5 | 5/5 |
@@ -220,10 +220,10 @@ implying a false apples-to-apples comparison.
 
 | | Ollama (8B, local) | Groq (70B, hosted) | Anthropic (Haiku 4.5, post-fix) |
 |---|---|---|---|
-| Real system — SQL | 90% | 100% | 93.3% |
+| Real system — Data Query | 90% | 100% | 93.3% |
 | Real system — Analysis | 100% | 100% | 100% |
 | Real system — Visualization | 80% | 100% | 90.0% |
-| Baseline — SQL | 30% | 33.3% | 76.7% |
+| Baseline — Data Query | 30% | 33.3% | 76.7% |
 | Baseline — Analysis | 26.7%* | 20-26.7%* | 40.0% |
 | Baseline — Visualization | 70% | 80% | 50.0% |
 
@@ -250,7 +250,7 @@ fixes.
   no-tools baseline, substantially and consistently, across three
   different model providers.
 - The architecture also outperforms a monolithic agent with identical
-  tools and prompts (decomposition value: SQL +3.3pp, Analysis +20.0pp,
+  tools and prompts (decomposition value: Data Query +3.3pp, Analysis +20.0pp,
   Visualization -10.0pp — the last explained entirely by a single
   ambiguous question, §3.3).
 - **A real correctness bug (`compute_ttest`) and a real evaluation
@@ -260,7 +260,7 @@ fixes.
   demonstration of the evaluation process finding and correcting real
   issues, not just producing a number.
 - Routing errors are concentrated at capability boundaries
-  (SQL/Analysis overlap for simple aggregates), not distributed
+  (Data Query/Analysis overlap for simple aggregates), not distributed
   randomly.
 - The system's correctness is more stable across model choice than the
   baseline's (pattern confirmed pre- and post-fix).

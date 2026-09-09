@@ -7,7 +7,7 @@ from src.orchestrator.router import keyword_route
 # --- keyword_route: pure function, no LLM involved -----------------------
 
 @pytest.mark.parametrize("question,expected", [
-    ("How many orders are there?", "sql"),
+    ("How many orders are there?", "data_query"),
     ("Create a bar chart of sales by region.", "viz"),
     ("Calculate the average profit.", "analysis"),
     ("Is there a correlation between discount and profit?", "analysis"),
@@ -67,4 +67,4 @@ def test_route_falls_back_on_invalid_json(monkeypatch):
 
 def test_route_falls_back_on_unknown_agent_name(monkeypatch):
     monkeypatch.setattr(router_mod, "build_llm", lambda: _FakeLLM('{"agent": "weather"}'))
-    assert router_mod.route("How many orders are there?") == "sql"
+    assert router_mod.route("How many orders are there?") == "data_query"

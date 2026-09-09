@@ -12,7 +12,7 @@ class _ExplodingLLM:
 def test_error_result_returns_error_without_calling_llm(monkeypatch):
     monkeypatch.setattr(narrate_mod, "build_llm", lambda: _ExplodingLLM())
     result = {"ok": False, "error": "something broke"}
-    assert narrate("q", "sql", result) == "something broke"
+    assert narrate("q", "data_query", result) == "something broke"
 
 
 def test_report_result_formats_path_without_calling_llm(monkeypatch):
@@ -38,7 +38,7 @@ def test_success_result_uses_llm(monkeypatch):
 
     monkeypatch.setattr(narrate_mod, "build_llm", lambda: _FakeLLM())
     result = {"ok": True, "columns": ["region"], "rows": [["West"]]}
-    assert narrate("q", "sql", result) == "The West region led."
+    assert narrate("q", "data_query", result) == "The West region led."
 
 
 # --- Regression tests: large row lists must never be dumped raw into the

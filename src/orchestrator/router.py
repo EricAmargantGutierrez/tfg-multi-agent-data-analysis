@@ -14,7 +14,7 @@ from src.llm import build_llm
 from src.models.schemas import RoutingDecision
 
 AGENTS = {
-    "sql": "Retrieve or aggregate data from the database.",
+    "data_query": "Retrieve or aggregate data from the database.",
     "analysis": "Perform statistical or machine learning analyses over the dataset.",
     "viz": "Generate charts or visualizations.",
     "report": "Generate a report summarizing the session.",
@@ -27,7 +27,7 @@ Available agents:
 
 {json.dumps(AGENTS, indent=2)}
 
-Reply ONLY with valid JSON. Example: {{"agent":"sql"}}
+Reply ONLY with valid JSON. Example: {{"agent":"data_query"}}
 """
 
 _VIZ_WORDS = ("plot", "chart", "graph", "visual")
@@ -55,7 +55,7 @@ def keyword_route(question: str) -> str:
     if any(word in q for word in _ANALYSIS_WORDS):
         return "analysis"
 
-    return "sql"
+    return "data_query"
 
 
 def route(question: str) -> str:

@@ -6,7 +6,7 @@ columns + filters -- the SAME shape the real AnalysisPlan uses) through
 the real, already-tested `src/core/db.py` and
 `src/agents/analysis/statistics.py` code. No LLM is involved in computing
 ground truth: the plan was written by a human when the question was
-authored, exactly the way generate_sql_ground_truth.py uses a
+authored, exactly the way generate_data_query_ground_truth.py uses a
 human-written reference SQL rather than asking an LLM what the "right"
 query is.
 

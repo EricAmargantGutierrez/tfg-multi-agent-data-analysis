@@ -18,7 +18,7 @@ Develop a conversational system capable of answering natural language questions 
 
 # Milestones 1-10 — System Implementation
 
-Core system built: database ingestion, provider-independent LLM interface, the four-agent architecture (SQL, Analysis, Visualization, Report) as MCP servers, LangGraph orchestration, and the interactive REPL. See earlier log entries for full detail per milestone.
+Core system built: database ingestion, provider-independent LLM interface, the four-agent architecture (Data Query, Analysis, Visualization, Report) as MCP servers, LangGraph orchestration, and the interactive REPL. See earlier log entries for full detail per milestone.
 
 ---
 
@@ -30,7 +30,7 @@ Centralized all SQLite access in `src/core/db.py`; extracted shared self-correct
 
 # Milestone 12 — First Evaluation Round (Groq)
 
-55-question benchmark (30 SQL, 15 Analysis, 10 Visualization) against a minimal baseline, on Groq `llama-3.3-70b`. Found and fixed a real bug: `compute_regression` selected its prediction target by column-list position, silently swapping the target and producing a low-r2 wrong answer. Fixed with an explicit `target` field. Results: architecture value +66.7pp (SQL), +80.0pp (Analysis), +20.0pp (Visualization); routing accuracy 90.9%. Test suite: 78 tests.
+55-question benchmark (30 Data Query, 15 Analysis, 10 Visualization) against a minimal baseline, on Groq `llama-3.3-70b`. Found and fixed a real bug: `compute_regression` selected its prediction target by column-list position, silently swapping the target and producing a low-r2 wrong answer. Fixed with an explicit `target` field. Results: architecture value +66.7pp (SQL), +80.0pp (Analysis), +20.0pp (Visualization); routing accuracy 90.9%. Test suite: 78 tests.
 
 ---
 
@@ -116,7 +116,7 @@ correct answers without becoming lenient.
 
 | Category | Real system | Baseline | Monolithic | Architecture value | Decomposition value |
 |---|---|---|---|---|---|
-| SQL | 93.3% | 76.7% | 90.0% | +16.7pp | +3.3pp |
+| Data Query | 93.3% | 76.7% | 90.0% | +16.7pp | +3.3pp |
 | Analysis | 100% | 40.0% | 80.0% | +60.0pp | +20.0pp |
 | Visualization | 90.0% | 50.0% | 100% | +40.0pp | -10.0pp |
 

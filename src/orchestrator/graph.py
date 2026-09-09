@@ -21,8 +21,8 @@ def router_node(state: SessionState):
 def agent_node(state: SessionState):
     selected = state["route"]
 
-    if selected == "sql":
-        state["result"] = anyio.run(call_agent_tool, "sql", {"question": state["question"]})
+    if selected == "data_query":
+        state["result"] = anyio.run(call_agent_tool, "data_query", {"question": state["question"]})
     elif selected == "analysis":
         state["result"] = anyio.run(call_agent_tool, "analysis", {"question": state["question"]})
     elif selected == "viz":

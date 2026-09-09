@@ -4,12 +4,12 @@ from src.core.llm_json import parse_llm_json
 
 
 def test_parses_plain_json():
-    assert parse_llm_json('{"agent": "sql"}') == {"agent": "sql"}
+    assert parse_llm_json('{"agent": "data_query"}') == {"agent": "data_query"}
 
 
 def test_strips_markdown_fences():
-    text = '```json\n{"agent": "sql"}\n```'
-    assert parse_llm_json(text) == {"agent": "sql"}
+    text = '```json\n{"agent": "data_query"}\n```'
+    assert parse_llm_json(text) == {"agent": "data_query"}
 
 
 def test_rejects_invalid_json():

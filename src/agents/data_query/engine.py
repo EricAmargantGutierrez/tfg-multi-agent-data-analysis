@@ -1,16 +1,16 @@
 """
-src/agents/sql/engine.py
+src/agents/data_query/engine.py
 
-SQL Agent core logic: natural language question -> read-only SQL ->
+Data Query Agent core logic: natural language question -> read-only SQL ->
 structured rows, self-correcting on error. The MCP wrapper (agent.py) is
-a thin pass-through to run_sql_core().
+a thin pass-through to run_data_query_core().
 """
 from __future__ import annotations
 
 from pathlib import Path
 from typing import Any
 
-from src.agents.sql.prompts import SYSTEM_PROMPT
+from src.agents.data_query.prompts import SYSTEM_PROMPT
 from src.core.db import DB_PATH, get_schema, run_readonly_query
 from src.core.retry import run_self_correcting
 from src.llm import build_llm
@@ -31,7 +31,7 @@ def generate_sql(question: str, schema: str, llm, error_context: str | None = No
     return text.replace("```sql", "").replace("```", "").strip()
 
 
-def run_sql_core(
+def run_data_query_core(
     question: str,
     *,
     model_key: str | None = None,

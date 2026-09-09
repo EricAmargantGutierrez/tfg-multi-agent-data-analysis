@@ -49,7 +49,7 @@ def rows_match(actual: list[list], expected: list[list]) -> bool:
     return sorted(_normalize_row(r) for r in actual) == sorted(_normalize_row(r) for r in expected)
 
 
-def check_sql(answer: dict, ground_truth: list[list]) -> bool:
+def check_data_query(answer: dict, ground_truth: list[list]) -> bool:
     if not answer.get("ok"):
         return False
     return rows_match(answer.get("rows"), ground_truth)
@@ -149,7 +149,7 @@ def check_analysis(answer: dict, ground_truth: dict) -> bool:
 
 
 CHECKERS = {
-    "sql": check_sql,
+    "data_query": check_data_query,
     "visualization": check_chart_data,
     "analysis": check_analysis,
 }
@@ -174,7 +174,7 @@ CHECKERS = {
 # cannot express, which is a real structural limit, not an assumption.
 # ---------------------------------------------------------------------
 def check_baseline_sql_shaped(answer: dict, ground_truth: list[list]) -> bool:
-    return check_sql(answer, ground_truth)
+    return check_data_query(answer, ground_truth)
 
 
 _BASELINE_STRUCTURALLY_IMPOSSIBLE = {"regression", "pca", "kmeans"}
@@ -212,7 +212,7 @@ def check_baseline_analysis(answer: dict, ground_truth: dict) -> bool:
 
 
 BASELINE_CHECKERS = {
-    "sql": check_baseline_sql_shaped,
+    "data_query": check_baseline_sql_shaped,
     "visualization": check_baseline_sql_shaped,
     "analysis": check_baseline_analysis,
 }
@@ -249,7 +249,7 @@ def check_monolithic_analysis(answer: dict, ground_truth: dict) -> bool:
 
 
 MONOLITHIC_CHECKERS = {
-    "sql": check_monolithic_rows,
+    "data_query": check_monolithic_rows,
     "visualization": check_monolithic_rows,
     "analysis": check_monolithic_analysis,
 }

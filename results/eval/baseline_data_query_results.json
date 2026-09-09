@@ -1,66 +1,66 @@
 [
   {
     "id": 1,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "count",
     "difficulty": "easy",
     "question": "How many orders are there?",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": false,
     "ok": true,
-    "latency_seconds": 1.7065,
+    "latency_seconds": 0.9142,
     "attempts": 1,
     "retried": false,
     "answer": {
       "columns": [
-        "total_orders"
+        "COUNT(DISTINCT order_id)"
       ],
       "rows": [
         [
           5009
         ]
       ],
-      "sql": "SELECT\n    COUNT(DISTINCT order_id) AS total_orders\nFROM orders",
+      "sql": "SELECT COUNT(DISTINCT order_id) FROM orders",
       "error": null
     },
     "error": null
   },
   {
     "id": 2,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "count_distinct",
     "difficulty": "easy",
     "question": "How many customers are there?",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": true,
     "ok": true,
-    "latency_seconds": 2.1889,
+    "latency_seconds": 1.1424,
     "attempts": 1,
     "retried": false,
     "answer": {
       "columns": [
-        "total_customers"
+        "COUNT(DISTINCT customer_id)"
       ],
       "rows": [
         [
           793
         ]
       ],
-      "sql": "SELECT\n    COUNT(DISTINCT customer_id) AS total_customers\nFROM orders",
+      "sql": "SELECT COUNT(DISTINCT customer_id) FROM orders",
       "error": null
     },
     "error": null
   },
   {
     "id": 3,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "ranking",
     "difficulty": "easy",
     "question": "Which region has the highest sales?",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.1845,
+    "latency_seconds": 1.1377,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -74,21 +74,21 @@
           725457.8245
         ]
       ],
-      "sql": "SELECT\n    region,\n    SUM(sales) AS total_sales\nFROM orders\nGROUP BY region\nORDER BY total_sales DESC\nLIMIT 1",
+      "sql": "SELECT region, SUM(sales) as total_sales\nFROM orders\nGROUP BY region\nORDER BY total_sales DESC\nLIMIT 1",
       "error": null
     },
     "error": null
   },
   {
     "id": 4,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "ranking",
     "difficulty": "easy",
     "question": "Which category generated the highest profit?",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.818,
+    "latency_seconds": 1.7193,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -102,21 +102,21 @@
           145454.9481
         ]
       ],
-      "sql": "SELECT\n    category,\n    SUM(profit) AS total_profit\nFROM orders\nGROUP BY category\nORDER BY total_profit DESC\nLIMIT 1",
+      "sql": "SELECT category, SUM(profit) as total_profit\nFROM orders\nGROUP BY category\nORDER BY total_profit DESC\nLIMIT 1",
       "error": null
     },
     "error": null
   },
   {
     "id": 5,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "group_by",
     "difficulty": "easy",
     "question": "What are the total sales by region?",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.2205,
+    "latency_seconds": 1.5849,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -126,37 +126,37 @@
       ],
       "rows": [
         [
-          "Central",
-          501239.8908
+          "West",
+          725457.8245
         ],
         [
           "East",
           678781.24
         ],
         [
-          "South",
-          391721.905
+          "Central",
+          501239.8908
         ],
         [
-          "West",
-          725457.8245
+          "South",
+          391721.905
         ]
       ],
-      "sql": "SELECT\n    region,\n    SUM(sales) AS total_sales\nFROM orders\nGROUP BY region\nORDER BY region",
+      "sql": "SELECT region, SUM(sales) as total_sales\nFROM orders\nGROUP BY region\nORDER BY total_sales DESC",
       "error": null
     },
     "error": null
   },
   {
     "id": 6,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "top_k",
     "difficulty": "easy",
     "question": "Show the five most profitable products.",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.3,
+    "latency_seconds": 1.5769,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -186,75 +186,75 @@
           4094.9766
         ]
       ],
-      "sql": "SELECT\n    product_name,\n    SUM(profit) AS total_profit\nFROM orders\nGROUP BY product_name\nORDER BY total_profit DESC\nLIMIT 5",
+      "sql": "SELECT product_name, SUM(profit) as total_profit\nFROM orders\nGROUP BY product_name\nORDER BY total_profit DESC\nLIMIT 5",
       "error": null
     },
     "error": null
   },
   {
     "id": 7,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "ranking",
     "difficulty": "easy",
     "question": "Which customer placed the most orders?",
-    "expected_agent": "sql",
-    "correct": true,
+    "expected_agent": "data_query",
+    "correct": false,
     "ok": true,
-    "latency_seconds": 0.8372,
+    "latency_seconds": 1.0941,
     "attempts": 1,
     "retried": false,
     "answer": {
       "columns": [
         "customer_name",
-        "total_orders"
+        "order_count"
       ],
       "rows": [
         [
-          "William Brown",
-          37
+          "Emily Phan",
+          17
         ]
       ],
-      "sql": "SELECT\n    customer_name,\n    COUNT(*) AS total_orders\nFROM orders\nGROUP BY customer_name\nORDER BY total_orders DESC\nLIMIT 1",
+      "sql": "SELECT customer_name, COUNT(DISTINCT order_id) as order_count\nFROM orders\nGROUP BY customer_name\nORDER BY order_count DESC\nLIMIT 1",
       "error": null
     },
     "error": null
   },
   {
     "id": 8,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "aggregation",
     "difficulty": "easy",
     "question": "What is the total profit?",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.0746,
+    "latency_seconds": 0.9477,
     "attempts": 1,
     "retried": false,
     "answer": {
       "columns": [
-        "total_profit"
+        "SUM(profit)"
       ],
       "rows": [
         [
           286397.0217
         ]
       ],
-      "sql": "SELECT\n    SUM(profit) AS total_profit\nFROM orders",
+      "sql": "SELECT SUM(profit) FROM orders",
       "error": null
     },
     "error": null
   },
   {
     "id": 9,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "distinct",
     "difficulty": "easy",
     "question": "List all product categories.",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.8446,
+    "latency_seconds": 0.8878,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -272,47 +272,47 @@
           "Technology"
         ]
       ],
-      "sql": "SELECT DISTINCT category\nFROM orders\nORDER BY category",
+      "sql": "SELECT DISTINCT category FROM orders ORDER BY category",
       "error": null
     },
     "error": null
   },
   {
     "id": 10,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "filter_count",
     "difficulty": "easy",
     "question": "How many orders were shipped using Second Class?",
-    "expected_agent": "sql",
-    "correct": true,
+    "expected_agent": "data_query",
+    "correct": false,
     "ok": true,
-    "latency_seconds": 0.8708,
+    "latency_seconds": 0.7829,
     "attempts": 1,
     "retried": false,
     "answer": {
       "columns": [
-        "total_orders"
+        "COUNT(DISTINCT order_id)"
       ],
       "rows": [
         [
-          1945
+          964
         ]
       ],
-      "sql": "SELECT\n    COUNT(*) AS total_orders\nFROM orders\nWHERE ship_mode = 'Second Class'",
+      "sql": "SELECT COUNT(DISTINCT order_id) FROM orders WHERE ship_mode = 'Second Class'",
       "error": null
     },
     "error": null
   },
   {
     "id": 11,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "ranking",
     "difficulty": "medium",
     "question": "Who generated the largest amount of revenue?",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.9486,
+    "latency_seconds": 0.9165,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -326,21 +326,21 @@
           25043.05
         ]
       ],
-      "sql": "SELECT\n    customer_name,\n    SUM(sales) AS total_revenue\nFROM orders\nGROUP BY customer_name\nORDER BY total_revenue DESC\nLIMIT 1",
+      "sql": "SELECT customer_name, SUM(sales) as total_revenue\nFROM orders\nGROUP BY customer_name\nORDER BY total_revenue DESC\nLIMIT 1",
       "error": null
     },
     "error": null
   },
   {
     "id": 12,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "ranking",
     "difficulty": "medium",
     "question": "Which state sold the most products?",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.281,
+    "latency_seconds": 0.9881,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -354,21 +354,21 @@
           7667
         ]
       ],
-      "sql": "SELECT\n    state,\n    SUM(quantity) AS total_quantity\nFROM orders\nGROUP BY state\nORDER BY total_quantity DESC\nLIMIT 1",
+      "sql": "SELECT state, SUM(quantity) as total_quantity\nFROM orders\nGROUP BY state\nORDER BY total_quantity DESC\nLIMIT 1",
       "error": null
     },
     "error": null
   },
   {
     "id": 13,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "ranking",
     "difficulty": "medium",
     "question": "Which city earned the greatest profit?",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.9764,
+    "latency_seconds": 0.7675,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -382,21 +382,21 @@
           62036.9837
         ]
       ],
-      "sql": "SELECT\n    city,\n    SUM(profit) AS total_profit\nFROM orders\nGROUP BY city\nORDER BY total_profit DESC\nLIMIT 1",
+      "sql": "SELECT city, SUM(profit) as total_profit\nFROM orders\nGROUP BY city\nORDER BY total_profit DESC\nLIMIT 1",
       "error": null
     },
     "error": null
   },
   {
     "id": 14,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "ranking",
     "difficulty": "medium",
     "question": "Which shipping mode appears most frequently?",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.9385,
+    "latency_seconds": 0.9082,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -410,47 +410,47 @@
           5968
         ]
       ],
-      "sql": "SELECT\n    ship_mode,\n    COUNT(*) AS frequency\nFROM orders\nGROUP BY ship_mode\nORDER BY frequency DESC\nLIMIT 1",
+      "sql": "SELECT ship_mode, COUNT(*) as frequency\nFROM orders\nGROUP BY ship_mode\nORDER BY frequency DESC\nLIMIT 1",
       "error": null
     },
     "error": null
   },
   {
     "id": 15,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "count_distinct",
     "difficulty": "medium",
     "question": "How many distinct product names are there?",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.0699,
+    "latency_seconds": 0.9625,
     "attempts": 1,
     "retried": false,
     "answer": {
       "columns": [
-        "distinct_product_names"
+        "COUNT(DISTINCT product_name)"
       ],
       "rows": [
         [
           1850
         ]
       ],
-      "sql": "SELECT\n    COUNT(DISTINCT product_name) AS distinct_product_names\nFROM orders",
+      "sql": "SELECT COUNT(DISTINCT product_name) FROM orders",
       "error": null
     },
     "error": null
   },
   {
     "id": 16,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "ranking",
     "difficulty": "medium",
     "question": "Which segment contributes the largest share of sales?",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.9523,
+    "latency_seconds": 0.8039,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -464,75 +464,113 @@
           1161401.345
         ]
       ],
-      "sql": "SELECT\n    segment,\n    SUM(sales) AS total_sales\nFROM orders\nGROUP BY segment\nORDER BY total_sales DESC\nLIMIT 1",
+      "sql": "SELECT segment, SUM(sales) as total_sales\nFROM orders\nGROUP BY segment\nORDER BY total_sales DESC\nLIMIT 1",
       "error": null
     },
     "error": null
   },
   {
     "id": 17,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "top_k",
     "difficulty": "medium",
     "question": "Find the order with the highest sales.",
-    "expected_agent": "sql",
-    "correct": true,
+    "expected_agent": "data_query",
+    "correct": false,
     "ok": true,
-    "latency_seconds": 0.9817,
+    "latency_seconds": 0.6646,
     "attempts": 1,
     "retried": false,
     "answer": {
       "columns": [
+        "row_id",
         "order_id",
-        "sales"
+        "order_date",
+        "ship_date",
+        "ship_mode",
+        "customer_id",
+        "customer_name",
+        "segment",
+        "country",
+        "city",
+        "state",
+        "postal_code",
+        "region",
+        "product_id",
+        "category",
+        "sub_category",
+        "product_name",
+        "sales",
+        "quantity",
+        "discount",
+        "profit"
       ],
       "rows": [
         [
+          2698,
           "CA-2014-145317",
-          22638.48
+          "2014-03-18",
+          "2014-03-23",
+          "Standard Class",
+          "SM-20320",
+          "Sean Miller",
+          "Home Office",
+          "United States",
+          "Jacksonville",
+          "Florida",
+          32216,
+          "South",
+          "TEC-MA-10002412",
+          "Technology",
+          "Machines",
+          "Cisco TelePresence System EX90 Videoconferencing Unit",
+          22638.48,
+          6,
+          0.5,
+          -1811.0784
         ]
       ],
-      "sql": "SELECT\n    order_id,\n    sales\nFROM orders\nORDER BY sales DESC\nLIMIT 1",
+      "sql": "SELECT * FROM orders ORDER BY sales DESC LIMIT 1",
       "error": null
     },
     "error": null
   },
   {
     "id": 18,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "count_distinct",
     "difficulty": "medium",
     "question": "How many unique cities are represented?",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.8438,
+    "latency_seconds": 1.2811,
     "attempts": 1,
     "retried": false,
     "answer": {
       "columns": [
-        "unique_cities"
+        "COUNT(DISTINCT city)"
       ],
       "rows": [
         [
           531
         ]
       ],
-      "sql": "SELECT\n    COUNT(DISTINCT city) AS unique_cities\nFROM orders",
+      "sql": "SELECT COUNT(DISTINCT city) FROM orders",
       "error": null
     },
     "error": null
   },
   {
     "id": 19,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "ranking",
     "difficulty": "medium",
     "question": "Which region generated the least profit?",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.5318,
+    "latency_seconds": 0.9755,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -546,27 +584,27 @@
           39706.3625
         ]
       ],
-      "sql": "SELECT\n    region,\n    SUM(profit) AS total_profit\nFROM orders\nGROUP BY region\nORDER BY total_profit ASC\nLIMIT 1",
+      "sql": "SELECT region, SUM(profit) as total_profit\nFROM orders\nGROUP BY region\nORDER BY total_profit ASC\nLIMIT 1",
       "error": null
     },
     "error": null
   },
   {
     "id": 20,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "ranking",
     "difficulty": "medium",
     "question": "Which category contains the greatest number of orders?",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": false,
     "ok": true,
-    "latency_seconds": 1.7679,
+    "latency_seconds": 1.0299,
     "attempts": 1,
     "retried": false,
     "answer": {
       "columns": [
         "category",
-        "total_orders"
+        "order_count"
       ],
       "rows": [
         [
@@ -574,77 +612,113 @@
           3742
         ]
       ],
-      "sql": "SELECT\n    category,\n    COUNT(DISTINCT order_id) AS total_orders\nFROM orders\nGROUP BY category\nORDER BY total_orders DESC\nLIMIT 1",
+      "sql": "SELECT category, COUNT(DISTINCT order_id) as order_count\nFROM orders\nGROUP BY category\nORDER BY order_count DESC\nLIMIT 1",
       "error": null
     },
     "error": null
   },
   {
     "id": 21,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "ranking",
     "difficulty": "hard",
     "question": "Where does the business seem to perform best in terms of revenue?",
-    "expected_agent": "sql",
-    "correct": true,
+    "expected_agent": "data_query",
+    "correct": false,
     "ok": true,
-    "latency_seconds": 1.1682,
+    "latency_seconds": 1.0666,
     "attempts": 1,
     "retried": false,
     "answer": {
       "columns": [
-        "region",
+        "state",
         "total_revenue"
       ],
       "rows": [
         [
-          "West",
-          725457.8245
+          "California",
+          457687.6315
+        ],
+        [
+          "New York",
+          310876.271
+        ],
+        [
+          "Texas",
+          170188.0458
+        ],
+        [
+          "Washington",
+          138641.27
+        ],
+        [
+          "Pennsylvania",
+          116511.914
+        ],
+        [
+          "Florida",
+          89473.708
+        ],
+        [
+          "Illinois",
+          80166.101
+        ],
+        [
+          "Ohio",
+          78258.136
+        ],
+        [
+          "Michigan",
+          76269.614
+        ],
+        [
+          "Virginia",
+          70636.72
         ]
       ],
-      "sql": "SELECT\n    region,\n    SUM(sales) AS total_revenue\nFROM orders\nGROUP BY region\nORDER BY total_revenue DESC\nLIMIT 1",
+      "sql": "SELECT \n  state,\n  SUM(sales) as total_revenue\nFROM orders\nGROUP BY state\nORDER BY total_revenue DESC\nLIMIT 10",
       "error": null
     },
     "error": null
   },
   {
     "id": 22,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "ranking",
     "difficulty": "hard",
     "question": "Which customer appears to buy the most often?",
-    "expected_agent": "sql",
-    "correct": true,
+    "expected_agent": "data_query",
+    "correct": false,
     "ok": true,
-    "latency_seconds": 0.841,
+    "latency_seconds": 1.2494,
     "attempts": 1,
     "retried": false,
     "answer": {
       "columns": [
         "customer_name",
-        "total_orders"
+        "order_count"
       ],
       "rows": [
         [
-          "William Brown",
-          37
+          "Emily Phan",
+          17
         ]
       ],
-      "sql": "SELECT\n    customer_name,\n    COUNT(*) AS total_orders\nFROM orders\nGROUP BY customer_name\nORDER BY total_orders DESC\nLIMIT 1",
+      "sql": "SELECT customer_name, COUNT(DISTINCT order_id) as order_count\nFROM orders\nGROUP BY customer_name\nORDER BY order_count DESC\nLIMIT 1",
       "error": null
     },
     "error": null
   },
   {
     "id": 23,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "ranking",
     "difficulty": "hard",
     "question": "Which region generated the highest total profit?",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.8379,
+    "latency_seconds": 1.271,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -658,21 +732,21 @@
           108418.4489
         ]
       ],
-      "sql": "SELECT\n    region,\n    SUM(profit) AS total_profit\nFROM orders\nGROUP BY region\nORDER BY total_profit DESC\nLIMIT 1",
+      "sql": "SELECT region, SUM(profit) as total_profit\nFROM orders\nGROUP BY region\nORDER BY total_profit DESC\nLIMIT 1",
       "error": null
     },
     "error": null
   },
   {
     "id": 24,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "ranking",
     "difficulty": "hard",
     "question": "Which product has generated the greatest revenue overall?",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.2239,
+    "latency_seconds": 1.0168,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -686,27 +760,27 @@
           61599.824
         ]
       ],
-      "sql": "SELECT\n    product_name,\n    SUM(sales) AS total_revenue\nFROM orders\nGROUP BY product_name\nORDER BY total_revenue DESC\nLIMIT 1",
+      "sql": "SELECT product_name, SUM(sales) as total_revenue\nFROM orders\nGROUP BY product_name\nORDER BY total_revenue DESC\nLIMIT 1",
       "error": null
     },
     "error": null
   },
   {
     "id": 25,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "ranking",
     "difficulty": "hard",
     "question": "Which shipping option do customers prefer the most?",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.2414,
+    "latency_seconds": 1.0658,
     "attempts": 1,
     "retried": false,
     "answer": {
       "columns": [
         "ship_mode",
-        "total_orders"
+        "count"
       ],
       "rows": [
         [
@@ -714,21 +788,21 @@
           5968
         ]
       ],
-      "sql": "SELECT\n    ship_mode,\n    COUNT(*) AS total_orders\nFROM orders\nGROUP BY ship_mode\nORDER BY total_orders DESC\nLIMIT 1",
+      "sql": "SELECT ship_mode, COUNT(*) as count\nFROM orders\nGROUP BY ship_mode\nORDER BY count DESC\nLIMIT 1",
       "error": null
     },
     "error": null
   },
   {
     "id": 26,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "ranking",
     "difficulty": "hard",
     "question": "Which market segment seems to dominate sales?",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.9699,
+    "latency_seconds": 0.898,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -742,21 +816,21 @@
           1161401.345
         ]
       ],
-      "sql": "SELECT\n    segment,\n    SUM(sales) AS total_sales\nFROM orders\nGROUP BY segment\nORDER BY total_sales DESC\nLIMIT 1",
+      "sql": "SELECT segment, SUM(sales) as total_sales\nFROM orders\nGROUP BY segment\nORDER BY total_sales DESC\nLIMIT 1",
       "error": null
     },
     "error": null
   },
   {
     "id": 27,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "ranking",
     "difficulty": "hard",
     "question": "Which state accumulated the highest total profit?",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.8678,
+    "latency_seconds": 0.9516,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -770,21 +844,21 @@
           76381.3871
         ]
       ],
-      "sql": "SELECT\n    state,\n    SUM(profit) AS total_profit\nFROM orders\nGROUP BY state\nORDER BY total_profit DESC\nLIMIT 1",
+      "sql": "SELECT state, SUM(profit) as total_profit\nFROM orders\nGROUP BY state\nORDER BY total_profit DESC\nLIMIT 1",
       "error": null
     },
     "error": null
   },
   {
     "id": 28,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "ranking",
     "difficulty": "hard",
     "question": "Which product sold the greatest number of units?",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.9703,
+    "latency_seconds": 1.1465,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -798,21 +872,21 @@
           215
         ]
       ],
-      "sql": "SELECT\n    product_name,\n    SUM(quantity) AS total_quantity\nFROM orders\nGROUP BY product_name\nORDER BY total_quantity DESC\nLIMIT 1",
+      "sql": "SELECT product_name, SUM(quantity) as total_quantity\nFROM orders\nGROUP BY product_name\nORDER BY total_quantity DESC\nLIMIT 1",
       "error": null
     },
     "error": null
   },
   {
     "id": 29,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "count",
     "difficulty": "hard",
     "question": "How many purchases have been registered in total?",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.08,
+    "latency_seconds": 0.7278,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -824,21 +898,21 @@
           9994
         ]
       ],
-      "sql": "SELECT\n    COUNT(*) AS total_purchases\nFROM orders",
+      "sql": "SELECT COUNT(*) as total_purchases FROM orders",
       "error": null
     },
     "error": null
   },
   {
     "id": 30,
-    "category": "sql",
+    "category": "data_query",
     "task_type": "ranking",
     "difficulty": "hard",
     "question": "Identify the most successful region according to sales.",
-    "expected_agent": "sql",
+    "expected_agent": "data_query",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.9808,
+    "latency_seconds": 1.8693,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -852,7 +926,7 @@
           725457.8245
         ]
       ],
-      "sql": "SELECT\n    region,\n    SUM(sales) AS total_sales\nFROM orders\nGROUP BY region\nORDER BY total_sales DESC\nLIMIT 1",
+      "sql": "SELECT region, SUM(sales) as total_sales\nFROM orders\nGROUP BY region\nORDER BY total_sales DESC\nLIMIT 1",
       "error": null
     },
     "error": null
