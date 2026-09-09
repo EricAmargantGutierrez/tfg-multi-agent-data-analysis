@@ -3,7 +3,7 @@ src/eval/utils/evaluator.py
 
 Generic benchmark runner. Category-specific behavior (which dataset,
 which checker) is injected by the caller (see benchmarks/*.py) rather
-than hardcoded here, so the same runner serves SQL, Analysis, and
+than hardcoded here, so the same runner serves Data Query, Analysis, and
 Visualization benchmarks, and both the real agents and the baseline.
 """
 from __future__ import annotations

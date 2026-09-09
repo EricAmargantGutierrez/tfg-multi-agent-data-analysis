@@ -30,7 +30,7 @@ Centralized all SQLite access in `src/core/db.py`; extracted shared self-correct
 
 # Milestone 12 — First Evaluation Round (Groq)
 
-55-question benchmark (30 Data Query, 15 Analysis, 10 Visualization) against a minimal baseline, on Groq `llama-3.3-70b`. Found and fixed a real bug: `compute_regression` selected its prediction target by column-list position, silently swapping the target and producing a low-r2 wrong answer. Fixed with an explicit `target` field. Results: architecture value +66.7pp (SQL), +80.0pp (Analysis), +20.0pp (Visualization); routing accuracy 90.9%. Test suite: 78 tests.
+55-question benchmark (30 Data Query, 15 Analysis, 10 Visualization) against a minimal baseline, on Groq `llama-3.3-70b`. Found and fixed a real bug: `compute_regression` selected its prediction target by column-list position, silently swapping the target and producing a low-r2 wrong answer. Fixed with an explicit `target` field. Results: architecture value +66.7pp (Data Query), +80.0pp (Analysis), +20.0pp (Visualization); routing accuracy 90.9%. Test suite: 78 tests.
 
 ---
 

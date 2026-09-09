@@ -1,8 +1,8 @@
 """
 src/core/retry.py
 
-The one self-correcting retry loop, shared by the SQL, Viz, and Analysis
-agents (previously copy-pasted three times, nearly identically).
+The one self-correcting retry loop, shared by the Data Query, Viz, and
+Analysis agents (previously copy-pasted three times, nearly identically).
 
 Usage:
     def step(error_context):

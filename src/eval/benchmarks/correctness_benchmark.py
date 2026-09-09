@@ -9,7 +9,7 @@ file:
   - "baseline": a minimal single LLM, one plain SQL query, no tools.
     Isolates "does having any specialized tooling help at all."
   - "monolithic": a single LLM with the SAME tools as the four
-    specialized agents combined (SQL, statistics, charting), deciding
+    specialized agents combined (data queries, statistics, charting), deciding
     for itself which to use. Isolates "does SPLITTING those tools across
     separate agents + routing add value, beyond just having them
     available to one agent."

@@ -5,19 +5,19 @@
     "turns": [
       {
         "question": "How many orders are there?",
-        "agent": "sql",
+        "agent": "data_query",
         "narrated_answer": "There are **5,009 orders** in total.",
         "ok": true
       },
       {
         "question": "Which region has the highest sales?",
-        "agent": "sql",
+        "agent": "data_query",
         "narrated_answer": "The **West** region has the highest sales with **$725,457.82** in total sales.",
         "ok": true
       },
       {
         "question": "What is the total profit?",
-        "agent": "sql",
+        "agent": "data_query",
         "narrated_answer": "The total profit is **$286,397.02**.\n\nThis was calculated by summing all profit values from the orders table.",
         "ok": true
       }
@@ -32,7 +32,7 @@
     "turns": [
       {
         "question": "What is the average profit in the West region?",
-        "agent": "sql",
+        "agent": "data_query",
         "narrated_answer": "The average profit in the West region is **$33.85**.",
         "ok": true
       },
@@ -86,7 +86,7 @@
     "turns": [
       {
         "question": "Which category generated the highest profit?",
-        "agent": "sql",
+        "agent": "data_query",
         "narrated_answer": "**Technology** generated the highest profit with a total of **$145,454.95**.",
         "ok": true
       },
@@ -113,7 +113,7 @@
     "turns": [
       {
         "question": "Where does the business seem to perform best in terms of revenue?",
-        "agent": "sql",
+        "agent": "data_query",
         "narrated_answer": "Based on the analysis, the business performs best in the **West region**, which generated **$725,457.82** in total revenue.",
         "ok": true
       },

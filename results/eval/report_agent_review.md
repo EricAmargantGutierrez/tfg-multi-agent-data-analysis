@@ -7,13 +7,13 @@ Each session below ran through the real orchestrator end-to-end (routing, agent 
 ## Session 1: SQL-focused, easy
 
 ### Conversation
-**Q1** _(routed to: sql)_: How many orders are there?
+**Q1** _(routed to: data_query)_: How many orders are there?
 **A1:** There are **5,009 orders** in total.
 
-**Q2** _(routed to: sql)_: Which region has the highest sales?
+**Q2** _(routed to: data_query)_: Which region has the highest sales?
 **A2:** The **West** region has the highest sales with **$725,457.82** in total sales.
 
-**Q3** _(routed to: sql)_: What is the total profit?
+**Q3** _(routed to: data_query)_: What is the total profit?
 **A3:** The total profit is **$286,397.02**.
 
 This was calculated by summing all profit values from the orders table.
@@ -64,7 +64,7 @@ The data indicates a substantial order volume with the West region as the primar
 ## Session 2: Analysis-focused
 
 ### Conversation
-**Q1** _(routed to: sql)_: What is the average profit in the West region?
+**Q1** _(routed to: data_query)_: What is the average profit in the West region?
 **A1:** The average profit in the West region is **$33.85**.
 
 **Q2** _(routed to: analysis)_: What is the correlation between discount and profit?
@@ -225,7 +225,7 @@ The analysis reveals that Technology is the strongest performing category by sal
 ## Session 4: Mixed, realistic session
 
 ### Conversation
-**Q1** _(routed to: sql)_: Which category generated the highest profit?
+**Q1** _(routed to: data_query)_: Which category generated the highest profit?
 **A1:** **Technology** generated the highest profit with a total of **$145,454.95**.
 
 **Q2** _(routed to: analysis)_: What is the standard deviation of profit for the Technology category?
@@ -302,7 +302,7 @@ The Consumer segment dominates order volume, accounting for more than half of al
 ## Session 5: Mixed, harder / ambiguous phrasing
 
 ### Conversation
-**Q1** _(routed to: sql)_: Where does the business seem to perform best in terms of revenue?
+**Q1** _(routed to: data_query)_: Where does the business seem to perform best in terms of revenue?
 **A1:** Based on the analysis, the business performs best in the **West region**, which generated **$725,457.82** in total revenue.
 
 **Q2** _(routed to: analysis)_: Is there a significant difference in profit between the Consumer and Corporate segments?
