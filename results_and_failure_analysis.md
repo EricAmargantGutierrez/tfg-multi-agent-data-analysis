@@ -31,12 +31,13 @@ prompt, not the specialized agents' tuned prompts, to isolate the value
 of the architecture as a whole; the monolithic agent uses the *same*
 tuned prompts as the real agents, to isolate decomposition specifically.
 
-The benchmark (55 questions: 30 Data Query, 15 Analysis, 10 Visualization,
-stratified easy/medium/hard) was run against three different model
-providers over the course of this evaluation. **The Anthropic run
-(`claude-haiku-4.5`) is the primary, complete dataset reported below.**
-Two issues found during the evaluation were fixed and the affected runs
-repeated; §3.2 and §3.5 give the full before/after.
+The benchmark has 55 questions: 30 Data Query, 15 Analysis, 10
+Visualization, split into easy/medium/hard. **All the results below are
+from one model, Anthropic `claude-haiku-4.5`.** The system was also run
+on Groq and Ollama earlier in the project, but those runs don't match
+the final system and are not reported here (§5). Two bugs found during
+the evaluation were fixed and the affected runs repeated; §3.2 and §3.5
+have the before/after.
 
 The evaluation was then run again in **Spanish and Catalan** on the main
 model, with the 55 questions and the 6 report-agent sessions translated.
@@ -85,9 +86,9 @@ correlated subquery) rather than a short, simple query.
 ### 2.4 Retry / self-correction
 
 **Retry rate: 0% in every category**, unchanged by the fixes. The
-55-question benchmark never triggered the self-correcting loop on any
-provider; the adversarial Report-Agent session (§4.2) is the first time
-it was seen to fire, and it did not recover.
+55-question benchmark never triggered the self-correcting loop; the
+adversarial Report-Agent session (§4.2) is the first time it fired, and
+it did not recover.
 
 ---
 
@@ -270,185 +271,60 @@ Things worth knowing:
 
 ---
 
-## 5. Cross-model robustness (Ollama, Groq, Anthropic)
+## 5. Other model providers (Groq, Ollama)
 
-The system was run on three providers during the project. Anthropic
-(Claude Haiku 4.5) is the only one with the full set of measurements
-after the fixes, and is the main dataset (§2). Groq and Ollama were run
-earlier and only partly. The tables below cover all three providers; a
-dash (—) means that number was never measured, or was measured under
-conditions that don't match the Anthropic run and so is left out. It
-never means zero. §5.1 explains each gap.
+All the numbers in this document are from **Anthropic (Claude Haiku 4.5)**
+(§2). The system was also run on Groq and Ollama earlier in the project,
+but those runs are not reported as results, for the reasons below. They
+will be added back only if and when there is a clean, retained run to
+back them up.
 
-### 5.1 What was evaluated on each provider
+### 5.1 What happened with each
 
-| Dimension | Ollama (`llama3.1:8b`, local) | Groq (`llama-3.3-70b-versatile`) | Anthropic (`claude-haiku-4-5`) |
-|---|---|---|---|
-| Correctness — real agents, Data Query + Visualization | ✅ | ✅ | ✅ |
-| Correctness — real agents, Analysis | — | — | ✅ |
-| Correctness — baseline, Data Query + Visualization | ✅ | ✅ | ✅ |
-| Correctness — baseline, Analysis | — | — | ✅ |
-| Correctness — monolithic agent | — | — | ✅ |
-| Routing accuracy — overall | — | — | ✅ |
-| Routing accuracy — per category | — | — | ✅ |
-| Latency | — | — | ✅ |
-| Per-difficulty breakdown | — | — | ✅ |
-| Retry rate | ✅ | ✅ | ✅ |
-| Report Agent — sessions 1–5 | — | — | ✅ |
-| Report Agent — session 6 (adversarial) | — | — | ✅ |
+**Groq (`llama-3.3-70b-versatile`).** The full 55-question benchmark and
+the pipeline benchmark were run on Groq in the first evaluation round.
+That run is still in git history (commit `354902e`) with every
+per-question file. But it predates the architecture restructure and both
+fixes (§3.2, §3.5), so it does not match the current system. A re-run on
+the same model is not possible: Groq removed `llama-3.3-70b-versatile`
+during the project and it now returns `model_not_found`. The closest
+model still on Groq is `openai/gpt-oss-120b` (the registry points there
+now so `TFG_MODEL=groq` still works), but the free tier only allows
+8,000 tokens/minute, which is not enough for a full run.
 
-Why the gaps exist:
+**Ollama (`llama3.1:8b`, local).** The benchmark was also run on this
+model, but the result files were overwritten by a later run before they
+were committed, so only the aggregate numbers were ever recorded (in the
+development log). There is no per-question detail to show. A re-run is
+possible - tokens are free since it runs locally - but the model is
+slow (25-210 s per question) and a full run is several hours on hardware
+that has hit memory limits before. This re-run is planned.
 
-- **Analysis correctness for Groq/Ollama is left out.** Those runs came
-  before the §3.2 fix (baseline Analysis scoring) and the §3.5 fix
-  (`compute_ttest` plus a reworded Analysis question), so they're not
-  comparable to the Anthropic numbers. Data Query and Visualization
-  aren't affected by either fix, so those numbers are kept.
-- **The Groq raw run is still in git history.** The full first Groq run
-  (`llama-3.3-70b-versatile`), every per-question file with its SQL and
-  answer, is in commit `354902e`; the Data Query and Visualization
-  numbers in §5.2 were checked against it. The Ollama run was overwritten
-  before it got committed, so only its overall numbers survive (in the
-  development log); the per-question files are gone.
-- **The monolithic agent** was added after the Groq and Ollama runs and
-  only ever run on Anthropic, so there's no decomposition value for the
-  other two.
-- **Latency, per-difficulty, and per-category routing** weren't saved for
-  the Groq/Ollama runs.
-- **Groq's routing number** is from the first run, before a routing bug
-  was fixed in the restructure, so it's not comparable and is left out.
-  **Ollama routing** never got a single number - the 8B model misroutes
-  even clear questions (§5.4), and that run also ran into WSL memory
-  limits.
-- **The Report Agent** was only run on Anthropic.
-- **Re-run after the fixes** (§5.7): only Anthropic was re-run. Groq
-  removed the model, so re-running the same one isn't possible.
+### 5.2 What the early runs suggested (no numbers carried forward)
 
-### 5.2 Correctness across providers
+The early Groq and Ollama runs did line up with the main finding: the
+real specialized system stayed high on Data Query and Visualization
+regardless of the model, while the baseline was much more variable. The
+Ollama 8B model also showed a clear routing weakness - it misrouted
+questions that the larger models route correctly. These are stated as
+observations from runs that are no longer reported, not as results.
 
-Groq and Ollama columns show only the categories measured under the same
-(post-fix) conditions as Anthropic — Analysis is excluded for them (see
-§5.1).
-
-| | Ollama (8B) | Groq (Llama-3.3-70B) | Anthropic (Haiku 4.5) |
-|---|---|---|---|
-| **Real system** — Data Query | 90.0% | 100% | 93.3% |
-| **Real system** — Analysis | — | — | 100% |
-| **Real system** — Visualization | 80.0% | 100% | 90.0% |
-| **Baseline** — Data Query | 30.0% | 33.3% | 76.7% |
-| **Baseline** — Analysis | — | — | 40.0% |
-| **Baseline** — Visualization | 70.0% | 80.0% | 50.0% |
-| **Monolithic** — Data Query | — | — | 90.0% |
-| **Monolithic** — Analysis | — | — | 80.0% |
-| **Monolithic** — Visualization | — | — | 100% |
-
-The pattern that holds on all three providers, for the two directly
-comparable categories: **the real specialized system stays in an
-80–100% correctness band regardless of the underlying model, while the
-baseline swings much more widely (30–80%)**.
-
-### 5.3 Architecture value and decomposition value
-
-| | Ollama (8B) | Groq (Llama-3.3-70B) | Anthropic (Haiku 4.5) |
-|---|---|---|---|
-| Architecture value — Data Query | +60.0pp | +66.7pp | +16.7pp |
-| Architecture value — Analysis | — | — | +60.0pp |
-| Architecture value — Visualization | +10.0pp | +20.0pp | +40.0pp |
-| Decomposition value — Data Query | — | — | +3.3pp |
-| Decomposition value — Analysis | — | — | +20.0pp |
-| Decomposition value — Visualization | — | — | -10.0pp |
-
-Architecture value = real system minus baseline. Decomposition value =
-real system minus monolithic, which needs the monolithic run (Anthropic
-only). The -10.0pp Visualization decomposition value is explained
-entirely by a single ambiguous question (§3.3).
-
-### 5.4 Routing, latency, retry
-
-| | Ollama (8B) | Groq (Llama-3.3-70B) | Anthropic (Haiku 4.5) |
-|---|---|---|---|
-| Routing accuracy — overall | — | — | 90.9% (50/55) |
-| Routing accuracy — Data Query | — | — | 100% |
-| Routing accuracy — Analysis | — | — | 66.7% |
-| Routing accuracy — Visualization | — | — | 100% |
-| Retry rate | 0% | 0% | 0% |
-| Agent-only latency — DQ / An / Viz | — | — | 1.12 / 1.37 / 1.71 s |
-| Full-pipeline latency — DQ / An / Viz | — | — | 3.50 / 3.82 / 4.94 s |
-| Baseline latency — DQ / An / Viz | — | — | 1.08 / 5.09 / 1.63 s |
-| Monolithic latency — DQ / An / Viz | — | — | 1.13 / 1.37 / 1.64 s |
-
-Routing, latency and per-difficulty were only ever recorded for
-Anthropic. Groq's routing was measured once in the first evaluation
-round but before the routing-bug fix in the architecture restructure, so
-it is not comparable and is not carried forward.
-
-**Retry rate was 0% on all three providers** — the self-correcting loop
-was never triggered by the 55-question benchmark on any model. (It was
-first triggered by the adversarial Report-Agent session, §4.2, on
-Anthropic, and did not recover.)
-
-### 5.5 Per-difficulty correctness
-
-| | Ollama | Groq | Anthropic — system | Anthropic — baseline |
-|---|---|---|---|---|
-| Data Query — easy / medium / hard | — | — | 90 / 90 / 100% | 70 / 80 / 80% |
-| Analysis — easy / medium / hard | — | — | 100 / 100 / 100% | 33 / 67 / 17% |
-| Visualization — easy / medium / hard | — | — | 100 / 100 / 67% | 67 / 75 / 0% |
-
-### 5.6 Report Agent quality across providers
-
-| | Ollama | Groq | Anthropic |
-|---|---|---|---|
-| Sessions 1–5 — mean Accuracy / Completeness / No-fabrication / Fluency | — | — | 4.0 / 5.0 / 4.0 / 5.0 |
-| Session 6 (adversarial) — No-fabrication / Failure-transparency / Completeness / Fluency | — | — | 2 / 3 / 4 / 5 |
-
-Full session-by-session ratings and the adversarial analysis are in §4.
-Not run on Groq or Ollama.
-
-### 5.7 Attempted post-fix re-run of Groq and Ollama
-
-A re-run of the full evaluation on the other two providers was attempted,
-to close the gaps above, and could not be completed:
-
-- **Groq:** `llama-3.3-70b-versatile` has been retired by the provider
-  and now returns `model_not_found`; the current Groq roster contains no
-  Llama model. The nearest substitute, `openai/gpt-oss-120b`, runs the
-  system correctly end-to-end, but Groq's free-tier limit of 8,000
-  tokens per minute makes a full run (correctness + pipeline + report
-  sessions, on the order of 1–2M tokens) impractical — the monolithic
-  agent's large combined prompt saturates the limit and the run stalls
-  on rate-limit backoff. A paid tier would remove this constraint.
-- **Ollama:** `llama3.1:8b` is intact and a re-run is technically
-  possible, but at 25–210 s per end-to-end question the full run is a
-  multi-hour job on the same hardware that previously hit memory limits.
-  Not completed.
-
-The Ollama 8B model also showed, in the original run, a genuine routing
-weakness (misrouting questions the hosted models route correctly) on top
-of the infrastructure limits.
-
-**For the Limitations section:** the cross-provider comparison is
-strongest for **Data Query and Visualization correctness** (directly
-comparable across all three providers) and for the **architecture-vs-
-baseline pattern** (holds on all three). It is **Anthropic-only** for
-decomposition value, latency, per-category routing, per-difficulty
-breakdown, and Report-Agent quality.
+For the Limitations section: the evaluation currently covers **one model
+only** (Anthropic Haiku). Running it on a second model that matches the
+final system - at least the Ollama re-run - is the main open item.
 
 ---
 
 ## 6. What this evaluation does and does not establish — for the Limitations section
 
 **Established, with evidence:**
-- The specialized multi-agent architecture outperforms a minimal
-  no-tools baseline, substantially and consistently. On Anthropic this
-  holds across all three categories; on Groq and Ollama it is confirmed
-  for the two categories measured under comparable conditions (Data
-  Query and Visualization — §5.2).
-- The architecture also outperforms a monolithic agent with identical
-  tools and prompts (decomposition value: Data Query +3.3pp, Analysis +20.0pp,
-  Visualization -10.0pp — the last explained entirely by a single
-  ambiguous question, §3.3). Measured on Anthropic only — the monolithic
-  baseline was added after the Groq/Ollama runs (§5.1).
+- The specialized multi-agent architecture beats a minimal no-tools
+  baseline, clearly and across all three categories (on Anthropic Haiku,
+  the reported dataset).
+- The architecture also beats a monolithic agent with the same tools and
+  prompts (decomposition value: Data Query +3.3pp, Analysis +20.0pp,
+  Visualization -10.0pp — the last one is entirely a single ambiguous
+  question, §3.3).
 - **A real correctness bug (`compute_ttest`) and a real evaluation
   scoring limitation were found, fixed, and the fix independently
   verified at three levels** (unit test, integration test against real
@@ -458,9 +334,6 @@ breakdown, and Report-Agent quality.
 - Routing errors are concentrated at capability boundaries
   (Data Query/Analysis overlap for simple aggregates), not distributed
   randomly.
-- The system's correctness is more stable across model choice than the
-  baseline's (pattern confirmed pre- and post-fix).
-
 **Not established, and should be stated as open questions:**
 - Retry/self-correction effectiveness: first exercised by the adversarial
   session (§4.2), where the loop fired (`attempts: 3`) on two turns but
@@ -470,21 +343,14 @@ breakdown, and Report-Agent quality.
   failed to parse, retried, and the second attempt scored correct. Still
   only two data points; the English 55-question benchmark showed a 0%
   retry rate.
-- Cost comparison across providers, not systematically measured.
 - Whether decomposition value would hold at a larger question count.
-- **A full cross-provider re-run after the §3.2/§3.5 fixes.** Only
-  Anthropic has post-fix Analysis data; for Groq and Ollama the Analysis
-  category is excluded as non-comparable (§5.1), and their monolithic /
-  latency / per-category-routing / Report-Agent cells were never filled.
-  A post-fix re-run was attempted and blocked — Groq retired the model,
-  Ollama is too slow on the available hardware (§5.7).
-- **Decomposition value on Groq and Ollama** — the monolithic baseline
-  was only ever run on Anthropic, so decomposition value is
-  single-provider.
+- **Cross-provider results.** Everything reported is on one provider
+  (Anthropic Haiku). Groq and Ollama were run early but those runs don't
+  match the final system and aren't reported (§5). An Ollama re-run on
+  the final system is planned; a Groq re-run on the same model isn't
+  possible (model retired). Cost per provider was also not measured.
 - **The multilingual evaluation (§7) is Anthropic Haiku only.** Spanish
-  and Catalan were not run on Groq or Ollama, for the same reasons as
-  §5.7 (Groq model retired; Ollama too slow) — those columns in §7 are
-  blank.
+  and Catalan were not run on Groq or Ollama (§5).
 
 ---
 
@@ -494,7 +360,7 @@ The evaluation was run again with the 55 questions and the 6 Report-Agent
 sessions translated into Spanish and Catalan, to see if the language of
 the question changes anything. This was only done on the main model
 (Anthropic Claude Haiku 4.5). Groq and Ollama were not run in Spanish or
-Catalan (§5.7), so their columns below are empty.
+Catalan (§5), so their columns below are empty.
 
 ### 7.1 Method
 

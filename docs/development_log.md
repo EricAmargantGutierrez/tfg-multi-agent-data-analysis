@@ -64,7 +64,7 @@ Post-fix Anthropic results:
 
 Report Agent mean ratings rose from 3.4/5 to 4.0/5 (accuracy and no-fabrication), driven entirely by Session 5. Test suite: 116 tests.
 
-**Not re-run**: Groq and Ollama's Analysis-category data predates both fixes and is excluded from §5 as non-comparable (Data Query and Visualization are untouched by the fixes and are kept). A full three-provider re-run was not repeated given the cost already invested; this is stated as a limitation. See Milestone 16 for the re-run attempt and `results_and_failure_analysis.md` §5 for the full cross-provider tables.
+**Not re-run**: Groq and Ollama were not re-run after the fixes. Their earlier runs predate the final system, so their numbers are not reported (see Milestone 16 and §5).
 
 ---
 
@@ -76,16 +76,16 @@ What happened (details in `results_and_failure_analysis.md` §4.2): the Report A
 
 ---
 
-# Milestone 16 — Cross-provider tables, and a re-run attempt
+# Milestone 16 — Decided not to report Groq/Ollama numbers yet
 
-Put all the cross-provider results into one set of tables in `results_and_failure_analysis.md` §5, one row per thing measured and one column per provider (Ollama, Groq, Anthropic). Cells we don't have are left blank, not guessed. §5.1 is a small table listing what was and wasn't run on each provider. For Groq and Ollama I kept only the numbers that were measured the same way as Anthropic (Data Query and Visualization correctness, retry rate); their Analysis numbers and Groq's old routing number are pre-fix, so they're left out.
+Looked at putting the early Groq and Ollama results into `results_and_failure_analysis.md` §5, then decided against reporting any of their numbers until there is a clean run to back them up:
 
-Tried to re-run Groq and Ollama to fill the gaps. Both failed (see §5.7):
+- The Groq and Ollama runs are from early in the project and predate the architecture restructure and both fixes (§3.2, §3.5), so they don't match the final system.
+- The Groq first run is still in git history (commit `354902e`), but the Ollama run was overwritten before it was committed, so there is no per-question detail for it - only the aggregate numbers, in an old version of this log.
+- Tried to re-run Groq on the same model: `llama-3.3-70b-versatile` was removed by Groq and returns `model_not_found`. There's no Llama model on Groq anymore. `openai/gpt-oss-120b` works, but the free tier only allows 8,000 tokens/minute, which isn't enough for a full run. The registry now points `groq` at `openai/gpt-oss-120b` with a comment so `TFG_MODEL=groq` still runs.
+- Ollama can be re-run (tokens are free locally) but it's slow (25-210 s per question) and has hit memory limits before. This re-run is planned.
 
-- **Groq**: the model used for the first Groq run, `llama-3.3-70b-versatile`, was removed by Groq and now returns `model_not_found`. There's no Llama model on Groq anymore. `openai/gpt-oss-120b` works, but the free tier only allows 8,000 tokens/minute, and the full run needs far more than that (the monolithic agent's prompt alone is big), so it stalls. The registry now points `groq` at `openai/gpt-oss-120b` with a comment, so `TFG_MODEL=groq` still runs.
-- **Ollama**: `llama3.1:8b` still works, but each question takes 25–210 s, so the full run is several hours on a machine that already ran out of memory once. Didn't finish.
-
-So the cross-provider comparison is solid for Data Query and Visualization correctness (all three providers, same conditions) and for the "architecture beats baseline" pattern (all three). It's Anthropic-only for decomposition value, latency, per-category routing, per-difficulty, and the Report Agent.
+So §5 now just explains this. All reported results are Anthropic Haiku. The main open item is an Ollama re-run on the final system.
 
 ---
 

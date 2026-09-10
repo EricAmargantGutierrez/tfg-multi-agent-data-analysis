@@ -153,20 +153,18 @@ different model does not overwrite the previous one.
 | Analysis | 100% | 40.0% | 80.0% | +60.0pp | +20.0pp |
 | Visualization | 90.0% | 50.0% | 100% | +40.0pp | -10.0pp |
 
-Routing accuracy: 90.9%. Full breakdowns and a complete question-by-question
-failure analysis, including two real issues found by this evaluation
-and fixed (a t-test implementation bug and a limitation in the
-evaluation's own scoring logic, both independently verified) — are in
+Routing accuracy: 90.9%. Full breakdowns and a question-by-question
+failure analysis, including two bugs found and fixed during the
+evaluation (a t-test bug and a scoring limitation), are in
 [`results_and_failure_analysis.md`](results_and_failure_analysis.md).
 
-The system was also run on Groq (`llama-3.3-70b-versatile`) and Ollama
-(`llama3.1:8b`), but only partly; §5 of that file has the cross-provider
-tables and says which cells are missing and why.
+All reported numbers are from Anthropic Haiku. The system was run on Groq
+and Ollama earlier in the project, but those runs don't match the final
+system and aren't reported; §5 explains, and an Ollama re-run is planned.
 
-The same evaluation was also run in **Spanish and Catalan** on the main
-model (Anthropic Haiku 4.5): the questions are translated, the ground
-truth is the same. Results are in `results/eval/anthropic/{en,es,ca}/`
-and §7 of the analysis file.
+The evaluation was also run in **Spanish and Catalan** on Anthropic Haiku
+(same questions translated, same ground truth). Results are in
+`results/eval/anthropic/{en,es,ca}/` and §7.
 
 ---
 
