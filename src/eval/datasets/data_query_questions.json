@@ -4,7 +4,11 @@
         "category": "data_query",
         "task_type": "count",
         "difficulty": "easy",
-        "question": "How many orders are there?",
+        "question": {
+            "en": "How many orders are there?",
+            "es": "¿Cuántos pedidos hay?",
+            "ca": "Quantes comandes hi ha?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT COUNT(*) AS total_orders FROM orders;"
@@ -20,7 +24,11 @@
         "category": "data_query",
         "task_type": "count_distinct",
         "difficulty": "easy",
-        "question": "How many customers are there?",
+        "question": {
+            "en": "How many customers are there?",
+            "es": "¿Cuántos clientes hay?",
+            "ca": "Quants clients hi ha?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT COUNT(DISTINCT customer_id) AS total_customers FROM orders;"
@@ -36,7 +44,11 @@
         "category": "data_query",
         "task_type": "ranking",
         "difficulty": "easy",
-        "question": "Which region has the highest sales?",
+        "question": {
+            "en": "Which region has the highest sales?",
+            "es": "¿Qué región tiene las mayores ventas?",
+            "ca": "Quina regió té les vendes més altes?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT region, SUM(sales) AS total_sales FROM orders GROUP BY region ORDER BY total_sales DESC LIMIT 1;"
@@ -53,7 +65,11 @@
         "category": "data_query",
         "task_type": "ranking",
         "difficulty": "easy",
-        "question": "Which category generated the highest profit?",
+        "question": {
+            "en": "Which category generated the highest profit?",
+            "es": "¿Qué categoría generó el mayor beneficio?",
+            "ca": "Quina categoria va generar el benefici més alt?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT category, SUM(profit) AS total_profit FROM orders GROUP BY category ORDER BY total_profit DESC LIMIT 1;"
@@ -70,7 +86,11 @@
         "category": "data_query",
         "task_type": "group_by",
         "difficulty": "easy",
-        "question": "What are the total sales by region?",
+        "question": {
+            "en": "What are the total sales by region?",
+            "es": "¿Cuáles son las ventas totales por región?",
+            "ca": "Quines són les vendes totals per regió?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT region, SUM(sales) AS total_sales FROM orders GROUP BY region ORDER BY region;"
@@ -99,7 +119,11 @@
         "category": "data_query",
         "task_type": "top_k",
         "difficulty": "easy",
-        "question": "Show the five most profitable products.",
+        "question": {
+            "en": "Show the five most profitable products.",
+            "es": "Muestra los cinco productos más rentables.",
+            "ca": "Mostra els cinc productes més rendibles."
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT product_name, SUM(profit) AS total_profit FROM orders GROUP BY product_name ORDER BY total_profit DESC LIMIT 5;"
@@ -132,7 +156,11 @@
         "category": "data_query",
         "task_type": "ranking",
         "difficulty": "easy",
-        "question": "Which customer placed the most orders?",
+        "question": {
+            "en": "Which customer placed the most orders?",
+            "es": "¿Qué cliente realizó más pedidos?",
+            "ca": "Quin client va fer més comandes?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT customer_name, COUNT(*) AS total_orders FROM orders GROUP BY customer_name ORDER BY total_orders DESC LIMIT 1;"
@@ -149,7 +177,11 @@
         "category": "data_query",
         "task_type": "aggregation",
         "difficulty": "easy",
-        "question": "What is the total profit?",
+        "question": {
+            "en": "What is the total profit?",
+            "es": "¿Cuál es el beneficio total?",
+            "ca": "Quin és el benefici total?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT SUM(profit) AS total_profit FROM orders;"
@@ -165,7 +197,11 @@
         "category": "data_query",
         "task_type": "distinct",
         "difficulty": "easy",
-        "question": "List all product categories.",
+        "question": {
+            "en": "List all product categories.",
+            "es": "Enumera todas las categorías de productos.",
+            "ca": "Enumera totes les categories de productes."
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT DISTINCT category FROM orders ORDER BY category;"
@@ -187,7 +223,11 @@
         "category": "data_query",
         "task_type": "filter_count",
         "difficulty": "easy",
-        "question": "How many orders were shipped using Second Class?",
+        "question": {
+            "en": "How many orders were shipped using Second Class?",
+            "es": "¿Cuántos pedidos se enviaron mediante Second Class?",
+            "ca": "Quantes comandes es van enviar mitjançant Second Class?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT COUNT(*) AS total_orders FROM orders WHERE ship_mode = 'Second Class';"
@@ -203,7 +243,11 @@
         "category": "data_query",
         "task_type": "ranking",
         "difficulty": "medium",
-        "question": "Who generated the largest amount of revenue?",
+        "question": {
+            "en": "Who generated the largest amount of revenue?",
+            "es": "¿Quién generó la mayor cantidad de ingresos?",
+            "ca": "Qui va generar la major quantitat d'ingressos?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT customer_name, SUM(sales) AS total_sales FROM orders GROUP BY customer_name ORDER BY total_sales DESC LIMIT 1;"
@@ -220,7 +264,11 @@
         "category": "data_query",
         "task_type": "ranking",
         "difficulty": "medium",
-        "question": "Which state sold the most products?",
+        "question": {
+            "en": "Which state sold the most products?",
+            "es": "¿Qué estado vendió más productos?",
+            "ca": "Quin estat va vendre més productes?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT state, SUM(quantity) AS total_quantity FROM orders GROUP BY state ORDER BY total_quantity DESC LIMIT 1;"
@@ -237,7 +285,11 @@
         "category": "data_query",
         "task_type": "ranking",
         "difficulty": "medium",
-        "question": "Which city earned the greatest profit?",
+        "question": {
+            "en": "Which city earned the greatest profit?",
+            "es": "¿Qué ciudad obtuvo el mayor beneficio?",
+            "ca": "Quina ciutat va obtenir el benefici més gran?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT city, SUM(profit) AS total_profit FROM orders GROUP BY city ORDER BY total_profit DESC LIMIT 1;"
@@ -254,7 +306,11 @@
         "category": "data_query",
         "task_type": "ranking",
         "difficulty": "medium",
-        "question": "Which shipping mode appears most frequently?",
+        "question": {
+            "en": "Which shipping mode appears most frequently?",
+            "es": "¿Qué modo de envío aparece con más frecuencia?",
+            "ca": "Quin mode d'enviament apareix amb més freqüència?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT ship_mode, COUNT(*) AS total FROM orders GROUP BY ship_mode ORDER BY total DESC LIMIT 1;"
@@ -271,7 +327,11 @@
         "category": "data_query",
         "task_type": "count_distinct",
         "difficulty": "medium",
-        "question": "How many distinct product names are there?",
+        "question": {
+            "en": "How many distinct product names are there?",
+            "es": "¿Cuántos nombres de productos distintos hay?",
+            "ca": "Quants noms de productes diferents hi ha?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT COUNT(DISTINCT product_name) AS total_products FROM orders;"
@@ -287,7 +347,11 @@
         "category": "data_query",
         "task_type": "ranking",
         "difficulty": "medium",
-        "question": "Which segment contributes the largest share of sales?",
+        "question": {
+            "en": "Which segment contributes the largest share of sales?",
+            "es": "¿Qué segmento aporta la mayor parte de las ventas?",
+            "ca": "Quin segment aporta la major part de les vendes?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT segment, SUM(sales) AS total_sales FROM orders GROUP BY segment ORDER BY total_sales DESC LIMIT 1;"
@@ -304,7 +368,11 @@
         "category": "data_query",
         "task_type": "top_k",
         "difficulty": "medium",
-        "question": "Find the order with the highest sales.",
+        "question": {
+            "en": "Find the order with the highest sales.",
+            "es": "Encuentra el pedido con las mayores ventas.",
+            "ca": "Troba la comanda amb les vendes més altes."
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT order_id, sales FROM orders ORDER BY sales DESC LIMIT 1;"
@@ -321,7 +389,11 @@
         "category": "data_query",
         "task_type": "count_distinct",
         "difficulty": "medium",
-        "question": "How many unique cities are represented?",
+        "question": {
+            "en": "How many unique cities are represented?",
+            "es": "¿Cuántas ciudades únicas están representadas?",
+            "ca": "Quantes ciutats úniques hi ha representades?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT COUNT(DISTINCT city) AS total_cities FROM orders;"
@@ -337,7 +409,11 @@
         "category": "data_query",
         "task_type": "ranking",
         "difficulty": "medium",
-        "question": "Which region generated the least profit?",
+        "question": {
+            "en": "Which region generated the least profit?",
+            "es": "¿Qué región generó el menor beneficio?",
+            "ca": "Quina regió va generar el benefici més baix?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT region, SUM(profit) AS total_profit FROM orders GROUP BY region ORDER BY total_profit ASC LIMIT 1;"
@@ -354,7 +430,11 @@
         "category": "data_query",
         "task_type": "ranking",
         "difficulty": "medium",
-        "question": "Which category contains the greatest number of orders?",
+        "question": {
+            "en": "Which category contains the greatest number of orders?",
+            "es": "¿Qué categoría contiene el mayor número de pedidos?",
+            "ca": "Quina categoria conté el nombre més gran de comandes?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT category, COUNT(*) AS total_orders FROM orders GROUP BY category ORDER BY total_orders DESC LIMIT 1;"
@@ -371,7 +451,11 @@
         "category": "data_query",
         "task_type": "ranking",
         "difficulty": "hard",
-        "question": "Where does the business seem to perform best in terms of revenue?",
+        "question": {
+            "en": "Where does the business seem to perform best in terms of revenue?",
+            "es": "¿Dónde parece que el negocio funciona mejor en términos de ingresos?",
+            "ca": "On sembla que el negoci funciona millor en termes d'ingressos?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT region, SUM(sales) AS total_sales FROM orders GROUP BY region ORDER BY total_sales DESC LIMIT 1;"
@@ -388,7 +472,11 @@
         "category": "data_query",
         "task_type": "ranking",
         "difficulty": "hard",
-        "question": "Which customer appears to buy the most often?",
+        "question": {
+            "en": "Which customer appears to buy the most often?",
+            "es": "¿Qué cliente parece comprar con más frecuencia?",
+            "ca": "Quin client sembla que compra més sovint?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT customer_name, COUNT(*) AS total_orders FROM orders GROUP BY customer_name ORDER BY total_orders DESC LIMIT 1;"
@@ -405,7 +493,11 @@
         "category": "data_query",
         "task_type": "ranking",
         "difficulty": "hard",
-        "question": "Which region generated the highest total profit?",
+        "question": {
+            "en": "Which region generated the highest total profit?",
+            "es": "¿Qué región generó el mayor beneficio total?",
+            "ca": "Quina regió va generar el benefici total més alt?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT region, SUM(profit) AS total_profit FROM orders GROUP BY region ORDER BY total_profit DESC LIMIT 1;"
@@ -422,7 +514,11 @@
         "category": "data_query",
         "task_type": "ranking",
         "difficulty": "hard",
-        "question": "Which product has generated the greatest revenue overall?",
+        "question": {
+            "en": "Which product has generated the greatest revenue overall?",
+            "es": "¿Qué producto ha generado los mayores ingresos en total?",
+            "ca": "Quin producte ha generat els majors ingressos en total?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT product_name, SUM(sales) AS total_sales FROM orders GROUP BY product_name ORDER BY total_sales DESC LIMIT 1;"
@@ -439,7 +535,11 @@
         "category": "data_query",
         "task_type": "ranking",
         "difficulty": "hard",
-        "question": "Which shipping option do customers prefer the most?",
+        "question": {
+            "en": "Which shipping option do customers prefer the most?",
+            "es": "¿Qué opción de envío prefieren más los clientes?",
+            "ca": "Quina opció d'enviament prefereixen més els clients?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT ship_mode, COUNT(*) AS total FROM orders GROUP BY ship_mode ORDER BY total DESC LIMIT 1;"
@@ -456,7 +556,11 @@
         "category": "data_query",
         "task_type": "ranking",
         "difficulty": "hard",
-        "question": "Which market segment seems to dominate sales?",
+        "question": {
+            "en": "Which market segment seems to dominate sales?",
+            "es": "¿Qué segmento de mercado parece dominar las ventas?",
+            "ca": "Quin segment de mercat sembla que domina les vendes?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT segment, SUM(sales) AS total_sales FROM orders GROUP BY segment ORDER BY total_sales DESC LIMIT 1;"
@@ -473,7 +577,11 @@
         "category": "data_query",
         "task_type": "ranking",
         "difficulty": "hard",
-        "question": "Which state accumulated the highest total profit?",
+        "question": {
+            "en": "Which state accumulated the highest total profit?",
+            "es": "¿Qué estado acumuló el mayor beneficio total?",
+            "ca": "Quin estat va acumular el benefici total més alt?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT state, SUM(profit) AS total_profit FROM orders GROUP BY state ORDER BY total_profit DESC LIMIT 1;"
@@ -490,7 +598,11 @@
         "category": "data_query",
         "task_type": "ranking",
         "difficulty": "hard",
-        "question": "Which product sold the greatest number of units?",
+        "question": {
+            "en": "Which product sold the greatest number of units?",
+            "es": "¿Qué producto vendió el mayor número de unidades?",
+            "ca": "Quin producte va vendre el nombre més gran d'unitats?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT product_name, SUM(quantity) AS total_quantity FROM orders GROUP BY product_name ORDER BY total_quantity DESC LIMIT 1;"
@@ -507,7 +619,11 @@
         "category": "data_query",
         "task_type": "count",
         "difficulty": "hard",
-        "question": "How many purchases have been registered in total?",
+        "question": {
+            "en": "How many purchases have been registered in total?",
+            "es": "¿Cuántas compras se han registrado en total?",
+            "ca": "Quantes compres s'han registrat en total?"
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT COUNT(*) AS total_orders FROM orders;"
@@ -523,7 +639,11 @@
         "category": "data_query",
         "task_type": "ranking",
         "difficulty": "hard",
-        "question": "Identify the most successful region according to sales.",
+        "question": {
+            "en": "Identify the most successful region according to sales.",
+            "es": "Identifica la región con más éxito según las ventas.",
+            "ca": "Identifica la regió amb més èxit segons les vendes."
+        },
         "expected_agent": "data_query",
         "reference": {
             "sql": "SELECT region, SUM(sales) AS total_sales FROM orders GROUP BY region ORDER BY total_sales DESC LIMIT 1;"

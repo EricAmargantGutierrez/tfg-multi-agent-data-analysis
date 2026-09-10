@@ -16,6 +16,7 @@ import sqlite3
 from pathlib import Path
 
 from src.config.settings import settings
+from src.eval.languages import question_text
 from src.core.db import MAX_ROWS
 
 QUESTIONS_FILE = Path(__file__).resolve().parents[1] / "datasets" / "visualization_questions.json"
@@ -44,7 +45,7 @@ def main() -> None:
     print(f"Generating ground truth for {len(questions)} visualization questions...\n")
 
     for i, question in enumerate(questions, start=1):
-        print(f"Question {i}/{len(questions)}: {question['question']}")
+        print(f"Question {i}/{len(questions)}: {question_text(question)}")
         rows = execute_query(question["reference"]["sql"])
         question["ground_truth"] = rows
         print(f"  {len(rows)} rows")

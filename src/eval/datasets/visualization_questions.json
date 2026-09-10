@@ -4,7 +4,11 @@
         "category": "visualization",
         "task_type": "bar",
         "difficulty": "easy",
-        "question": "Show a bar chart of total sales by category.",
+        "question": {
+            "en": "Show a bar chart of total sales by category.",
+            "es": "Muestra un gráfico de barras de las ventas totales por categoría.",
+            "ca": "Mostra un gràfic de barres de les vendes totals per categoria."
+        },
         "expected_agent": "viz",
         "reference": {
             "chart_type": "bar",
@@ -30,7 +34,11 @@
         "category": "visualization",
         "task_type": "bar",
         "difficulty": "easy",
-        "question": "Show a bar chart of total profit by region.",
+        "question": {
+            "en": "Show a bar chart of total profit by region.",
+            "es": "Muestra un gráfico de barras del beneficio total por región.",
+            "ca": "Mostra un gràfic de barres del benefici total per regió."
+        },
         "expected_agent": "viz",
         "reference": {
             "chart_type": "bar",
@@ -60,7 +68,11 @@
         "category": "visualization",
         "task_type": "pie",
         "difficulty": "easy",
-        "question": "Show a pie chart of order count by segment.",
+        "question": {
+            "en": "Show a pie chart of order count by segment.",
+            "es": "Muestra un gráfico circular del número de pedidos por segmento.",
+            "ca": "Mostra un gràfic de sectors del nombre de comandes per segment."
+        },
         "expected_agent": "viz",
         "reference": {
             "chart_type": "pie",
@@ -86,7 +98,11 @@
         "category": "visualization",
         "task_type": "bar",
         "difficulty": "medium",
-        "question": "Show a bar chart of average discount by ship mode.",
+        "question": {
+            "en": "Show a bar chart of average discount by ship mode.",
+            "es": "Muestra un gráfico de barras del descuento medio por modo de envío.",
+            "ca": "Mostra un gràfic de barres del descompte mitjà per mode d'enviament."
+        },
         "expected_agent": "viz",
         "reference": {
             "chart_type": "bar",
@@ -116,7 +132,11 @@
         "category": "visualization",
         "task_type": "line",
         "difficulty": "medium",
-        "question": "Show a line chart of monthly sales in 2017.",
+        "question": {
+            "en": "Show a line chart of monthly sales in 2017.",
+            "es": "Muestra un gráfico de líneas de las ventas mensuales en 2017.",
+            "ca": "Mostra un gràfic de línies de les vendes mensuals el 2017."
+        },
         "expected_agent": "viz",
         "reference": {
             "chart_type": "line",
@@ -178,7 +198,11 @@
         "category": "visualization",
         "task_type": "bar",
         "difficulty": "medium",
-        "question": "Show a bar chart of total quantity sold by sub-category.",
+        "question": {
+            "en": "Show a bar chart of total quantity sold by sub-category.",
+            "es": "Muestra un gráfico de barras de la cantidad total vendida por subcategoría.",
+            "ca": "Mostra un gràfic de barres de la quantitat total venuda per subcategoria."
+        },
         "expected_agent": "viz",
         "reference": {
             "chart_type": "bar",
@@ -260,7 +284,11 @@
         "category": "visualization",
         "task_type": "boxplot",
         "difficulty": "medium",
-        "question": "Show a boxplot of profit for orders in the Consumer segment.",
+        "question": {
+            "en": "Show a boxplot of profit for orders in the Consumer segment.",
+            "es": "Muestra un diagrama de caja del beneficio para los pedidos del segmento Consumer.",
+            "ca": "Mostra un diagrama de caixa del benefici per a les comandes del segment Consumer."
+        },
         "expected_agent": "viz",
         "reference": {
             "chart_type": "boxplot",
@@ -3274,7 +3302,11 @@
         "category": "visualization",
         "task_type": "histogram",
         "difficulty": "hard",
-        "question": "Show a histogram of sales values under $500.",
+        "question": {
+            "en": "Show a histogram of sales values under $500.",
+            "es": "Muestra un histograma de los valores de venta inferiores a 500 $.",
+            "ca": "Mostra un histograma dels valors de venda inferiors a 500 $."
+        },
         "expected_agent": "viz",
         "reference": {
             "chart_type": "histogram",
@@ -6288,7 +6320,11 @@
         "category": "visualization",
         "task_type": "scatter",
         "difficulty": "hard",
-        "question": "Show a scatter plot of discount versus profit for orders in the Technology category.",
+        "question": {
+            "en": "Show a scatter plot of discount versus profit for orders in the Technology category.",
+            "es": "Muestra un diagrama de dispersión del descuento frente al beneficio para los pedidos de la categoría Technology.",
+            "ca": "Mostra un diagrama de dispersió del descompte respecte al benefici per a les comandes de la categoria Technology."
+        },
         "expected_agent": "viz",
         "reference": {
             "chart_type": "scatter",
@@ -10302,7 +10338,11 @@
         "category": "visualization",
         "task_type": "line",
         "difficulty": "hard",
-        "question": "Show a line chart of profit over time for the East region in 2017.",
+        "question": {
+            "en": "Show a line chart of profit over time for the East region in 2017.",
+            "es": "Muestra un gráfico de líneas del beneficio a lo largo del tiempo para la región East en 2017.",
+            "ca": "Mostra un gràfic de línies del benefici al llarg del temps per a la regió East el 2017."
+        },
         "expected_agent": "viz",
         "reference": {
             "chart_type": "line",

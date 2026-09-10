@@ -40,6 +40,7 @@ from src.eval.checks import (
     check_monolithic_rows,
     check_data_query,
 )
+from src.eval.languages import DEFAULT_LANGUAGE, LANGUAGES, results_dir
 from src.eval.utils.evaluator import run_benchmark
 
 DATASETS_DIR = Path(__file__).resolve().parents[1] / "datasets"
@@ -76,11 +77,16 @@ CATEGORIES = {
 ALL_SIDES = ["agent", "baseline", "monolithic"]
 
 
-def run(side: str | None = None, categories: list[str] | None = None) -> None:
+def run(
+    side: str | None = None,
+    categories: list[str] | None = None,
+    language: str = DEFAULT_LANGUAGE,
+) -> None:
     from src.eval.utils.warmup import warm_up
 
     categories = categories or list(CATEGORIES.keys())
     sides = [side] if side else ALL_SIDES
+    out = results_dir(language)
 
     for category in categories:
         dataset_file, agent_fn, agent_checker, baseline_checker, monolithic_checker = CATEGORIES[category]
@@ -91,9 +97,10 @@ def run(side: str | None = None, categories: list[str] | None = None) -> None:
             run_benchmark(
                 agent_name=f"{category.capitalize()} Agent",
                 dataset_file=dataset_path,
-                output_file=f"results/eval/{category}_agent_results.json",
+                output_file=str(out / f"{category}_agent_results.json"),
                 answer_function=agent_fn,
                 checker_function=agent_checker,
+                language=language,
             )
 
         if "baseline" in sides:
@@ -101,9 +108,10 @@ def run(side: str | None = None, categories: list[str] | None = None) -> None:
             run_benchmark(
                 agent_name=f"Baseline ({category})",
                 dataset_file=dataset_path,
-                output_file=f"results/eval/baseline_{category}_results.json",
+                output_file=str(out / f"baseline_{category}_results.json"),
                 answer_function=run_single_agent,
                 checker_function=baseline_checker,
+                language=language,
             )
 
         if "monolithic" in sides:
@@ -111,9 +119,10 @@ def run(side: str | None = None, categories: list[str] | None = None) -> None:
             run_benchmark(
                 agent_name=f"Monolithic ({category})",
                 dataset_file=dataset_path,
-                output_file=f"results/eval/monolithic_{category}_results.json",
+                output_file=str(out / f"monolithic_{category}_results.json"),
                 answer_function=run_monolithic_agent,
                 checker_function=monolithic_checker,
+                language=language,
             )
 
 
@@ -123,5 +132,7 @@ if __name__ == "__main__":
                          help="Only run this side (default: all three).")
     parser.add_argument("--categories", nargs="+", choices=list(CATEGORIES.keys()),
                          help="Only run these categories (default: all three).")
+    parser.add_argument("--language", choices=LANGUAGES, default=DEFAULT_LANGUAGE,
+                         help="Question language (default: en).")
     args = parser.parse_args()
-    run(side=args.side, categories=args.categories)
+    run(side=args.side, categories=args.categories, language=args.language)

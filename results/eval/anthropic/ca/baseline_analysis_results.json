@@ -1,0 +1,420 @@
+[
+  {
+    "id": 1,
+    "category": "analysis",
+    "task_type": "mean",
+    "difficulty": "easy",
+    "language": "ca",
+    "question": "Quin és el descompte mitjà concedit als clients?",
+    "question_en": "What is the average discount given to customers?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 1.0167,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "descompte_mitjà"
+      ],
+      "rows": [
+        [
+          0.1562027216329798
+        ]
+      ],
+      "sql": "SELECT AVG(discount) as descompte_mitjà\nFROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 2,
+    "category": "analysis",
+    "task_type": "median",
+    "difficulty": "easy",
+    "language": "ca",
+    "question": "Quina és la mediana del benefici?",
+    "question_en": "What is the median profit?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": false,
+    "latency_seconds": 0.8977,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [],
+      "rows": [],
+      "sql": "SELECT MEDIAN(profit) FROM orders;",
+      "error": "OperationalError: no such function: MEDIAN"
+    },
+    "error": "OperationalError: no such function: MEDIAN"
+  },
+  {
+    "id": 3,
+    "category": "analysis",
+    "task_type": "std",
+    "difficulty": "easy",
+    "language": "ca",
+    "question": "Quina és la desviació estàndard de les vendes?",
+    "question_en": "What is the standard deviation of sales?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": false,
+    "latency_seconds": 0.7922,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [],
+      "rows": [],
+      "sql": "SELECT STDEV(sales) FROM orders;",
+      "error": "OperationalError: no such function: STDEV"
+    },
+    "error": "OperationalError: no such function: STDEV"
+  },
+  {
+    "id": 4,
+    "category": "analysis",
+    "task_type": "mean",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Quin és el benefici mitjà a la regió West?",
+    "question_en": "What is the average profit in the West region?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 0.9899,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "benefici_mitja"
+      ],
+      "rows": [
+        [
+          33.84903181392445
+        ]
+      ],
+      "sql": "SELECT AVG(profit) as benefici_mitja\nFROM orders\nWHERE region = 'West'",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 5,
+    "category": "analysis",
+    "task_type": "correlation",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Quina és la correlació entre el descompte i el benefici?",
+    "question_en": "What is the correlation between discount and profit?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 1.8033,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "correlation"
+      ],
+      "rows": [
+        [
+          -0.21948745637176845
+        ]
+      ],
+      "sql": "SELECT \n  (SUM((discount - (SELECT AVG(discount) FROM orders)) * (profit - (SELECT AVG(profit) FROM orders))) / \n   (SQRT(SUM(POW(discount - (SELECT AVG(discount) FROM orders), 2))) * \n    SQRT(SUM(POW(profit - (SELECT AVG(profit) FROM orders), 2))))) AS correlation\nFROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 6,
+    "category": "analysis",
+    "task_type": "variance",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Quina és la variància de la quantitat venuda a la categoria Technology?",
+    "question_en": "What is the variance of quantity sold in the Technology category?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": false,
+    "latency_seconds": 1.0004,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [],
+      "rows": [],
+      "sql": "SELECT VARIANCE(quantity) as variance_quantity\nFROM orders\nWHERE category = 'Technology';",
+      "error": "OperationalError: no such function: VARIANCE"
+    },
+    "error": "OperationalError: no such function: VARIANCE"
+  },
+  {
+    "id": 7,
+    "category": "analysis",
+    "task_type": "ttest",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Hi ha una diferència significativa en el benefici entre els segments Consumer i Corporate?",
+    "question_en": "Is there a significant difference in profit between the Consumer and Corporate segments?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 1.6798,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "segment",
+        "order_count",
+        "total_profit",
+        "avg_profit",
+        "min_profit",
+        "max_profit"
+      ],
+      "rows": [
+        [
+          "Consumer",
+          5191,
+          134119.21,
+          25.84,
+          -6599.98,
+          6719.98
+        ],
+        [
+          "Corporate",
+          3020,
+          91979.13,
+          30.46,
+          -3839.99,
+          8399.98
+        ]
+      ],
+      "sql": "SELECT \n  segment,\n  COUNT(*) as order_count,\n  ROUND(SUM(profit), 2) as total_profit,\n  ROUND(AVG(profit), 2) as avg_profit,\n  ROUND(MIN(profit), 2) as min_profit,\n  ROUND(MAX(profit), 2) as max_profit\nFROM orders\nWHERE segment IN ('Consumer', 'Corporate')\nGROUP BY segment\nORDER BY segment",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 8,
+    "category": "analysis",
+    "task_type": "covariance",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Quina és la covariància entre la quantitat i el descompte?",
+    "question_en": "What is the covariance between quantity and discount?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 1.3967,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "covariance"
+      ],
+      "rows": [
+        [
+          0.0039608088447223985
+        ]
+      ],
+      "sql": "SELECT \n  (SUM(quantity * discount) - SUM(quantity) * SUM(discount) / COUNT(*)) / COUNT(*) AS covariance\nFROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 9,
+    "category": "analysis",
+    "task_type": "mean",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Quina és la venda mitjana a la regió East per a la categoria Furniture?",
+    "question_en": "What is the average sales in the East region for the Furniture category?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 1.0923,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "average_sales"
+      ],
+      "rows": [
+        [
+          346.5743826955075
+        ]
+      ],
+      "sql": "SELECT AVG(sales) as average_sales\nFROM orders\nWHERE region = 'East' AND category = 'Furniture'",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 10,
+    "category": "analysis",
+    "task_type": "regression",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "Executa una regressió lineal que predigui el benefici a partir de les vendes, el descompte i la quantitat.",
+    "question_en": "Run a linear regression predicting profit from sales, discount, and quantity.",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 3.0612,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "n",
+        "mean_sales",
+        "mean_discount",
+        "mean_quantity",
+        "mean_profit",
+        "slope_sales",
+        "slope_discount",
+        "slope_quantity",
+        "intercept"
+      ],
+      "rows": [
+        [
+          9994,
+          229.85800083049827,
+          0.1562027216329798,
+          3.789573744246548,
+          28.65689630778467,
+          0.18006666409227606,
+          -249.0514171793722,
+          6.9750781946211635,
+          -0.26293111711715156
+        ]
+      ],
+      "sql": "SELECT\n  COUNT(*) as n,\n  AVG(sales) as mean_sales,\n  AVG(discount) as mean_discount,\n  AVG(quantity) as mean_quantity,\n  AVG(profit) as mean_profit,\n  (SUM(sales * profit) - SUM(sales) * SUM(profit) / COUNT(*)) / (SUM(sales * sales) - SUM(sales) * SUM(sales) / COUNT(*)) as slope_sales,\n  (SUM(discount * profit) - SUM(discount) * SUM(profit) / COUNT(*)) / (SUM(discount * discount) - SUM(discount) * SUM(discount) / COUNT(*)) as slope_discount,\n  (SUM(quantity * profit) - SUM(quantity) * SUM(profit) / COUNT(*)) / (SUM(quantity * quantity) - SUM(quantity) * SUM(quantity) / COUNT(*)) as slope_quantity,\n  AVG(profit) - ((SUM(sales * profit) - SUM(sales) * SUM(profit) / COUNT(*)) / (SUM(sales * sales) - SUM(sales) * SUM(sales) / COUNT(*))) * AVG(sales) - ((SUM(discount * profit) - SUM(discount) * SUM(profit) / COUNT(*)) / (SUM(discount * discount) - SUM(discount) * SUM(discount) / COUNT(*))) * AVG(discount) - ((SUM(quantity * profit) - SUM(quantity) * SUM(profit) / COUNT(*)) / (SUM(quantity * quantity) - SUM(quantity) * SUM(quantity) / COUNT(*))) * AVG(quantity) as intercept\nFROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 11,
+    "category": "analysis",
+    "task_type": "pca",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "Executa un PCA sobre les vendes, la quantitat, el descompte i el benefici.",
+    "question_en": "Run a PCA on sales, quantity, discount, and profit.",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": false,
+    "latency_seconds": 2.7853,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [],
+      "rows": [],
+      "sql": "I cannot execute a PCA (Principal Component Analysis) directly in SQL, as SQL is designed for data retrieval and manipulation, not statistical analysis. PCA requires external tools like Python, R, or specialized statistical software.\n\nHowever, I can provide you with a SQL query to extract the data needed for PCA analysis:\n\n\nSELECT sales, quantity, discount, profit FROM orders\n\n\nTo perform the actual PCA, you would need to:\n1. Export this data to Python (using pandas/scikit-learn) or R\n2. Standardize the variables\n3. Calculate the covariance matrix\n4. Compute eigenvalues and eigenvectors\n5. Project the data onto the principal components\n\nIf you need the data prepared in a specific format for PCA analysis, please clarify and I can adjust the SQL query accordingly.",
+      "error": "UnsafeSQLError: Only SELECT queries are allowed."
+    },
+    "error": "UnsafeSQLError: Only SELECT queries are allowed."
+  },
+  {
+    "id": 12,
+    "category": "analysis",
+    "task_type": "kmeans",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "Agrupa les comandes en 3 grups segons les vendes, la quantitat, el descompte i el benefici.",
+    "question_en": "Cluster orders into 3 groups based on sales, quantity, discount, and profit.",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": false,
+    "latency_seconds": 2.7527,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [],
+      "rows": [],
+      "sql": "SELECT \n  order_id,\n  SUM(sales) as total_sales,\n  SUM(quantity) as total_quantity,\n  AVG(discount) as avg_discount,\n  SUM(profit) as total_profit,\n  CASE \n    WHEN SUM(sales) > (SELECT PERCENTILE_CONT(0.66) WITHIN GROUP (ORDER BY total_sales) FROM (SELECT order_id, SUM(sales) as total_sales FROM orders GROUP BY order_id)) THEN 'Group 1 - High'\n    WHEN SUM(sales) > (SELECT PERCENTILE_CONT(0.33) WITHIN GROUP (ORDER BY total_sales) FROM (SELECT order_id, SUM(sales) as total_sales FROM orders GROUP BY order_id)) THEN 'Group 2 - Medium'\n    ELSE 'Group 3 - Low'\n  END as sales_group\nFROM orders\nGROUP BY order_id\nORDER BY total_sales DESC;",
+      "error": "OperationalError: near \"(\": syntax error"
+    },
+    "error": "OperationalError: near \"(\": syntax error"
+  },
+  {
+    "id": 13,
+    "category": "analysis",
+    "task_type": "correlation",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "Quina és la correlació entre el descompte i el benefici per a les comandes fetes el 2017?",
+    "question_en": "What is the correlation between discount and profit for orders placed in 2017?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 2.6851,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "correlation"
+      ],
+      "rows": [
+        [
+          -0.21834264258443495
+        ]
+      ],
+      "sql": "SELECT \n  (SUM((discount - (SELECT AVG(discount) FROM orders WHERE strftime('%Y', order_date) = '2017')) * (profit - (SELECT AVG(profit) FROM orders WHERE strftime('%Y', order_date) = '2017'))) / \n   (COUNT(*) * \n    SQRT(SUM(POW(discount - (SELECT AVG(discount) FROM orders WHERE strftime('%Y', order_date) = '2017'), 2)) / COUNT(*)) *\n    SQRT(SUM(POW(profit - (SELECT AVG(profit) FROM orders WHERE strftime('%Y', order_date) = '2017'), 2)) / COUNT(*))\n   )) AS correlation\nFROM orders\nWHERE strftime('%Y', order_date) = '2017'",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 14,
+    "category": "analysis",
+    "task_type": "std",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "Quina és la desviació estàndard del benefici per a la categoria Technology?",
+    "question_en": "What is the standard deviation of profit for the Technology category?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 1.0937,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "profit_std_dev"
+      ],
+      "rows": [
+        [
+          428.70053265567844
+        ]
+      ],
+      "sql": "SELECT SQRT(AVG((profit - (SELECT AVG(profit) FROM orders WHERE category = 'Technology')) * (profit - (SELECT AVG(profit) FROM orders WHERE category = 'Technology')))) AS profit_std_dev\nFROM orders\nWHERE category = 'Technology'",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 15,
+    "category": "analysis",
+    "task_type": "median",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "Quin és el valor medià de les vendes a la regió South?",
+    "question_en": "What is the median sales value in the South region?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": false,
+    "latency_seconds": 1.0131,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [],
+      "rows": [],
+      "sql": "SELECT MEDIAN(sales) as median_sales\nFROM orders\nWHERE region = 'South'",
+      "error": "OperationalError: no such function: MEDIAN"
+    },
+    "error": "OperationalError: no such function: MEDIAN"
+  }
+]

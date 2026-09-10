@@ -4,7 +4,11 @@
         "category": "analysis",
         "task_type": "mean",
         "difficulty": "easy",
-        "question": "What is the average discount given to customers?",
+        "question": {
+            "en": "What is the average discount given to customers?",
+            "es": "¿Cuál es el descuento medio concedido a los clientes?",
+            "ca": "Quin és el descompte mitjà concedit als clients?"
+        },
         "expected_agent": "analysis",
         "reference": {
             "analysis": "mean",
@@ -23,7 +27,11 @@
         "category": "analysis",
         "task_type": "median",
         "difficulty": "easy",
-        "question": "What is the median profit?",
+        "question": {
+            "en": "What is the median profit?",
+            "es": "¿Cuál es la mediana del beneficio?",
+            "ca": "Quina és la mediana del benefici?"
+        },
         "expected_agent": "analysis",
         "reference": {
             "analysis": "median",
@@ -42,7 +50,11 @@
         "category": "analysis",
         "task_type": "std",
         "difficulty": "easy",
-        "question": "What is the standard deviation of sales?",
+        "question": {
+            "en": "What is the standard deviation of sales?",
+            "es": "¿Cuál es la desviación estándar de las ventas?",
+            "ca": "Quina és la desviació estàndard de les vendes?"
+        },
         "expected_agent": "analysis",
         "reference": {
             "analysis": "std",
@@ -61,7 +73,11 @@
         "category": "analysis",
         "task_type": "mean",
         "difficulty": "medium",
-        "question": "What is the average profit in the West region?",
+        "question": {
+            "en": "What is the average profit in the West region?",
+            "es": "¿Cuál es el beneficio medio en la región West?",
+            "ca": "Quin és el benefici mitjà a la regió West?"
+        },
         "expected_agent": "analysis",
         "reference": {
             "analysis": "mean",
@@ -86,7 +102,11 @@
         "category": "analysis",
         "task_type": "correlation",
         "difficulty": "medium",
-        "question": "What is the correlation between discount and profit?",
+        "question": {
+            "en": "What is the correlation between discount and profit?",
+            "es": "¿Cuál es la correlación entre el descuento y el beneficio?",
+            "ca": "Quina és la correlació entre el descompte i el benefici?"
+        },
         "expected_agent": "analysis",
         "reference": {
             "analysis": "correlation",
@@ -109,7 +129,11 @@
         "category": "analysis",
         "task_type": "variance",
         "difficulty": "medium",
-        "question": "What is the variance of quantity sold in the Technology category?",
+        "question": {
+            "en": "What is the variance of quantity sold in the Technology category?",
+            "es": "¿Cuál es la varianza de la cantidad vendida en la categoría Technology?",
+            "ca": "Quina és la variància de la quantitat venuda a la categoria Technology?"
+        },
         "expected_agent": "analysis",
         "reference": {
             "analysis": "variance",
@@ -134,7 +158,11 @@
         "category": "analysis",
         "task_type": "ttest",
         "difficulty": "medium",
-        "question": "Is there a significant difference in profit between the Consumer and Corporate segments?",
+        "question": {
+            "en": "Is there a significant difference in profit between the Consumer and Corporate segments?",
+            "es": "¿Hay una diferencia significativa en el beneficio entre los segmentos Consumer y Corporate?",
+            "ca": "Hi ha una diferència significativa en el benefici entre els segments Consumer i Corporate?"
+        },
         "expected_agent": "analysis",
         "reference": {
             "analysis": "ttest",
@@ -169,7 +197,11 @@
         "category": "analysis",
         "task_type": "covariance",
         "difficulty": "medium",
-        "question": "What is the covariance between quantity and discount?",
+        "question": {
+            "en": "What is the covariance between quantity and discount?",
+            "es": "¿Cuál es la covarianza entre la cantidad y el descuento?",
+            "ca": "Quina és la covariància entre la quantitat i el descompte?"
+        },
         "expected_agent": "analysis",
         "reference": {
             "analysis": "covariance",
@@ -191,7 +223,11 @@
         "category": "analysis",
         "task_type": "mean",
         "difficulty": "medium",
-        "question": "What is the average sales in the East region for the Furniture category?",
+        "question": {
+            "en": "What is the average sales in the East region for the Furniture category?",
+            "es": "¿Cuál es la venta media en la región East para la categoría Furniture?",
+            "ca": "Quina és la venda mitjana a la regió East per a la categoria Furniture?"
+        },
         "expected_agent": "analysis",
         "reference": {
             "analysis": "mean",
@@ -221,7 +257,11 @@
         "category": "analysis",
         "task_type": "regression",
         "difficulty": "hard",
-        "question": "Run a linear regression predicting profit from sales, discount, and quantity.",
+        "question": {
+            "en": "Run a linear regression predicting profit from sales, discount, and quantity.",
+            "es": "Ejecuta una regresión lineal que prediga el beneficio a partir de las ventas, el descuento y la cantidad.",
+            "ca": "Executa una regressió lineal que predigui el benefici a partir de les vendes, el descompte i la quantitat."
+        },
         "expected_agent": "analysis",
         "reference": {
             "analysis": "regression",
@@ -257,7 +297,11 @@
         "category": "analysis",
         "task_type": "pca",
         "difficulty": "hard",
-        "question": "Run a PCA on sales, quantity, discount, and profit.",
+        "question": {
+            "en": "Run a PCA on sales, quantity, discount, and profit.",
+            "es": "Ejecuta un PCA sobre las ventas, la cantidad, el descuento y el beneficio.",
+            "ca": "Executa un PCA sobre les vendes, la quantitat, el descompte i el benefici."
+        },
         "expected_agent": "analysis",
         "reference": {
             "analysis": "pca",
@@ -286,7 +330,11 @@
         "category": "analysis",
         "task_type": "kmeans",
         "difficulty": "hard",
-        "question": "Cluster orders into 3 groups based on sales, quantity, discount, and profit.",
+        "question": {
+            "en": "Cluster orders into 3 groups based on sales, quantity, discount, and profit.",
+            "es": "Agrupa los pedidos en 3 grupos según las ventas, la cantidad, el descuento y el beneficio.",
+            "ca": "Agrupa les comandes en 3 grups segons les vendes, la quantitat, el descompte i el benefici."
+        },
         "expected_agent": "analysis",
         "reference": {
             "analysis": "kmeans",
@@ -330,7 +378,11 @@
         "category": "analysis",
         "task_type": "correlation",
         "difficulty": "hard",
-        "question": "What is the correlation between discount and profit for orders placed in 2017?",
+        "question": {
+            "en": "What is the correlation between discount and profit for orders placed in 2017?",
+            "es": "¿Cuál es la correlación entre el descuento y el beneficio para los pedidos realizados en 2017?",
+            "ca": "Quina és la correlació entre el descompte i el benefici per a les comandes fetes el 2017?"
+        },
         "expected_agent": "analysis",
         "reference": {
             "analysis": "correlation",
@@ -359,7 +411,11 @@
         "category": "analysis",
         "task_type": "std",
         "difficulty": "hard",
-        "question": "What is the standard deviation of profit for the Technology category?",
+        "question": {
+            "en": "What is the standard deviation of profit for the Technology category?",
+            "es": "¿Cuál es la desviación estándar del beneficio para la categoría Technology?",
+            "ca": "Quina és la desviació estàndard del benefici per a la categoria Technology?"
+        },
         "expected_agent": "analysis",
         "reference": {
             "analysis": "std",
@@ -384,7 +440,11 @@
         "category": "analysis",
         "task_type": "median",
         "difficulty": "hard",
-        "question": "What is the median sales value in the South region?",
+        "question": {
+            "en": "What is the median sales value in the South region?",
+            "es": "¿Cuál es el valor mediano de las ventas en la región South?",
+            "ca": "Quin és el valor medià de les vendes a la regió South?"
+        },
         "expected_agent": "analysis",
         "reference": {
             "analysis": "median",

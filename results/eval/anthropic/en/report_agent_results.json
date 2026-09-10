@@ -2,6 +2,7 @@
   {
     "id": 1,
     "label": "SQL-focused, easy",
+    "language": "en",
     "turns": [
       {
         "question": "How many orders are there?",
@@ -29,6 +30,7 @@
   {
     "id": 2,
     "label": "Analysis-focused",
+    "language": "en",
     "turns": [
       {
         "question": "What is the average profit in the West region?",
@@ -56,6 +58,7 @@
   {
     "id": 3,
     "label": "Visualization-focused",
+    "language": "en",
     "turns": [
       {
         "question": "Show a bar chart of total sales by category.",
@@ -83,6 +86,7 @@
   {
     "id": 4,
     "label": "Mixed, realistic session",
+    "language": "en",
     "turns": [
       {
         "question": "Which category generated the highest profit?",
@@ -110,6 +114,7 @@
   {
     "id": 5,
     "label": "Mixed, harder / ambiguous phrasing",
+    "language": "en",
     "turns": [
       {
         "question": "Where does the business seem to perform best in terms of revenue?",
@@ -133,5 +138,52 @@
     "report_ok": true,
     "report_error": null,
     "report_text": "# Data Analysis Report\n\n## Executive Summary\n\nThis report summarizes findings from a multi-agent data analysis system examining business performance across regions, customer segments, and order characteristics. The analysis reveals that the West region is the strongest revenue performer, profit differences between customer segments are not statistically significant, and orders naturally segment into three distinct clusters based on transaction characteristics.\n\n## Questions Asked\n\n1. Where does the business seem to perform best in terms of revenue?\n2. Is there a significant difference in profit between the Consumer and Corporate segments?\n3. Cluster orders into 3 groups based on sales, quantity, discount, and profit.\n\n## Key Findings\n\n### Regional Performance\n- The **West region** generates the highest revenue at **$725,457.82**, significantly outperforming other regions.\n\n### Segment Profitability\n- **Consumer segment** average profit: $25.84 per order (n=5,191)\n- **Corporate segment** average profit: $30.46 per order (n=3,020)\n- Statistical significance: **Not significant** (p-value = 0.392)\n- The observed profit difference between segments is within normal variation and cannot be considered statistically meaningful.\n\n### Order Clustering Analysis\nThree distinct order clusters were identified:\n\n| Cluster | Avg Sales | Avg Quantity | Avg Discount | Avg Profit |\n|---------|-----------|--------------|--------------|-----------|\n| Low-Value | $135.90 | 3.68 units | 15.8% | $13.81 |\n| Mid-Value | $1,806.68 | 5.89 units | 13.0% | $248.62 |\n| High-Value | $10,608.89 | 5.47 units | 13.3% | $2,578.44 |\n\n## Conclusions\n\n1. **Geographic focus**: The West region should be prioritized for continued investment and growth initiatives.\n\n2. **Segment strategy**: Consumer and Corporate segments show comparable profitability. Segment-specific strategies should be based on factors other than profit margins.\n\n3. **Order value segmentation**: Orders naturally fall into three tiers with dramatically different profit profiles. Business strategies should differentiate between low-value, mid-value, and high-value transactions, with particular emphasis on high-value order acquisition and retention."
+  },
+  {
+    "id": 6,
+    "label": "Adversarial / unanswerable (nothing here is in the dataset)",
+    "language": "en",
+    "adversarial": true,
+    "turns": [
+      {
+        "question": "What is the average age of our customers?",
+        "agent": "data_query",
+        "narrated_answer": "UnsafeSQLError: Only SELECT queries are allowed.",
+        "ok": false
+      },
+      {
+        "question": "What were the total sales for the customer 'Jonathan Q. Fakename'?",
+        "agent": "data_query",
+        "narrated_answer": "Based on the data query results, there are **no sales records** for the customer 'Jonathan Q. Fakename'. The total sales value returned is null, which indicates that either this customer does not exist in the database or they have no orders on record.",
+        "ok": true
+      },
+      {
+        "question": "What is the correlation between marketing spend and profit?",
+        "agent": "analysis",
+        "narrated_answer": "ValueError: LLM did not return valid JSON: Extra data: line 8 column 1 (char 85). Raw: '{\\n  \"analysis\": \"correlation\",\\n  \"columns\": [\"sales\", \"profit\"],\\n  \"filters\": []\\n}\\n\\n\\n**Note:** The question asks for correlation between \"marketing spend\" and \"profit\", but there is no \"marketing_spend\" column in the database schema. The closest available numeric column that could represent marketin'",
+        "ok": false
+      },
+      {
+        "question": "How many orders were shipped to customers in Germany?",
+        "agent": "data_query",
+        "narrated_answer": "Based on the data analysis, **0 orders** were shipped to customers in Germany.\n\nThe query searched the orders database for all distinct orders where the country was set to 'Germany' and found no matching records.",
+        "ok": true
+      },
+      {
+        "question": "Why did profit decline in 2016?",
+        "agent": "data_query",
+        "narrated_answer": "Based on the 2016 monthly profit data, I cannot confirm that profit declined overall in 2016. In fact, the data shows significant variation throughout the year:\n\n- **Early months were weak**: January-April averaged around $3,600 in profit\n- **Mid-year improved**: May saw a spike to $8,662, and September reached $9,329\n- **Strong finish**: October and December were particularly strong, with $16,243 and $17,885 respectively\n\nThe year ended with total profits of approximately **$81,795** across all months. Rather than a consistent decline, 2016 showed volatility with a notably strong performance in the final quarter.\n\nTo better explain any perceived decline, I would need comparison data from 2015 or other years to see if 2016 underperformed relative to previous periods.",
+        "ok": true
+      },
+      {
+        "question": "Show a scatter plot of employee salary versus profit per order.",
+        "agent": "viz",
+        "narrated_answer": "# Scatter Plot: Employee Salary vs Profit per Order\n\nA scatter plot has been successfully generated showing the relationship between employee salary and profit per order.\n\n**Key Details:**\n- **Total data points:** 1,000 orders\n- **Salary range:** From $14.62 to $957.58\n- **Profit range:** From -$383.03 to $219.58 (including both positive and negative profits)\n\n**Sample observations from the data:**\n- Salaries vary widely across employees\n- Profit per order shows considerable variation, with some orders generating losses (negative values) and others generating gains\n- There appears to be a range of profit outcomes across different salary levels\n\nThe visualization has been saved and is ready for analysis. The scatter plot will help identify any correlation patterns between employee salary levels and their associated order profitability.",
+        "ok": true
+      }
+    ],
+    "report_ok": true,
+    "report_error": null,
+    "report_text": "# Professional Data Analysis Report\n\n## Executive Summary\n\nA multi-agent data analysis system processed six analytical queries with mixed results. Three queries executed successfully, two failed due to system limitations, and one returned data requiring interpretation. The analysis revealed insights into geographic order distribution, 2016 profit trends, and sales-profit relationships, while highlighting data schema constraints and system constraints.\n\n## Questions Asked\n\n1. What is the average age of our customers?\n2. What were the total sales for the customer 'Jonathan Q. Fakename'?\n3. What is the correlation between marketing spend and profit?\n4. How many orders were shipped to customers in Germany?\n5. Why did profit decline in 2016?\n6. Show a scatter plot of employee salary versus profit per order.\n\n## Key Findings\n\n### Successful Queries\n\n- **Germany Orders**: Zero orders were shipped to customers in Germany according to the database records.\n- **Jonathan Q. Fakename Sales**: Total sales returned a null value, indicating no matching customer records or no associated sales data.\n- **2016 Profit Trend**: Monthly profit data shows variability throughout 2016, with peaks in October ($16,243.14) and December ($17,885.31), and lower performance in August ($2,062.07) and January ($2,824.82). The data does not indicate a consistent decline across the year.\n- **Sales-Profit Visualization**: A scatter plot was successfully generated showing the relationship between sales and profit across 1,000 orders, revealing a positive correlation between these variables.\n\n### Failed or Incomplete Queries\n\n- **Average Customer Age**: Query failed due to system security restrictions limiting execution to SELECT statements only.\n- **Marketing Spend Correlation**: Analysis failed after three retry attempts. The requested \"marketing_spend\" column does not exist in the database schema, preventing correlation analysis with profit.\n\n## Conclusions\n\nThe data analysis system successfully retrieved transactional data and generated visualizations but encountered limitations with:\n1. Data schema constraints (missing marketing spend data)\n2. System security policies (restricted query types)\n3. Data quality issues (null values for specific customer records)\n\nThe 2016 profit data suggests seasonal variation rather than a consistent decline. Further investigation would require access to marketing spend data and clarification on customer age data availability."
   }
 ]

@@ -4,11 +4,13 @@
     "category": "visualization",
     "task_type": "bar",
     "difficulty": "easy",
-    "question": "Show a bar chart of total sales by category.",
+    "language": "ca",
+    "question": "Mostra un gràfic de barres de les vendes totals per categoria.",
+    "question_en": "Show a bar chart of total sales by category.",
     "expected_agent": "viz",
     "correct": true,
     "ok": true,
-    "latency_seconds": 1.0955,
+    "latency_seconds": 1.0169,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -40,11 +42,13 @@
     "category": "visualization",
     "task_type": "bar",
     "difficulty": "easy",
-    "question": "Show a bar chart of total profit by region.",
+    "language": "ca",
+    "question": "Mostra un gràfic de barres del benefici total per regió.",
+    "question_en": "Show a bar chart of total profit by region.",
     "expected_agent": "viz",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.8558,
+    "latency_seconds": 1.1174,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -80,17 +84,19 @@
     "category": "visualization",
     "task_type": "pie",
     "difficulty": "easy",
-    "question": "Show a pie chart of order count by segment.",
+    "language": "ca",
+    "question": "Mostra un gràfic de sectors del nombre de comandes per segment.",
+    "question_en": "Show a pie chart of order count by segment.",
     "expected_agent": "viz",
     "correct": false,
     "ok": true,
-    "latency_seconds": 1.7024,
+    "latency_seconds": 1.1366,
     "attempts": 1,
     "retried": false,
     "answer": {
       "columns": [
         "segment",
-        "order_count"
+        "number_of_orders"
       ],
       "rows": [
         [
@@ -106,7 +112,7 @@
           909
         ]
       ],
-      "sql": "SELECT segment, COUNT(DISTINCT order_id) as order_count\nFROM orders\nGROUP BY segment\nORDER BY order_count DESC",
+      "sql": "SELECT segment, COUNT(DISTINCT order_id) as number_of_orders\nFROM orders\nGROUP BY segment\nORDER BY number_of_orders DESC",
       "error": null
     },
     "error": null
@@ -116,11 +122,13 @@
     "category": "visualization",
     "task_type": "bar",
     "difficulty": "medium",
-    "question": "Show a bar chart of average discount by ship mode.",
+    "language": "ca",
+    "question": "Mostra un gràfic de barres del descompte mitjà per mode d'enviament.",
+    "question_en": "Show a bar chart of average discount by ship mode.",
     "expected_agent": "viz",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.9544,
+    "latency_seconds": 0.9992,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -156,11 +164,13 @@
     "category": "visualization",
     "task_type": "line",
     "difficulty": "medium",
-    "question": "Show a line chart of monthly sales in 2017.",
+    "language": "ca",
+    "question": "Mostra un gràfic de línies de les vendes mensuals el 2017.",
+    "question_en": "Show a line chart of monthly sales in 2017.",
     "expected_agent": "viz",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.9355,
+    "latency_seconds": 1.4722,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -228,11 +238,13 @@
     "category": "visualization",
     "task_type": "bar",
     "difficulty": "medium",
-    "question": "Show a bar chart of total quantity sold by sub-category.",
+    "language": "ca",
+    "question": "Mostra un gràfic de barres de la quantitat total venuda per subcategoria.",
+    "question_en": "Show a bar chart of total quantity sold by sub-category.",
     "expected_agent": "viz",
     "correct": true,
     "ok": true,
-    "latency_seconds": 0.997,
+    "latency_seconds": 1.123,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -320,11 +332,13 @@
     "category": "visualization",
     "task_type": "boxplot",
     "difficulty": "medium",
-    "question": "Show a boxplot of profit for orders in the Consumer segment.",
+    "language": "ca",
+    "question": "Mostra un diagrama de caixa del benefici per a les comandes del segment Consumer.",
+    "question_en": "Show a boxplot of profit for orders in the Consumer segment.",
     "expected_agent": "viz",
     "correct": false,
     "ok": true,
-    "latency_seconds": 1.7032,
+    "latency_seconds": 1.0245,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -3333,7 +3347,7 @@
           -0.3488
         ]
       ],
-      "sql": "SELECT profit FROM orders WHERE segment = 'Consumer' ORDER BY profit",
+      "sql": "SELECT profit\nFROM orders\nWHERE segment = 'Consumer'\nORDER BY profit",
       "error": null
     },
     "error": null
@@ -3343,11 +3357,13 @@
     "category": "visualization",
     "task_type": "histogram",
     "difficulty": "hard",
-    "question": "Show a histogram of sales values under $500.",
+    "language": "ca",
+    "question": "Mostra un histograma dels valors de venda inferiors a 500 $.",
+    "question_en": "Show a histogram of sales values under $500.",
     "expected_agent": "viz",
     "correct": false,
     "ok": true,
-    "latency_seconds": 1.6025,
+    "latency_seconds": 1.8877,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -3387,11 +3403,13 @@
     "category": "visualization",
     "task_type": "scatter",
     "difficulty": "hard",
-    "question": "Show a scatter plot of discount versus profit for orders in the Technology category.",
+    "language": "ca",
+    "question": "Mostra un diagrama de dispersió del descompte respecte al benefici per a les comandes de la categoria Technology.",
+    "question_en": "Show a scatter plot of discount versus profit for orders in the Technology category.",
     "expected_agent": "viz",
     "correct": false,
     "ok": true,
-    "latency_seconds": 0.9548,
+    "latency_seconds": 1.0262,
     "attempts": 1,
     "retried": false,
     "answer": {
@@ -7411,945 +7429,71 @@
     "category": "visualization",
     "task_type": "line",
     "difficulty": "hard",
-    "question": "Show a line chart of profit over time for the East region in 2017.",
+    "language": "ca",
+    "question": "Mostra un gràfic de línies del benefici al llarg del temps per a la regió East el 2017.",
+    "question_en": "Show a line chart of profit over time for the East region in 2017.",
     "expected_agent": "viz",
-    "correct": false,
+    "correct": true,
     "ok": true,
-    "latency_seconds": 5.4836,
+    "latency_seconds": 1.4144,
     "attempts": 1,
     "retried": false,
     "answer": {
       "columns": [
-        "order_date",
-        "profit"
+        "month",
+        "total_profit"
       ],
       "rows": [
         [
-          "2017-01-01",
-          8.5568
+          "2017-01",
+          355.8694
         ],
         [
-          "2017-01-09",
-          -228.7425
+          "2017-02",
+          494.4531
         ],
         [
-          "2017-01-12",
-          35.064
+          "2017-03",
+          1188.1279
         ],
         [
-          "2017-01-15",
-          322.3862
+          "2017-04",
+          1199.5098
         ],
         [
-          "2017-01-19",
-          53.3043
+          "2017-05",
+          843.9141
         ],
         [
-          "2017-01-20",
-          3.3302
+          "2017-06",
+          3101.7598
         ],
         [
-          "2017-01-27",
-          1.6239000000000037
+          "2017-07",
+          1118.1236999999999
         ],
         [
-          "2017-01-28",
-          157.4685
+          "2017-08",
+          2182.9194
         ],
         [
-          "2017-01-29",
-          2.8779999999999997
+          "2017-09",
+          2492.6463
         ],
         [
-          "2017-02-02",
-          24.343200000000003
+          "2017-10",
+          7637.8817
         ],
         [
-          "2017-02-03",
-          31.510800000000003
+          "2017-11",
+          9390.2568
         ],
         [
-          "2017-02-04",
-          8.4942
-        ],
-        [
-          "2017-02-06",
-          111.66739999999999
-        ],
-        [
-          "2017-02-10",
-          11.3288
-        ],
-        [
-          "2017-02-11",
-          6.2468
-        ],
-        [
-          "2017-02-13",
-          18.0804
-        ],
-        [
-          "2017-02-16",
-          106.6877
-        ],
-        [
-          "2017-02-17",
-          -81.5233
-        ],
-        [
-          "2017-02-24",
-          249.3929
-        ],
-        [
-          "2017-02-28",
-          8.2242
-        ],
-        [
-          "2017-03-02",
-          165.3548
-        ],
-        [
-          "2017-03-06",
-          28.6879
-        ],
-        [
-          "2017-03-07",
-          56.111399999999996
-        ],
-        [
-          "2017-03-10",
-          -6.566399999999999
-        ],
-        [
-          "2017-03-11",
-          -196.384
-        ],
-        [
-          "2017-03-12",
-          32.1678
-        ],
-        [
-          "2017-03-13",
-          305.7528
-        ],
-        [
-          "2017-03-16",
-          -37.4478
-        ],
-        [
-          "2017-03-17",
-          140.9972
-        ],
-        [
-          "2017-03-19",
-          15.7124
-        ],
-        [
-          "2017-03-20",
-          65.962
-        ],
-        [
-          "2017-03-21",
-          2.8782
-        ],
-        [
-          "2017-03-23",
-          28.935000000000002
-        ],
-        [
-          "2017-03-24",
-          339.3148
-        ],
-        [
-          "2017-03-25",
-          2.9835
-        ],
-        [
-          "2017-03-26",
-          4.612399999999997
-        ],
-        [
-          "2017-03-27",
-          1.5008
-        ],
-        [
-          "2017-03-30",
-          -4.7625
-        ],
-        [
-          "2017-03-31",
-          242.3176
-        ],
-        [
-          "2017-04-01",
-          19.3185
-        ],
-        [
-          "2017-04-02",
-          2.8912
-        ],
-        [
-          "2017-04-03",
-          7.6416
-        ],
-        [
-          "2017-04-04",
-          62.197700000000005
-        ],
-        [
-          "2017-04-08",
-          632.4618999999999
-        ],
-        [
-          "2017-04-09",
-          111.6667
-        ],
-        [
-          "2017-04-10",
-          149.0568
-        ],
-        [
-          "2017-04-11",
-          -3.2788000000000004
-        ],
-        [
-          "2017-04-12",
-          31.347
-        ],
-        [
-          "2017-04-13",
-          1.683
-        ],
-        [
-          "2017-04-14",
-          61.614900000000006
-        ],
-        [
-          "2017-04-16",
-          -10.054
-        ],
-        [
-          "2017-04-17",
-          5.2773
-        ],
-        [
-          "2017-04-20",
-          6.9111
-        ],
-        [
-          "2017-04-21",
-          227.205
-        ],
-        [
-          "2017-04-22",
-          0.0
-        ],
-        [
-          "2017-04-23",
-          81.578
-        ],
-        [
-          "2017-04-24",
-          10.5548
-        ],
-        [
-          "2017-04-28",
-          1.504
-        ],
-        [
-          "2017-04-29",
-          -67.4841
-        ],
-        [
-          "2017-04-30",
-          -132.5828
-        ],
-        [
-          "2017-05-02",
-          12.993
-        ],
-        [
-          "2017-05-03",
-          -164.4722
-        ],
-        [
-          "2017-05-04",
-          -10.9857
-        ],
-        [
-          "2017-05-05",
-          3.2064
-        ],
-        [
-          "2017-05-06",
-          29.6
-        ],
-        [
-          "2017-05-08",
-          -25.839
-        ],
-        [
-          "2017-05-11",
-          12.7368
-        ],
-        [
-          "2017-05-12",
-          102.959
-        ],
-        [
-          "2017-05-13",
-          25.328999999999994
-        ],
-        [
-          "2017-05-14",
-          200.3118
-        ],
-        [
-          "2017-05-16",
-          -55.256
-        ],
-        [
-          "2017-05-18",
-          6.388299999999999
-        ],
-        [
-          "2017-05-19",
-          313.0254
-        ],
-        [
-          "2017-05-21",
-          78.0183
-        ],
-        [
-          "2017-05-25",
-          228.1843
-        ],
-        [
-          "2017-05-28",
-          87.7147
-        ],
-        [
-          "2017-06-01",
-          -102.7319
-        ],
-        [
-          "2017-06-02",
-          1.7574999999999998
-        ],
-        [
-          "2017-06-03",
-          -57.02040000000001
-        ],
-        [
-          "2017-06-08",
-          5.0764
-        ],
-        [
-          "2017-06-10",
-          19.9185
-        ],
-        [
-          "2017-06-12",
-          192.4886
-        ],
-        [
-          "2017-06-16",
-          109.7832
-        ],
-        [
-          "2017-06-17",
-          1676.3121999999998
-        ],
-        [
-          "2017-06-19",
-          31.877899999999997
-        ],
-        [
-          "2017-06-20",
-          121.87519999999999
-        ],
-        [
-          "2017-06-21",
-          230.95919999999998
-        ],
-        [
-          "2017-06-22",
-          -30.7927
-        ],
-        [
-          "2017-06-24",
-          137.6095
-        ],
-        [
-          "2017-06-25",
-          -5.0098
-        ],
-        [
-          "2017-06-26",
-          472.798
-        ],
-        [
-          "2017-06-27",
-          31.941
-        ],
-        [
-          "2017-06-29",
-          201.79160000000002
-        ],
-        [
-          "2017-06-30",
-          63.12580000000001
-        ],
-        [
-          "2017-07-03",
-          49.68239999999999
-        ],
-        [
-          "2017-07-06",
-          3.5616999999999996
-        ],
-        [
-          "2017-07-07",
-          37.284099999999995
-        ],
-        [
-          "2017-07-08",
-          146.1988
-        ],
-        [
-          "2017-07-09",
-          262.18539999999996
-        ],
-        [
-          "2017-07-11",
-          17.238
-        ],
-        [
-          "2017-07-12",
-          1.1925
-        ],
-        [
-          "2017-07-13",
-          12.080300000000001
-        ],
-        [
-          "2017-07-14",
-          -201.0476
-        ],
-        [
-          "2017-07-15",
-          71.472
-        ],
-        [
-          "2017-07-16",
-          -1.0196
-        ],
-        [
-          "2017-07-17",
-          129.9066
-        ],
-        [
-          "2017-07-18",
-          56.948499999999996
-        ],
-        [
-          "2017-07-20",
-          63.1536
-        ],
-        [
-          "2017-07-21",
-          -42.53
-        ],
-        [
-          "2017-07-22",
-          14.0859
-        ],
-        [
-          "2017-07-23",
-          28.488599999999998
-        ],
-        [
-          "2017-07-25",
-          -45.0461
-        ],
-        [
-          "2017-07-27",
-          140.00029999999998
-        ],
-        [
-          "2017-07-29",
-          22.2444
-        ],
-        [
-          "2017-07-30",
-          -10.5672
-        ],
-        [
-          "2017-07-31",
-          362.61109999999996
-        ],
-        [
-          "2017-08-03",
-          5.369
-        ],
-        [
-          "2017-08-06",
-          348.7122
-        ],
-        [
-          "2017-08-07",
-          31.6896
-        ],
-        [
-          "2017-08-11",
-          12.4416
-        ],
-        [
-          "2017-08-12",
-          438.408
-        ],
-        [
-          "2017-08-13",
-          5.9211
-        ],
-        [
-          "2017-08-15",
-          -312.3676
-        ],
-        [
-          "2017-08-17",
-          -230.85659999999996
-        ],
-        [
-          "2017-08-18",
-          91.7003
-        ],
-        [
-          "2017-08-19",
-          191.6865
-        ],
-        [
-          "2017-08-20",
-          10.4754
-        ],
-        [
-          "2017-08-21",
-          1637.3138000000001
-        ],
-        [
-          "2017-08-22",
-          -83.8752
-        ],
-        [
-          "2017-08-24",
-          77.406
-        ],
-        [
-          "2017-08-25",
-          -87.1392
-        ],
-        [
-          "2017-08-27",
-          45.32890000000002
-        ],
-        [
-          "2017-08-29",
-          0.7056
-        ],
-        [
-          "2017-09-01",
-          39.066
-        ],
-        [
-          "2017-09-02",
-          419.8839
-        ],
-        [
-          "2017-09-03",
-          209.5822
-        ],
-        [
-          "2017-09-04",
-          25.9378
-        ],
-        [
-          "2017-09-07",
-          177.3817
-        ],
-        [
-          "2017-09-08",
-          4.8290999999999995
-        ],
-        [
-          "2017-09-09",
-          -352.0784
-        ],
-        [
-          "2017-09-10",
-          -6.078800000000001
-        ],
-        [
-          "2017-09-12",
-          136.4902
-        ],
-        [
-          "2017-09-14",
-          321.9833
-        ],
-        [
-          "2017-09-15",
-          637.2975
-        ],
-        [
-          "2017-09-16",
-          -365.25320000000005
-        ],
-        [
-          "2017-09-17",
-          235.134
-        ],
-        [
-          "2017-09-18",
-          12.571800000000001
-        ],
-        [
-          "2017-09-19",
-          12.1626
-        ],
-        [
-          "2017-09-20",
-          1571.7964
-        ],
-        [
-          "2017-09-21",
-          -1.5264
-        ],
-        [
-          "2017-09-22",
-          -709.5388
-        ],
-        [
-          "2017-09-24",
-          12.151500000000006
-        ],
-        [
-          "2017-09-25",
-          115.50880000000001
-        ],
-        [
-          "2017-09-28",
-          -1.8585
-        ],
-        [
-          "2017-09-29",
-          -90.5617
-        ],
-        [
-          "2017-09-30",
-          87.7653
-        ],
-        [
-          "2017-10-01",
-          767.2005
-        ],
-        [
-          "2017-10-02",
-          40.2438
-        ],
-        [
-          "2017-10-03",
-          97.7607
-        ],
-        [
-          "2017-10-04",
-          8.5914
-        ],
-        [
-          "2017-10-05",
-          1427.1478000000002
-        ],
-        [
-          "2017-10-06",
-          225.3724
-        ],
-        [
-          "2017-10-08",
-          14.3568
-        ],
-        [
-          "2017-10-09",
-          12.862000000000002
-        ],
-        [
-          "2017-10-12",
-          88.14900000000002
-        ],
-        [
-          "2017-10-13",
-          278.0212
-        ],
-        [
-          "2017-10-14",
-          18.4534
-        ],
-        [
-          "2017-10-15",
-          6.003
-        ],
-        [
-          "2017-10-16",
-          175.136
-        ],
-        [
-          "2017-10-17",
-          15.7132
-        ],
-        [
-          "2017-10-19",
-          -16.9038
-        ],
-        [
-          "2017-10-20",
-          18.67470000000001
-        ],
-        [
-          "2017-10-21",
-          -68.9026
-        ],
-        [
-          "2017-10-22",
-          4601.7137
-        ],
-        [
-          "2017-10-23",
-          2.4832000000000005
-        ],
-        [
-          "2017-10-26",
-          -81.46300000000001
-        ],
-        [
-          "2017-10-28",
-          34.2971
-        ],
-        [
-          "2017-10-29",
-          22.5408
-        ],
-        [
-          "2017-10-30",
-          -49.569599999999994
-        ],
-        [
-          "2017-11-01",
-          111.1411
-        ],
-        [
-          "2017-11-02",
-          -298.6003
-        ],
-        [
-          "2017-11-03",
-          -7.2722999999999995
-        ],
-        [
-          "2017-11-04",
-          -49.9172
-        ],
-        [
-          "2017-11-05",
-          290.839
-        ],
-        [
-          "2017-11-06",
-          147.1894
-        ],
-        [
-          "2017-11-07",
-          -132.6278
-        ],
-        [
-          "2017-11-08",
-          145.392
-        ],
-        [
-          "2017-11-09",
-          1031.9044
-        ],
-        [
-          "2017-11-10",
-          439.2271
-        ],
-        [
-          "2017-11-11",
-          3.6288
-        ],
-        [
-          "2017-11-12",
-          -136.0395
-        ],
-        [
-          "2017-11-13",
-          -653.4591
-        ],
-        [
-          "2017-11-14",
-          41.272800000000004
-        ],
-        [
-          "2017-11-16",
-          180.77700000000002
-        ],
-        [
-          "2017-11-17",
-          5519.818
-        ],
-        [
-          "2017-11-18",
-          44.4983
-        ],
-        [
-          "2017-11-19",
-          597.8951999999999
-        ],
-        [
-          "2017-11-20",
-          555.2625
-        ],
-        [
-          "2017-11-21",
-          17.8118
-        ],
-        [
-          "2017-11-23",
-          1.2336
-        ],
-        [
-          "2017-11-24",
-          321.2883
-        ],
-        [
-          "2017-11-26",
-          343.131
-        ],
-        [
-          "2017-11-27",
-          38.2827
-        ],
-        [
-          "2017-11-28",
-          268.4059
-        ],
-        [
-          "2017-11-30",
-          569.1741
-        ],
-        [
-          "2017-12-01",
-          314.0094
-        ],
-        [
-          "2017-12-02",
-          -121.65349999999998
-        ],
-        [
-          "2017-12-03",
-          72.9897
-        ],
-        [
-          "2017-12-04",
-          63.6899
-        ],
-        [
-          "2017-12-05",
-          191.33079999999998
-        ],
-        [
-          "2017-12-07",
-          25.5968
-        ],
-        [
-          "2017-12-08",
-          135.7504
-        ],
-        [
-          "2017-12-09",
-          6.444600000000001
-        ],
-        [
-          "2017-12-10",
-          172.0673
-        ],
-        [
-          "2017-12-11",
-          416.6457
-        ],
-        [
-          "2017-12-13",
-          7.1994
-        ],
-        [
-          "2017-12-14",
-          432.3557
-        ],
-        [
-          "2017-12-16",
-          10.43
-        ],
-        [
-          "2017-12-17",
-          77.41460000000001
-        ],
-        [
-          "2017-12-18",
-          719.0751
-        ],
-        [
-          "2017-12-20",
-          176.91150000000002
-        ],
-        [
-          "2017-12-21",
-          178.99779999999998
-        ],
-        [
-          "2017-12-22",
-          178.76430000000002
-        ],
-        [
-          "2017-12-23",
-          48.0951
-        ],
-        [
-          "2017-12-24",
-          90.7573
-        ],
-        [
-          "2017-12-25",
-          -31.2132
-        ],
-        [
-          "2017-12-26",
-          -2.61
-        ],
-        [
-          "2017-12-27",
-          -31.974200000000003
-        ],
-        [
-          "2017-12-28",
-          56.4337
-        ],
-        [
-          "2017-12-29",
-          2.9547
-        ],
-        [
-          "2017-12-30",
-          34.6365
+          "2017-12",
+          3225.0994
         ]
       ],
-      "sql": "SELECT \n  order_date,\n  SUM(profit) as profit\nFROM orders\nWHERE region = 'East' \n  AND strftime('%Y', order_date) = '2017'\nGROUP BY order_date\nORDER BY order_date",
+      "sql": "SELECT \n  strftime('%Y-%m', order_date) AS month,\n  SUM(profit) AS total_profit\nFROM orders\nWHERE region = 'East' \n  AND strftime('%Y', order_date) = '2017'\nGROUP BY strftime('%Y-%m', order_date)\nORDER BY month",
       "error": null
     },
     "error": null

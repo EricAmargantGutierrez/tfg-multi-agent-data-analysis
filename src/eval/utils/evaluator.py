@@ -14,6 +14,8 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Callable
 
+from src.eval.languages import DEFAULT_LANGUAGE, question_text
+
 
 def run_benchmark(
     *,
@@ -22,6 +24,7 @@ def run_benchmark(
     output_file: str,
     answer_function: Callable[[str], dict],
     checker_function: Callable[[dict, object], bool],
+    language: str = DEFAULT_LANGUAGE,
 ) -> list[dict]:
     with open(dataset_file, "r", encoding="utf-8") as f:
         questions = json.load(f)
@@ -39,11 +42,12 @@ def run_benchmark(
     total_questions = len(questions)
 
     for i, q in enumerate(questions, start=1):
-        print(f"[{agent_name}] Question {i}/{total_questions}: {q['question']}")
+        asked = question_text(q, language)
+        print(f"[{agent_name}] Question {i}/{total_questions}: {asked}")
 
         start = time.perf_counter()
         try:
-            answer = answer_function(q["question"])
+            answer = answer_function(asked)
         except Exception as e:
             answer = {"ok": False, "error": f"{type(e).__name__}: {e}"}
         latency = time.perf_counter() - start
@@ -71,7 +75,9 @@ def run_benchmark(
             "category": q["category"],
             "task_type": q.get("task_type"),
             "difficulty": difficulty,
-            "question": q["question"],
+            "language": language,
+            "question": asked,
+            "question_en": question_text(q, "en"),
             "expected_agent": q.get("expected_agent"),
             "correct": is_correct,
             "ok": answer.get("ok", False),

@@ -29,10 +29,10 @@ import json
 import time
 from pathlib import Path
 
+from src.eval.languages import DEFAULT_LANGUAGE, LANGUAGES, question_text, results_dir
 from src.orchestrator.graph import answer
 
 DATASETS_DIR = Path(__file__).resolve().parents[1] / "datasets"
-OUTPUT_FILE = Path("results/eval/pipeline_results.json")
 
 DATASET_FILES = {
     "data_query": "data_query_questions.json",
@@ -41,19 +41,20 @@ DATASET_FILES = {
 }
 
 
-def _load_existing() -> list[dict]:
-    if OUTPUT_FILE.exists():
-        with open(OUTPUT_FILE, encoding="utf-8") as f:
+def _load_existing(output_file: Path) -> list[dict]:
+    if output_file.exists():
+        with open(output_file, encoding="utf-8") as f:
             return json.load(f)
     return []
 
 
-def run(categories: list[str] | None = None) -> list[dict]:
+def run(categories: list[str] | None = None, language: str = DEFAULT_LANGUAGE) -> list[dict]:
     from src.eval.utils.warmup import warm_up
 
     categories = categories or list(DATASET_FILES.keys())
+    output_file = results_dir(language) / "pipeline_results.json"
 
-    existing = _load_existing()
+    existing = _load_existing(output_file)
     kept = [r for r in existing if r["category"] not in categories]
     if kept:
         print(f"Keeping {len(kept)} existing results from categories not being re-run: "
@@ -78,17 +79,18 @@ def run(categories: list[str] | None = None) -> list[dict]:
         # same run would each still pay their own unwarmed cost otherwise.
         # So: warm up per category, using a real question from THAT
         # category, right before its questions start.
-        warm_up(lambda q: answer(q, []), question=questions[0]["question"])
+        warm_up(lambda q: answer(q, []), question=question_text(questions[0], language))
 
         for q in questions:
-            print(f"[Pipeline] {q['category']} #{q['id']}: {q['question']}")
+            asked = question_text(q, language)
+            print(f"[Pipeline] {q['category']} #{q['id']}: {asked}")
             start = time.perf_counter()
             predicted_agent = None
             error_detail = None
             narrated_answer = None
             try:
                 history: list = []
-                out = answer(q["question"], history)
+                out = answer(asked, history)
                 ok = bool(out.get("ok", False))
                 predicted_agent = history[-1]["agent"] if history else None
                 narrated_answer = out.get("answer")
@@ -103,7 +105,9 @@ def run(categories: list[str] | None = None) -> list[dict]:
             new_results.append({
                 "id": q["id"],
                 "category": q["category"],
-                "question": q["question"],
+                "language": language,
+                "question": asked,
+                "question_en": question_text(q, "en"),
                 "expected_agent": q.get("expected_agent"),
                 "predicted_agent": predicted_agent,
                 "routing_correct": predicted_agent == q.get("expected_agent"),
@@ -125,15 +129,15 @@ def run(categories: list[str] | None = None) -> list[dict]:
 
     results = kept + new_results
 
-    Path("results/eval").mkdir(parents=True, exist_ok=True)
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+    output_file.parent.mkdir(parents=True, exist_ok=True)
+    with open(output_file, "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2, ensure_ascii=False)
 
-    _print_summary(results)
+    _print_summary(results, output_file)
     return results
 
 
-def _print_summary(results: list[dict]) -> None:
+def _print_summary(results: list[dict], output_file: Path) -> None:
     print()
     print("=" * 50)
     print("PIPELINE BENCHMARK (latency + routing, one pass)")
@@ -174,7 +178,7 @@ def _print_summary(results: list[dict]) -> None:
             print(f"  {category:<14}{correct}/{len(subset)} ({100*correct/len(subset):.1f}%)")
 
     print()
-    print("Detailed results saved to:", OUTPUT_FILE)
+    print("Detailed results saved to:", output_file)
 
 
 if __name__ == "__main__":
@@ -184,5 +188,7 @@ if __name__ == "__main__":
         help="Only re-run these categories; results for the others are "
              "kept from the existing results file untouched.",
     )
+    parser.add_argument("--language", choices=LANGUAGES, default=DEFAULT_LANGUAGE,
+                        help="Question language (default: en).")
     args = parser.parse_args()
-    run(categories=args.categories)
+    run(categories=args.categories, language=args.language)

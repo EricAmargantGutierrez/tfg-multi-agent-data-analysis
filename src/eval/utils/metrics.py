@@ -1,23 +1,22 @@
 """
 src/eval/utils/metrics.py
 
-Aggregates every results/eval/*.json file produced by the benchmarks into
-one summary.csv: the table your Results chapter draws from. Computes,
-per category, the headline comparison the whole evaluation exists to
-answer:
+Reads the *.json files the benchmarks wrote for one model + language and
+builds one summary.csv. Per category it computes the main comparison:
 
-    full_system_correctness - baseline_correctness = value of the architecture
+    system_correctness - baseline_correctness = value of the architecture
 
-Usage: python -m src.eval.utils.metrics
+Usage: python -m src.eval.utils.metrics [--language en|es|ca]
 (run after correctness_benchmark.py and pipeline_benchmark.py)
 """
 from __future__ import annotations
 
+import argparse
 import csv
 import json
 from pathlib import Path
 
-RESULTS_DIR = Path("results/eval")
+from src.eval.languages import DEFAULT_LANGUAGE, LANGUAGES, results_dir
 
 FILES = {
     "data_query": ("data_query_agent_results.json", "baseline_data_query_results.json", "monolithic_data_query_results.json"),
@@ -65,18 +64,18 @@ def _retry_success_rate(results: list[dict]) -> float | None:
     return 100 * sum(r["correct"] for r in retried) / len(retried)
 
 
-def _pipeline_results() -> list[dict] | None:
-    return _load(RESULTS_DIR / "pipeline_results.json")
+def _pipeline_results(rdir: Path) -> list[dict] | None:
+    return _load(rdir / "pipeline_results.json")
 
 
-def _pipeline_latency_by_category(category: str) -> float | None:
+def _pipeline_latency_by_category(rdir: Path, category: str) -> float | None:
     """Full router+agent+narrator latency. Distinct from avg_latency_s,
     which only measures the agent's own *_core() execution time
     (bypassing router/narrator to isolate the agent's capability for
     scoring). This is the number that's actually comparable to the
     baseline's single-call latency. Only successful calls are averaged --
     a fast failure (e.g. a rate limit) is not a real latency measurement."""
-    results = _pipeline_results()
+    results = _pipeline_results(rdir)
     if not results:
         return None
     subset = [r for r in results if r.get("category") == category and r.get("ok")]
@@ -85,8 +84,8 @@ def _pipeline_latency_by_category(category: str) -> float | None:
     return sum(r["latency_seconds"] for r in subset) / len(subset)
 
 
-def _routing_accuracy_by_category(category: str | None = None) -> float | None:
-    results = _pipeline_results()
+def _routing_accuracy_by_category(rdir: Path, category: str | None = None) -> float | None:
+    results = _pipeline_results(rdir)
     if not results:
         return None
     subset = [r for r in results if category is None or r.get("category") == category]
@@ -95,19 +94,20 @@ def _routing_accuracy_by_category(category: str | None = None) -> float | None:
     return 100 * sum(r["routing_correct"] for r in subset) / len(subset)
 
 
-def build_summary() -> list[dict]:
+def build_summary(language: str = DEFAULT_LANGUAGE) -> list[dict]:
+    rdir = results_dir(language)
     rows = []
 
     for category, (agent_file, baseline_file, monolithic_file) in FILES.items():
-        agent_results = _load(RESULTS_DIR / agent_file)
-        baseline_results = _load(RESULTS_DIR / baseline_file)
-        monolithic_results = _load(RESULTS_DIR / monolithic_file)
+        agent_results = _load(rdir / agent_file)
+        baseline_results = _load(rdir / baseline_file)
+        monolithic_results = _load(rdir / monolithic_file)
 
         agent_acc = _accuracy(agent_results) if agent_results else None
         baseline_acc = _accuracy(baseline_results) if baseline_results else None
         monolithic_acc = _accuracy(monolithic_results) if monolithic_results else None
-        pipeline_latency = _pipeline_latency_by_category(category)
-        routing_acc = _routing_accuracy_by_category(category)
+        pipeline_latency = _pipeline_latency_by_category(rdir, category)
+        routing_acc = _routing_accuracy_by_category(rdir, category)
 
         row = {
             "category": category,
@@ -142,9 +142,9 @@ def build_summary() -> list[dict]:
 
         rows.append(row)
 
-    overall_routing = _routing_accuracy_by_category(None)
+    overall_routing = _routing_accuracy_by_category(rdir, None)
     if overall_routing is not None:
-        pipeline_results = _pipeline_results()
+        pipeline_results = _pipeline_results(rdir)
         routing_row = {
             "category": "routing (all categories)",
             "n_questions": len(pipeline_results),
@@ -172,12 +172,16 @@ def build_summary() -> list[dict]:
     return rows
 
 
-def write_summary_csv(rows: list[dict], output_file: str = "results/eval/summary.csv") -> None:
+def write_summary_csv(
+    rows: list[dict],
+    output_file: str | None = None,
+    language: str = DEFAULT_LANGUAGE,
+) -> None:
     if not rows:
         print("No result files found -- run the benchmarks first.")
         return
 
-    output_path = Path(output_file)
+    output_path = Path(output_file) if output_file else results_dir(language) / "summary.csv"
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     fieldnames = list(rows[0].keys())
@@ -197,5 +201,8 @@ def write_summary_csv(rows: list[dict], output_file: str = "results/eval/summary
 
 
 if __name__ == "__main__":
-    rows = build_summary()
-    write_summary_csv(rows)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--language", choices=LANGUAGES, default=DEFAULT_LANGUAGE)
+    args = parser.parse_args()
+    rows = build_summary(args.language)
+    write_summary_csv(rows, language=args.language)

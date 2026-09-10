@@ -77,11 +77,12 @@ src/
 ├── models/schemas.py                    Pydantic validation
 ├── orchestrator/                        router, MCP client, narrator, session state, LangGraph graph
 ├── eval/
-│   ├── datasets/                        55 questions (data_query, analysis, visualization)
-│   ├── ground_truth/                    generators, executed against the real DB
+│   ├── datasets/                        55 questions, each in en/es/ca (data_query, analysis, visualization)
+│   ├── languages.py                     language codes + question/results-dir helpers
+│   ├── ground_truth/                    generators, executed against the real DB (language-independent)
 │   ├── checks.py                        scoring logic
 │   ├── baselines/                       single_agent.py + monolithic_agent.py
-│   ├── benchmarks/                      correctness_benchmark.py, pipeline_benchmark.py, report_agent_benchmark.py
+│   ├── benchmarks/                      correctness_benchmark.py, pipeline_benchmark.py, report_agent_benchmark.py (all take --language)
 │   ├── run_all.py                       correctness + pipeline benchmarks, then aggregates summary.csv
 │   └── utils/                           evaluator.py, metrics.py, warmup.py
 ├── ingest.py
@@ -89,7 +90,7 @@ src/
 
 scripts/manual_check/                    manual live-API smoke scripts (not part of pytest)
 tests/                                   pytest suite, offline, no API keys needed (116 tests)
-results/eval/                            tracked -- evaluation output (JSONs, summary.csv, report review)
+results/eval/<model>/<language>/         tracked -- evaluation output per model and language (JSONs, summary.csv, report review)
 results/*.png, results/*.md              generated charts/session reports (gitignored, not tracked)
 ```
 
@@ -132,12 +133,17 @@ python -m src.eval.ground_truth.generate_data_query_ground_truth
 python -m src.eval.ground_truth.generate_analysis_ground_truth
 python -m src.eval.ground_truth.generate_visualization_ground_truth
 
-python -m src.eval.run_all
+python -m src.eval.run_all                        # English (default)
 python -m src.eval.benchmarks.report_agent_benchmark
+
+python -m src.eval.run_all --language es          # Spanish
+python -m src.eval.run_all --language ca          # Catalan
 ```
 
-All benchmark scripts support resuming an interrupted run
-(`--side`/`--categories`/`--sessions`).
+All benchmark scripts can resume an interrupted run
+(`--side`/`--categories`/`--sessions`) and take a `--language {en,es,ca}`
+flag. Output goes to `results/eval/<TFG_MODEL>/<language>/`, so running a
+different model does not overwrite the previous one.
 
 ### Results (55-question benchmark; primary run: Anthropic Claude Haiku 4.5)
 
@@ -152,6 +158,15 @@ failure analysis, including two real issues found by this evaluation
 and fixed (a t-test implementation bug and a limitation in the
 evaluation's own scoring logic, both independently verified) — are in
 [`results_and_failure_analysis.md`](results_and_failure_analysis.md).
+
+The system was also run on Groq (`llama-3.3-70b-versatile`) and Ollama
+(`llama3.1:8b`), but only partly; §5 of that file has the cross-provider
+tables and says which cells are missing and why.
+
+The same evaluation was also run in **Spanish and Catalan** on the main
+model (Anthropic Haiku 4.5): the questions are translated, the ground
+truth is the same. Results are in `results/eval/anthropic/{en,es,ca}/`
+and §7 of the analysis file.
 
 ---
 

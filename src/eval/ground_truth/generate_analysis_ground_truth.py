@@ -20,6 +20,7 @@ from pathlib import Path
 
 from src.agents.analysis.statistics import ANALYSIS_FUNCTIONS
 from src.core.db import build_select, get_valid_columns, load_dataframe_readonly
+from src.eval.languages import question_text
 
 QUESTIONS_FILE = Path(__file__).resolve().parents[1] / "datasets" / "analysis_questions.json"
 
@@ -56,7 +57,7 @@ def main() -> None:
     print(f"Generating ground truth for {len(questions)} analysis questions...\n")
 
     for i, question in enumerate(questions, start=1):
-        print(f"Question {i}/{len(questions)}: {question['question']}")
+        print(f"Question {i}/{len(questions)}: {question_text(question)}")
         try:
             result = compute_ground_truth(question["reference"])
             question["ground_truth"] = result
