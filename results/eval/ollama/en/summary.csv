@@ -1,0 +1,5 @@
+category,n_questions,system_correctness_pct,baseline_correctness_pct,monolithic_correctness_pct,architecture_value_pct,decomposition_value_pct,routing_accuracy_pct,avg_latency_s,full_pipeline_avg_latency_s,baseline_avg_latency_s,monolithic_avg_latency_s,retry_rate_pct,retry_success_rate_pct,correctness_easy_pct,baseline_correctness_easy_pct,correctness_medium_pct,baseline_correctness_medium_pct,correctness_hard_pct,baseline_correctness_hard_pct
+data_query,30,83.33,43.33,80.0,40.0,3.33,20.0,12.476,54.909,5.548,21.244,3.33,0.0,90.0,60.0,70.0,40.0,90.0,30.0
+analysis,15,100.0,33.33,80.0,66.67,20.0,100.0,13.66,65.801,13.633,25.65,0.0,,100.0,66.67,100.0,50.0,100.0,0.0
+visualization,10,100.0,70.0,90.0,30.0,10.0,100.0,19.833,129.256,16.293,37.978,10.0,100.0,100.0,100.0,100.0,75.0,100.0,33.33
+routing (all categories),55,56.36,,,,,56.36,,75.061,,,,,,,,,,

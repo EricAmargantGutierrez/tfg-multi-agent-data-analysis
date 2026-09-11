@@ -69,8 +69,8 @@ def route(question: str) -> str:
         decision = RoutingDecision(**data)
         return decision.agent
     except Exception:
-        # Covers LLM/network errors, bad JSON, and RoutingDecision
-        # validation failures alike -- any of these fall back to keywords.
+        # Catches LLM/network errors, bad JSON, and RoutingDecision
+        # validation failures - any of these, fall back to keywords.
         pass
 
     return keyword_route(question)

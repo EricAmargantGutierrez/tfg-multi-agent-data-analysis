@@ -15,11 +15,11 @@ EXCLUDED_COLUMNS = {"postal_code", "row_id", "order_id"}
 
 
 def _numeric(df: pd.DataFrame) -> pd.DataFrame:
-    """Numeric columns, with any row containing NaN in them dropped.
-    Without this, scipy/sklearn functions (regression, PCA, KMeans) raise
-    on missing data instead of handling it -- unlike pandas' own
-    .mean()/.median()/etc., which already skip NaN by default. Made
-    uniform here so every analysis function behaves consistently."""
+    """Numeric columns, dropping any row that has a NaN in them.
+    Without this, scipy/sklearn functions (regression, PCA, K-Means)
+    would crash on missing data instead of handling it - unlike pandas'
+    own .mean()/.median()/etc., which already skip NaN by default. Done
+    here once so every analysis function behaves the same way."""
     numeric = df.select_dtypes(include=[np.number])
     numeric = numeric.drop(columns=[c for c in EXCLUDED_COLUMNS if c in numeric.columns], errors="ignore")
     return numeric.dropna()

@@ -24,35 +24,35 @@ Core system built: database ingestion, provider-independent LLM interface, the f
 
 # Milestone 11 — Architecture Cleanup & Correctness Fixes
 
-Centralized all SQLite access in `src/core/db.py`; extracted shared self-correction (`src/core/retry.py`) and JSON-parsing (`src/core/llm_json.py`) helpers; introduced Pydantic validation (`src/models/schemas.py`). Fixed a real correctness bug: the Analysis Agent could only ever `SELECT` whole columns with no `WHERE` clause, silently computing over the entire table for any filtered question. Fixed a router keyword-ordering bug. Removed three stale test files. Test suite: 51 tests.
+Moved all SQLite access into one place (`src/core/db.py`); pulled the repeated self-correction retry code (`src/core/retry.py`) and JSON-parsing code (`src/core/llm_json.py`) into shared helpers; added Pydantic validation (`src/models/schemas.py`). Fixed a real bug: the Analysis Agent could only `SELECT` whole columns with no `WHERE` clause, so it silently ran over the whole table even when the question asked for a filter. Fixed a router bug about keyword order. Removed three old test files that no longer matched the code. Test suite: 51 tests.
 
 ---
 
 # Milestone 12 — First Evaluation Round (Groq)
 
-55-question benchmark (30 Data Query, 15 Analysis, 10 Visualization) against a minimal baseline, on Groq `llama-3.3-70b`. Found and fixed a real bug: `compute_regression` selected its prediction target by column-list position, silently swapping the target and producing a low-r2 wrong answer. Fixed with an explicit `target` field. Results: architecture value +66.7pp (Data Query), +80.0pp (Analysis), +20.0pp (Visualization); routing accuracy 90.9%. Test suite: 78 tests.
+Ran the 55-question benchmark (30 Data Query, 15 Analysis, 10 Visualization) against a minimal baseline, on Groq `llama-3.3-70b`. Found and fixed a real bug: `compute_regression` picked its prediction target by its position in the column list, so it could silently pick the wrong column and give a low-r2 wrong answer. Fixed by adding an explicit `target` field. Results: architecture value +66.7pp (Data Query), +80.0pp (Analysis), +20.0pp (Visualization); routing accuracy 90.9%. Test suite: 78 tests.
 
 ---
 
 # Milestone 13 — Evaluation Consolidation, New Baseline, Bug Fixes, Multi-Provider Final Run
 
-Consolidated 7 evaluation scripts to 3 (`correctness_benchmark.py`, `pipeline_benchmark.py`, `report_agent_benchmark.py`), removing a real redundancy (routing accuracy and pipeline latency were independently re-asking the same 55 questions). Added a second, stronger baseline: a monolithic agent with access to all three real capabilities, deciding for itself which to use, built to isolate "does decomposition into separate agents help" as distinct from "does having tools help at all." Found and corrected a methodological flaw in its own construction: the first version used a hand-written 206-word prompt summary vs. the specialized agents' real combined ~845 words, which would have confounded "architecture" with "less detailed prompting." Fixed by importing the real prompts verbatim.
+Merged 7 evaluation scripts down to 3 (`correctness_benchmark.py`, `pipeline_benchmark.py`, `report_agent_benchmark.py`) - routing accuracy and pipeline latency were separately re-asking the same 55 questions, which was pointless. Added a second, stronger baseline: a monolithic agent that has all three real capabilities and picks for itself which to use. This lets us separate two different questions: "does splitting the work into separate agents help" vs. "does just having the tools help at all." While building it, found a mistake in how I'd set it up: the first version used a short hand-written 206-word prompt, while the real specialized agents' combined prompts are about 845 words - that would have mixed up "the architecture is better" with "the prompt has less detail." Fixed by copying in the real prompts as they are.
 
-Found and fixed two more production bugs: a token-limit crash in narration/report generation from large row lists dumped directly into LLM prompts (fixed with a shared `src/core/summarize.py`), and a NaN-handling gap in the scikit-learn-based statistics functions.
+Found and fixed two more real bugs: a token-limit crash in narration/report generation, caused by dumping large row lists straight into the LLM prompt (fixed with a shared `src/core/summarize.py`), and a gap in the scikit-learn-based statistics functions that didn't handle NaN values.
 
-Ran the complete evaluation across three providers (Groq, Ollama, Anthropic), documenting real infrastructure findings along the way (Ollama's local model genuinely misrouting unambiguous questions; WSL memory exhaustion under sustained local inference). Anthropic (`claude-haiku-4.5`) was the only provider on which all four evaluation dimensions completed cleanly on one consistent model, and was used as the primary dataset. Added benchmark resumability (`--categories`/`--side`/`--sessions`) and per-pass warm-up calls after repeatedly losing progress to rate limits and infrastructure interruptions. Test suite: 103 tests.
+Ran the full evaluation on three providers (Groq, Ollama, Anthropic), and along the way found some real infrastructure problems (Ollama's local model really did misroute questions that should have been obvious; WSL ran out of memory during long local runs). Anthropic (`claude-haiku-4.5`) was the only provider where all four parts of the evaluation finished cleanly on one model, so it became the main dataset. Added the ability to resume a benchmark partway (`--categories`/`--side`/`--sessions`) and a warm-up call before each pass, after losing progress more than once to rate limits and other interruptions. Test suite: 103 tests.
 
-Full results and a question-by-question failure analysis in `results_and_failure_analysis.md`, including two findings that changed how the results should be read: a limitation in the evaluation's own baseline scorer (see Milestone 14), and a chart-time-granularity ambiguity in the question set that fully explained an otherwise-confusing result.
+Full results and a question-by-question look at what went wrong are in `results_and_failure_analysis.md`, including two findings that changed how to read the results: a problem in the evaluation's own baseline scorer (see Milestone 14), and a chart-time-granularity question that fully explained a result that looked confusing at first.
 
 ---
 
 # Milestone 14 — Two Real Fixes Found by the Failure Analysis, Applied and Verified
 
-The Milestone 13 failure analysis surfaced two issues worth fixing rather than just documenting. Both were fixed, covered by unit and integration tests against the real database, and the affected part of the evaluation was re-run to confirm the fix directly. Full before/after evidence is in `results_and_failure_analysis.md` §3.2 and §3.5; the summary:
+Looking closely at the Milestone 13 results turned up two things worth actually fixing, not just writing down. Both were fixed, covered by unit and integration tests against the real database, and the affected part of the evaluation was re-run to check the fix worked. Full before/after details are in `results_and_failure_analysis.md` §3.2 and §3.5; short version:
 
-**Fix 1 — `compute_ttest` now compares two groups, not two arbitrary columns.** The old version ran an independent t-test between two numeric *columns* (e.g. discount vs. profit), which is not a valid two-group hypothesis test; a generated report had described its result as "a negative correlation." `AnalysisPlan` gained `group_column` and `group_values` (exactly two, Pydantic-validated), `compute_ttest` now splits by the named categorical column, the benchmark question and its ground truth were rewritten to a genuine group comparison, and Report Agent Session 5 was regenerated. Session 5's accuracy and no-fabrication ratings moved from 2/5 to 5/5.
+**Fix 1 - `compute_ttest` now compares two groups, not two random columns.** The old version ran a t-test between two numeric *columns* directly (e.g. discount vs. profit), which isn't what a t-test is for - a real t-test compares one variable across two *groups*. A generated report had even described the result as "a negative correlation," which is wrong. `AnalysisPlan` now has `group_column` and `group_values` fields (exactly two values, checked by Pydantic), `compute_ttest` splits the data by that column, the benchmark question and its ground truth were rewritten to a real group comparison, and Report Agent Session 5 was regenerated. Session 5's accuracy and no-fabrication ratings went from 2/5 to 5/5.
 
-**Fix 2 — baseline scoring no longer auto-rejects correlation/covariance/t-test.** The scorer had marked those `incorrect` automatically on the assumption a bare SQL model could not express them; in fact the baseline had derived the correct Pearson correlation in raw SQL and was penalised purely by scorer design. `check_baseline_analysis` now checks the actual returned metric. Regression, PCA, and K-Means stay auto-rejected (genuinely infeasible in one non-procedural `SELECT`). Baseline Analysis correctness moved from 20.0% to 40.0% with no change to the baseline's behavior.
+**Fix 2 - baseline scoring no longer auto-rejects correlation/covariance/t-test.** The scorer used to mark those `incorrect` automatically, assuming a plain SQL model couldn't do them - but the baseline had actually worked out the correct Pearson correlation in raw SQL and was being marked wrong just because of how the scorer worked. `check_baseline_analysis` now checks the real number it returned. Regression, PCA, and K-Means still get auto-rejected, correctly - those really can't be done in one plain `SELECT`. Baseline Analysis correctness went from 20.0% to 40.0% with no change to what the baseline actually does.
 
 Post-fix Anthropic results:
 
@@ -106,9 +106,25 @@ Tests: 116 (offline suite unchanged; the language benchmarks need a live LLM).
 
 ---
 
+# Milestone 18 — Real Ollama re-run (English, Spanish, Catalan), and a plain-language pass
+
+Did the clean Ollama re-run that Milestone 16 said was planned, for all three languages. Written into `results_and_failure_analysis.md` §5.3-5.7 with real numbers.
+
+Main findings:
+
+- The real system stays close to Anthropic on this much smaller local model on English and Spanish (83-100% vs 90-100% correctness), and even beats it on Visualization. Catalan is noticeably weaker (70-93%), but the machine was also least stable during that run (see below), so language and machine fatigue are tangled together and can't be fully separated. The baseline is much weaker on Data Query in every language, because a small model writing plain SQL with no tools makes real mistakes.
+- The router is the actual weak point: it sends about 80% of Data Query questions to Analysis, in all three languages. Checked what happened to those questions by hand (same method as §3.4) - unlike Anthropic's routing mix-ups, these produce genuinely wrong answers a user would see and believe, because the Analysis agent's fixed menu can't group-and-rank.
+- The same specific SQL mistakes (mixing up "revenue" with "profit", taking the min/max of one row instead of grouping first, missing `LIMIT 1`) show up in all three languages - real weaknesses of the model, not something caused by translation. Catalan added two mistakes not seen in English or Spanish: confusing "Region" with "State", and picking a plain `describe` instead of K-Means for a clustering question.
+- The machine slows down the longer it runs: the English `run_all` took about 3 hours, the same Spanish run took 7.5 hours. Checked this directly - the CPU wasn't maxed out, but the machine ran low on RAM and was swapping, on a 15 GB laptop already almost fully used between Windows and the WSL2 VM running Ollama. The Catalan run was the least stable of the three: `dmesg` showed the laptop went to sleep and resumed mid-run, and the Ollama server crashed outright on one question.
+- The worst fabrication found anywhere in this project: asked for a "correlation between marketing spend and profit" (a column that doesn't exist), the model silently used a real column instead and reported a confident, precise correlation as fact, in all three languages. Every other run on this same question (Anthropic in all three languages) either errored or refused.
+- The same cross-provider pattern seen on Anthropic showed up again on Ollama: the impossible "employee salary vs profit" chart was hallucinated in English but correctly called "sales vs profit" in Spanish, with no invented numbers. Catalan's Visualization agent also avoided the fabrication, but the Report Agent then wrote it up as "employee salary" anyway - so the honesty found lower in the pipeline didn't make it into the final report. Catalan's Report Agent also fabricated a complete, plausible-looking answer for a turn that had actually crashed with a technical error, and mislabeled raw sample rows as computed quartiles/median/outliers in another turn - the worst report-agent fabrications found anywhere in this project.
+
+Also went back through the whole repo - explanatory files and code comments - and rewrote the parts that read too polished or used complex words, so it reads like it was written by a student learning this, not a professional report. Checked the offline test suite after each change; all 116 still pass throughout.
+
+---
+
 # Phase 2 Completed
 
-The empirical evaluation is complete, including two real fixes found by
-the evaluation's own failure analysis and independently verified rather
-than just documented as limitations. Full results in
-`results_and_failure_analysis.md`.
+The evaluation is done, including two real fixes that were found while
+looking at the results, applied, and checked - not just written down as
+limitations. Full results in `results_and_failure_analysis.md`.

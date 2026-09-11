@@ -2,24 +2,24 @@
 src/eval/baselines/monolithic_agent.py
 
 A second, stronger baseline than src.eval.baselines.single_agent: ONE
-agent with access to all three real capabilities (SQL execution,
-statistics, chart rendering) via a single combined system prompt. It
-decides for itself, in one LLM call, which capability the question needs
-and with what parameters -- then the REAL underlying code executes it
-(src.core.db, src.agents.analysis.statistics, src.agents.viz.engine.render
--- the same code the specialized agents use, not a re-implementation).
+agent that has all three real capabilities (SQL, statistics, charts) in
+one combined system prompt. It decides for itself, in one LLM call,
+which capability the question needs and with what parameters - then the
+same real code the specialized agents use actually runs it
+(src.core.db, src.agents.analysis.statistics,
+src.agents.viz.engine.render - not a copy of that code).
 
-Why this baseline exists, distinct from the minimal single_agent
-baseline: the minimal baseline mostly measures "does having tools help
-at all" (SQL-only vs. real Python statistics is a large, almost
-guaranteed gap). This one holds capability constant -- it has the exact
-same tools as the four specialized agents combined -- and only varies
-the ARCHITECTURE: one agent deciding internally vs. a router + four
-specialized agents. If the multi-agent system still wins against this,
-that's a materially stronger claim about decomposition itself.
+Why this baseline exists, on top of the simple single_agent one: the
+simple baseline mostly shows "does having tools help at all" (SQL only
+vs. real Python statistics is a big, almost guaranteed gap). This one
+keeps the tools the same - it has the exact same tools as the four
+specialized agents put together - and only changes the architecture: one
+agent deciding by itself vs. a router plus four separate agents. If the
+multi-agent system still wins against this, that says something real
+about splitting the work up, not just about having tools.
 
-Self-correcting (like the real agents): a malformed action/spec is fed
-back as an error and retried, using the same shared retry loop.
+Self-correcting, like the real agents: a bad action/spec is fed back as
+an error and tried again, using the same shared retry loop.
 """
 from __future__ import annotations
 
@@ -46,17 +46,17 @@ from src.agents.analysis.prompts import SYSTEM_PROMPT as _ANALYSIS_PROMPT
 from src.agents.data_query.prompts import SYSTEM_PROMPT as _SQL_PROMPT
 from src.agents.viz.prompts import SYSTEM_PROMPT as _VIZ_PROMPT
 
-# Built by embedding the three real specialized agents' prompts VERBATIM
-# (imported, not retyped) rather than a hand-written summary. A summary
-# was tried first and was a real methodological flaw: it was ~206 words
-# vs. the real prompts' combined ~845 words, missing entire sections
-# (SQL's worked ranking examples, Viz's warning against EXTRACT()/
-# DATE_TRUNC()/MONTH()/YEAR(), Analysis's filter examples). If the
-# monolithic agent had underperformed with that version, the result
-# would have been uninterpretable -- unclear whether the gap was about
-# architecture (one agent vs. four) or just less detailed prompting.
-# Importing the real prompts also means this baseline can't silently
-# drift out of sync if the specialized prompts are edited later.
+# Built by copying in the three real specialized agents' prompts exactly
+# (imported, not retyped), instead of a hand-written summary. A summary
+# was tried first and it turned out to be a real mistake: it was about
+# 206 words vs. the real prompts' combined ~845 words, and it left out
+# whole parts (SQL's worked ranking examples, Viz's warning against
+# EXTRACT()/DATE_TRUNC()/MONTH()/YEAR(), Analysis's filter examples). If
+# the monolithic agent had done worse with that version, we couldn't
+# have told whether that was about the architecture (one agent vs. four)
+# or just a less detailed prompt. Importing the real prompts also means
+# this baseline can't quietly fall out of sync if the specialized
+# prompts get edited later.
 SYSTEM_PROMPT = f"""
 You are a data analysis assistant with THREE capabilities. For each
 question, decide which ONE capability best answers it.

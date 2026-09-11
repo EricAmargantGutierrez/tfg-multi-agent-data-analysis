@@ -1,23 +1,23 @@
 """
 src/eval/utils/warmup.py
 
-One throwaway call, through the EXACT SAME code path as the real timed
-calls about to follow, before timing anything for real.
+Makes one throwaway call through the exact same code path as the real
+timed calls, before any real timing starts.
 
-Matters most for local models (Ollama). Learned the hard way, twice:
-  1. A trivial "Say OK" call did NOT absorb the cold-start cost of a
-     real, longer, structured call -- the first real question still
-     took 177s vs 7-15s for the rest.
-  2. A single warm-up using run_data_query_core() only covered the Data Query Agent's
-     code path -- when correctness_benchmark.py moved on to the
-     Baseline and Monolithic sides (different functions), EACH one's
-     first call paid its own separate ~90s setup cost, because nothing
-     had warmed up THAT specific call shape yet.
+Matters most for local models (Ollama). Found out the hard way, twice:
+  1. A simple "Say OK" call did NOT cover the cold-start cost of a real,
+     longer, structured call - the first real question still took 177s
+     while the rest took 7-15s.
+  2. Warming up once with run_data_query_core() only covered the Data
+     Query Agent's code path - when correctness_benchmark.py moved on to
+     the Baseline and Monolithic sides (different functions), each one's
+     first call still paid its own ~90s setup cost, because nothing had
+     warmed up that specific kind of call yet.
 
-Conclusion: there isn't one universal "the model is warm now" state to
-reach with a single call. Each genuinely different call shape (different
-function, different code path) needs its OWN warm-up, immediately before
-its own timed loop starts.
+So there's no single "the model is warm now" you can reach with one
+call. Each genuinely different kind of call (different function,
+different code path) needs its own warm-up, right before its own timed
+loop starts.
 """
 import time
 

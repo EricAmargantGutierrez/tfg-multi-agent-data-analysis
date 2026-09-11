@@ -1,0 +1,6493 @@
+[
+  {
+    "id": 1,
+    "category": "analysis",
+    "task_type": "mean",
+    "difficulty": "easy",
+    "language": "es",
+    "question": "¿Cuál es el descuento medio concedido a los clientes?",
+    "question_en": "What is the average discount given to customers?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 13.539,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "mean",
+      "columns": [
+        "discount"
+      ],
+      "target": null,
+      "filters": [],
+      "sql": "SELECT discount FROM orders",
+      "result": {
+        "analysis": "mean",
+        "result": 0.1562027216329798
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 2,
+    "category": "analysis",
+    "task_type": "median",
+    "difficulty": "easy",
+    "language": "es",
+    "question": "¿Cuál es la mediana del beneficio?",
+    "question_en": "What is the median profit?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": false,
+    "latency_seconds": 35.9875,
+    "attempts": 3,
+    "retried": true,
+    "answer": {
+      "action": null,
+      "columns": null,
+      "rows": null,
+      "result": null,
+      "sql": null,
+      "error": "OperationalError: no such function: MEDIAN"
+    },
+    "error": "OperationalError: no such function: MEDIAN"
+  },
+  {
+    "id": 3,
+    "category": "analysis",
+    "task_type": "std",
+    "difficulty": "easy",
+    "language": "es",
+    "question": "¿Cuál es la desviación estándar de las ventas?",
+    "question_en": "What is the standard deviation of sales?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": false,
+    "latency_seconds": 35.6844,
+    "attempts": 3,
+    "retried": true,
+    "answer": {
+      "action": null,
+      "columns": null,
+      "rows": null,
+      "result": null,
+      "sql": null,
+      "error": "OperationalError: no such function: STD"
+    },
+    "error": "OperationalError: no such function: STD"
+  },
+  {
+    "id": 4,
+    "category": "analysis",
+    "task_type": "mean",
+    "difficulty": "medium",
+    "language": "es",
+    "question": "¿Cuál es el beneficio medio en la región West?",
+    "question_en": "What is the average profit in the West region?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 14.4871,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "average_profit"
+      ],
+      "rows": [
+        [
+          33.84903181392445
+        ]
+      ],
+      "sql": "SELECT AVG(profit) AS average_profit FROM orders WHERE region = 'West'",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 5,
+    "category": "analysis",
+    "task_type": "correlation",
+    "difficulty": "medium",
+    "language": "es",
+    "question": "¿Cuál es la correlación entre el descuento y el beneficio?",
+    "question_en": "What is the correlation between discount and profit?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 14.4637,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "correlation",
+      "columns": [
+        "discount",
+        "profit"
+      ],
+      "target": null,
+      "filters": [],
+      "sql": "SELECT discount, profit FROM orders",
+      "result": {
+        "analysis": "correlation",
+        "result": {
+          "correlation": -0.21948745637176847,
+          "p_value": 2.702294436198141e-109
+        }
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 6,
+    "category": "analysis",
+    "task_type": "variance",
+    "difficulty": "medium",
+    "language": "es",
+    "question": "¿Cuál es la varianza de la cantidad vendida en la categoría Technology?",
+    "question_en": "What is the variance of quantity sold in the Technology category?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": false,
+    "latency_seconds": 43.1676,
+    "attempts": 3,
+    "retried": true,
+    "answer": {
+      "action": null,
+      "columns": null,
+      "rows": null,
+      "result": null,
+      "sql": null,
+      "error": "OperationalError: no such function: VARIANCE"
+    },
+    "error": "OperationalError: no such function: VARIANCE"
+  },
+  {
+    "id": 7,
+    "category": "analysis",
+    "task_type": "ttest",
+    "difficulty": "medium",
+    "language": "es",
+    "question": "¿Hay una diferencia significativa en el beneficio entre los segmentos Consumer y Corporate?",
+    "question_en": "Is there a significant difference in profit between the Consumer and Corporate segments?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 21.2984,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "ttest",
+      "columns": [
+        "profit",
+        "segment"
+      ],
+      "target": null,
+      "filters": [],
+      "sql": "SELECT profit, segment FROM orders",
+      "result": {
+        "analysis": "ttest",
+        "result": {
+          "t_statistic": -0.8555511671728538,
+          "p_value": 0.3922774231363087,
+          "value_column": "profit",
+          "group_column": "segment",
+          "group_a": "Consumer",
+          "group_a_mean": 25.8368732806781,
+          "group_a_n": 5191,
+          "group_b": "Corporate",
+          "group_b_mean": 30.456666887417217,
+          "group_b_n": 3020
+        }
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 8,
+    "category": "analysis",
+    "task_type": "covariance",
+    "difficulty": "medium",
+    "language": "es",
+    "question": "¿Cuál es la covarianza entre la cantidad y el descuento?",
+    "question_en": "What is the covariance between quantity and discount?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 15.1036,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "covariance",
+      "columns": [
+        "quantity",
+        "discount"
+      ],
+      "target": null,
+      "filters": [],
+      "sql": "SELECT quantity, discount FROM orders",
+      "result": {
+        "analysis": "covariance",
+        "result": {
+          "covariance": 0.0039612052030577995
+        }
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 9,
+    "category": "analysis",
+    "task_type": "mean",
+    "difficulty": "medium",
+    "language": "es",
+    "question": "¿Cuál es la venta media en la región East para la categoría Furniture?",
+    "question_en": "What is the average sales in the East region for the Furniture category?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 18.0397,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "avg_sales"
+      ],
+      "rows": [
+        [
+          346.5743826955075
+        ]
+      ],
+      "sql": "SELECT AVG(sales) AS avg_sales FROM orders WHERE region = 'East' AND category = 'Furniture'",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 10,
+    "category": "analysis",
+    "task_type": "regression",
+    "difficulty": "hard",
+    "language": "es",
+    "question": "Ejecuta una regresión lineal que prediga el beneficio a partir de las ventas, el descuento y la cantidad.",
+    "question_en": "Run a linear regression predicting profit from sales, discount, and quantity.",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 21.617,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "regression",
+      "columns": [
+        "sales",
+        "discount",
+        "quantity",
+        "profit"
+      ],
+      "target": "profit",
+      "filters": [],
+      "sql": "SELECT sales, discount, quantity, profit FROM orders",
+      "result": {
+        "analysis": "regression",
+        "result": {
+          "coefficients": [
+            0.18001014387230668,
+            -233.45700112679995,
+            -2.962176486653817
+          ],
+          "intercept": 34.97212970801346,
+          "r2": 0.272724776926177,
+          "target": "profit",
+          "predictors": [
+            "sales",
+            "discount",
+            "quantity"
+          ]
+        }
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 11,
+    "category": "analysis",
+    "task_type": "pca",
+    "difficulty": "hard",
+    "language": "es",
+    "question": "Ejecuta un PCA sobre las ventas, la cantidad, el descuento y el beneficio.",
+    "question_en": "Run a PCA on sales, quantity, discount, and profit.",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 26.3601,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/efd3d68be4a74af0abd1854a60a50162.png",
+      "rows": [
+        {
+          "sales": 261.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 41.9136
+        },
+        {
+          "sales": 731.94,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 219.582
+        },
+        {
+          "sales": 14.62,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 6.8714
+        },
+        {
+          "sales": 957.5775,
+          "quantity": 5,
+          "discount": 0.45,
+          "profit": -383.031
+        },
+        {
+          "sales": 22.368,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 2.5164
+        },
+        {
+          "sales": 48.86,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 14.1694
+        },
+        {
+          "sales": 7.28,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 1.9656
+        },
+        {
+          "sales": 907.152,
+          "quantity": 6,
+          "discount": 0.2,
+          "profit": 90.7152
+        },
+        {
+          "sales": 18.504,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 5.7825
+        },
+        {
+          "sales": 114.9,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 34.47
+        },
+        {
+          "sales": 1706.184,
+          "quantity": 9,
+          "discount": 0.2,
+          "profit": 85.3092
+        },
+        {
+          "sales": 911.424,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 68.3568
+        },
+        {
+          "sales": 15.552,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 5.4432
+        },
+        {
+          "sales": 407.976,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 132.5922
+        },
+        {
+          "sales": 68.81,
+          "quantity": 5,
+          "discount": 0.8,
+          "profit": -123.858
+        },
+        {
+          "sales": 2.544,
+          "quantity": 3,
+          "discount": 0.8,
+          "profit": -3.816
+        },
+        {
+          "sales": 665.88,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 13.3176
+        },
+        {
+          "sales": 55.5,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 9.99
+        },
+        {
+          "sales": 8.56,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 2.4824
+        },
+        {
+          "sales": 213.48,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 16.011
+        },
+        {
+          "sales": 22.72,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 7.384
+        },
+        {
+          "sales": 19.46,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 5.0596
+        },
+        {
+          "sales": 60.34,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 15.6884
+        },
+        {
+          "sales": 71.372,
+          "quantity": 2,
+          "discount": 0.3,
+          "profit": -1.0196
+        },
+        {
+          "sales": 1044.63,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 240.2649
+        },
+        {
+          "sales": 11.648,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 4.2224
+        },
+        {
+          "sales": 90.57,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 11.7741
+        },
+        {
+          "sales": 3083.43,
+          "quantity": 7,
+          "discount": 0.5,
+          "profit": -1665.0522
+        },
+        {
+          "sales": 9.618,
+          "quantity": 2,
+          "discount": 0.7,
+          "profit": -7.0532
+        },
+        {
+          "sales": 124.2,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 15.525
+        },
+        {
+          "sales": 3.264,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 1.1016
+        },
+        {
+          "sales": 86.304,
+          "quantity": 6,
+          "discount": 0.2,
+          "profit": 9.7092
+        },
+        {
+          "sales": 6.858,
+          "quantity": 6,
+          "discount": 0.7,
+          "profit": -5.715
+        },
+        {
+          "sales": 15.76,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 3.546
+        },
+        {
+          "sales": 29.472,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 9.9468
+        },
+        {
+          "sales": 1097.544,
+          "quantity": 7,
+          "discount": 0.2,
+          "profit": 123.4737
+        },
+        {
+          "sales": 190.92,
+          "quantity": 5,
+          "discount": 0.6,
+          "profit": -147.963
+        },
+        {
+          "sales": 113.328,
+          "quantity": 9,
+          "discount": 0.2,
+          "profit": 35.415
+        },
+        {
+          "sales": 532.3992,
+          "quantity": 3,
+          "discount": 0.32,
+          "profit": -46.9764
+        },
+        {
+          "sales": 212.058,
+          "quantity": 3,
+          "discount": 0.3,
+          "profit": -15.147
+        },
+        {
+          "sales": 371.168,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 41.7564
+        },
+        {
+          "sales": 147.168,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 16.5564
+        },
+        {
+          "sales": 77.88,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 3.894
+        },
+        {
+          "sales": 95.616,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 9.5616
+        },
+        {
+          "sales": 45.98,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 19.7714
+        },
+        {
+          "sales": 17.46,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 8.2062
+        },
+        {
+          "sales": 211.96,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 8.4784
+        },
+        {
+          "sales": 45.0,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 4.95
+        },
+        {
+          "sales": 21.8,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 6.104
+        },
+        {
+          "sales": 38.22,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 17.9634
+        },
+        {
+          "sales": 75.18,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 35.3346
+        },
+        {
+          "sales": 6.16,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 2.9568
+        },
+        {
+          "sales": 89.99,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 17.0981
+        },
+        {
+          "sales": 15.26,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 6.2566
+        },
+        {
+          "sales": 1029.95,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 298.6855
+        },
+        {
+          "sales": 208.56,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 52.14
+        },
+        {
+          "sales": 32.4,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 15.552
+        },
+        {
+          "sales": 319.41,
+          "quantity": 5,
+          "discount": 0.1,
+          "profit": 7.098
+        },
+        {
+          "sales": 14.56,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 6.9888
+        },
+        {
+          "sales": 30.0,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 3.3
+        },
+        {
+          "sales": 48.48,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 16.362
+        },
+        {
+          "sales": 1.68,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 0.84
+        },
+        {
+          "sales": 13.98,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 6.1512
+        },
+        {
+          "sales": 25.824,
+          "quantity": 6,
+          "discount": 0.2,
+          "profit": 9.3612
+        },
+        {
+          "sales": 146.73,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 68.9631
+        },
+        {
+          "sales": 79.76,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 22.3328
+        },
+        {
+          "sales": 213.115,
+          "quantity": 5,
+          "discount": 0.3,
+          "profit": -15.2225
+        },
+        {
+          "sales": 1113.024,
+          "quantity": 8,
+          "discount": 0.2,
+          "profit": 111.3024
+        },
+        {
+          "sales": 167.968,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 62.988
+        },
+        {
+          "sales": 75.88,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 35.6636
+        },
+        {
+          "sales": 4.616,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 1.731
+        },
+        {
+          "sales": 19.05,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 8.763
+        },
+        {
+          "sales": 831.936,
+          "quantity": 8,
+          "discount": 0.2,
+          "profit": -114.3912
+        },
+        {
+          "sales": 97.04,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 1.213
+        },
+        {
+          "sales": 72.784,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": -18.196
+        },
+        {
+          "sales": 1.248,
+          "quantity": 3,
+          "discount": 0.8,
+          "profit": -1.9344
+        },
+        {
+          "sales": 9.708,
+          "quantity": 3,
+          "discount": 0.6,
+          "profit": -5.8248
+        },
+        {
+          "sales": 27.24,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 2.724
+        },
+        {
+          "sales": 19.3,
+          "quantity": 5,
+          "discount": 0.6,
+          "profit": -14.475
+        },
+        {
+          "sales": 208.16,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 56.2032
+        },
+        {
+          "sales": 16.74,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 8.0352
+        },
+        {
+          "sales": 14.9,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 4.172
+        },
+        {
+          "sales": 21.39,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 6.2031
+        },
+        {
+          "sales": 200.984,
+          "quantity": 7,
+          "discount": 0.2,
+          "profit": 62.8075
+        },
+        {
+          "sales": 230.376,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": -48.9549
+        },
+        {
+          "sales": 301.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 33.2156
+        },
+        {
+          "sales": 19.99,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 6.7966
+        },
+        {
+          "sales": 6.16,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 2.9568
+        },
+        {
+          "sales": 158.368,
+          "quantity": 7,
+          "discount": 0.2,
+          "profit": 13.8572
+        },
+        {
+          "sales": 20.1,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 6.633
+        },
+        {
+          "sales": 73.584,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 8.2782
+        },
+        {
+          "sales": 6.48,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 3.1104
+        },
+        {
+          "sales": 12.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 6.2208
+        },
+        {
+          "sales": 53.34,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 16.5354
+        },
+        {
+          "sales": 32.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 16.1504
+        },
+        {
+          "sales": 5.682,
+          "quantity": 1,
+          "discount": 0.7,
+          "profit": -3.788
+        },
+        {
+          "sales": 96.53,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 40.5426
+        },
+        {
+          "sales": 51.312,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 17.9592
+        },
+        {
+          "sales": 77.88,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 22.5852
+        },
+        {
+          "sales": 64.624,
+          "quantity": 7,
+          "discount": 0.2,
+          "profit": 22.6184
+        },
+        {
+          "sales": 95.976,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": -10.7973
+        },
+        {
+          "sales": 1.788,
+          "quantity": 3,
+          "discount": 0.8,
+          "profit": -3.0396
+        },
+        {
+          "sales": 23.92,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 11.7208
+        },
+        {
+          "sales": 238.896,
+          "quantity": 6,
+          "discount": 0.2,
+          "profit": -26.8758
+        },
+        {
+          "sales": 102.36,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": -3.8385
+        },
+        {
+          "sales": 36.882,
+          "quantity": 3,
+          "discount": 0.7,
+          "profit": -25.8174
+        },
+        {
+          "sales": 74.112,
+          "quantity": 8,
+          "discount": 0.2,
+          "profit": 17.6016
+        },
+        {
+          "sales": 27.992,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 2.0994
+        },
+        {
+          "sales": 3.304,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 1.0738
+        },
+        {
+          "sales": 339.96,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 67.992
+        },
+        {
+          "sales": 41.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 10.9096
+        },
+        {
+          "sales": 75.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 22.788
+        },
+        {
+          "sales": 27.24,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 13.3476
+        },
+        {
+          "sales": 40.096,
+          "quantity": 14,
+          "discount": 0.2,
+          "profit": 14.5348
+        },
+        {
+          "sales": 4.72,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 1.652
+        },
+        {
+          "sales": 23.976,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 7.4925
+        },
+        {
+          "sales": 130.464,
+          "quantity": 6,
+          "discount": 0.2,
+          "profit": 44.0316
+        },
+        {
+          "sales": 787.53,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 165.3813
+        },
+        {
+          "sales": 157.794,
+          "quantity": 1,
+          "discount": 0.7,
+          "profit": -115.7156
+        },
+        {
+          "sales": 47.04,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 18.3456
+        },
+        {
+          "sales": 30.84,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 13.878
+        },
+        {
+          "sales": 226.56,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 63.4368
+        },
+        {
+          "sales": 115.02,
+          "quantity": 9,
+          "discount": 0.0,
+          "profit": 51.759
+        },
+        {
+          "sales": 68.04,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 19.7316
+        },
+        {
+          "sales": 600.558,
+          "quantity": 3,
+          "discount": 0.3,
+          "profit": -8.5794
+        },
+        {
+          "sales": 617.7,
+          "quantity": 6,
+          "discount": 0.5,
+          "profit": -407.682
+        },
+        {
+          "sales": 2.388,
+          "quantity": 2,
+          "discount": 0.7,
+          "profit": -1.8308
+        },
+        {
+          "sales": 243.992,
+          "quantity": 7,
+          "discount": 0.2,
+          "profit": 30.499
+        },
+        {
+          "sales": 81.424,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": -9.1602
+        },
+        {
+          "sales": 238.56,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 26.2416
+        },
+        {
+          "sales": 59.97,
+          "quantity": 5,
+          "discount": 0.4,
+          "profit": -11.994
+        },
+        {
+          "sales": 78.304,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 29.364
+        },
+        {
+          "sales": 21.456,
+          "quantity": 9,
+          "discount": 0.2,
+          "profit": 6.9732
+        },
+        {
+          "sales": 20.04,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 9.6192
+        },
+        {
+          "sales": 35.44,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 16.6568
+        },
+        {
+          "sales": 11.52,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 3.456
+        },
+        {
+          "sales": 4.02,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 1.9698
+        },
+        {
+          "sales": 76.176,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 26.6616
+        },
+        {
+          "sales": 65.88,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 18.4464
+        },
+        {
+          "sales": 43.12,
+          "quantity": 14,
+          "discount": 0.0,
+          "profit": 20.6976
+        },
+        {
+          "sales": 82.8,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 10.35
+        },
+        {
+          "sales": 8.82,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 2.3814
+        },
+        {
+          "sales": 10.86,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 5.1042
+        },
+        {
+          "sales": 143.7,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 68.976
+        },
+        {
+          "sales": 839.43,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 218.2518
+        },
+        {
+          "sales": 671.93,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 20.1579
+        },
+        {
+          "sales": 93.888,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 12.9096
+        },
+        {
+          "sales": 384.45,
+          "quantity": 11,
+          "discount": 0.0,
+          "profit": 103.8015
+        },
+        {
+          "sales": 149.97,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 5.9988
+        },
+        {
+          "sales": 1951.84,
+          "quantity": 8,
+          "discount": 0.0,
+          "profit": 585.552
+        },
+        {
+          "sales": 171.55,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 80.6285
+        },
+        {
+          "sales": 157.92,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 17.766
+        },
+        {
+          "sales": 203.184,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 15.2388
+        },
+        {
+          "sales": 58.38,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 26.271
+        },
+        {
+          "sales": 105.52,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 48.5392
+        },
+        {
+          "sales": 80.88,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 21.0288
+        },
+        {
+          "sales": 6.63,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 1.7901
+        },
+        {
+          "sales": 457.568,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 51.4764
+        },
+        {
+          "sales": 14.62,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 6.8714
+        },
+        {
+          "sales": 944.93,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 236.2325
+        },
+        {
+          "sales": 5.98,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 2.691
+        },
+        {
+          "sales": 54.384,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 1.3596
+        },
+        {
+          "sales": 28.4,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 13.348
+        },
+        {
+          "sales": 27.68,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 9.688
+        },
+        {
+          "sales": 9.936,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 2.7324
+        },
+        {
+          "sales": 8159.952,
+          "quantity": 8,
+          "discount": 0.4,
+          "profit": -1359.992
+        },
+        {
+          "sales": 275.928,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": -58.6347
+        },
+        {
+          "sales": 1740.06,
+          "quantity": 9,
+          "discount": 0.3,
+          "profit": -24.858
+        },
+        {
+          "sales": 32.064,
+          "quantity": 6,
+          "discount": 0.2,
+          "profit": 6.8136
+        },
+        {
+          "sales": 177.98,
+          "quantity": 5,
+          "discount": 0.8,
+          "profit": -453.849
+        },
+        {
+          "sales": 143.976,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 8.9985
+        },
+        {
+          "sales": 20.94,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 9.8418
+        },
+        {
+          "sales": 110.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 53.2608
+        },
+        {
+          "sales": 340.144,
+          "quantity": 7,
+          "discount": 0.2,
+          "profit": 21.259
+        },
+        {
+          "sales": 52.448,
+          "quantity": 2,
+          "discount": 0.8,
+          "profit": -131.12
+        },
+        {
+          "sales": 20.16,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 6.552
+        },
+        {
+          "sales": 97.264,
+          "quantity": 4,
+          "discount": 0.8,
+          "profit": -243.16
+        },
+        {
+          "sales": 396.802,
+          "quantity": 7,
+          "discount": 0.3,
+          "profit": -11.3372
+        },
+        {
+          "sales": 15.88,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": -3.7715
+        },
+        {
+          "sales": 3.28,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 1.4104
+        },
+        {
+          "sales": 24.816,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 1.8612
+        },
+        {
+          "sales": 408.744,
+          "quantity": 7,
+          "discount": 0.2,
+          "profit": 76.6395
+        },
+        {
+          "sales": 503.96,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 131.0296
+        },
+        {
+          "sales": 149.95,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 41.986
+        },
+        {
+          "sales": 29.0,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 7.25
+        },
+        {
+          "sales": 7.16,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 3.4368
+        },
+        {
+          "sales": 176.8,
+          "quantity": 8,
+          "discount": 0.0,
+          "profit": 22.984
+        },
+        {
+          "sales": 37.224,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 3.7224
+        },
+        {
+          "sales": 20.016,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 6.255
+        },
+        {
+          "sales": 899.136,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 112.392
+        },
+        {
+          "sales": 71.76,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 20.0928
+        },
+        {
+          "sales": 51.84,
+          "quantity": 8,
+          "discount": 0.0,
+          "profit": 24.8832
+        },
+        {
+          "sales": 626.352,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 46.9764
+        },
+        {
+          "sales": 19.9,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 6.567
+        },
+        {
+          "sales": 14.28,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 6.7116
+        },
+        {
+          "sales": 7.408,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 1.2038
+        },
+        {
+          "sales": 6.048,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 1.5876
+        },
+        {
+          "sales": 46.26,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 12.0276
+        },
+        {
+          "sales": 2.946,
+          "quantity": 2,
+          "discount": 0.7,
+          "profit": -2.2586
+        },
+        {
+          "sales": 16.056,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 5.8203
+        },
+        {
+          "sales": 21.744,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 6.795
+        },
+        {
+          "sales": 218.75,
+          "quantity": 2,
+          "discount": 0.5,
+          "profit": -161.875
+        },
+        {
+          "sales": 2.6,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 0.2925
+        },
+        {
+          "sales": 66.284,
+          "quantity": 2,
+          "discount": 0.8,
+          "profit": -178.9668
+        },
+        {
+          "sales": 35.168,
+          "quantity": 7,
+          "discount": 0.2,
+          "profit": 9.6712
+        },
+        {
+          "sales": 444.768,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 44.4768
+        },
+        {
+          "sales": 83.92,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 5.8744
+        },
+        {
+          "sales": 131.98,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 35.6346
+        },
+        {
+          "sales": 15.92,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 7.4824
+        },
+        {
+          "sales": 52.29,
+          "quantity": 9,
+          "discount": 0.0,
+          "profit": 16.2099
+        },
+        {
+          "sales": 91.99,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 3.6796
+        },
+        {
+          "sales": 20.8,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 6.5
+        },
+        {
+          "sales": 23.68,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 8.88
+        },
+        {
+          "sales": 452.45,
+          "quantity": 5,
+          "discount": 0.5,
+          "profit": -244.323
+        },
+        {
+          "sales": 62.982,
+          "quantity": 3,
+          "discount": 0.4,
+          "profit": -14.6958
+        },
+        {
+          "sales": 1188.0,
+          "quantity": 9,
+          "discount": 0.7,
+          "profit": -950.4
+        },
+        {
+          "sales": 89.584,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 4.4792
+        },
+        {
+          "sales": 93.06,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 26.0568
+        },
+        {
+          "sales": 302.376,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 22.6782
+        },
+        {
+          "sales": 5.584,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 1.8148
+        },
+        {
+          "sales": 22.704,
+          "quantity": 6,
+          "discount": 0.2,
+          "profit": 8.2302
+        },
+        {
+          "sales": 19.776,
+          "quantity": 4,
+          "discount": 0.7,
+          "profit": -13.8432
+        },
+        {
+          "sales": 72.704,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 19.0848
+        },
+        {
+          "sales": 479.988,
+          "quantity": 4,
+          "discount": 0.7,
+          "profit": -383.9904
+        },
+        {
+          "sales": 27.168,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 2.7168
+        },
+        {
+          "sales": 2.2,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 0.968
+        },
+        {
+          "sales": 622.45,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 136.939
+        },
+        {
+          "sales": 21.98,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 0.2198
+        },
+        {
+          "sales": 161.568,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": -28.2744
+        },
+        {
+          "sales": 389.696,
+          "quantity": 8,
+          "discount": 0.2,
+          "profit": 43.8408
+        },
+        {
+          "sales": 18.648,
+          "quantity": 7,
+          "discount": 0.7,
+          "profit": -12.432
+        },
+        {
+          "sales": 233.86,
+          "quantity": 2,
+          "discount": 0.45,
+          "profit": -102.048
+        },
+        {
+          "sales": 620.6145,
+          "quantity": 3,
+          "discount": 0.45,
+          "profit": -248.2458
+        },
+        {
+          "sales": 5.328,
+          "quantity": 2,
+          "discount": 0.7,
+          "profit": -3.552
+        },
+        {
+          "sales": 258.072,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 0.0
+        },
+        {
+          "sales": 617.976,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": -7.7247
+        },
+        {
+          "sales": 10.56,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 4.752
+        },
+        {
+          "sales": 25.92,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 9.396
+        },
+        {
+          "sales": 419.68,
+          "quantity": 5,
+          "discount": 0.6,
+          "profit": -356.728
+        },
+        {
+          "sales": 11.688,
+          "quantity": 3,
+          "discount": 0.6,
+          "profit": -4.6752
+        },
+        {
+          "sales": 31.984,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 11.1944
+        },
+        {
+          "sales": 177.225,
+          "quantity": 5,
+          "discount": 0.5,
+          "profit": -120.513
+        },
+        {
+          "sales": 4.044,
+          "quantity": 3,
+          "discount": 0.6,
+          "profit": -2.8308
+        },
+        {
+          "sales": 7.408,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 1.2038
+        },
+        {
+          "sales": 2001.86,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 580.5394
+        },
+        {
+          "sales": 166.72,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 41.68
+        },
+        {
+          "sales": 47.88,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 23.94
+        },
+        {
+          "sales": 1503.25,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 496.0725
+        },
+        {
+          "sales": 25.92,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 12.4416
+        },
+        {
+          "sales": 321.568,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 28.1372
+        },
+        {
+          "sales": 7.61,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 3.5767
+        },
+        {
+          "sales": 3347.37,
+          "quantity": 13,
+          "discount": 0.0,
+          "profit": 636.0003
+        },
+        {
+          "sales": 80.58,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 22.5624
+        },
+        {
+          "sales": 361.92,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 162.864
+        },
+        {
+          "sales": 12.132,
+          "quantity": 9,
+          "discount": 0.6,
+          "profit": -8.4924
+        },
+        {
+          "sales": 82.368,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": -19.5624
+        },
+        {
+          "sales": 53.92,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 4.044
+        },
+        {
+          "sales": 647.904,
+          "quantity": 6,
+          "discount": 0.2,
+          "profit": 56.6916
+        },
+        {
+          "sales": 20.37,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 6.9258
+        },
+        {
+          "sales": 221.55,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 6.6465
+        },
+        {
+          "sales": 17.52,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 6.132
+        },
+        {
+          "sales": 1.624,
+          "quantity": 2,
+          "discount": 0.8,
+          "profit": -4.466
+        },
+        {
+          "sales": 3059.982,
+          "quantity": 3,
+          "discount": 0.4,
+          "profit": -509.997
+        },
+        {
+          "sales": 2519.958,
+          "quantity": 7,
+          "discount": 0.4,
+          "profit": -251.9958
+        },
+        {
+          "sales": 328.224,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 28.7196
+        },
+        {
+          "sales": 79.9,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 35.156
+        },
+        {
+          "sales": 14.016,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 4.7304
+        },
+        {
+          "sales": 7.56,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 0.3024
+        },
+        {
+          "sales": 37.208,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": -7.4416
+        },
+        {
+          "sales": 57.576,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 21.591
+        },
+        {
+          "sales": 725.84,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 210.4936
+        },
+        {
+          "sales": 209.93,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 92.3692
+        },
+        {
+          "sales": 5.28,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 2.3232
+        },
+        {
+          "sales": 10.92,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 4.095
+        },
+        {
+          "sales": 8.82,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 4.0572
+        },
+        {
+          "sales": 5.98,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 1.5548
+        },
+        {
+          "sales": 11.648,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 4.0768
+        },
+        {
+          "sales": 18.176,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 5.9072
+        },
+        {
+          "sales": 59.712,
+          "quantity": 6,
+          "discount": 0.2,
+          "profit": 5.9712
+        },
+        {
+          "sales": 24.84,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 8.694
+        },
+        {
+          "sales": 2.08,
+          "quantity": 5,
+          "discount": 0.8,
+          "profit": -3.432
+        },
+        {
+          "sales": 1114.4,
+          "quantity": 7,
+          "discount": 0.2,
+          "profit": 376.11
+        },
+        {
+          "sales": 1038.84,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 51.942
+        },
+        {
+          "sales": 141.76,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 47.844
+        },
+        {
+          "sales": 239.8,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 47.96
+        },
+        {
+          "sales": 31.104,
+          "quantity": 6,
+          "discount": 0.2,
+          "profit": 10.8864
+        },
+        {
+          "sales": 254.058,
+          "quantity": 7,
+          "discount": 0.7,
+          "profit": -169.372
+        },
+        {
+          "sales": 194.528,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 24.316
+        },
+        {
+          "sales": 961.48,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": -204.3145
+        },
+        {
+          "sales": 19.096,
+          "quantity": 7,
+          "discount": 0.2,
+          "profit": 6.6836
+        },
+        {
+          "sales": 18.496,
+          "quantity": 8,
+          "discount": 0.2,
+          "profit": 6.2424
+        },
+        {
+          "sales": 255.984,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 54.3966
+        },
+        {
+          "sales": 86.97,
+          "quantity": 3,
+          "discount": 0.5,
+          "profit": -48.7032
+        },
+        {
+          "sales": 300.416,
+          "quantity": 8,
+          "discount": 0.2,
+          "profit": 78.8592
+        },
+        {
+          "sales": 230.352,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 20.1558
+        },
+        {
+          "sales": 218.352,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": -24.5646
+        },
+        {
+          "sales": 78.6,
+          "quantity": 5,
+          "discount": 0.7,
+          "profit": -62.88
+        },
+        {
+          "sales": 27.552,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 9.2988
+        },
+        {
+          "sales": 32.4,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 15.552
+        },
+        {
+          "sales": 1082.48,
+          "quantity": 8,
+          "discount": 0.0,
+          "profit": 10.8248
+        },
+        {
+          "sales": 56.91,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 27.3168
+        },
+        {
+          "sales": 77.6,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 38.024
+        },
+        {
+          "sales": 14.28,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 6.5688
+        },
+        {
+          "sales": 219.075,
+          "quantity": 3,
+          "discount": 0.5,
+          "profit": -131.445
+        },
+        {
+          "sales": 26.8,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 12.864
+        },
+        {
+          "sales": 9.84,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 2.8536
+        },
+        {
+          "sales": 45.48,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 20.9208
+        },
+        {
+          "sales": 289.2,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 83.868
+        },
+        {
+          "sales": 4.89,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 2.0049
+        },
+        {
+          "sales": 15.136,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 3.5948
+        },
+        {
+          "sales": 466.768,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 52.5114
+        },
+        {
+          "sales": 15.232,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 1.7136
+        },
+        {
+          "sales": 6.264,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 2.0358
+        },
+        {
+          "sales": 87.54,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 37.6422
+        },
+        {
+          "sales": 178.384,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 22.298
+        },
+        {
+          "sales": 15.552,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 5.4432
+        },
+        {
+          "sales": 99.136,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 8.6744
+        },
+        {
+          "sales": 135.882,
+          "quantity": 1,
+          "discount": 0.1,
+          "profit": 24.1568
+        },
+        {
+          "sales": 3991.98,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 1995.99
+        },
+        {
+          "sales": 275.94,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 80.0226
+        },
+        {
+          "sales": 360.0,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 129.6
+        },
+        {
+          "sales": 43.57,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 13.071
+        },
+        {
+          "sales": 7.16,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 3.58
+        },
+        {
+          "sales": 251.52,
+          "quantity": 6,
+          "discount": 0.2,
+          "profit": 81.744
+        },
+        {
+          "sales": 99.99,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 34.9965
+        },
+        {
+          "sales": 15.992,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 0.9995
+        },
+        {
+          "sales": 290.898,
+          "quantity": 3,
+          "discount": 0.4,
+          "profit": -67.8762
+        },
+        {
+          "sales": 54.224,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 3.389
+        },
+        {
+          "sales": 786.744,
+          "quantity": 4,
+          "discount": 0.3,
+          "profit": -258.5016
+        },
+        {
+          "sales": 100.24,
+          "quantity": 10,
+          "discount": 0.2,
+          "profit": 33.831
+        },
+        {
+          "sales": 37.764,
+          "quantity": 6,
+          "discount": 0.7,
+          "profit": -27.6936
+        },
+        {
+          "sales": 82.8,
+          "quantity": 2,
+          "discount": 0.4,
+          "profit": -20.7
+        },
+        {
+          "sales": 20.724,
+          "quantity": 2,
+          "discount": 0.7,
+          "profit": -13.816
+        },
+        {
+          "sales": 4.896,
+          "quantity": 3,
+          "discount": 0.7,
+          "profit": -3.4272
+        },
+        {
+          "sales": 4.752,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 1.6038
+        },
+        {
+          "sales": 959.984,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 335.9944
+        },
+        {
+          "sales": 14.368,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 4.49
+        },
+        {
+          "sales": 7.712,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 2.7956
+        },
+        {
+          "sales": 698.352,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": -17.4588
+        },
+        {
+          "sales": 4.96,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 2.3312
+        },
+        {
+          "sales": 17.856,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 1.116
+        },
+        {
+          "sales": 509.97,
+          "quantity": 10,
+          "discount": 0.7,
+          "profit": -407.976
+        },
+        {
+          "sales": 30.992,
+          "quantity": 13,
+          "discount": 0.2,
+          "profit": 10.0724
+        },
+        {
+          "sales": 71.928,
+          "quantity": 12,
+          "discount": 0.4,
+          "profit": 8.3916
+        },
+        {
+          "sales": 88.8,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": -2.22
+        },
+        {
+          "sales": 47.976,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 4.7976
+        },
+        {
+          "sales": 7.56,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 3.0996
+        },
+        {
+          "sales": 24.56,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 11.5432
+        },
+        {
+          "sales": 12.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 4.1472
+        },
+        {
+          "sales": 6.79,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 2.3086
+        },
+        {
+          "sales": 24.56,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 11.5432
+        },
+        {
+          "sales": 3.048,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 1.0668
+        },
+        {
+          "sales": 49.12,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 23.0864
+        },
+        {
+          "sales": 4355.168,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 1415.4296
+        },
+        {
+          "sales": 388.704,
+          "quantity": 6,
+          "discount": 0.2,
+          "profit": -4.8588
+        },
+        {
+          "sales": 8.26,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 3.7996
+        },
+        {
+          "sales": 17.04,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 6.9864
+        },
+        {
+          "sales": 34.4,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 15.824
+        },
+        {
+          "sales": 36.24,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 11.325
+        },
+        {
+          "sales": 647.84,
+          "quantity": 8,
+          "discount": 0.0,
+          "profit": 168.4384
+        },
+        {
+          "sales": 20.7,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 9.936
+        },
+        {
+          "sales": 20.7,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 9.936
+        },
+        {
+          "sales": 488.646,
+          "quantity": 3,
+          "discount": 0.1,
+          "profit": 86.8704
+        },
+        {
+          "sales": 5.56,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 1.4456
+        },
+        {
+          "sales": 47.12,
+          "quantity": 8,
+          "discount": 0.0,
+          "profit": 20.7328
+        },
+        {
+          "sales": 211.96,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 8.4784
+        },
+        {
+          "sales": 23.2,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 10.44
+        },
+        {
+          "sales": 7.36,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 0.1472
+        },
+        {
+          "sales": 104.79,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 29.3412
+        },
+        {
+          "sales": 1043.92,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 271.4192
+        },
+        {
+          "sales": 25.92,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 9.396
+        },
+        {
+          "sales": 53.424,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 4.6746
+        },
+        {
+          "sales": 8.16,
+          "quantity": 5,
+          "discount": 0.7,
+          "profit": -5.712
+        },
+        {
+          "sales": 1023.936,
+          "quantity": 8,
+          "discount": 0.2,
+          "profit": 179.1888
+        },
+        {
+          "sales": 9.24,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 0.924
+        },
+        {
+          "sales": 479.04,
+          "quantity": 10,
+          "discount": 0.2,
+          "profit": -29.94
+        },
+        {
+          "sales": 99.136,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 30.98
+        },
+        {
+          "sales": 1488.424,
+          "quantity": 7,
+          "discount": 0.3,
+          "profit": -297.6848
+        },
+        {
+          "sales": 8.652,
+          "quantity": 3,
+          "discount": 0.8,
+          "profit": -20.3322
+        },
+        {
+          "sales": 23.832,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 2.6811
+        },
+        {
+          "sales": 12.176,
+          "quantity": 4,
+          "discount": 0.8,
+          "profit": -18.8728
+        },
+        {
+          "sales": 50.96,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 25.48
+        },
+        {
+          "sales": 49.536,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 17.3376
+        },
+        {
+          "sales": 41.9,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 8.799
+        },
+        {
+          "sales": 375.4575,
+          "quantity": 3,
+          "discount": 0.45,
+          "profit": -157.0095
+        },
+        {
+          "sales": 83.976,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": -1.0497
+        },
+        {
+          "sales": 482.34,
+          "quantity": 4,
+          "discount": 0.7,
+          "profit": -337.638
+        },
+        {
+          "sales": 2.96,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 0.777
+        },
+        {
+          "sales": 2.624,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 0.4264
+        },
+        {
+          "sales": 23.36,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 7.884
+        },
+        {
+          "sales": 39.98,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 13.5932
+        },
+        {
+          "sales": 246.384,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 27.7182
+        },
+        {
+          "sales": 1799.97,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 701.9883
+        },
+        {
+          "sales": 12.462,
+          "quantity": 3,
+          "discount": 0.8,
+          "profit": -20.5623
+        },
+        {
+          "sales": 75.792,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 25.5798
+        },
+        {
+          "sales": 49.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 9.4924
+        },
+        {
+          "sales": 12.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 6.2208
+        },
+        {
+          "sales": 70.12,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 21.036
+        },
+        {
+          "sales": 35.952,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 3.5952
+        },
+        {
+          "sales": 2396.2656,
+          "quantity": 4,
+          "discount": 0.32,
+          "profit": -317.1528
+        },
+        {
+          "sales": 131.136,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": -32.784
+        },
+        {
+          "sales": 57.584,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 0.7198
+        },
+        {
+          "sales": 9.568,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 3.4684
+        },
+        {
+          "sales": 39.072,
+          "quantity": 6,
+          "discount": 0.2,
+          "profit": 9.768
+        },
+        {
+          "sales": 35.91,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 9.6957
+        },
+        {
+          "sales": 179.95,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 37.7895
+        },
+        {
+          "sales": 1199.976,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 434.9913
+        },
+        {
+          "sales": 27.15,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 13.3035
+        },
+        {
+          "sales": 1004.024,
+          "quantity": 7,
+          "discount": 0.2,
+          "profit": -112.9527
+        },
+        {
+          "sales": 9.68,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 4.6464
+        },
+        {
+          "sales": 28.35,
+          "quantity": 9,
+          "discount": 0.0,
+          "profit": 13.608
+        },
+        {
+          "sales": 55.98,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 27.4302
+        },
+        {
+          "sales": 1336.829,
+          "quantity": 13,
+          "discount": 0.15,
+          "profit": 31.4548
+        },
+        {
+          "sales": 113.568,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": -18.4548
+        },
+        {
+          "sales": 139.86,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 65.7342
+        },
+        {
+          "sales": 307.136,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 26.8744
+        },
+        {
+          "sales": 95.92,
+          "quantity": 8,
+          "discount": 0.0,
+          "profit": 25.8984
+        },
+        {
+          "sales": 383.8,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 38.38
+        },
+        {
+          "sales": 5.78,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 2.8322
+        },
+        {
+          "sales": 9.32,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 2.7028
+        },
+        {
+          "sales": 15.25,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 7.015
+        },
+        {
+          "sales": 196.752,
+          "quantity": 6,
+          "discount": 0.2,
+          "profit": 56.5662
+        },
+        {
+          "sales": 56.56,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 14.7056
+        },
+        {
+          "sales": 32.7,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 8.502
+        },
+        {
+          "sales": 866.4,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 225.264
+        },
+        {
+          "sales": 28.4,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 11.076
+        },
+        {
+          "sales": 287.92,
+          "quantity": 8,
+          "discount": 0.0,
+          "profit": 138.2016
+        },
+        {
+          "sales": 69.99,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 30.0957
+        },
+        {
+          "sales": 6.672,
+          "quantity": 6,
+          "discount": 0.2,
+          "profit": 0.5004
+        },
+        {
+          "sales": 189.588,
+          "quantity": 2,
+          "discount": 0.7,
+          "profit": -145.3508
+        },
+        {
+          "sales": 408.744,
+          "quantity": 7,
+          "discount": 0.2,
+          "profit": 76.6395
+        },
+        {
+          "sales": 291.96,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 54.7425
+        },
+        {
+          "sales": 4.768,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": -0.7748
+        },
+        {
+          "sales": 714.3,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 207.147
+        },
+        {
+          "sales": 4.812,
+          "quantity": 2,
+          "discount": 0.7,
+          "profit": -3.6892
+        },
+        {
+          "sales": 247.8,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": -18.585
+        },
+        {
+          "sales": 1007.979,
+          "quantity": 3,
+          "discount": 0.3,
+          "profit": 43.1991
+        },
+        {
+          "sales": 313.488,
+          "quantity": 7,
+          "discount": 0.2,
+          "profit": 113.6394
+        },
+        {
+          "sales": 31.872,
+          "quantity": 8,
+          "discount": 0.2,
+          "profit": 11.5536
+        },
+        {
+          "sales": 207.846,
+          "quantity": 3,
+          "discount": 0.1,
+          "profit": 2.3094
+        },
+        {
+          "sales": 12.22,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 3.666
+        },
+        {
+          "sales": 194.94,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 23.3928
+        },
+        {
+          "sales": 70.95,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 20.5755
+        },
+        {
+          "sales": 91.36,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 42.0256
+        },
+        {
+          "sales": 242.94,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 29.1528
+        },
+        {
+          "sales": 22.05,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 10.584
+        },
+        {
+          "sales": 2.91,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 1.3677
+        },
+        {
+          "sales": 59.52,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 15.4752
+        },
+        {
+          "sales": 161.94,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 9.7164
+        },
+        {
+          "sales": 263.88,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 71.2476
+        },
+        {
+          "sales": 30.48,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 7.9248
+        },
+        {
+          "sales": 9.84,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 2.8536
+        },
+        {
+          "sales": 35.12,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 9.1312
+        },
+        {
+          "sales": 284.364,
+          "quantity": 2,
+          "discount": 0.4,
+          "profit": -75.8304
+        },
+        {
+          "sales": 665.408,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 66.5408
+        },
+        {
+          "sales": 63.88,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 24.9132
+        },
+        {
+          "sales": 129.568,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": -24.294
+        },
+        {
+          "sales": 747.558,
+          "quantity": 3,
+          "discount": 0.3,
+          "profit": -96.1146
+        },
+        {
+          "sales": 8.928,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 3.348
+        },
+        {
+          "sales": 103.92,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 36.372
+        },
+        {
+          "sales": 899.91,
+          "quantity": 9,
+          "discount": 0.0,
+          "profit": 377.9622
+        },
+        {
+          "sales": 51.312,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 18.6006
+        },
+        {
+          "sales": 23.56,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 7.068
+        },
+        {
+          "sales": 1272.63,
+          "quantity": 6,
+          "discount": 0.5,
+          "profit": -814.4832
+        },
+        {
+          "sales": 28.485,
+          "quantity": 5,
+          "discount": 0.7,
+          "profit": -20.889
+        },
+        {
+          "sales": 185.376,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": -34.758
+        },
+        {
+          "sales": 78.272,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 5.8704
+        },
+        {
+          "sales": 254.744,
+          "quantity": 7,
+          "discount": 0.6,
+          "profit": -312.0614
+        },
+        {
+          "sales": 205.3328,
+          "quantity": 2,
+          "discount": 0.32,
+          "profit": -36.2352
+        },
+        {
+          "sales": 4.788,
+          "quantity": 3,
+          "discount": 0.8,
+          "profit": -7.9002
+        },
+        {
+          "sales": 55.48,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 26.6304
+        },
+        {
+          "sales": 340.92,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 3.4092
+        },
+        {
+          "sales": 222.666,
+          "quantity": 2,
+          "discount": 0.15,
+          "profit": 10.4784
+        },
+        {
+          "sales": 703.968,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 87.996
+        },
+        {
+          "sales": 92.52,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 24.9804
+        },
+        {
+          "sales": 62.65,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 28.819
+        },
+        {
+          "sales": 94.85,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 45.528
+        },
+        {
+          "sales": 95.76,
+          "quantity": 6,
+          "discount": 0.2,
+          "profit": 7.182
+        },
+        {
+          "sales": 40.2,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 19.296
+        },
+        {
+          "sales": 14.7,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 6.615
+        },
+        {
+          "sales": 704.25,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 84.51
+        },
+        {
+          "sales": 9.09,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 1.9089
+        },
+        {
+          "sales": 5.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 1.6688
+        },
+        {
+          "sales": 159.98,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 57.5928
+        },
+        {
+          "sales": 29.6,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 14.8
+        },
+        {
+          "sales": 514.165,
+          "quantity": 5,
+          "discount": 0.15,
+          "profit": -30.245
+        },
+        {
+          "sales": 279.96,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 17.4975
+        },
+        {
+          "sales": 2735.952,
+          "quantity": 6,
+          "discount": 0.2,
+          "profit": 341.994
+        },
+        {
+          "sales": 7.992,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 0.5994
+        },
+        {
+          "sales": 63.984,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 10.3974
+        },
+        {
+          "sales": 70.368,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 6.1572
+        },
+        {
+          "sales": 449.15,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 8.983
+        },
+        {
+          "sales": 11.07,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 5.0922
+        },
+        {
+          "sales": 93.98,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 13.1572
+        },
+        {
+          "sales": 189.882,
+          "quantity": 3,
+          "discount": 0.4,
+          "profit": -94.941
+        },
+        {
+          "sales": 105.42,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 51.6558
+        },
+        {
+          "sales": 119.616,
+          "quantity": 8,
+          "discount": 0.2,
+          "profit": 40.3704
+        },
+        {
+          "sales": 255.76,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 81.8432
+        },
+        {
+          "sales": 241.568,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 18.1176
+        },
+        {
+          "sales": 69.3,
+          "quantity": 9,
+          "discount": 0.0,
+          "profit": 22.869
+        },
+        {
+          "sales": 22.62,
+          "quantity": 2,
+          "discount": 0.7,
+          "profit": -15.08
+        },
+        {
+          "sales": 14.952,
+          "quantity": 2,
+          "discount": 0.7,
+          "profit": -11.9616
+        },
+        {
+          "sales": 801.568,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 50.098
+        },
+        {
+          "sales": 2.376,
+          "quantity": 3,
+          "discount": 0.7,
+          "profit": -1.9008
+        },
+        {
+          "sales": 32.792,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 11.8871
+        },
+        {
+          "sales": 15.92,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 5.373
+        },
+        {
+          "sales": 2.74,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 0.7398
+        },
+        {
+          "sales": 8.34,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 2.1684
+        },
+        {
+          "sales": 46.74,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 11.685
+        },
+        {
+          "sales": 6354.95,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 3177.475
+        },
+        {
+          "sales": 126.3,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 40.416
+        },
+        {
+          "sales": 38.04,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 12.1728
+        },
+        {
+          "sales": 7.152,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 0.7152
+        },
+        {
+          "sales": 6.63,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 1.7901
+        },
+        {
+          "sales": 5.88,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 1.7052
+        },
+        {
+          "sales": 2999.95,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 1379.977
+        },
+        {
+          "sales": 51.45,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 13.8915
+        },
+        {
+          "sales": 11.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 5.382
+        },
+        {
+          "sales": 1126.02,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 56.301
+        },
+        {
+          "sales": 18.392,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 5.2877
+        },
+        {
+          "sales": 129.568,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": -25.9136
+        },
+        {
+          "sales": 14.112,
+          "quantity": 9,
+          "discount": 0.8,
+          "profit": -21.168
+        },
+        {
+          "sales": 210.98,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 21.098
+        },
+        {
+          "sales": 55.176,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": -12.4146
+        },
+        {
+          "sales": 66.26,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 27.1666
+        },
+        {
+          "sales": 22.2,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 10.434
+        },
+        {
+          "sales": 683.952,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 42.747
+        },
+        {
+          "sales": 45.696,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 5.1408
+        },
+        {
+          "sales": 36.336,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": -7.2672
+        },
+        {
+          "sales": 666.248,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": -149.9058
+        },
+        {
+          "sales": 52.512,
+          "quantity": 6,
+          "discount": 0.2,
+          "profit": 19.692
+        },
+        {
+          "sales": 190.72,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 11.92
+        },
+        {
+          "sales": 47.94,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 2.397
+        },
+        {
+          "sales": 979.95,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 274.386
+        },
+        {
+          "sales": 22.75,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 11.375
+        },
+        {
+          "sales": 16.768,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 1.4672
+        },
+        {
+          "sales": 42.616,
+          "quantity": 7,
+          "discount": 0.8,
+          "profit": -68.1856
+        },
+        {
+          "sales": 10.752,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 3.36
+        },
+        {
+          "sales": 152.94,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 41.2938
+        },
+        {
+          "sales": 283.92,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 70.98
+        },
+        {
+          "sales": 468.9,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 206.316
+        },
+        {
+          "sales": 380.864,
+          "quantity": 8,
+          "discount": 0.2,
+          "profit": 38.0864
+        },
+        {
+          "sales": 646.776,
+          "quantity": 9,
+          "discount": 0.2,
+          "profit": -145.5246
+        },
+        {
+          "sales": 58.112,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 7.264
+        },
+        {
+          "sales": 100.792,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 6.2995
+        },
+        {
+          "sales": 66.112,
+          "quantity": 4,
+          "discount": 0.6,
+          "profit": -84.2928
+        },
+        {
+          "sales": 41.28,
+          "quantity": 6,
+          "discount": 0.2,
+          "profit": 13.932
+        },
+        {
+          "sales": 13.36,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 6.4128
+        },
+        {
+          "sales": 250.272,
+          "quantity": 9,
+          "discount": 0.2,
+          "profit": 15.642
+        },
+        {
+          "sales": 11.364,
+          "quantity": 3,
+          "discount": 0.8,
+          "profit": -17.046
+        },
+        {
+          "sales": 8.72,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": -1.744
+        },
+        {
+          "sales": 1121.568,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 0.0
+        },
+        {
+          "sales": 34.504,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 6.0382
+        },
+        {
+          "sales": 10.824,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 2.5707
+        },
+        {
+          "sales": 1295.78,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 310.9872
+        },
+        {
+          "sales": 19.456,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 3.4048
+        },
+        {
+          "sales": 20.7,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 9.936
+        },
+        {
+          "sales": 1335.68,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": -217.048
+        },
+        {
+          "sales": 32.4,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 15.552
+        },
+        {
+          "sales": 42.6,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 16.614
+        },
+        {
+          "sales": 84.056,
+          "quantity": 7,
+          "discount": 0.2,
+          "profit": 27.3182
+        },
+        {
+          "sales": 13.0,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 1.3
+        },
+        {
+          "sales": 13.128,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 3.7743
+        },
+        {
+          "sales": 3.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 0.0
+        },
+        {
+          "sales": 2.61,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 1.2006
+        },
+        {
+          "sales": 374.376,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 46.797
+        },
+        {
+          "sales": 91.84,
+          "quantity": 8,
+          "discount": 0.0,
+          "profit": 45.0016
+        },
+        {
+          "sales": 81.088,
+          "quantity": 7,
+          "discount": 0.2,
+          "profit": 27.3672
+        },
+        {
+          "sales": 19.44,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 9.3312
+        },
+        {
+          "sales": 451.152,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 0.0
+        },
+        {
+          "sales": 72.45,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 34.776
+        },
+        {
+          "sales": 13.96,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 6.4216
+        },
+        {
+          "sales": 33.264,
+          "quantity": 7,
+          "discount": 0.2,
+          "profit": 11.2266
+        },
+        {
+          "sales": 14.85,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 4.0095
+        },
+        {
+          "sales": 8.82,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 2.3814
+        },
+        {
+          "sales": 160.72,
+          "quantity": 14,
+          "discount": 0.0,
+          "profit": 78.7528
+        },
+        {
+          "sales": 19.92,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 9.7608
+        },
+        {
+          "sales": 7.3,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 2.19
+        },
+        {
+          "sales": 69.712,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 8.714
+        },
+        {
+          "sales": 8.792,
+          "quantity": 1,
+          "discount": 0.6,
+          "profit": -5.7148
+        },
+        {
+          "sales": 51.52,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 1.5456
+        },
+        {
+          "sales": 470.376,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 52.9173
+        },
+        {
+          "sales": 105.584,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 9.2386
+        },
+        {
+          "sales": 31.152,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 3.5046
+        },
+        {
+          "sales": 6.783,
+          "quantity": 7,
+          "discount": 0.7,
+          "profit": -4.7481
+        },
+        {
+          "sales": 406.368,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 30.4776
+        },
+        {
+          "sales": 70.98,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 4.9686
+        },
+        {
+          "sales": 294.93,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 144.5157
+        },
+        {
+          "sales": 84.784,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": -20.1362
+        },
+        {
+          "sales": 20.736,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 7.2576
+        },
+        {
+          "sales": 16.821,
+          "quantity": 3,
+          "discount": 0.7,
+          "profit": -12.8961
+        },
+        {
+          "sales": 10.368,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 3.6288
+        },
+        {
+          "sales": 9.344,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 1.168
+        },
+        {
+          "sales": 31.2,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 9.75
+        },
+        {
+          "sales": 76.12,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 22.0748
+        },
+        {
+          "sales": 1199.976,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 434.9913
+        },
+        {
+          "sales": 445.96,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 55.745
+        },
+        {
+          "sales": 327.76,
+          "quantity": 8,
+          "discount": 0.0,
+          "profit": 91.7728
+        },
+        {
+          "sales": 11.632,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 1.0178
+        },
+        {
+          "sales": 143.982,
+          "quantity": 3,
+          "discount": 0.4,
+          "profit": -28.7964
+        },
+        {
+          "sales": 494.376,
+          "quantity": 4,
+          "discount": 0.4,
+          "profit": -115.3544
+        },
+        {
+          "sales": 5.84,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 0.73
+        },
+        {
+          "sales": 142.776,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 17.847
+        },
+        {
+          "sales": 45.696,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 5.1408
+        },
+        {
+          "sales": 7.218,
+          "quantity": 3,
+          "discount": 0.7,
+          "profit": -5.5338
+        },
+        {
+          "sales": 43.188,
+          "quantity": 4,
+          "discount": 0.7,
+          "profit": -31.6712
+        },
+        {
+          "sales": 131.904,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 47.8152
+        },
+        {
+          "sales": 3.282,
+          "quantity": 2,
+          "discount": 0.7,
+          "profit": -2.6256
+        },
+        {
+          "sales": 21.168,
+          "quantity": 9,
+          "discount": 0.2,
+          "profit": 2.3814
+        },
+        {
+          "sales": 55.188,
+          "quantity": 2,
+          "discount": 0.4,
+          "profit": -10.1178
+        },
+        {
+          "sales": 369.576,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 41.5773
+        },
+        {
+          "sales": 15.712,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 5.6956
+        },
+        {
+          "sales": 8.448,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 2.64
+        },
+        {
+          "sales": 728.946,
+          "quantity": 9,
+          "discount": 0.4,
+          "profit": -157.9383
+        },
+        {
+          "sales": 119.94,
+          "quantity": 10,
+          "discount": 0.4,
+          "profit": 15.992
+        },
+        {
+          "sales": 3.648,
+          "quantity": 2,
+          "discount": 0.7,
+          "profit": -2.7968
+        },
+        {
+          "sales": 40.48,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 15.7872
+        },
+        {
+          "sales": 9.94,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 3.0814
+        },
+        {
+          "sales": 107.424,
+          "quantity": 9,
+          "discount": 0.2,
+          "profit": 33.57
+        },
+        {
+          "sales": 37.91,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 10.9939
+        },
+        {
+          "sales": 88.02,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 27.2862
+        },
+        {
+          "sales": 8.69,
+          "quantity": 5,
+          "discount": 0.8,
+          "profit": -14.773
+        },
+        {
+          "sales": 301.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 87.5684
+        },
+        {
+          "sales": 555.21,
+          "quantity": 5,
+          "discount": 0.1,
+          "profit": 178.901
+        },
+        {
+          "sales": 523.48,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 130.87
+        },
+        {
+          "sales": 161.82,
+          "quantity": 9,
+          "discount": 0.0,
+          "profit": 46.9278
+        },
+        {
+          "sales": 35.56,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 12.0904
+        },
+        {
+          "sales": 97.16,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 28.1764
+        },
+        {
+          "sales": 15.24,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 5.1435
+        },
+        {
+          "sales": 13.23,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 6.0858
+        },
+        {
+          "sales": 243.384,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": -51.7191
+        },
+        {
+          "sales": 119.8,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 29.95
+        },
+        {
+          "sales": 300.768,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 30.0768
+        },
+        {
+          "sales": 17.88,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 2.4585
+        },
+        {
+          "sales": 235.944,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 85.5297
+        },
+        {
+          "sales": 392.94,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 43.2234
+        },
+        {
+          "sales": 18.882,
+          "quantity": 3,
+          "discount": 0.7,
+          "profit": -13.8468
+        },
+        {
+          "sales": 122.328,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 12.2328
+        },
+        {
+          "sales": 1049.2,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 272.792
+        },
+        {
+          "sales": 15.424,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 5.0128
+        },
+        {
+          "sales": 18.84,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 6.0288
+        },
+        {
+          "sales": 330.4,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 85.904
+        },
+        {
+          "sales": 26.25,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 12.6
+        },
+        {
+          "sales": 132.52,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 54.3332
+        },
+        {
+          "sales": 6.48,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 3.1752
+        },
+        {
+          "sales": 209.3,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 56.511
+        },
+        {
+          "sales": 31.56,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 9.8625
+        },
+        {
+          "sales": 30.144,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 3.0144
+        },
+        {
+          "sales": 14.8,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 6.068
+        },
+        {
+          "sales": 302.376,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 22.6782
+        },
+        {
+          "sales": 316.0,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 31.6
+        },
+        {
+          "sales": 379.4,
+          "quantity": 10,
+          "discount": 0.0,
+          "profit": 178.318
+        },
+        {
+          "sales": 97.82,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 45.9754
+        },
+        {
+          "sales": 103.12,
+          "quantity": 8,
+          "discount": 0.0,
+          "profit": 10.312
+        },
+        {
+          "sales": 113.552,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 8.5164
+        },
+        {
+          "sales": 3.318,
+          "quantity": 2,
+          "discount": 0.7,
+          "profit": -2.6544
+        },
+        {
+          "sales": 134.288,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 45.3222
+        },
+        {
+          "sales": 701.372,
+          "quantity": 2,
+          "discount": 0.3,
+          "profit": -50.098
+        },
+        {
+          "sales": 2.308,
+          "quantity": 2,
+          "discount": 0.8,
+          "profit": -3.462
+        },
+        {
+          "sales": 999.432,
+          "quantity": 7,
+          "discount": 0.2,
+          "profit": 124.929
+        },
+        {
+          "sales": 724.08,
+          "quantity": 14,
+          "discount": 0.2,
+          "profit": -135.765
+        },
+        {
+          "sales": 918.785,
+          "quantity": 5,
+          "discount": 0.3,
+          "profit": -118.1295
+        },
+        {
+          "sales": 2.724,
+          "quantity": 3,
+          "discount": 0.8,
+          "profit": -4.2222
+        },
+        {
+          "sales": 459.95,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 18.398
+        },
+        {
+          "sales": 10.74,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 5.2626
+        },
+        {
+          "sales": 23.76,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 2.079
+        },
+        {
+          "sales": 85.056,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 28.7064
+        },
+        {
+          "sales": 381.576,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 28.6182
+        },
+        {
+          "sales": 30.36,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 8.7285
+        },
+        {
+          "sales": 23.976,
+          "quantity": 3,
+          "discount": 0.6,
+          "profit": -14.3856
+        },
+        {
+          "sales": 108.925,
+          "quantity": 1,
+          "discount": 0.5,
+          "profit": -71.8905
+        },
+        {
+          "sales": 36.352,
+          "quantity": 8,
+          "discount": 0.2,
+          "profit": 11.36
+        },
+        {
+          "sales": 19.56,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 1.7115
+        },
+        {
+          "sales": 61.44,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 16.5888
+        },
+        {
+          "sales": 38.9,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 17.505
+        },
+        {
+          "sales": 99.39,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 40.7499
+        },
+        {
+          "sales": 2.688,
+          "quantity": 3,
+          "discount": 0.8,
+          "profit": -7.392
+        },
+        {
+          "sales": 27.816,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 4.5201
+        },
+        {
+          "sales": 82.524,
+          "quantity": 3,
+          "discount": 0.6,
+          "profit": -41.262
+        },
+        {
+          "sales": 182.994,
+          "quantity": 3,
+          "discount": 0.8,
+          "profit": -320.2395
+        },
+        {
+          "sales": 14.352,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 4.6644
+        },
+        {
+          "sales": 64.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 2.5984
+        },
+        {
+          "sales": 68.6,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 18.522
+        },
+        {
+          "sales": 7999.98,
+          "quantity": 4,
+          "discount": 0.5,
+          "profit": -3839.9904
+        },
+        {
+          "sales": 167.44,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 14.651
+        },
+        {
+          "sales": 479.97,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 163.1898
+        },
+        {
+          "sales": 14.62,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 6.8714
+        },
+        {
+          "sales": 19.44,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 9.3312
+        },
+        {
+          "sales": 191.984,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 4.7996
+        },
+        {
+          "sales": 104.01,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 14.5614
+        },
+        {
+          "sales": 284.82,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 74.0532
+        },
+        {
+          "sales": 36.84,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 10.3152
+        },
+        {
+          "sales": 166.24,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 24.936
+        },
+        {
+          "sales": 33.4,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 16.032
+        },
+        {
+          "sales": 198.272,
+          "quantity": 8,
+          "discount": 0.2,
+          "profit": 17.3488
+        },
+        {
+          "sales": 47.36,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 17.76
+        },
+        {
+          "sales": 200.984,
+          "quantity": 7,
+          "discount": 0.2,
+          "profit": 62.8075
+        },
+        {
+          "sales": 97.696,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 31.7512
+        },
+        {
+          "sales": 2.696,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 0.8088
+        },
+        {
+          "sales": 18.588,
+          "quantity": 2,
+          "discount": 0.7,
+          "profit": -13.6312
+        },
+        {
+          "sales": 4.896,
+          "quantity": 3,
+          "discount": 0.7,
+          "profit": -3.4272
+        },
+        {
+          "sales": 15.072,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 4.1448
+        },
+        {
+          "sales": 209.88,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 35.6796
+        },
+        {
+          "sales": 369.912,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": -13.8717
+        },
+        {
+          "sales": 10.368,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 3.6288
+        },
+        {
+          "sales": 166.84,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 18.7695
+        },
+        {
+          "sales": 15.216,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 2.2824
+        },
+        {
+          "sales": 119.96,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 52.7824
+        },
+        {
+          "sales": 883.92,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": -110.49
+        },
+        {
+          "sales": 46.72,
+          "quantity": 8,
+          "discount": 0.2,
+          "profit": 15.768
+        },
+        {
+          "sales": 55.48,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 26.6304
+        },
+        {
+          "sales": 24.448,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 8.8624
+        },
+        {
+          "sales": 281.34,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 109.7226
+        },
+        {
+          "sales": 307.98,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 89.3142
+        },
+        {
+          "sales": 299.97,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 113.9886
+        },
+        {
+          "sales": 19.92,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 6.972
+        },
+        {
+          "sales": 9.94,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 3.0814
+        },
+        {
+          "sales": 103.056,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 24.4758
+        },
+        {
+          "sales": 59.808,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 19.4376
+        },
+        {
+          "sales": 73.32,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 21.996
+        },
+        {
+          "sales": 146.82,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 73.41
+        },
+        {
+          "sales": 1652.94,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 231.4116
+        },
+        {
+          "sales": 296.37,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 80.0199
+        },
+        {
+          "sales": 129.92,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 21.112
+        },
+        {
+          "sales": 45.584,
+          "quantity": 7,
+          "discount": 0.2,
+          "profit": 5.1282
+        },
+        {
+          "sales": 17.568,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 6.3684
+        },
+        {
+          "sales": 55.992,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 5.5992
+        },
+        {
+          "sales": 182.72,
+          "quantity": 8,
+          "discount": 0.0,
+          "profit": 84.0512
+        },
+        {
+          "sales": 400.032,
+          "quantity": 2,
+          "discount": 0.4,
+          "profit": -153.3456
+        },
+        {
+          "sales": 33.63,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 10.089
+        },
+        {
+          "sales": 542.646,
+          "quantity": 3,
+          "discount": 0.1,
+          "profit": 102.4998
+        },
+        {
+          "sales": 6.3,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 3.024
+        },
+        {
+          "sales": 242.94,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 9.7176
+        },
+        {
+          "sales": 179.97,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 86.3856
+        },
+        {
+          "sales": 99.696,
+          "quantity": 6,
+          "discount": 0.2,
+          "profit": 33.6474
+        },
+        {
+          "sales": 27.936,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 9.4284
+        },
+        {
+          "sales": 84.98,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 18.6956
+        },
+        {
+          "sales": 18.72,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 6.552
+        },
+        {
+          "sales": 49.98,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 8.4966
+        },
+        {
+          "sales": 11.784,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 4.2717
+        },
+        {
+          "sales": 272.736,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": -64.7748
+        },
+        {
+          "sales": 3.54,
+          "quantity": 2,
+          "discount": 0.8,
+          "profit": -5.487
+        },
+        {
+          "sales": 51.52,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": -10.948
+        },
+        {
+          "sales": 3.528,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 1.1466
+        },
+        {
+          "sales": 4.624,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 1.6762
+        },
+        {
+          "sales": 55.168,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 6.2064
+        },
+        {
+          "sales": 567.12,
+          "quantity": 10,
+          "discount": 0.2,
+          "profit": -28.356
+        },
+        {
+          "sales": 359.32,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 7.1864
+        },
+        {
+          "sales": 11.992,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 0.8994
+        },
+        {
+          "sales": 58.05,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 26.703
+        },
+        {
+          "sales": 157.74,
+          "quantity": 11,
+          "discount": 0.0,
+          "profit": 56.7864
+        },
+        {
+          "sales": 56.98,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 22.792
+        },
+        {
+          "sales": 2.88,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 1.4112
+        },
+        {
+          "sales": 1199.976,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 374.9925
+        },
+        {
+          "sales": 79.92,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 28.7712
+        },
+        {
+          "sales": 383.438,
+          "quantity": 4,
+          "discount": 0.45,
+          "profit": -167.3184
+        },
+        {
+          "sales": 24.56,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 6.8768
+        },
+        {
+          "sales": 119.8,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 47.92
+        },
+        {
+          "sales": 13.128,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 4.2666
+        },
+        {
+          "sales": 22.72,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 10.224
+        },
+        {
+          "sales": 58.32,
+          "quantity": 9,
+          "discount": 0.0,
+          "profit": 27.9936
+        },
+        {
+          "sales": 12.39,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 5.6994
+        },
+        {
+          "sales": 107.982,
+          "quantity": 3,
+          "discount": 0.4,
+          "profit": -26.9955
+        },
+        {
+          "sales": 11.36,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 5.3392
+        },
+        {
+          "sales": 50.94,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 25.47
+        },
+        {
+          "sales": 646.74,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 258.696
+        },
+        {
+          "sales": 5.64,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 2.7072
+        },
+        {
+          "sales": 572.58,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 34.3548
+        },
+        {
+          "sales": 310.88,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 23.316
+        },
+        {
+          "sales": 641.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 179.7488
+        },
+        {
+          "sales": 18.28,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 9.14
+        },
+        {
+          "sales": 207.0,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 51.75
+        },
+        {
+          "sales": 32.35,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 16.175
+        },
+        {
+          "sales": 7.71,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 3.4695
+        },
+        {
+          "sales": 40.3,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 10.881
+        },
+        {
+          "sales": 34.58,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 14.5236
+        },
+        {
+          "sales": 32.76,
+          "quantity": 7,
+          "discount": 0.2,
+          "profit": 3.6855
+        },
+        {
+          "sales": 544.008,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 40.8006
+        },
+        {
+          "sales": 59.94,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 28.1718
+        },
+        {
+          "sales": 23.92,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 11.7208
+        },
+        {
+          "sales": 4.28,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 1.926
+        },
+        {
+          "sales": 32.07,
+          "quantity": 5,
+          "discount": 0.7,
+          "profit": -22.449
+        },
+        {
+          "sales": 24.0,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": -2.7
+        },
+        {
+          "sales": 35.49,
+          "quantity": 1,
+          "discount": 0.5,
+          "profit": -15.6156
+        },
+        {
+          "sales": 47.984,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 0.5998
+        },
+        {
+          "sales": 186.69,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 87.7443
+        },
+        {
+          "sales": 17.456,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 5.8914
+        },
+        {
+          "sales": 348.928,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 34.8928
+        },
+        {
+          "sales": 143.96,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 69.1008
+        },
+        {
+          "sales": 15.42,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 4.1634
+        },
+        {
+          "sales": 43.04,
+          "quantity": 8,
+          "discount": 0.0,
+          "profit": 21.0896
+        },
+        {
+          "sales": 332.94,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 79.9056
+        },
+        {
+          "sales": 1363.96,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 85.2475
+        },
+        {
+          "sales": 9.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 4.5816
+        },
+        {
+          "sales": 21.72,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 10.6428
+        },
+        {
+          "sales": 20.16,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 9.8784
+        },
+        {
+          "sales": 132.79,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 63.7392
+        },
+        {
+          "sales": 12.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 6.2208
+        },
+        {
+          "sales": 21.56,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 10.3488
+        },
+        {
+          "sales": 283.92,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 17.745
+        },
+        {
+          "sales": 22.23,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 7.3359
+        },
+        {
+          "sales": 215.968,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 18.8972
+        },
+        {
+          "sales": 355.32,
+          "quantity": 9,
+          "discount": 0.0,
+          "profit": 99.4896
+        },
+        {
+          "sales": 12.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 6.2208
+        },
+        {
+          "sales": 18.28,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 6.2152
+        },
+        {
+          "sales": 43.176,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 4.3176
+        },
+        {
+          "sales": 1983.968,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 247.996
+        },
+        {
+          "sales": 28.4,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 11.076
+        },
+        {
+          "sales": 149.97,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 50.9898
+        },
+        {
+          "sales": 11.52,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 3.2256
+        },
+        {
+          "sales": 1298.55,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 311.652
+        },
+        {
+          "sales": 213.92,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 62.0368
+        },
+        {
+          "sales": 25.78,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 2.578
+        },
+        {
+          "sales": 18.28,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 6.2152
+        },
+        {
+          "sales": 1399.93,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 601.9699
+        },
+        {
+          "sales": 51.84,
+          "quantity": 8,
+          "discount": 0.0,
+          "profit": 24.8832
+        },
+        {
+          "sales": 5.344,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 1.8704
+        },
+        {
+          "sales": 41.472,
+          "quantity": 8,
+          "discount": 0.2,
+          "profit": 14.5152
+        },
+        {
+          "sales": 3.168,
+          "quantity": 3,
+          "discount": 0.7,
+          "profit": -2.4288
+        },
+        {
+          "sales": 1228.465,
+          "quantity": 5,
+          "discount": 0.3,
+          "profit": 0.0
+        },
+        {
+          "sales": 31.086,
+          "quantity": 3,
+          "discount": 0.7,
+          "profit": -22.7964
+        },
+        {
+          "sales": 335.52,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 117.432
+        },
+        {
+          "sales": 239.97,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 71.991
+        },
+        {
+          "sales": 9.82,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 4.8118
+        },
+        {
+          "sales": 67.8,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 4.068
+        },
+        {
+          "sales": 167.97,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 40.3128
+        },
+        {
+          "sales": 35.0,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 16.8
+        },
+        {
+          "sales": 37.24,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 10.7996
+        },
+        {
+          "sales": 15.28,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 7.4872
+        },
+        {
+          "sales": 301.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 90.588
+        },
+        {
+          "sales": 180.66,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 50.5848
+        },
+        {
+          "sales": 191.98,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 51.8346
+        },
+        {
+          "sales": 65.99,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 17.1574
+        },
+        {
+          "sales": 35.216,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 2.6412
+        },
+        {
+          "sales": 23.696,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 6.5164
+        },
+        {
+          "sales": 265.475,
+          "quantity": 1,
+          "discount": 0.5,
+          "profit": -111.4995
+        },
+        {
+          "sales": 51.184,
+          "quantity": 4,
+          "discount": 0.8,
+          "profit": -79.3352
+        },
+        {
+          "sales": 9.664,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 3.2616
+        },
+        {
+          "sales": 21.072,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 1.5804
+        },
+        {
+          "sales": 60.45,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 16.3215
+        },
+        {
+          "sales": 11.52,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 3.3408
+        },
+        {
+          "sales": 186.048,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 9.3024
+        },
+        {
+          "sales": 37.44,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 11.7
+        },
+        {
+          "sales": 26.976,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 8.7672
+        },
+        {
+          "sales": 11.36,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 3.2944
+        },
+        {
+          "sales": 14.62,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 6.8714
+        },
+        {
+          "sales": 83.72,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 23.4416
+        },
+        {
+          "sales": 287.94,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 77.7438
+        },
+        {
+          "sales": 48.896,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 8.5568
+        },
+        {
+          "sales": 115.36,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 49.6048
+        },
+        {
+          "sales": 5.16,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 1.3416
+        },
+        {
+          "sales": 38.88,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 18.6624
+        },
+        {
+          "sales": 185.88,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 50.1876
+        },
+        {
+          "sales": 44.46,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 14.6718
+        },
+        {
+          "sales": 242.94,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 9.7176
+        },
+        {
+          "sales": 39.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 18.7812
+        },
+        {
+          "sales": 102.3,
+          "quantity": 10,
+          "discount": 0.0,
+          "profit": 26.598
+        },
+        {
+          "sales": 21.36,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 5.7672
+        },
+        {
+          "sales": 7.61,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 3.5767
+        },
+        {
+          "sales": 7.16,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 3.58
+        },
+        {
+          "sales": 7.36,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 0.1472
+        },
+        {
+          "sales": 23.1,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 10.626
+        },
+        {
+          "sales": 191.472,
+          "quantity": 6,
+          "discount": 0.2,
+          "profit": 40.6878
+        },
+        {
+          "sales": 5.248,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 0.5904
+        },
+        {
+          "sales": 59.184,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 5.1786
+        },
+        {
+          "sales": 2.89,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 1.3583
+        },
+        {
+          "sales": 51.94,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 21.2954
+        },
+        {
+          "sales": 15.936,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 5.1792
+        },
+        {
+          "sales": 44.91,
+          "quantity": 6,
+          "discount": 0.7,
+          "profit": -35.928
+        },
+        {
+          "sales": 1141.47,
+          "quantity": 5,
+          "discount": 0.7,
+          "profit": -760.98
+        },
+        {
+          "sales": 280.782,
+          "quantity": 3,
+          "discount": 0.4,
+          "profit": -46.797
+        },
+        {
+          "sales": 34.44,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 17.22
+        },
+        {
+          "sales": 11.36,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 5.2256
+        },
+        {
+          "sales": 106.344,
+          "quantity": 7,
+          "discount": 0.2,
+          "profit": 37.2204
+        },
+        {
+          "sales": 192.16,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 67.256
+        },
+        {
+          "sales": 322.59,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 64.518
+        },
+        {
+          "sales": 29.99,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 13.1956
+        },
+        {
+          "sales": 371.97,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 66.9546
+        },
+        {
+          "sales": 5.892,
+          "quantity": 4,
+          "discount": 0.7,
+          "profit": -4.1244
+        },
+        {
+          "sales": 68.472,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 23.1093
+        },
+        {
+          "sales": 1242.9,
+          "quantity": 5,
+          "discount": 0.1,
+          "profit": 262.39
+        },
+        {
+          "sales": 30.84,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 8.3268
+        },
+        {
+          "sales": 13.48,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 5.9312
+        },
+        {
+          "sales": 31.4,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 10.048
+        },
+        {
+          "sales": 17.46,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 5.9364
+        },
+        {
+          "sales": 13.944,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 4.5318
+        },
+        {
+          "sales": 83.76,
+          "quantity": 12,
+          "discount": 0.0,
+          "profit": 1.6752
+        },
+        {
+          "sales": 37.66,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 18.4534
+        },
+        {
+          "sales": 34.68,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 16.9932
+        },
+        {
+          "sales": 149.95,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 14.995
+        },
+        {
+          "sales": 51.312,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 18.6006
+        },
+        {
+          "sales": 4.54,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 2.043
+        },
+        {
+          "sales": 15.92,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 5.4128
+        },
+        {
+          "sales": 543.92,
+          "quantity": 8,
+          "discount": 0.0,
+          "profit": 135.98
+        },
+        {
+          "sales": 155.82,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 42.0714
+        },
+        {
+          "sales": 70.008,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 24.5028
+        },
+        {
+          "sales": 15.648,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 5.0856
+        },
+        {
+          "sales": 103.6,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 51.8
+        },
+        {
+          "sales": 46.96,
+          "quantity": 8,
+          "discount": 0.0,
+          "profit": 22.5408
+        },
+        {
+          "sales": 8.904,
+          "quantity": 2,
+          "discount": 0.7,
+          "profit": -6.5296
+        },
+        {
+          "sales": 10.44,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 3.393
+        },
+        {
+          "sales": 18.336,
+          "quantity": 4,
+          "discount": 0.8,
+          "profit": -32.088
+        },
+        {
+          "sales": 323.976,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 20.2485
+        },
+        {
+          "sales": 20.04,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 9.6192
+        },
+        {
+          "sales": 64.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 2.5984
+        },
+        {
+          "sales": 12.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 6.2208
+        },
+        {
+          "sales": 323.136,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 12.1176
+        },
+        {
+          "sales": 90.93,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 2.7279
+        },
+        {
+          "sales": 52.776,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 19.791
+        },
+        {
+          "sales": 1199.8,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 323.946
+        },
+        {
+          "sales": 1928.78,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 829.3754
+        },
+        {
+          "sales": 352.38,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 81.0474
+        },
+        {
+          "sales": 22.2,
+          "quantity": 6,
+          "discount": 0.0,
+          "profit": 9.102
+        },
+        {
+          "sales": 46.94,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 19.2454
+        },
+        {
+          "sales": 143.73,
+          "quantity": 9,
+          "discount": 0.0,
+          "profit": 56.0547
+        },
+        {
+          "sales": 99.918,
+          "quantity": 2,
+          "discount": 0.3,
+          "profit": -18.5562
+        },
+        {
+          "sales": 797.944,
+          "quantity": 4,
+          "discount": 0.3,
+          "profit": -56.996
+        },
+        {
+          "sales": 8.568,
+          "quantity": 3,
+          "discount": 0.8,
+          "profit": -14.5656
+        },
+        {
+          "sales": 149.352,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 50.4063
+        },
+        {
+          "sales": 12.992,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": -0.812
+        },
+        {
+          "sales": 24.56,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 6.8768
+        },
+        {
+          "sales": 85.14,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 34.9074
+        },
+        {
+          "sales": 21.99,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 10.5552
+        },
+        {
+          "sales": 406.6,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 113.848
+        },
+        {
+          "sales": 841.568,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 294.5488
+        },
+        {
+          "sales": 15.552,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 5.4432
+        },
+        {
+          "sales": 252.0,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 53.55
+        },
+        {
+          "sales": 46.2,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 12.936
+        },
+        {
+          "sales": 28.84,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 9.5172
+        },
+        {
+          "sales": 14.592,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 2.5536
+        },
+        {
+          "sales": 89.856,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 21.3408
+        },
+        {
+          "sales": 13.872,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 5.0286
+        },
+        {
+          "sales": 12.192,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 4.1148
+        },
+        {
+          "sales": 45.056,
+          "quantity": 8,
+          "discount": 0.2,
+          "profit": 15.2064
+        },
+        {
+          "sales": 29.718,
+          "quantity": 6,
+          "discount": 0.7,
+          "profit": -21.7932
+        },
+        {
+          "sales": 15.552,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 5.4432
+        },
+        {
+          "sales": 447.696,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 33.5772
+        },
+        {
+          "sales": 159.99,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 54.3966
+        },
+        {
+          "sales": 12.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 6.2208
+        },
+        {
+          "sales": 134.48,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 34.9648
+        },
+        {
+          "sales": 17.12,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 8.0464
+        },
+        {
+          "sales": 6.096,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 2.2098
+        },
+        {
+          "sales": 1114.272,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 41.7852
+        },
+        {
+          "sales": 32.4,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 15.552
+        },
+        {
+          "sales": 540.57,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 140.5482
+        },
+        {
+          "sales": 167.76,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 62.91
+        },
+        {
+          "sales": 393.165,
+          "quantity": 3,
+          "discount": 0.5,
+          "profit": -204.4458
+        },
+        {
+          "sales": 516.488,
+          "quantity": 7,
+          "discount": 0.2,
+          "profit": -12.9122
+        },
+        {
+          "sales": 1007.232,
+          "quantity": 6,
+          "discount": 0.2,
+          "profit": 75.5424
+        },
+        {
+          "sales": 2065.32,
+          "quantity": 12,
+          "discount": 0.4,
+          "profit": -619.596
+        },
+        {
+          "sales": 15.552,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 5.4432
+        },
+        {
+          "sales": 25.344,
+          "quantity": 6,
+          "discount": 0.2,
+          "profit": 7.92
+        },
+        {
+          "sales": 25.472,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 7.6416
+        },
+        {
+          "sales": 27.168,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 2.7168
+        },
+        {
+          "sales": 78.8528,
+          "quantity": 2,
+          "discount": 0.32,
+          "profit": -11.596
+        },
+        {
+          "sales": 173.8,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 43.45
+        },
+        {
+          "sales": 29.592,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 2.5893
+        },
+        {
+          "sales": 4.752,
+          "quantity": 2,
+          "discount": 0.7,
+          "profit": -3.168
+        },
+        {
+          "sales": 15.552,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 5.6376
+        },
+        {
+          "sales": 204.6,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 53.196
+        },
+        {
+          "sales": 321.568,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 28.1372
+        },
+        {
+          "sales": 6.24,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 3.0576
+        },
+        {
+          "sales": 21.88,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 10.94
+        },
+        {
+          "sales": 4.608,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 1.6704
+        },
+        {
+          "sales": 9.82,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 4.8118
+        },
+        {
+          "sales": 35.97,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 9.7119
+        },
+        {
+          "sales": 12.96,
+          "quantity": 2,
+          "discount": 0.0,
+          "profit": 6.2208
+        },
+        {
+          "sales": 191.6,
+          "quantity": 4,
+          "discount": 0.0,
+          "profit": 91.968
+        },
+        {
+          "sales": 8.64,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 4.2336
+        },
+        {
+          "sales": 501.81,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 0.0
+        },
+        {
+          "sales": 127.104,
+          "quantity": 6,
+          "discount": 0.2,
+          "profit": 28.5984
+        },
+        {
+          "sales": 124.2,
+          "quantity": 3,
+          "discount": 0.4,
+          "profit": -31.05
+        },
+        {
+          "sales": 18.588,
+          "quantity": 2,
+          "discount": 0.7,
+          "profit": -13.6312
+        },
+        {
+          "sales": 30.072,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 10.1493
+        },
+        {
+          "sales": 160.93,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 3.2186
+        },
+        {
+          "sales": 75.792,
+          "quantity": 3,
+          "discount": 0.2,
+          "profit": 25.5798
+        },
+        {
+          "sales": 1.08,
+          "quantity": 2,
+          "discount": 0.7,
+          "profit": -0.792
+        },
+        {
+          "sales": 3059.982,
+          "quantity": 2,
+          "discount": 0.1,
+          "profit": 679.996
+        },
+        {
+          "sales": 3.282,
+          "quantity": 2,
+          "discount": 0.7,
+          "profit": -2.6256
+        },
+        {
+          "sales": 34.02,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 16.6698
+        },
+        {
+          "sales": 599.292,
+          "quantity": 6,
+          "discount": 0.1,
+          "profit": 93.2232
+        },
+        {
+          "sales": 3.392,
+          "quantity": 1,
+          "discount": 0.2,
+          "profit": 0.8056
+        },
+        {
+          "sales": 559.984,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 55.9984
+        },
+        {
+          "sales": 603.92,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 75.49
+        },
+        {
+          "sales": 7.968,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 2.5896
+        },
+        {
+          "sales": 27.968,
+          "quantity": 4,
+          "discount": 0.2,
+          "profit": 9.4392
+        },
+        {
+          "sales": 336.51,
+          "quantity": 3,
+          "discount": 0.4,
+          "profit": 44.868
+        },
+        {
+          "sales": 1.112,
+          "quantity": 2,
+          "discount": 0.8,
+          "profit": -1.8904
+        },
+        {
+          "sales": 520.05,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 72.807
+        },
+        {
+          "sales": 17.97,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 5.2113
+        },
+        {
+          "sales": 1166.92,
+          "quantity": 5,
+          "discount": 0.2,
+          "profit": 131.2785
+        },
+        {
+          "sales": 14.624,
+          "quantity": 2,
+          "discount": 0.2,
+          "profit": 5.484
+        },
+        {
+          "sales": 10.23,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 4.9104
+        },
+        {
+          "sales": 154.9,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 69.705
+        },
+        {
+          "sales": 2715.93,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 1276.4871
+        },
+        {
+          "sales": 617.97,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 173.0316
+        },
+        {
+          "sales": 10.67,
+          "quantity": 1,
+          "discount": 0.0,
+          "profit": 4.9082
+        },
+        {
+          "sales": 36.63,
+          "quantity": 3,
+          "discount": 0.0,
+          "profit": 9.8901
+        },
+        {
+          "sales": 24.1,
+          "quantity": 5,
+          "discount": 0.0,
+          "profit": 9.158
+        },
+        {
+          "sales": 33.11,
+          "quantity": 7,
+          "discount": 0.0,
+          "profit": 12.9129
+        }
+      ],
+      "spec": {
+        "chart_type": "histogram",
+        "sql": "SELECT sales, quantity, discount, profit FROM orders",
+        "title": "Distribución de variables",
+        "xlabel": "Variables",
+        "ylabel": "Frecuencia"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 12,
+    "category": "analysis",
+    "task_type": "kmeans",
+    "difficulty": "hard",
+    "language": "es",
+    "question": "Agrupa los pedidos en 3 grupos según las ventas, la cantidad, el descuento y el beneficio.",
+    "question_en": "Cluster orders into 3 groups based on sales, quantity, discount, and profit.",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 26.4169,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "category",
+        "total_sales",
+        "total_quantity",
+        "total_discount",
+        "total_profit"
+      ],
+      "rows": [
+        [
+          "Furniture",
+          741999.7953,
+          8028,
+          368.89,
+          18451.2728
+        ],
+        [
+          "Office Supplies",
+          719047.032,
+          22906,
+          947.8000000000001,
+          122490.8008
+        ],
+        [
+          "Technology",
+          836154.033,
+          6939,
+          244.4,
+          145454.9481
+        ]
+      ],
+      "sql": "SELECT category, SUM(sales) AS total_sales, SUM(quantity) AS total_quantity, SUM(discount) AS total_discount, SUM(profit) AS total_profit FROM orders GROUP BY category",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 13,
+    "category": "analysis",
+    "task_type": "correlation",
+    "difficulty": "hard",
+    "language": "es",
+    "question": "¿Cuál es la correlación entre el descuento y el beneficio para los pedidos realizados en 2017?",
+    "question_en": "What is the correlation between discount and profit for orders placed in 2017?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 25.6546,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "correlation",
+      "columns": [
+        "discount",
+        "profit"
+      ],
+      "target": null,
+      "filters": [
+        {
+          "column": "order_date",
+          "op": "LIKE",
+          "value": "2017-%"
+        }
+      ],
+      "sql": "SELECT discount, profit FROM orders WHERE order_date LIKE ?",
+      "result": {
+        "analysis": "correlation",
+        "result": {
+          "correlation": -0.21834264258443495,
+          "p_value": 4.907726214832138e-37
+        }
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 14,
+    "category": "analysis",
+    "task_type": "std",
+    "difficulty": "hard",
+    "language": "es",
+    "question": "¿Cuál es la desviación estándar del beneficio para la categoría Technology?",
+    "question_en": "What is the standard deviation of profit for the Technology category?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": false,
+    "latency_seconds": 43.5993,
+    "attempts": 3,
+    "retried": true,
+    "answer": {
+      "action": null,
+      "columns": null,
+      "rows": null,
+      "result": null,
+      "sql": null,
+      "error": "OperationalError: no such function: STD"
+    },
+    "error": "OperationalError: no such function: STD"
+  },
+  {
+    "id": 15,
+    "category": "analysis",
+    "task_type": "median",
+    "difficulty": "hard",
+    "language": "es",
+    "question": "¿Cuál es el valor mediano de las ventas en la región South?",
+    "question_en": "What is the median sales value in the South region?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": false,
+    "latency_seconds": 45.5963,
+    "attempts": 3,
+    "retried": true,
+    "answer": {
+      "action": null,
+      "columns": null,
+      "rows": null,
+      "result": null,
+      "sql": null,
+      "error": "OperationalError: no such function: MEDIAN"
+    },
+    "error": "OperationalError: no such function: MEDIAN"
+  }
+]

@@ -1,12 +1,12 @@
 """
 src/eval/ground_truth/generate_visualization_ground_truth.py
 
-Executes each question's hand-written reference SQL and stores the
-resulting data as ground_truth. Correctness for a chart is checked
-against the DATA it was built from, never the rendered PNG -- same
-principle the guide established for the Viz Agent itself.
+Runs each question's hand-written reference SQL and stores the result as
+ground_truth. A chart is checked against the DATA it was built from,
+never the rendered PNG - same idea as the Viz Agent itself.
 
-Run once, after `python -m src.ingest`, and whenever the dataset changes:
+Run once, after `python -m src.ingest`, and again whenever the dataset
+changes:
     python -m src.eval.ground_truth.generate_visualization_ground_truth
 """
 from __future__ import annotations

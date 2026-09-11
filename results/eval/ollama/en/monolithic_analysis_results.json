@@ -1,0 +1,555 @@
+[
+  {
+    "id": 1,
+    "category": "analysis",
+    "task_type": "mean",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "What is the average discount given to customers?",
+    "question_en": "What is the average discount given to customers?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 15.8508,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "average_discount"
+      ],
+      "rows": [
+        [
+          0.1562027216329798
+        ]
+      ],
+      "sql": "SELECT AVG(discount) AS average_discount FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 2,
+    "category": "analysis",
+    "task_type": "median",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "What is the median profit?",
+    "question_en": "What is the median profit?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 15.0478,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "median",
+      "columns": [
+        "profit"
+      ],
+      "target": null,
+      "filters": [],
+      "sql": "SELECT profit FROM orders",
+      "result": {
+        "analysis": "median",
+        "result": 8.6665
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 3,
+    "category": "analysis",
+    "task_type": "std",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "What is the standard deviation of sales?",
+    "question_en": "What is the standard deviation of sales?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 15.622,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "std",
+      "columns": [
+        "sales"
+      ],
+      "target": null,
+      "filters": [],
+      "sql": "SELECT sales FROM orders",
+      "result": {
+        "analysis": "std",
+        "result": 623.2451005086808
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 4,
+    "category": "analysis",
+    "task_type": "mean",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "What is the average profit in the West region?",
+    "question_en": "What is the average profit in the West region?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 23.8229,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "mean",
+      "columns": [
+        "profit"
+      ],
+      "target": null,
+      "filters": [
+        {
+          "column": "region",
+          "op": "=",
+          "value": "West"
+        }
+      ],
+      "sql": "SELECT profit FROM orders WHERE region = ?",
+      "result": {
+        "analysis": "mean",
+        "result": 33.84903181392445
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 5,
+    "category": "analysis",
+    "task_type": "correlation",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "What is the correlation between discount and profit?",
+    "question_en": "What is the correlation between discount and profit?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 18.4885,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "correlation",
+      "columns": [
+        "discount",
+        "profit"
+      ],
+      "target": null,
+      "filters": [],
+      "sql": "SELECT discount, profit FROM orders",
+      "result": {
+        "analysis": "correlation",
+        "result": {
+          "correlation": -0.21948745637176847,
+          "p_value": 2.702294436198141e-109
+        }
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 6,
+    "category": "analysis",
+    "task_type": "variance",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "What is the variance of quantity sold in the Technology category?",
+    "question_en": "What is the variance of quantity sold in the Technology category?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 25.2214,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "variance",
+      "columns": [
+        "quantity"
+      ],
+      "target": null,
+      "filters": [
+        {
+          "column": "category",
+          "op": "=",
+          "value": "Technology"
+        }
+      ],
+      "sql": "SELECT quantity FROM orders WHERE category = ?",
+      "result": {
+        "analysis": "variance",
+        "result": 4.9143279987282815
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 7,
+    "category": "analysis",
+    "task_type": "ttest",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "Is there a significant difference in profit between the Consumer and Corporate segments?",
+    "question_en": "Is there a significant difference in profit between the Consumer and Corporate segments?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 27.3706,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "ttest",
+      "columns": [
+        "profit",
+        "segment"
+      ],
+      "target": null,
+      "filters": [],
+      "sql": "SELECT profit, segment FROM orders",
+      "result": {
+        "analysis": "ttest",
+        "result": {
+          "t_statistic": -0.8555511671728538,
+          "p_value": 0.3922774231363087,
+          "value_column": "profit",
+          "group_column": "segment",
+          "group_a": "Consumer",
+          "group_a_mean": 25.8368732806781,
+          "group_a_n": 5191,
+          "group_b": "Corporate",
+          "group_b_mean": 30.456666887417217,
+          "group_b_n": 3020
+        }
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 8,
+    "category": "analysis",
+    "task_type": "covariance",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "What is the covariance between quantity and discount?",
+    "question_en": "What is the covariance between quantity and discount?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 19.0216,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "covariance",
+      "columns": [
+        "quantity",
+        "discount"
+      ],
+      "target": null,
+      "filters": [],
+      "sql": "SELECT quantity, discount FROM orders",
+      "result": {
+        "analysis": "covariance",
+        "result": {
+          "covariance": 0.0039612052030577995
+        }
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 9,
+    "category": "analysis",
+    "task_type": "mean",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "What is the average sales in the East region for the Furniture category?",
+    "question_en": "What is the average sales in the East region for the Furniture category?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 22.9365,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "avg_sales"
+      ],
+      "rows": [
+        [
+          346.5743826955075
+        ]
+      ],
+      "sql": "SELECT AVG(sales) AS avg_sales FROM orders WHERE region = 'East' AND category = 'Furniture'",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 10,
+    "category": "analysis",
+    "task_type": "regression",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "Run a linear regression predicting profit from sales, discount, and quantity.",
+    "question_en": "Run a linear regression predicting profit from sales, discount, and quantity.",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 25.3432,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "regression",
+      "columns": [
+        "sales",
+        "discount",
+        "quantity",
+        "profit"
+      ],
+      "target": "profit",
+      "filters": [],
+      "sql": "SELECT sales, discount, quantity, profit FROM orders",
+      "result": {
+        "analysis": "regression",
+        "result": {
+          "coefficients": [
+            0.18001014387230668,
+            -233.45700112679995,
+            -2.962176486653817
+          ],
+          "intercept": 34.97212970801346,
+          "r2": 0.272724776926177,
+          "target": "profit",
+          "predictors": [
+            "sales",
+            "discount",
+            "quantity"
+          ]
+        }
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 11,
+    "category": "analysis",
+    "task_type": "pca",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "Run a PCA on sales, quantity, discount, and profit.",
+    "question_en": "Run a PCA on sales, quantity, discount, and profit.",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 23.2712,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "pca",
+      "columns": [
+        "sales",
+        "quantity",
+        "discount",
+        "profit"
+      ],
+      "target": null,
+      "filters": [],
+      "sql": "SELECT sales, quantity, discount, profit FROM orders",
+      "result": {
+        "analysis": "pca",
+        "result": {
+          "explained_variance_ratio": [
+            0.9079448399982131,
+            0.092044364191151,
+            1.0705041116708308e-05,
+            9.076951913022934e-08
+          ]
+        }
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 12,
+    "category": "analysis",
+    "task_type": "kmeans",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "Cluster orders into 3 groups based on sales, quantity, discount, and profit.",
+    "question_en": "Cluster orders into 3 groups based on sales, quantity, discount, and profit.",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 24.7676,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "kmeans",
+      "columns": [
+        "sales",
+        "quantity",
+        "discount",
+        "profit"
+      ],
+      "target": null,
+      "filters": [],
+      "sql": "SELECT sales, quantity, discount, profit FROM orders",
+      "result": {
+        "analysis": "kmeans",
+        "result": {
+          "centroids": [
+            [
+              135.89983563242578,
+              3.6834191988224143,
+              0.15755020502575962,
+              13.812210608768781
+            ],
+            [
+              1806.6755504273506,
+              5.893162393162392,
+              0.12955128205128208,
+              248.61632457264957
+            ],
+            [
+              10608.891066666667,
+              5.466666666666667,
+              0.13333333333333333,
+              2578.443113333333
+            ]
+          ],
+          "inertia": 1444364350.9210992
+        }
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 13,
+    "category": "analysis",
+    "task_type": "correlation",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "What is the correlation between discount and profit for orders placed in 2017?",
+    "question_en": "What is the correlation between discount and profit for orders placed in 2017?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 31.4792,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "correlation",
+      "columns": [
+        "discount",
+        "profit"
+      ],
+      "target": null,
+      "filters": [
+        {
+          "column": "order_date",
+          "op": "LIKE",
+          "value": "2017-%"
+        }
+      ],
+      "sql": "SELECT discount, profit FROM orders WHERE order_date LIKE ?",
+      "result": {
+        "analysis": "correlation",
+        "result": {
+          "correlation": -0.21834264258443495,
+          "p_value": 4.907726214832138e-37
+        }
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 14,
+    "category": "analysis",
+    "task_type": "std",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "What is the standard deviation of profit for the Technology category?",
+    "question_en": "What is the standard deviation of profit for the Technology category?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 24.8726,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "std",
+      "columns": [
+        "profit"
+      ],
+      "target": null,
+      "filters": [
+        {
+          "column": "category",
+          "op": "=",
+          "value": "Technology"
+        }
+      ],
+      "sql": "SELECT profit FROM orders WHERE category = ?",
+      "result": {
+        "analysis": "std",
+        "result": 428.8166330051747
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 15,
+    "category": "analysis",
+    "task_type": "median",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "What is the median sales value in the South region?",
+    "question_en": "What is the median sales value in the South region?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": false,
+    "latency_seconds": 71.6385,
+    "attempts": 3,
+    "retried": true,
+    "answer": {
+      "action": null,
+      "columns": null,
+      "rows": null,
+      "result": null,
+      "sql": null,
+      "error": "OperationalError: near \"(\": syntax error"
+    },
+    "error": "OperationalError: near \"(\": syntax error"
+  }
+]

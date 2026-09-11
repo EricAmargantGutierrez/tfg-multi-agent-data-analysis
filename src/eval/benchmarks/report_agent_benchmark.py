@@ -261,7 +261,7 @@ def run_session(session: dict, language: str = DEFAULT_LANGUAGE) -> dict:
 
 def render_markdown(sessions: list[dict]) -> str:
     lines = [
-        "# Report Agent — manual review",
+        "# Report Agent - manual review",
         "",
         "Each session ran through the real orchestrator (routing, agents, "
         "narration), then the Report Agent wrote a report from the "

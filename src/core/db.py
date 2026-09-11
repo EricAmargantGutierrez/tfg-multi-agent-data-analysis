@@ -1,20 +1,20 @@
 """
 src/core/db.py
 
-The single place in the codebase that opens a connection to the SQLite
-database. Every agent that needs data (SQL, Viz, Analysis) goes through
-this module instead of calling sqlite3.connect() itself.
+The one place in the codebase that opens a connection to the SQLite
+database. Every agent that needs data (Data Query, Viz, Analysis) goes
+through this module instead of calling sqlite3.connect() itself.
 
-Why this exists (architecture decision, see docs/architecture.md):
-    Three agents legitimately need independent read access to the data
-    (each writes its own SQL rather than chaining through the orchestrator).
-    That's a deliberate deviation from the original proposal, but it must
-    not mean three different, possibly-inconsistent ways of opening the
-    database. Centralizing here means:
-      - every read is opened via the read-only URI (file:...?mode=ro), so
-        a bug anywhere downstream cannot mutate the database;
-      - schema introspection and column validation are defined once;
-      - the row cap and read-only SQL guard are applied uniformly.
+Why this exists (see docs/architecture.md):
+    Three agents each write their own SQL, instead of going through the
+    orchestrator for data. That's a change from the original plan, but
+    it shouldn't mean three separate, maybe-inconsistent ways of opening
+    the database. Putting it all here means:
+      - every read uses the read-only URI (file:...?mode=ro), so a bug
+        further down the chain can't change the database;
+      - schema checks and column validation are only written once;
+      - the row cap and the read-only SQL check are applied the same
+        way everywhere.
 """
 from __future__ import annotations
 
@@ -84,7 +84,8 @@ def get_valid_columns(db_path: Path = DB_PATH, table: str = "orders") -> set[str
 
 
 # ---------------------------------------------------------------------
-# For SQL / Viz agents: the LLM writes complete, free-form SQL text.
+# For the Data Query / Viz agents: the LLM writes the whole SQL query
+# itself, as free text.
 # ---------------------------------------------------------------------
 def run_readonly_query(sql: str, db_path: Path = DB_PATH) -> dict[str, Any]:
     """Validate + execute a full LLM-authored SQL string. Read-only, capped."""
@@ -113,9 +114,9 @@ def run_readonly_query_dicts(sql: str, db_path: Path = DB_PATH) -> list[dict]:
 
 
 # ---------------------------------------------------------------------
-# For the Analysis agent: we build the SELECT ourselves from a validated
-# plan (columns + filters), so we can safely parameter-bind filter values
-# instead of ever string-interpolating LLM output into SQL.
+# For the Analysis agent: we build the SELECT ourselves from a checked
+# plan (columns + filters), so filter values can be safely passed as SQL
+# parameters instead of ever pasting LLM output straight into the query.
 # ---------------------------------------------------------------------
 def build_select(
     columns: list[str],

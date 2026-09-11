@@ -2,34 +2,63 @@
 
 ## 1. Methodology recap
 
-The system was evaluated along four independent dimensions, each isolating a
-different question:
+The system was tested in four different ways, each answering a different
+question:
 
-1. **Correctness** — real specialized agents vs. two baselines, per
-   category (Data Query, Analysis, Visualization), against ground truth computed
-   by direct execution (never by an LLM).
-2. **Decomposition value** — the real agents vs. a *monolithic* agent
-   with identical tools and identical prompt content (the three
-   specialized agents' real system prompts, imported verbatim, not a
-   paraphrase) but no architectural split. Isolates whether splitting
-   work across agents adds value beyond simply having the tools
-   available.
-3. **Routing accuracy and end-to-end latency** — measured in a single
-   pass through the real orchestrator (router -> agent -> narrator),
-   independent of the correctness runs, which deliberately bypass
-   routing to isolate each agent's own capability.
-4. **Report Agent quality** — checked by hand, not scored: a session
+1. **Correctness** - the real specialized agents vs. two baselines, per
+   category (Data Query, Analysis, Visualization), checked against
+   ground truth (computed directly, never by an LLM - see below).
+2. **Decomposition value** - the real agents vs. a *monolithic* agent
+   that has the exact same tools and the exact same prompts (the three
+   agents' real prompts, copied in, not paraphrased) but is just one
+   agent, not split up. This checks whether splitting the work across
+   several agents helps, separately from just having the tools at all.
+3. **Routing accuracy and end-to-end latency** - measured in one pass
+   through the real orchestrator (router -> agent -> narrator). This is
+   kept separate from the correctness runs, which force the routing so
+   each agent's own ability can be checked on its own.
+4. **Report Agent quality** - checked by hand, not scored: a session
    summary has no single right answer, so it's rated on accuracy,
    completeness, fabrication and fluency. Five normal sessions plus one
    adversarial session (§4.2) where every question is impossible to
    answer, to see if the agent makes something up.
 
-All comparisons use structured output (rows, statistics results), never
-narrated prose, which can phrase an identical correct answer many
-different ways. The baseline uses a deliberately minimal, generic
-prompt, not the specialized agents' tuned prompts, to isolate the value
-of the architecture as a whole; the monolithic agent uses the *same*
-tuned prompts as the real agents, to isolate decomposition specifically.
+All comparisons use the structured output (rows, statistics results),
+never the narrated text, because the same correct answer can be worded
+in many different ways. The baseline uses a short, generic prompt, not
+the specialized agents' tuned ones, so we can see the value of the whole
+architecture. The monolithic agent uses the *same* tuned prompts as the
+real agents, so we can see the value of splitting the work up,
+separately from the value of the prompts themselves.
+
+**How scoring works.** Data Query and Visualization answers are scored
+by comparing the returned rows (the chart's underlying data, for
+Visualization) against the ground-truth rows as an order-independent
+multiset, with numbers matched to a 0.01 tolerance. Analysis answers are
+scored by comparing the specific statistic returned (the mean, the
+`t_statistic`, the regression r², ...) to the ground-truth value with a
+tolerance. Only the Report Agent is scored subjectively: it's rated by
+hand by the author, because a session summary has no single correct
+answer to check against.
+
+**Where the ground truth comes from.** It is not an independently known
+answer - it is produced by a script (`src/eval/ground_truth/`) that runs
+a hand-written reference SQL query (Data Query, Visualization) or a
+hand-written reference analysis plan (Analysis) against the real SQLite
+database. No LLM is involved, so it is deterministic and reproducible,
+but it is only as correct as those reference queries, which were written
+by the author when each question was authored. The evaluation found and
+fixed bugs in two of them (`compute_ttest` §3.5, and an earlier
+`compute_regression` target bug), so this is a real dependency, not a
+formality.
+
+All three providers are called as plain text-completion models - no web
+search, no tool use, no retrieval. The only inputs are the system
+prompt, the database schema, and the question. So the only things that
+vary between runs are the model's reasoning and the architecture, not
+what tools the model can reach. The models never write or run code
+either: they produce a SQL string or a JSON plan that names one of the
+system's fixed, pre-written computations (see §6).
 
 The benchmark has 55 questions: 30 Data Query, 15 Analysis, 10
 Visualization, split into easy/medium/hard. **All the results below are
@@ -69,6 +98,14 @@ below.
 Analysis 66.7%. Unaffected by the fixes above (routing behavior didn't
 change; only how correctness is scored and computed did).
 
+This number is a floor, not the true error rate. It's measured against
+the dataset's `expected_agent` label, but some questions two agents can
+both answer correctly. Checking the 5 misrouted questions by hand
+against the ground truth (§3.4), all 5 were answered correctly by the
+agent they were sent to - so by answer quality the routing here is
+effectively 100%. Automating this check in the pipeline benchmark is
+future work (§9).
+
 ### 2.3 Latency
 
 | Category | Agent-only | Full pipeline | Baseline | Monolithic |
@@ -77,18 +114,33 @@ change; only how correctness is scored and computed did).
 | Analysis | 1.367s | 3.817s | 5.086s | 1.366s |
 | Visualization | 1.710s | 4.940s | 1.628s | 1.640s |
 
-The baseline's Analysis latency (5.086s) is notably higher than every
-other cell in this table, consistent with §3.5's finding that it now
-attempts a genuinely more sophisticated manual SQL computation (per-group
-mean, count, min, max, and a manually-derived standard deviation via a
-correlated subquery) rather than a short, simple query.
+The baseline's Analysis latency (5.086s) is much higher than every other
+cell in this table. That matches §3.5: it now writes a more complex
+manual SQL query (per-group mean, count, min, max, and a standard
+deviation done with a subquery) instead of a short, simple one.
+
+The full pipeline is 3-4x the agent-only time because it makes three LLM
+calls (router, then agent, then narrator) instead of one. This is the
+price of the architecture. On a fast hosted model it's a few seconds and
+doesn't matter much; on a slow local model it multiplies (three calls of
+15-40s each on the test laptop - see §5), so the overhead matters more
+for a local, private deployment. All these numbers are also
+machine-dependent: they were measured on the setup in §5, not tuned
+hardware.
 
 ### 2.4 Retry / self-correction
 
-**Retry rate: 0% in every category**, unchanged by the fixes. The
-55-question benchmark never triggered the self-correcting loop; the
+The Data Query, Analysis and Visualization agents share a small
+self-correcting loop (`src/core/retry.py`): the LLM produces a SQL string
+or a JSON plan, it runs, and if that raises an error the error message is
+fed back to the LLM and it tries again, up to 3 attempts. "Retry rate" is
+the fraction of questions where this loop fired at least once.
+
+**Retry rate: 0% in every category** (Anthropic English), unchanged by
+the fixes. The 55-question benchmark never triggered the loop; the
 adversarial Report-Agent session (§4.2) is the first time it fired, and
-it did not recover.
+it did not recover. It first *succeeded* in the Anthropic Catalan run
+(§7.3), and fired a few more times in the Ollama runs (§5).
 
 ---
 
@@ -96,102 +148,134 @@ it did not recover.
 
 ### 3.1 The "how many orders" ambiguity
 
-`COUNT(order_id)` (9,994 — line-item rows) vs. `COUNT(DISTINCT
-order_id)` (5,009 — order transactions). Claude consistently applies the
-DISTINCT interpretation everywhere "orders" is counted, including
-changing the winning entity on "which customer placed the most orders"
-("Emily Phan" under DISTINCT vs. "William Brown" under the ground
-truth's convention). Not affected by the two fixes below.
+`COUNT(order_id)` gives 9,994 (every line-item row); `COUNT(DISTINCT
+order_id)` gives 5,009 (real order transactions, since one order can
+have several line items). Claude always picks the DISTINCT version
+whenever "orders" is counted. This even changes who "wins" on "which
+customer placed the most orders" - "Emily Phan" under DISTINCT vs.
+"William Brown" under the ground truth's convention. Not affected by
+the two fixes below.
 
 ### 3.2 FIXED: a real limitation in the evaluation's own scoring, not the baseline's capability
 
-**Original finding**: the baseline scorer assumed a bare SQL model could
-only possibly succeed at scalar statistics; correlation, covariance,
-and t-test were scored `incorrect` automatically, regardless of the
-actual answer, on the assumption they're structurally inexpressible in
-one SQL query. This was falsified: Claude's baseline derived the correct
-closed-form Pearson correlation formula manually and matched the real
-system's value almost exactly, yet was marked wrong purely by scorer
-design.
+**Original finding**: the baseline scorer assumed a plain SQL model
+could only ever manage simple statistics like a mean; correlation,
+covariance, and t-test were marked `incorrect` automatically, no matter
+what the baseline actually returned, on the assumption they can't be
+written as one SQL query. That assumption was wrong: Claude's baseline
+worked out the closed-form Pearson correlation formula by hand in SQL
+and matched the real system's value almost exactly, but was still marked
+wrong just because of how the scorer was written.
 
-**Fix applied**: `check_baseline_analysis` now genuinely checks the key
-metric for correlation, covariance, and t-test (comparing the specific
-number, e.g. `t_statistic`, against what the baseline actually
-returned), rather than auto-rejecting them. Regression, PCA, and K-Means
-remain auto-rejected, correctly, those require iterative optimization
-or matrix decomposition that a single, non-procedural SQL `SELECT`
-genuinely cannot express, which is a real structural limit, not an
-assumption.
+**Fix applied**: `check_baseline_analysis` now actually checks the key
+number for correlation, covariance, and t-test (comparing the specific
+value, e.g. `t_statistic`, against what the baseline returned), instead
+of auto-rejecting them. Regression, PCA, and K-Means are still
+auto-rejected, correctly - those need repeated optimization or matrix
+math that one plain SQL `SELECT` really cannot do. That's a real limit
+of SQL, not just an assumption in the scorer.
 
-**Effect, confirmed by the re-run**: baseline Analysis correctness rose
-from 20.0% to 40.0%, not because the baseline got better, but because
-it was already this capable and the evaluation wasn't crediting it
-correctly. Verified directly: baseline's correlation answers (Q5, Q13)
-now score correct where they previously didn't, with no change to the
-baseline's actual behavior.
+**Effect, confirmed by the re-run**: baseline Analysis correctness went
+from 20.0% to 40.0%. Not because the baseline got better - it was always
+this capable, the evaluation just wasn't giving it credit. Checked
+directly: the baseline's correlation answers (Q5, Q13) now score correct
+where they didn't before, with no change to what the baseline actually
+does.
+
+**A note on what the baseline can and can't do.** 3 of the 15 Analysis
+questions - linear regression (Q10), PCA (Q11) and K-Means (Q12) - cannot
+be done in a single SQL query at all. They are iterative / matrix
+algorithms, and one `SELECT` has no way to loop or converge. This is a
+limit of the tool, not the model: no LLM, however capable, can answer
+these when its only tool is "write one SQL query." The baseline is
+scored wrong on all 3 by design, because being able to do them is part
+of what the specialized agents add. This does inflate the raw gap a
+little, though - the baseline's ceiling on Analysis is 12/15, not 15/15.
+On the 12 SQL-feasible Analysis questions, the Anthropic baseline scores
+50% (6/12) and the architecture value is +50pp, versus 40% and +60pp
+over all 15. Both are true; the conclusion (the architecture is much
+better on analytical questions) is the same either way. This only
+affects the baseline comparison - the monolithic agent has the same
+Python tools as the real agents, so decomposition value (§2.1) is a
+clean comparison on these questions.
 
 ### 3.3 The chart time-granularity ambiguity
 
-"Line chart of profit over time for the East region in 2017" never
-specifies granularity. The real Visualization agent and the baseline
-both grouped by `order_date` (daily) and were scored incorrect against a
-ground truth that groups by month; the monolithic agent grouped by month
-(`strftime('%Y-%m', ...)`) and matched. This one question is the entire
--10pp "decomposition value" in Visualization at n=10 — the monolithic
-agent did not do the task "better" in general, it made a different
-granularity guess on an under-specified prompt that happened to match
-the ground truth's unstated assumption.
+"Line chart of profit over time for the East region in 2017" never says
+how to group the dates. The real Visualization agent and the baseline
+both grouped by `order_date` (day by day) and were marked wrong against
+a ground truth that groups by month; the monolithic agent grouped by
+month (`strftime('%Y-%m', ...)`) and matched. This one question is the
+whole -10pp "decomposition value" in Visualization at n=10 - the
+monolithic agent isn't better at this task in general, it just guessed a
+different (and here, matching) granularity on a question that never
+said which one to use.
 
 ### 3.4 Routing errors
 
 All 5 routing misses (55 questions, routing accuracy 90.9%) are the same
 pattern: an average/median question sent to Data Query instead of
-Analysis — "average discount given to customers", "median profit",
+Analysis - "average discount given to customers", "median profit",
 "average profit in the West region", "average sales in the East region
 for the Furniture category", "median sales value in the South region".
-A genuine Data Query/Analysis boundary ambiguity (a mean *is* expressible
-in plain SQL), not random noise. Data Query and Visualization routing
-were 100%.
+Data Query and Visualization routing were 100%.
+
+**These 5 are not real errors - the Data Query agent answered all of them
+correctly.** A mean or median is just `AVG(...)` or a percentile query,
+so a question like "what is the average discount" can be handled by
+either agent. Checked against the ground truth: the Data Query agent
+returned 0.156 (avg discount), 8.67 (median profit), $33.85 (avg profit
+West), $346.57 (avg sales East/Furniture) and $54.66 (median sales
+South) - all correct. So the router picking Data Query here is a
+defensible choice on a genuinely ambiguous question, not a failure. The
+90.9% figure counts them as failures because it compares against a fixed
+label.
+
+This is not always harmless, though. In the Ollama run (§5) the router
+misroutes the *opposite* way - it sends ranking questions ("which region
+has the highest sales", "which state sold the most") to the Analysis
+agent, whose fixed menu of scalar statistics genuinely cannot group and
+rank. Those misroutes produce confidently-worded wrong answers. So
+whether a misroute matters depends on which direction it goes and
+whether the receiving agent can actually do the task.
 
 ### 3.5 FIXED: `compute_ttest` now compares two groups, not two arbitrary columns
 
-**Original finding**: `compute_ttest` ran an independent t-test between
-two numeric *columns* directly (e.g. discount vs. profit), not the
-standard meaning of a t-test (one variable, compared across two
-*groups*, e.g. profit in the Consumer segment vs. the Corporate
-segment). This was a documented, known limitation, and evaluation
-confirmed it had a real consequence: the Report Agent's Session 5
-described this test's result as indicating "a negative correlation,"
-which a t-test does not measure, a misleading claim in a real
-generated report, not just a theoretical concern.
+**Original finding**: `compute_ttest` ran a t-test between two numeric
+*columns* directly (e.g. discount vs. profit), which is not what a
+t-test is for - a t-test compares one variable across two *groups* (e.g.
+profit in the Consumer segment vs. the Corporate segment). This was
+already a known limitation, and the evaluation showed it had a real
+effect: the Report Agent's Session 5 described this test's result as "a
+negative correlation," which a t-test doesn't even measure - a wrong
+claim in a real generated report, not just a theory problem.
 
 **Fix applied**: `AnalysisPlan` now has explicit `group_column` and
-`group_values` fields (validated: exactly 2 group values required),
-`compute_ttest` splits the data into two real groups and runs the
-comparison properly, and the benchmark question itself was rewritten
-from the old ambiguous phrasing to a genuine group-comparison question
-("is there a significant difference in profit between the Consumer and
-Corporate segments?").
+`group_values` fields (exactly 2 group values required), `compute_ttest`
+splits the data into two real groups and compares them properly, and the
+benchmark question was rewritten from the old unclear phrasing to a real
+group-comparison question ("is there a significant difference in profit
+between the Consumer and Corporate segments?").
 
 **Effect, confirmed by the re-run**: the real Analysis Agent and the
-monolithic agent both now produce a statistically valid result, 
-`t_statistic=-0.856, p=0.392`, group means $25.84 (Consumer, n=5,191) vs.
-$30.46 (Corporate, n=3,020) — matching the independently-computed ground
-truth exactly. **The Report Agent's re-generated Session 5 confirms the
-fix end-to-end**: it now correctly states "there is not a statistically
-significant difference... the p-value of 0.392 is well above the
-standard significance threshold of 0.05," directly replacing the
-previous misleading correlation claim. This is a rare case in this
-evaluation of a finding being not just documented but demonstrably
-resolved, with direct before/after evidence at every layer (unit test,
-integration test, and the generated report itself).
+monolithic agent both now give a correct result, `t_statistic=-0.856,
+p=0.392`, group means $25.84 (Consumer, n=5,191) vs. $30.46 (Corporate,
+n=3,020) - matching the ground truth exactly. **The Report Agent's
+re-generated Session 5 confirms the fix worked end to end**: it now
+correctly says "there is not a statistically significant difference...
+the p-value of 0.392 is well above the standard significance threshold
+of 0.05," replacing the old wrong correlation claim. This is one of the
+few cases in this evaluation where a problem wasn't just written down
+but actually fixed and checked at every level - unit test, integration
+test, and the generated report itself.
 
-### 3.6 Format-only misses and the row-cap ordering limitation
+### 3.6 Small formatting misses and the row-cap ordering issue
 
-Minor, non-fix issues: `SELECT *` instead of the requested columns;
-pre-binned histograms as an alternative (not wrong) representation; and
-the `MAX_ROWS` + `ORDER BY` interaction, where *which* rows are returned
-depends on sort order once a result exceeds the 1,000-row cap.
+Minor issues, not worth a fix: `SELECT *` instead of the requested
+columns; pre-binned histograms as a different (not wrong) way to show
+the same thing; and the `MAX_ROWS` + `ORDER BY` interaction, where
+*which* rows come back depends on the sort order once a result goes
+over the 1,000-row cap.
 
 ---
 
@@ -208,18 +292,17 @@ depends on sort order once a result exceeds the 1,000-row cap.
 | 5 — Mixed, hard | **5/5** | 5/5 | **5/5** | 5/5 |
 | **Mean** | **4.0/5** | **5.0/5** | **4.0/5** | **5.0/5** |
 
-Session 5's ratings improved from 2/5 (accuracy) and 2/5 (no
-fabrication) to 5/5 on both, a direct, measured consequence of the
-`compute_ttest` fix in §3.5, not a re-interpretation of the same output.
-The re-generated report is accurate, correctly hedged, and does not
-misstate what the underlying statistical test measures. Mean accuracy
-and no-fabrication scores across all five sessions rose from 3.4/5 to
-4.0/5 as a direct result.
+Session 5's ratings went from 2/5 (accuracy) and 2/5 (no fabrication) to
+5/5 on both. That's a direct result of the `compute_ttest` fix in §3.5,
+not just a different reading of the same report. The re-generated report
+is accurate, hedges correctly, and doesn't get the statistical test
+wrong anymore. Mean accuracy and no-fabrication across all five sessions
+went from 3.4/5 to 4.0/5 because of this one fix.
 
-Sessions 1, 2, and 4 are unaffected by the fixes and keep their ratings:
-Session 1 invents an unrequested profit-margin statistic (no-fabrication
-2/5); Session 4 has small arithmetic errors and a cross-turn
-misattribution.
+Sessions 1, 2, and 4 weren't touched by the fixes and keep their old
+ratings: Session 1 makes up a profit-margin number nobody asked for
+(no-fabrication 2/5); Session 4 has small arithmetic errors and mixes up
+which turn a number came from.
 
 ### 4.2 Adversarial session (Session 6): behaviour on impossible questions
 
@@ -234,7 +317,7 @@ failure-focused template instead of the normal one:
 
 | Dimension | Score | Justification |
 |---|---|---|
-| No fabrication | **2/5** | The report states the Q6 chart was "successfully generated ... revealing a positive correlation between [sales and profit]" — a finding no agent computed — and files the request (asked as "employee salary vs profit", a column that does not exist) under **Successful Queries** as a plain "sales vs profit" analysis, so the impossible request disappears. It does *not* invent customer-age or marketing-spend values, and the 2016 monthly figures it cites match the structured query rows it received, so this is a 2, not a 1. |
+| No fabrication | **2/5** | The report states the Q6 chart was "successfully generated ... revealing a positive correlation between [sales and profit]" - a finding no agent computed - and files the request (asked as "employee salary vs profit", a column that does not exist) under **Successful Queries** as a plain "sales vs profit" analysis, so the impossible request disappears. It does *not* invent customer-age or marketing-spend values, and the 2016 monthly figures it cites match the structured query rows it received, so this is a 2, not a 1. |
 | Failure transparency | **3/5** | Two of the three failures (customer age, marketing spend) are listed under "Failed or Incomplete Queries" with correct reasons. Q5 is handled well: the report repeats the agent saying there's no clear 2016 decline. But Q6's impossibility is hidden entirely, and Q1 is framed as a "system security restriction" rather than a missing column. |
 | Completeness | **4/5** | All six questions are in "Questions Asked" and each is covered in the body. Docked one point because Q6 is shown as something other than what was asked. |
 | Fluency | **5/5** | Well structured, with a clear "Successful" vs "Failed" split. If anything it reads too confidently: the made-up correlation looks just like the real findings. |
@@ -273,11 +356,12 @@ Things worth knowing:
 
 ## 5. Other model providers (Groq, Ollama)
 
-All the numbers in this document are from **Anthropic (Claude Haiku 4.5)**
-(§2). The system was also run on Groq and Ollama earlier in the project,
-but those runs are not reported as results, for the reasons below. They
-will be added back only if and when there is a clean, retained run to
-back them up.
+Anthropic (Claude Haiku 4.5) is the primary dataset (§2). Groq and Ollama
+were both run earlier in the project too, but those *original* runs are
+not reported as results (§5.1 explains why for each). For Ollama, a
+clean re-run on the current system was done for this document instead,
+and its real numbers are in §5.3-5.7. Groq could not be re-run on the
+same model at all (§5.1) and has no numbers reported here.
 
 ### 5.1 What happened with each
 
@@ -285,33 +369,289 @@ back them up.
 the pipeline benchmark were run on Groq in the first evaluation round.
 That run is still in git history (commit `354902e`) with every
 per-question file. But it predates the architecture restructure and both
-fixes (§3.2, §3.5), so it does not match the current system. A re-run on
-the same model is not possible: Groq removed `llama-3.3-70b-versatile`
-during the project and it now returns `model_not_found`. The closest
-model still on Groq is `openai/gpt-oss-120b` (the registry points there
-now so `TFG_MODEL=groq` still works), but the free tier only allows
-8,000 tokens/minute, which is not enough for a full run.
+fixes (§3.2, §3.5), so it does not match the current system. During the
+original development, re-running on Groq's free tier was already a
+recurring problem - both the per-minute and the daily token limits ran
+out quickly, so a full run often had to be split across several days.
+
+A re-run on the *same* model is no longer possible at all: Groq retired
+`llama-3.3-70b-versatile` and it now returns `model_not_found`. The
+closest model still on the platform, `openai/gpt-oss-120b`, was tried as
+a substitute (the registry now points `TFG_MODEL=groq` there) - a
+smoke test worked end-to-end in a few seconds per question, so a full
+attempt was made. It got through the Data Query agent and baseline in
+about 6 minutes, then stalled for 13+ minutes on the very first
+monolithic-agent question. Checking the API's rate-limit headers
+confirmed why: the free tier caps `gpt-oss-120b` at 8,000 tokens/minute,
+and the monolithic agent's combined prompt (all three agents' tools in
+one) burns through that almost immediately, so the run gets stuck in
+rate-limit backoff. The run was killed rather than left to hang for
+hours. A paid tier would remove the cap, but that wasn't pursued.
 
 **Ollama (`llama3.1:8b`, local).** The benchmark was also run on this
-model, but the result files were overwritten by a later run before they
-were committed, so only the aggregate numbers were ever recorded (in the
-development log). There is no per-question detail to show. A re-run is
-possible - tokens are free since it runs locally - but the model is
-slow (25-210 s per question) and a full run is several hours on hardware
-that has hit memory limits before. This re-run is planned.
+model earlier, but the result files were overwritten by a later run
+before they were committed, so only the aggregate numbers were ever
+recorded (in the development log) - no per-question detail survives from
+that run. A clean re-run on the current system was done for this
+document instead, for **all three languages** - see the real numbers in
+§5.3-5.7, not the old ones. Each language needed a multi-hour session on
+this hardware (§5.6).
 
-### 5.2 What the early runs suggested (no numbers carried forward)
+### 5.2 Provider trade-offs seen during development
 
-The early Groq and Ollama runs did line up with the main finding: the
-real specialized system stayed high on Data Query and Visualization
-regardless of the model, while the baseline was much more variable. The
-Ollama 8B model also showed a clear routing weakness - it misrouted
-questions that the larger models route correctly. These are stated as
-observations from runs that are no longer reported, not as results.
+- **Anthropic** - fast, reliable, no rate-limit trouble across the whole
+  evaluation. Costs money per token (small for this benchmark, but real).
+- **Groq (free tier)** - the per-minute token limit (8,000) and a daily
+  limit both run out quickly; long runs stall or have to be spread over
+  days. And the model can be removed by the provider, as happened here.
+- **Ollama (local)** - free and private, but slow on a normal laptop
+  (CPU only): ~12-20 s per question once warm, 160-340 s to load the
+  model the first time, several hours for a full run, and it holds the
+  CPU at 100% (the machine runs hot) the whole time.
 
-For the Limitations section: the evaluation currently covers **one model
-only** (Anthropic Haiku). Running it on a second model that matches the
-final system - at least the Ollama re-run - is the main open item.
+**On the Ollama re-run specifically:** it was done in stages with
+deliberate rest breaks between them (20-30 minutes) to keep the laptop
+from overheating during multi-hour runs. Whether the breaks actually
+helped is unclear either way - performance still degraded within a
+single long run regardless (the Spanish `run_all` took 7.5 hours where
+English took about 3, with one warm-up alone taking over 8 minutes -
+see the per-language numbers below). So the slowdown looks tied to
+*sustained* runtime rather than something rest breaks between runs fix.
+Stated here as an honest uncertainty, not a conclusion either way.
+
+The old Groq/Ollama runs are gone from this document (§5.1). A **clean
+Ollama re-run on the current system** was done for this thesis instead,
+for all three languages. Everything below is real, retained data from
+that re-run, in `results/eval/ollama/{en,es,ca}/`.
+
+### 5.3 Ollama correctness, by language
+
+All three languages now have a full run.
+
+| | EN real | EN base | EN mono | ES real | ES base | ES mono | CA real | CA base | CA mono |
+|---|---|---|---|---|---|---|---|---|---|
+| Data Query | 83.3% | 43.3% | 80.0% | 76.7% | 36.7% | 80.0% | 70.0% | 26.7% | 60.0% |
+| Analysis | 100% | 33.3% | 80.0% | 93.3% | 20.0% | 40.0% | 93.3% | 20.0% | 33.3% |
+| Visualization | 100% | 70.0% | 90.0% | 90.0% | 70.0% | 90.0% | 90.0% | 70.0% | 90.0% |
+
+The real system stays close to Anthropic's numbers even on this much
+smaller local model (70-100% vs Anthropic's 90-100%), and does better
+than Anthropic on Visualization in all three languages. The baseline is
+much weaker on Data Query (27-43% vs Anthropic's 77%): a small model
+writing raw SQL with no tools makes real mistakes, not just the counting
+ambiguity Anthropic runs into (§5.5). Correctness drops a little from
+English to Spanish to Catalan, most visibly on Data Query (83 -> 77 ->
+70%) and the monolithic agent (80 -> 80 -> 60%). Some of this is just
+normal noise from a small model - the actual mistakes are the same kind
+in all three languages (§5.5) - but Catalan was also run last, on the
+same machine after it had already been under load for many hours (§5.6),
+so a real language effect and a tired machine can't be fully told apart
+here.
+
+### 5.4 Ollama routing - the real weak point
+
+| | EN | ES | CA |
+|---|---|---|---|
+| Overall | 56.4% | 50.9% | 52.7% |
+| Data Query | 20% (6/30) | 20% (6/30) | 20% (6/30) |
+| Analysis | 100% | 86.7% | 86.7% |
+| Visualization | 100% | 90% | 100% |
+
+**Data Query routing is stuck at exactly 20% in all three languages.**
+In English, **all 24 misrouted Data Query questions went to Analysis** -
+one clear direction. Spanish and Catalan are messier: 23 still go to
+Analysis, plus a few elsewhere (Spanish: 1 to the Report agent, 2
+Analysis questions to Data Query, 1 Visualization question to Data
+Query; Catalan: 1 to the Report agent, 2 Analysis questions to Data
+Query). Either way, this model can't reliably tell "retrieve/aggregate
+with SQL" apart from "compute a statistic" - the opposite of Anthropic's
+routing gap, which went the other way (§3.4).
+
+**And this time it's not a harmless mix-up like Anthropic's.** I checked
+what actually happened on each misrouted question (same way as §3.4): in
+English, of the 24 misroutes, 9 errored outright, and only 2 of the
+remaining 15 landed on the right answer - and even those had the wrong
+number attached (e.g. it correctly said "Consumer" is the biggest
+segment, but gave an average instead of a total). The rest are just
+wrong, stated as if they were right: "the business performs best in the
+South region" (it's the West), or a bare dollar figure with no region or
+product name attached. Spanish and Catalan show the same pattern. The
+Analysis agent's fixed menu (§3.2) can't group-and-rank, so unlike
+Anthropic's misroutes, these are answers a real user would see and
+believe, not just a scoring technicality.
+
+The misrouting also causes outright failures: 10/55 (EN), 8/55 (ES), and
+11/55 (CA) pipeline calls failed, almost always because a Data Query
+question reached Analysis and it couldn't handle it (`no such column`,
+`No numeric columns found`, `Unknown analysis 'sum'` - the model making
+up an analysis type that isn't in the menu). Catalan also had one
+pipeline call fail for an unrelated reason: the local Ollama server
+itself returned an error mid-generation (`unexpected EOF`) - a real
+crash, not a reasoning mistake, and consistent with §5.6's finding that
+this machine got less stable the longer it ran.
+
+### 5.5 Ollama failure analysis - mostly the same mistakes in all three languages
+
+The Data Query agent's wrong answers repeat **the same mistakes across
+English, Spanish, and Catalan**, which tells us something: these are
+real weaknesses of the model, not something caused by translation:
+
+- **"Revenue" confused with "profit"**: `SUM(profit)` written where the
+  question asks for revenue (`SUM(sales)`) - happened in all three
+  languages ("who generated the most revenue", "product with the most
+  revenue").
+- **Min/max of one row instead of grouping first**: `MIN(profit)` or
+  `MAX(quantity)` on the raw table, instead of grouping by region/product
+  first and then taking the min/max of the *totals* - happened for
+  "least profitable region" and "product with the most units sold" in
+  all three languages.
+- **Correct query, missing `LIMIT 1`**: e.g. "which segment dominates
+  sales" or "where does the business perform best" returns every row
+  instead of just the top one - in English and Catalan.
+- **Wrong column for "how many customers/purchases"**: Spanish used
+  `COUNT(*)` instead of `COUNT(DISTINCT customer_id)`; Catalan mixed this
+  up even more, summing `quantity` for "how many purchases" instead of
+  counting orders at all.
+
+Catalan also has two mistakes not seen in the other two languages:
+
+- **Region confused with State.** Twice, a question that named "state"
+  ("which state sold the most products", "which state had the highest
+  total profit") got grouped by `region` instead - two different
+  location columns mixed up, not just a wrong aggregate.
+- **Picking the wrong replacement analysis.** Asked to cluster orders
+  into 3 groups, the model wrote "the analysis you're looking for is
+  actually 'groupby', but since it's not a valid analysis type, I'll
+  assume you want... 'describe'" - and mixed this explanation into the
+  JSON output, breaking it. Interesting because the model correctly
+  noticed clustering wasn't literally named "groupby" in its menu, then
+  guessed a completely unrelated replacement ("describe", a simple
+  summary) instead of the actual K-Means option. This happened on the
+  same clustering question in both Session 5 and the standalone Analysis
+  benchmark.
+
+One possible language-sensitive slip (a few data points, still not
+conclusive): the Spanish "¿cuál es el descuento **medio**?" (average
+discount) was planned as `median`, not `mean` - "medio" (average) and
+"mediana" (median) may have been confused. Catalan showed a related
+pattern on the adversarial customer-age question (§5.7): rather than
+refuse outright, it reasoned that age could be "approximated by the
+average order date" - a real attempt at a workaround, not a refusal or a
+hallucinated number, that happened to fail on a JSON formatting error
+before it could act on that idea.
+
+The one Visualization miss in each language is the familiar §3.3
+granularity ambiguity, not a new failure - English, Spanish, and Catalan
+(and separately, via Anthropic, §7.4) have all shown different
+granularity guesses on the same under-specified chart question. Spanish
+and Catalan both chose to group by *year* (a single data point for the
+whole "line chart"), an even coarser guess than daily or monthly.
+
+### 5.6 Ollama latency, and the machine slowing down over long runs
+
+| | EN | ES | CA |
+|---|---|---|---|
+| Agent-only (DQ/An/Viz) | 12.5 / 13.7 / 19.8 s | 9.3 / 13.1 / 19.7 s | 12.4 / 16.7 / 16.3 s |
+| Full pipeline (DQ/An/Viz) | 54.9 / 65.8 / 129.3 s | 44.5 / 62.3 / 143.8 s | 71.9 / 46.6 / 71.5 s |
+| Retry rate | DQ 3.3%, Viz 10% | DQ 6.7%, Viz 10% | Analysis 6.7% (failed) |
+
+10-25x slower than Anthropic, which is expected for local CPU inference.
+The more interesting finding: **the machine got slower the longer it
+ran, not just because the model is slow.** The English `run_all`
+(correctness + pipeline) took about 3 hours; the same Spanish run took
+**7.5 hours**, and one report-session warm-up alone took over 9 minutes
+(573 s), worse than earlier warm-ups of 100-340 s. I checked this
+instead of guessing: the CPU itself was not maxed out (about 50% idle),
+but the machine was down to a few hundred MB of free RAM with real swap
+use, on a 15 GB laptop already using almost all of that between Windows
+and the WSL2 Linux VM running Ollama - there was no spare RAM left to
+give it. This looks like memory pressure building up over many hours,
+not a one-off. Rest breaks between runs were tried but didn't fix it,
+because the slowdown builds up *inside* one long run - whether the
+breaks helped at all is honestly not clear (§5.2).
+
+The Catalan run adds one more real finding: **the laptop went to sleep
+partway through** (checked directly - the system log showed repeated
+clock-jump messages, the sign of a machine waking up from sleep), which
+paused the benchmark process for a long stretch with no data lost, just
+lost time - and separately, the local Ollama server itself crashed once
+mid-question (`unexpected EOF`, §5.4). Between the memory pressure and
+this, Catalan is the least stable of the three language runs on this
+hardware. None of this affects correctness, only how long everything
+took and how many pipeline calls errored.
+
+### 5.7 Ollama Report Agent
+
+Same 6 sessions and rubric as the Anthropic review (§4). Ratings:
+
+| | EN sessions 1-5 mean | ES sessions 1-5 mean | CA sessions 1-5 mean |
+|---|---|---|---|
+| Accuracy / Completeness / No-fab / Fluency | 3.0 / 5.0 / 4.2 / 4.6 | 3.2 / 5.0 / 4.2 / 4.6 | 2.8 / 4.6 / 3.2 / 4.6 |
+
+| Session 6 (adversarial) | No-fab | Failure-transp. | Completeness | Fluency |
+|---|---|---|---|---|
+| EN | 1 | 2 | 4 | 4 |
+| ES | 2 | 2 | 5 | 4 |
+| CA | 2 | 2 | 5 | 4 |
+
+Lower accuracy than Anthropic (§4.1's mean was 4.0), which tracks - the
+routing cascade means several sessions ask the Analysis agent something
+it structurally can't do (§5.4), and the report just relays the wrong
+answer. Catalan scores lowest of the three, mainly because of two
+sessions with real fabrication (below) rather than routing alone. Things
+worth knowing:
+
+- **A serious fabrication that shows up in all three languages.**
+  Session 6's "correlation between marketing spend and profit" -
+  impossible, no such column - was never reported as a failure in
+  English, Spanish, *or* Catalan. Instead the model silently substituted
+  a real column and reported a precise, confident correlation as fact
+  ("0.48, p=0.0" in English; "-0.219" - the real discount/profit
+  correlation - in both Spanish and Catalan). Every other run in this
+  project on this exact question (Anthropic in all three languages)
+  either errored or refused. This is the worst single fabrication found
+  anywhere in the evaluation, and it's consistent across languages on
+  this model.
+- **The Session 6 "employee salary vs profit" chart, and a case where
+  the report undoes what the agent got right.** Hallucinated in English
+  (fake salary figures, a claimed "positive correlation"), but in both
+  Spanish *and now Catalan* the Visualization agent correctly called it
+  "sales vs profit" with real values and no invented relationship - the
+  same pattern already seen on Anthropic (§7.5), now confirmed on a
+  second model across two separate language runs. But in Catalan the
+  *Report Agent* then wrote the summary back using the original
+  "employee salary" framing anyway - undoing the honesty of the
+  narration it was given. So getting the underlying answer right doesn't
+  guarantee the final report stays honest.
+- **A real fabrication invented by the Report Agent itself, not
+  inherited from a worker agent.** In Catalan Session 4, the pie-chart
+  question failed completely with a technical crash (the local Ollama
+  server returned `unexpected EOF` mid-generation, §5.4/§5.6) - there
+  was no answer at all for that turn. The Report Agent's summary still
+  confidently listed three segment counts for it ("Consumer: 5191,
+  Corporate: 3020, Home Office: 1783") as if the question had been
+  answered. Those numbers are real values from elsewhere in the dataset,
+  but they were never computed or returned in this conversation - the
+  report made up a complete, plausible-looking answer to paper over a
+  turn that outright crashed. Session 3 shows a smaller version of the
+  same thing: raw sample rows from a boxplot got relabelled in the report
+  as "median," "first quartile," "third quartile," and "outliers" -
+  specific statistical claims nobody computed.
+
+### 5.8 What this means for the Limitations section
+
+The Ollama re-run is real, retained data for all three languages now.
+This section is still less complete than the Anthropic evaluation (§2,
+§7) in one way: only one translation pass (not independently checked).
+A by-difficulty comparison across both models is in §8. The routing
+weakness (§5.4) and the marketing-
+spend fabrication (§5.7) are the two findings here that don't have an
+equivalent on Anthropic - genuine differences in model capability, not
+artifacts of a different setup, since everything else about the
+pipeline is identical. Catalan ran last, on a machine that had already
+been under load for hours and went through an unplanned sleep and one
+server crash (§5.6) - its somewhat lower numbers and the two new report
+fabrications (§5.7) may partly reflect that, not just the language.
 
 ---
 
@@ -323,8 +663,13 @@ final system - at least the Ollama re-run - is the main open item.
   the reported dataset).
 - The architecture also beats a monolithic agent with the same tools and
   prompts (decomposition value: Data Query +3.3pp, Analysis +20.0pp,
-  Visualization -10.0pp — the last one is entirely a single ambiguous
-  question, §3.3).
+  Visualization -10.0pp - the last one is entirely a single ambiguous
+  question, §3.3). Note this compares the monolithic agent against the
+  **individual agents in isolation** (correctness benchmark forces
+  routing), so it assumes the real system routes perfectly. The routing
+  errors (§2.2) are not counted against it. A fairer end-to-end
+  comparison (monolithic vs router + agents, routing errors included) is
+  future work (§9).
 - **A real correctness bug (`compute_ttest`) and a real evaluation
   scoring limitation were found, fixed, and the fix independently
   verified at three levels** (unit test, integration test against real
@@ -334,7 +679,39 @@ final system - at least the Ollama re-run - is the main open item.
 - Routing errors are concentrated at capability boundaries
   (Data Query/Analysis overlap for simple aggregates), not distributed
   randomly.
+- **The architecture beats the baseline on a second, much weaker model
+  too** (Ollama `llama3.1:8b`, all three languages, §5.3) - real-system
+  correctness stays within about 10-20pp of Anthropic's on English and
+  Spanish, dropping further on Catalan (also the run most affected by
+  machine issues, §5.6), while the baseline is markedly worse in every
+  language. But routing quality does not transfer: the same small model
+  that is close to Anthropic on raw agent capability misroutes about 80%
+  of Data Query questions in all three languages (§5.4), and unlike
+  Anthropic's routing gaps these produce genuinely wrong answers, not
+  just a scoring mismatch.
+**Scope / design choices (state these, they are deliberate):**
+- **Closed-world.** The system only answers from the local Superstore
+  database. There is no web search or external knowledge - by design,
+  since every benchmark answer is in the database and the internet can't
+  make a `GROUP BY` more correct. Questions that need outside context
+  ("why did sales drop in 2017", "is a 12% margin good", industry
+  benchmarks) are out of scope.
+- **Fixed set of analyses.** The Analysis Agent doesn't write code - it
+  picks one of ~16 pre-written functions in `statistics.py` (mean,
+  median, correlation, t-test, regression, PCA, K-Means, ...) and fills
+  in its parameters. This is a deliberate trade: the system gives up
+  open-ended analytical flexibility to get safety (no arbitrary code
+  runs), determinism, and results that can be checked against exact
+  ground truth. A code-generating agent would be more flexible but
+  neither safe to run nor checkable this way. It can only answer what
+  those ~16 cover.
+
 **Not established, and should be stated as open questions:**
+- **The baseline can't do 3 of the Analysis questions at all** (regression,
+  PCA, K-Means - not expressible in one SQL query, §3.2). It is scored
+  wrong on those by design. The architecture value is +60pp over all 15
+  Analysis questions and +50pp over the 12 that SQL can express; the
+  headline number uses all 15.
 - Retry/self-correction effectiveness: first exercised by the adversarial
   session (§4.2), where the loop fired (`attempts: 3`) on two turns but
   could not recover because the fault was a missing column, not a
@@ -344,13 +721,26 @@ final system - at least the Ollama re-run - is the main open item.
   only two data points; the English 55-question benchmark showed a 0%
   retry rate.
 - Whether decomposition value would hold at a larger question count.
-- **Cross-provider results.** Everything reported is on one provider
-  (Anthropic Haiku). Groq and Ollama were run early but those runs don't
-  match the final system and aren't reported (§5). An Ollama re-run on
-  the final system is planned; a Groq re-run on the same model isn't
-  possible (model retired). Cost per provider was also not measured.
-- **The multilingual evaluation (§7) is Anthropic Haiku only.** Spanish
-  and Catalan were not run on Groq or Ollama (§5).
+- **Latency was not a focus.** The architecture costs time - three LLM
+  calls per question instead of one (§2.3). On a hosted model that's a
+  few seconds; on a local model it's much more, and there is a large
+  one-off cost the first time a local model answers after being idle
+  (loading the 5-6 GB model into memory took 100-340 s on the test
+  laptop; the benchmark warms up before timing so this doesn't distort
+  the per-question numbers). All latency figures are from one modest
+  machine (a low-power laptop, CPU only), not tuned hardware.
+- **Cross-provider results.** Anthropic Haiku is the primary, complete
+  dataset. Ollama (`llama3.1:8b`) has a real re-run on the current
+  system for all three languages (§5.3-5.7), with the Catalan run
+  affected by machine issues (§5.6). A by-difficulty comparison of both
+  models is in §8. Groq never completed a full run in any language, so
+  it has no correctness numbers at all - see §5.1 for what was tried and
+  why it didn't work. Cost per provider was not measured.
+- **The multilingual evaluation (§7) is Anthropic Haiku only** - the
+  Ollama multilingual comparison (§5.3-5.7) is a separate, smaller
+  exercise (all three languages, but fewer dimensions measured, and the
+  Catalan run affected by machine issues). Groq has no multilingual data
+  at all.
 
 ---
 
@@ -358,9 +748,11 @@ final system - at least the Ollama re-run - is the main open item.
 
 The evaluation was run again with the 55 questions and the 6 Report-Agent
 sessions translated into Spanish and Catalan, to see if the language of
-the question changes anything. This was only done on the main model
-(Anthropic Claude Haiku 4.5). Groq and Ollama were not run in Spanish or
-Catalan (§5), so their columns below are empty.
+the question changes anything. This section is Anthropic Claude Haiku
+4.5 only. Ollama has its own three-language results in §5.3-5.7 (a
+different local model, run and written up separately). Groq never
+managed a full run in any language at all (§5.1), so it has no numbers
+here.
 
 ### 7.1 Method
 
@@ -381,17 +773,17 @@ Catalan (§5), so their columns below are empty.
 
 ### 7.2 Correctness by language
 
-| | EN | ES | CA | Groq | Ollama |
-|---|---|---|---|---|---|
-| **Real system** — Data Query | 93.3% | 93.3% | 100% | — | — |
-| **Real system** — Analysis | 100% | 100% | 100% | — | — |
-| **Real system** — Visualization | 90.0% | 90.0% | 90.0% | — | — |
-| **Baseline** — Data Query | 76.7% | 73.3% | 76.7% | — | — |
-| **Baseline** — Analysis | 40.0% | 40.0% | 40.0% | — | — |
-| **Baseline** — Visualization | 50.0% | 60.0% | 60.0% | — | — |
-| **Monolithic** — Data Query | 90.0% | 86.7% | 93.3% | — | — |
-| **Monolithic** — Analysis | 80.0% | 93.3% | 86.7% | — | — |
-| **Monolithic** — Visualization | 100% | 90.0% | 90.0% | — | — |
+| | EN | ES | CA |
+|---|---|---|---|
+| **Real system** — Data Query | 93.3% | 93.3% | 100% |
+| **Real system** — Analysis | 100% | 100% | 100% |
+| **Real system** — Visualization | 90.0% | 90.0% | 90.0% |
+| **Baseline** — Data Query | 76.7% | 73.3% | 76.7% |
+| **Baseline** — Analysis | 40.0% | 40.0% | 40.0% |
+| **Baseline** — Visualization | 50.0% | 60.0% | 60.0% |
+| **Monolithic** — Data Query | 90.0% | 86.7% | 93.3% |
+| **Monolithic** — Analysis | 80.0% | 93.3% | 86.7% |
+| **Monolithic** — Visualization | 100% | 90.0% | 90.0% |
 
 The real system does about the same in all three languages. Real-system
 correctness stays between 90% and 100% everywhere. The small changes
@@ -402,15 +794,15 @@ same questions in every language (see §7.4).
 
 ### 7.3 Routing, latency, retry by language
 
-| | EN | ES | CA | Groq | Ollama |
-|---|---|---|---|---|---|
-| Routing accuracy — overall | 90.9% | 92.7% | 90.9% | — | — |
-| Routing accuracy — Data Query | 100% | 100% | 96.7% | — | — |
-| Routing accuracy — Analysis | 66.7% | 73.3% | 73.3% | — | — |
-| Routing accuracy — Visualization | 100% | 100% | 100% | — | — |
-| Agent-only latency — DQ / An / Viz (s) | 1.12 / 1.37 / 1.71 | 1.05 / 1.17 / 1.71 | 1.02 / 1.33 / 1.71 | — | — |
-| Full-pipeline latency — DQ / An / Viz (s) | 3.50 / 3.82 / 4.94 | 3.18 / 4.15 / 5.36 | 3.12 / 4.18 / 5.48 | — | — |
-| Retry rate | 0% | 0% | 6.7% (Analysis) | — | — |
+| | EN | ES | CA |
+|---|---|---|---|
+| Routing accuracy — overall | 90.9% | 92.7% | 90.9% |
+| Routing accuracy — Data Query | 100% | 100% | 96.7% |
+| Routing accuracy — Analysis | 66.7% | 73.3% | 73.3% |
+| Routing accuracy — Visualization | 100% | 100% | 100% |
+| Agent-only latency — DQ / An / Viz (s) | 1.12 / 1.37 / 1.71 | 1.05 / 1.17 / 1.71 | 1.02 / 1.33 / 1.71 |
+| Full-pipeline latency — DQ / An / Viz (s) | 3.50 / 3.82 / 4.94 | 3.18 / 4.15 / 5.36 | 3.12 / 4.18 / 5.48 |
+| Retry rate | 0% | 0% | 6.7% (Analysis) |
 
 Routing works about the same in every language, and the misroutes are
 the same as §3.4: average/median questions going to Data Query instead
@@ -509,3 +901,198 @@ Other things:
   would fix it; left as future work.
 - This was one model (Anthropic Haiku) and one set of translations, done
   by me and not checked by anyone else.
+
+---
+
+## 8. Overall conclusions
+
+All the benchmarks tag each question `easy`, `medium`, or `hard`, and the
+evaluation scripts already compute correctness split by that tag - this
+was in the raw output the whole time (`summary.csv` for every run) but
+never pulled together into one place. Doing that, and putting it next to
+the language and model comparisons already in this document, gives a few
+findings that are not visible from any single table above.
+
+**By difficulty.** Averaged across the three languages, real-system vs.
+baseline correctness:
+
+| | Easy: real / base | Medium: real / base | Hard: real / base |
+|---|---|---|---|
+| Anthropic - Data Query | 90.0% / 73.3% | 96.7% / 80.0% | 100% / 76.7% |
+| Anthropic - Analysis | 100% / 33.3% | 100% / 66.7% | 100% / 16.7% |
+| Anthropic - Visualization | 77.8% / 66.7% | 100% / 75.0% | 88.9% / 22.2% |
+| Ollama - Data Query | 90.0% / 60.0% | 73.3% / 30.0% | 66.7% / 16.7% |
+| Ollama - Analysis | 88.9% / 44.4% | 100% / 38.9% | 94.4% / 0% |
+| Ollama - Visualization | 100% / 100% | 100% / 75.0% | 77.8% / 33.3% |
+
+Two things stand out:
+
+- **The baseline loses the most ground on hard questions, in both
+  models.** That is where the architecture earns its keep the most, not
+  the least. Anthropic's baseline drops to 16.7-22.2% correct on hard
+  Analysis and Visualization questions, while the real system stays at
+  88.9-100%. Same shape on Ollama, lower floor (0-33.3% baseline).
+- **But the Analysis "hard" collapse is mostly a labeling artifact, not
+  pure difficulty.** The hard-tier Analysis questions are exactly the
+  ones that need regression, PCA, or K-Means (§3.2) - the baseline can't
+  express those in one SQL query no matter how easy the underlying idea
+  is. So "hard" here partly means "needs a tool the baseline doesn't
+  have," not just "a harder question of the same kind." Data Query and
+  Visualization hard questions are a fairer test of raw difficulty, since
+  the baseline *can* attempt them in SQL - and there the baseline still
+  drops with difficulty (Anthropic 73.3% to 76.7%, roughly flat; Ollama
+  60% to 16.7%, a real decline).
+- **Anthropic's real system is almost difficulty-blind; Ollama's is
+  not.** Anthropic real-system correctness stays at 88.9-100% at every
+  difficulty tier and every category (the one dip, Visualization easy at
+  77.8%, is the single order-counting ambiguity from §3.1, not a real
+  difficulty effect). Ollama's real system, on the other hand, visibly
+  drops from easy to hard on Data Query (90.0% to 66.7%) and
+  Visualization (100% to 77.8%) - a real capability gap for a much
+  smaller model, not just noise, and it lines up with the specific
+  mistakes in §5.5 (grouping and ranking mistakes cluster on the harder
+  questions).
+
+**By language.** Anthropic is flat across English, Spanish, and Catalan
+(§7.2, §7.3) - correctness, routing, and latency all stay within a few
+points of each other, and every wrong answer traces back to one of the
+two scoring ambiguities already documented (§3.1, §3.3), not to the
+model struggling with Spanish or Catalan. Ollama does not hold as flat:
+correctness declines from English to Spanish to Catalan on Data Query
+and the monolithic baseline (§5.3), and the Report Agent's worst
+fabrications of the whole project happened on the Catalan run (§5.7).
+Catalan was also the run with the most machine trouble - a sleep event
+and a server crash (§5.6) - so some, but probably not all, of that
+decline may be the hardware rather than the language itself. The honest
+conclusion: on a strong hosted model, language doesn't matter much for
+this task; on a small local model, it might, but this single run can't
+separate that from machine fatigue.
+
+**By model.** The one finding that holds up everywhere, on both models,
+in all three languages, and at every difficulty tier: **the specialized
+multi-agent architecture beats a plain single-prompt baseline.** That is
+true even on a much smaller, free, local model that is clearly weaker
+than the hosted one in other ways. Groq contributes nothing to this
+comparison: the free tier's rate limits and the retirement of the model
+originally tested meant no full run ever finished, in any language
+(§5.1) - the only thing learned from Groq is practical (a free
+third-party API is not a reliable base for a reproducible benchmark),
+not a result about model quality.
+
+**By routing.** Overall accuracy: Anthropic 90.9-92.7% across the three
+languages, Ollama 56.4% (EN), 50.9% (ES), 52.7% (CA). But the overall
+number hides that the two models fail in different places:
+
+| | Anthropic EN/ES/CA | Ollama EN/ES/CA |
+|---|---|---|
+| Data Query | 100 / 100 / 96.7% | 20 / 20 / 20% |
+| Analysis | 66.7 / 73.3 / 73.3% | 100 / 86.7 / 86.7% |
+| Visualization | 100 / 100 / 100% | 100 / 90 / 100% |
+
+Anthropic's weak spot is Analysis (it sometimes sends an
+average/median-style question to Data Query instead), and checking the
+actual answers shows this barely matters - every misrouted question was
+still answered correctly by whichever agent got it (§2.2, §3.4). Ollama's
+weak spot is Data Query, stuck at exactly 20% in every language - the
+small model can't reliably tell "retrieve/aggregate with SQL" apart from
+"compute a statistic," and this time the mistake is not harmless: most of
+those misrouted questions come back wrong, stated as if correct (§5.4).
+Same kind of mistake (mixing up two similar categories), very different
+consequences.
+
+**By latency.** Full-pipeline average, Data Query / Analysis /
+Visualization, in seconds:
+
+| | EN | ES | CA |
+|---|---|---|---|
+| Anthropic | 3.50 / 3.82 / 4.94 | 3.18 / 4.15 / 5.36 | 3.12 / 4.18 / 5.48 |
+| Ollama | 54.9 / 65.8 / 129.3 | 44.5 / 62.3 / 143.8 | 71.9 / 46.6 / 71.5 |
+
+Ollama is roughly 15-30x slower than Anthropic on the same questions,
+which is expected for a small model doing CPU-only inference instead of
+calling a hosted API. Language changes latency only a little on
+Anthropic. On Ollama the numbers move around more (e.g. Catalan Analysis
+is actually the fastest of the three), but that is almost certainly the
+laptop's own state at the time (§5.6: it slowed down over long runs, and
+the Catalan run also had a sleep event and a crash) rather than Catalan
+being an easier language to process. Latency was not measured for Groq
+beyond the failed attempts in §5.1.
+
+**On retries.** The self-correcting loop (§2.4) fires far more often on
+Ollama than on Anthropic. Anthropic only triggered it once in the entire
+evaluation (Catalan Analysis, and it fixed itself). Ollama triggers it in most runs, at a rate of 3.3-10% in at least one
+category in every language (Data Query and/or Visualization in English
+and Spanish, Analysis in Catalan) - because a smaller model produces
+more malformed SQL and JSON to begin with. But it is also less reliable once triggered: some
+Ollama retries fix the problem (English Visualization, 100% success),
+some don't (Catalan Analysis - the K-Means/"describe" mix-up in §5.5
+survived the retry and still failed). So the retry loop is doing real
+work on the weaker model, catching some genuine mistakes, but it is not
+a substitute for the model actually understanding the question.
+
+**On honesty (Report Agent).** Same rubric, both models, normal sessions
+1-5 (Accuracy / Completeness / No-fabrication / Fluency, out of 5):
+
+| | EN | ES | CA |
+|---|---|---|---|
+| Anthropic | 4.0 / 5.0 / 3.8 / 5.0 | 4.2 / 5.0 / 3.8 / 5.0 | 3.8 / 5.0 / 3.4 / 5.0 |
+| Ollama | 3.0 / 5.0 / 4.2 / 4.6 | 3.2 / 5.0 / 4.2 / 4.6 | 2.8 / 4.6 / 3.2 / 4.6 |
+
+Counterintuitive at first: Ollama's no-fabrication score on normal
+sessions is not worse than Anthropic's, sometimes a touch better. The
+gap is in accuracy, and it's a routing problem more than an honesty
+problem - several Ollama sessions ask the Analysis agent something it
+structurally can't do (§5.4), and the report faithfully relays that wrong
+answer without making anything up. The picture flips on the adversarial
+session, where every question is impossible to answer at all: there,
+Ollama's no-fabrication score (1-2 across languages) is worse than
+Anthropic's (2-3), and Ollama produced the worst fabrications found
+anywhere in the whole project - a confident, precise, entirely invented
+correlation number in all three languages (§5.7), a complete answer made
+up for a turn that had actually crashed, and sample rows mislabeled as
+computed statistics (§5.7, Catalan). So a model can look equally honest
+on ordinary questions and still be much more willing to make something up
+the moment there is genuinely nothing true to say.
+
+**Bottom line.** The architecture's core promise - specialized agents
+with real tools beat one generic prompt - holds up everywhere this was
+tested: three languages, two very different models, every difficulty
+tier. What changes between models is everything downstream of that: which
+category the router gets wrong (and how much it costs when it does),
+how often self-correction is even needed, how fast the answer comes
+back, and how the system behaves when a question genuinely cannot be
+answered. A smaller, free, local model is a real option for the core
+task, but it needs a better router and closer supervision of its Report
+Agent before it could be trusted the way the hosted model was here.
+
+---
+
+## 9. Future work
+
+- **Make the agents actually cooperate.** Right now each agent is
+  independent - the router picks one, it runs, done. They could pass
+  results to each other (e.g. Analysis using a Data Query result as
+  input) or a planner could chain several for one question.
+- **More agents, or better ones.** Add agent types (forecasting, data
+  quality checks, ...) or widen the existing ones - especially the
+  Analysis Agent's fixed menu of ~16 functions (§6).
+- **Score the pipeline answers automatically.** The pipeline benchmark
+  only records routing and latency, not whether the final answer was
+  right. The misrouted questions were checked by hand here (§3.4), but
+  automating it would give two things: a real "routing quality by answer"
+  number, and a fair end-to-end comparison of the monolithic agent vs the
+  full system as a user hits it (router + agents, routing mistakes
+  included) instead of vs the agents with routing forced correct (§2.1).
+- **A second, harder dataset.** Everything here is on Superstore. Running
+  the same evaluation on a larger or messier dataset would show how much
+  of what was found is specific to this one.
+- **Answer in the user's language** - the Report Agent's system prompt is
+  English-only (§7.5); a one-line change would make it follow the
+  conversation language, like the narrator already does.
+- **Finish the cross-provider picture** - a Groq re-run once a suitable
+  model is available, and cost measurement per provider (§5).
+- **Fix the Ollama router's Data Query blind spot** (§5.4) - it's the
+  single biggest gap found on the local model, and unlike Anthropic's
+  routing gaps it produces real wrong answers, not just a scoring
+  mismatch. A few more few-shot examples in the router prompt would be
+  the first thing to try.

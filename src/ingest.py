@@ -1,17 +1,17 @@
 """
 src/ingest.py
 
-CSV -> clean SQLite database.
+Turns the CSV into a clean SQLite database.
 
-Responsibilities:
-1. Load the Superstore CSV dataset (with an encoding fallback chain).
-2. Validate its contents (soft sanity checks, not a brittle exact count).
-3. Normalize column names and dates.
+Steps:
+1. Load the Superstore CSV (tries a few encodings if the first one fails).
+2. Check the data looks right (loose sanity checks, not an exact count).
+3. Clean up column names and dates.
 4. Create the SQLite database.
-5. Assert that a year-grouped date query actually returns real numbers
-   before declaring success -- this is the check that would have caught
-   the original 'strftime() silently returns NULL on M/D/YYYY strings'
-   failure mode if it had ever been reintroduced.
+5. Check that grouping by year on the date column actually returns real
+   numbers before saying it worked. This is the check that would have
+   caught the old bug where `strftime()` silently returned NULL on
+   M/D/YYYY-formatted dates, if that bug ever came back.
 """
 from __future__ import annotations
 
@@ -25,10 +25,10 @@ from src.core.paths import DATA_DIR
 
 TABLE_NAME = "orders"
 
-# A generous sanity range, not a brittle exact match -- the point is to
-# catch "this obviously isn't the Superstore dataset" (wrong file, empty
-# file, truncated download), not to break on a legitimate future refresh
-# of the dataset that adds or removes a handful of rows.
+# A wide sanity range, not an exact number - the point is to catch
+# "this obviously isn't the Superstore dataset" (wrong file, empty file,
+# a download that got cut off), not to break just because a future
+# version of the dataset has a few more or fewer rows.
 MIN_EXPECTED_ROWS = 5_000
 MAX_EXPECTED_ROWS = 50_000
 
@@ -94,9 +94,9 @@ def normalize_dataset(df: pd.DataFrame) -> pd.DataFrame:
     df = df.rename(columns=COLUMN_MAPPING)
 
     for col in DATE_COLUMNS:
-        # Explicit format, not inference: the raw CSV uses M/D/YYYY, and
-        # relying on pandas to infer that consistently across the whole
-        # column is unnecessary risk when we know the exact format.
+        # Give the exact format instead of letting pandas guess it: the
+        # raw CSV uses M/D/YYYY, and we already know that, so there's no
+        # reason to risk pandas guessing wrong on some rows.
         parsed = pd.to_datetime(df[col], format="%m/%d/%Y", errors="coerce")
         still_bad = parsed.isna() & df[col].notna()
         if still_bad.any():

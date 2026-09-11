@@ -1,10 +1,10 @@
 """
 src/agents/viz/engine.py
 
-Visualization Agent core logic: a question that implies a chart -> a chart
-spec (LLM decides WHAT to plot) -> deterministic Matplotlib rendering
-(trusted code decides HOW). Correctness is checkable via the underlying
-data, not by parsing the PNG.
+Visualization Agent core logic: a question that needs a chart becomes a
+chart spec (the LLM decides WHAT to plot), which fixed, trusted
+Matplotlib code then draws (deciding HOW). Correctness is checked with
+the underlying data, not by parsing the PNG.
 """
 from __future__ import annotations
 

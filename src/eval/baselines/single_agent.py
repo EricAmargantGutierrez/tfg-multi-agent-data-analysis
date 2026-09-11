@@ -1,22 +1,22 @@
 """
 src/eval/baselines/single_agent.py
 
-The baseline: same LLM, schema + question, ONE plain-language instruction
-to write a single SQL query. No specialized system prompt, no retry, no
-agent routing, no statistical/charting capability.
+The baseline: same LLM, same schema and question, but just ONE plain
+instruction to write a single SQL query. No tuned system prompt, no
+retry, no agent routing, no statistics or charting.
 
-Deliberately does NOT reuse src/agents/data_query/prompts.py's tuned prompt
-(ranking-question rules, worked examples, aggregation conventions). If it
-did, this would only measure "does the retry loop help" -- reusing the
-tuned prompt would silently smuggle the real Data Query Agent's prompt
-engineering into the "baseline", understating the architecture's value.
-The whole point of a baseline is a deliberately minimal comparison point.
+On purpose, this does NOT reuse src/agents/data_query/prompts.py's tuned
+prompt (its ranking-question rules, worked examples, aggregation
+conventions). If it did, using the real prompt would sneak the real Data
+Query Agent's prompt work into the "baseline" and make the architecture
+look less useful than it is. A baseline is only useful if it stays a
+deliberately minimal comparison point.
 
-Used across ALL question categories, not just SQL ones: for analysis and
-visualization questions, this still only ever writes SQL. Whether it can
-approximate the right answer this way (e.g. AVG for "mean") or simply
-cannot express the question at all (correlation, PCA, KMeans have no
-SQLite equivalent) is itself the finding the evaluation is measuring.
+Used for ALL question categories, not just Data Query ones: for analysis
+and visualization questions, it still only ever writes SQL. Whether it
+can get close this way (e.g. `AVG` for "mean") or just can't express the
+question at all (correlation, PCA, K-Means have no SQLite equivalent) is
+exactly the thing the evaluation is trying to find out.
 """
 from __future__ import annotations
 

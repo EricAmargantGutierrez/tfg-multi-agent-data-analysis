@@ -1,23 +1,23 @@
 """
 src/eval/checks.py
 
-Scoring logic. Every check here compares STRUCTURED output (rows, or a
-result dict) against ground truth -- never narrated prose, since prose
-can phrase the same correct answer many different ways.
+Scoring logic. Every check here compares the structured output (rows, or
+a result dict) against the ground truth - never the narrated text, since
+the same correct answer can be worded in many different ways.
 
-Two deliberate simplifications, documented rather than hidden:
-  - Numeric comparisons use a fixed absolute tolerance (rounding to 2
-    decimal places by default), not true epsilon-based floating point
-    comparison. Adequate for currency/count data at this scale; would
-    need revisiting for a dataset with very small or very large values.
-  - Row-set comparison for SQL/Viz splits each row into its numeric and
-    non-numeric parts and compares each part as a sorted multiset. This
-    makes the check robust to column reordering and row reordering
-    without needing to know column semantics, but it can't tell apart
-    two different numeric columns that happen to hold the same set of
-    values in the same row shape. Acceptable for this benchmark's
-    question set; would need real column-aware comparison for anything
-    more adversarial.
+Two simplifications I made on purpose, written down here instead of
+hidden in the code:
+  - Numbers are compared with a fixed tolerance (rounded to 2 decimals by
+    default), not real floating-point epsilon comparison. That's fine for
+    currency/count values at this size, but would need changing for a
+    dataset with much smaller or much bigger numbers.
+  - Comparing rows for Data Query/Viz splits each row into its numbers
+    and its text, and compares each part as a set (order doesn't
+    matter). This means the check doesn't care about column or row
+    order, but it also can't tell apart two different numeric columns
+    that happen to hold the same values in the same shape. That's fine
+    for this benchmark's questions, but a trickier question set would
+    need a check that actually knows what each column means.
 """
 from __future__ import annotations
 
@@ -102,8 +102,8 @@ def _check_regression(actual: dict, expected: dict) -> bool:
     a, e = actual.get("result"), expected.get("result")
     if not isinstance(a, dict) or not isinstance(e, dict):
         return False
-    # r2 is the headline metric; coefficients can wobble slightly more
-    # than r2 under floating point without indicating a real error.
+    # r2 is the main number to check; the coefficients can shift a little
+    # more than r2 does just from floating point, without being wrong.
     return numbers_close(a.get("r2", -999), e.get("r2", -999), tol=0.02)
 
 
@@ -156,22 +156,22 @@ CHECKERS = {
 
 
 # ---------------------------------------------------------------------
-# Baseline scoring: the baseline only ever returns {columns, rows} from a
-# single bare SQL query, never a structured "analysis result". For SQL
-# and Viz questions that shape already matches ground truth directly.
+# Baseline scoring: the baseline always just returns {columns, rows} from
+# one plain SQL query, never a proper "analysis result" dict. For Data
+# Query and Viz questions that shape is already what the ground truth
+# looks like, so nothing extra is needed.
 #
-# For Analysis questions: this used to auto-reject anything outside
-# {mean, count, min, max, ...} on the assumption a single SQL query
-# structurally cannot express correlation/covariance/ttest. That
-# assumption was WRONG -- evaluation showed a capable model deriving the
-# correct closed-form Pearson correlation formula manually in raw SQL,
-# matching the real system almost exactly, yet scored incorrect purely
-# by this design, not because the math was wrong. Fixed: correlation,
-# covariance, and (group-based) ttest are now genuinely checked against
-# the key metric in the baseline's returned row. regression/pca/kmeans
-# remain auto-rejected -- those genuinely require iterative optimization
-# or matrix decomposition that a single, non-procedural SQL SELECT
-# cannot express, which is a real structural limit, not an assumption.
+# For Analysis questions: this used to auto-fail anything except
+# {mean, count, min, max, ...}, on the assumption that one SQL query
+# can't express correlation/covariance/ttest. That assumption was wrong:
+# testing showed the model working out the correct Pearson correlation
+# formula by hand in plain SQL, matching the real system almost exactly,
+# but still marked wrong just because of this rule. Fixed: correlation,
+# covariance, and (group-based) ttest are now actually checked against
+# the key number in whatever row the baseline returned. Regression, PCA,
+# and K-Means are still auto-failed - those really do need repeated
+# optimization or matrix math that one plain SQL SELECT cannot do. That
+# one is a real limit of SQL, not just an assumption in the checker.
 # ---------------------------------------------------------------------
 def check_baseline_sql_shaped(answer: dict, ground_truth: list[list]) -> bool:
     return check_data_query(answer, ground_truth)
@@ -206,8 +206,8 @@ def check_baseline_analysis(answer: dict, ground_truth: dict) -> bool:
             return False
         return any(numbers_close(c, expected) for c in candidates)
 
-    # regression / pca / kmeans: genuinely infeasible in one plain SQL
-    # SELECT -- this is the real finding, not an assumption.
+    # regression / pca / kmeans: really can't be done in one plain SQL
+    # SELECT. This is a real limit, not just an assumption.
     return False
 
 
@@ -219,15 +219,15 @@ BASELINE_CHECKERS = {
 
 
 # ---------------------------------------------------------------------
-# Monolithic baseline scoring: it can choose action="sql" (rows: list of
-# lists) or action="chart" (rows: list of dicts, from sqlite3.Row) for
-# the SAME question -- both are compared against the same list-of-lists
-# ground truth SQL and Visualization questions already share (visualization
-# ground truth is generated the same way SQL's is: raw rows from the
-# reference SQL, not chart-specific). Normalizing here means the checker
-# doesn't need to know or care which action the model picked; it only
-# checks whether the underlying DATA is right, which is the actual
-# question being scored either way.
+# Monolithic baseline scoring: for the SAME question it might pick
+# action="sql" (rows as a list of lists) or action="chart" (rows as a
+# list of dicts, from sqlite3.Row) - both get compared against the same
+# ground truth that Data Query and Visualization questions already
+# share (the visualization ground truth is built the same way as SQL's:
+# raw rows from the reference SQL, nothing chart-specific). Turning both
+# shapes into the same format here means the checker doesn't need to
+# care which action the model picked - it just checks whether the data
+# itself is right, which is the actual thing being tested either way.
 # ---------------------------------------------------------------------
 def check_monolithic_rows(answer: dict, ground_truth: list[list]) -> bool:
     if not answer.get("ok"):
@@ -241,10 +241,10 @@ def check_monolithic_rows(answer: dict, ground_truth: list[list]) -> bool:
 
 def check_monolithic_analysis(answer: dict, ground_truth: dict) -> bool:
     # If the model picked action="sql" instead of "analysis" for a
-    # question that structurally needs real statistics, `answer` won't
-    # have a "result" dict in the expected shape and this correctly (and
-    # informatively) returns False -- a real finding: "chose the wrong
-    # capability for this question", not a scorer bug.
+    # question that actually needs real statistics, `answer` won't have
+    # a "result" dict in the right shape, so this correctly returns
+    # False. That's a real finding ("it picked the wrong tool for this
+    # question"), not a bug in the checker.
     return check_analysis(answer, ground_truth)
 
 

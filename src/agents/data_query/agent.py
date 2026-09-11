@@ -1,5 +1,5 @@
 """
-src/agents/data_query/agent.py — MCP server exposing the Data Query Agent.
+src/agents/data_query/agent.py - MCP server exposing the Data Query Agent.
 
 Thin wrapper only. All logic lives in engine.py so it can be unit tested
 without spinning up FastMCP.

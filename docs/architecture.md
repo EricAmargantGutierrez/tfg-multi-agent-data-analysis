@@ -11,80 +11,80 @@ the Report Agent works only from accumulated session history.
 
 ## Components
 
-- **REPL** (`src/repl.py`) — command-line interface: receives questions,
-  calls the orchestrator, prints answers, triggers the end-of-session
+- **REPL** (`src/repl.py`) - the command-line interface: takes questions,
+  calls the orchestrator, prints answers, and triggers the end-of-session
   report.
-- **Orchestrator** (`src/orchestrator/`) — routes each question, invokes
-  the selected agent over MCP, narrates the structured result, and
-  accumulates conversation history.
-- **Router** (`src/orchestrator/router.py`) — an LLM decides which agent
-  handles a question; a keyword-based fallback (`keyword_route`) covers
-  cases where the LLM is unavailable or returns garbage.
-- **Data Query / Viz / Analysis / Report Agents** (`src/agents/*/`) — each is an
-  MCP server exposing one tool. Each has: `agent.py` (thin MCP wrapper),
-  `engine.py` (the actual logic, directly unit-testable without FastMCP),
-  and `prompts.py` (its system prompt); Analysis adds `statistics.py`
-  (the pandas/scikit-learn computations).
-- **Narrator** (`src/orchestrator/narrate.py`) — turns an agent's
-  structured output into a natural-language response. Never touches the
+- **Orchestrator** (`src/orchestrator/`) - routes each question, calls
+  the chosen agent over MCP, turns the structured result into text, and
+  keeps track of the conversation history.
+- **Router** (`src/orchestrator/router.py`) - an LLM decides which agent
+  should handle a question. If the LLM call fails or returns something
+  unusable, a keyword-based fallback (`keyword_route`) picks an agent
+  instead.
+- **Data Query / Viz / Analysis / Report Agents** (`src/agents/*/`) - each
+  is an MCP server that exposes one tool. Each has `agent.py` (a thin MCP
+  wrapper), `engine.py` (the real logic, which can be unit-tested
+  directly without FastMCP), and `prompts.py` (its system prompt).
+  Analysis also has `statistics.py` (the pandas/scikit-learn code).
+- **Narrator** (`src/orchestrator/narrate.py`) - turns an agent's
+  structured output into a normal-language answer. Never touches the
   database itself.
 
 ## Who is allowed to touch the database
 
-Three agents — Data Query, Visualization, and Analysis — each independently
-decide their own query. All three go through `src/core/db.py`, and
-nothing else opens a connection to the database; every connection is
-opened read-only, so a bug downstream cannot mutate the database
-regardless of which agent triggered it. Analysis never lets the LLM
-write raw SQL, it produces a structured plan (columns, filters, and
-(for regression) a target / (for a t-test) a grouping column and two
-group values to compare), validated as a Pydantic `AnalysisPlan`, and
-`build_select` compiles it into a parameterized query.
+Three agents - Data Query, Visualization, and Analysis - each work out
+their own query. All three go through `src/core/db.py`, and nothing
+else opens a connection to the database. Every connection is read-only,
+so a bug further down the chain can't change the database no matter
+which agent caused it. Analysis never lets the LLM write raw SQL - it
+produces a structured plan instead (columns, filters, and for a
+regression a target, or for a t-test a grouping column and the two
+groups to compare). This plan is checked as a Pydantic `AnalysisPlan`,
+and `build_select` turns it into a real, parameterized query.
 
 ## Protecting the LLM from its own agents' output size
 
-`src/core/summarize.py` — a Viz Agent result with a large row list
-(e.g. a 1,000-row scatter/boxplot/histogram result) being embedded
-directly into an LLM prompt caused a `413 Request too large` error in
-narration and a ~14,700-token single request in report generation. Both
-`narrate.py` and `report/engine.py` now pass their input through
-`summarize_large_rows()` first: any list of more than 15 row-shaped
-items is replaced with a count + a 5-row sample before being sent to an
-LLM.
+`src/core/summarize.py` - putting a Viz Agent result with a big row list
+(e.g. a 1,000-row scatter/boxplot/histogram) straight into an LLM prompt
+caused a `413 Request too large` error in narration, and a single
+~14,700-token request when generating a report. Both `narrate.py` and
+`report/engine.py` now run their input through `summarize_large_rows()`
+first: any list of more than 15 rows gets replaced with a count plus a
+5-row sample before it's sent to an LLM.
 
 ## Robustness to missing/invalid data
 
-`src/agents/analysis/statistics.py::_numeric()` drops any row containing
+`src/agents/analysis/statistics.py::_numeric()` drops any row with a
 `NaN` in the selected numeric columns before computing anything. This
-matters for the scikit-learn-based functions (`compute_regression`,
+matters for the scikit-learn functions (`compute_regression`,
 `compute_pca`, `compute_kmeans`), which would otherwise crash on missing
-data; the pandas-based scalar statistics already skip `NaN` safely. The
-project's dataset has zero missing values, so this is a defensive fix,
-not something observed in production.
+data - the pandas-based simple statistics already handle `NaN` safely on
+their own. The Superstore dataset has no missing values at all, so this
+is a safety net, not a fix for something that actually happened.
 
 ## The t-test compares two groups, not two arbitrary columns
 
-`compute_ttest` compares ONE numeric variable across TWO groups defined
-by a categorical column (e.g. profit in the Consumer segment vs. the
-Corporate segment), the standard meaning of a t-test. `AnalysisPlan`
-carries `group_column` and `group_values` (exactly two values, Pydantic-
-validated): the planner LLM names which column defines the groups and
-which two values to compare, and `compute_ttest` runs the real
-two-sample comparison.
+`compute_ttest` compares ONE numeric variable across TWO groups, where
+the groups come from a categorical column (e.g. profit in the Consumer
+segment vs. the Corporate segment) - this is what a t-test is actually
+for. `AnalysisPlan` has `group_column` and `group_values` (exactly two
+values, checked by Pydantic): the planner LLM says which column defines
+the groups and which two values to compare, and `compute_ttest` runs the
+real two-group comparison.
 
-An earlier version compared two numeric *columns* directly as
-independent samples, which is not a valid two-group hypothesis test. It
-was found and fixed during evaluation; the full before/after account is
-in `results_and_failure_analysis.md` §3.5.
+An earlier version compared two numeric *columns* directly, treating
+them as independent samples - that isn't a valid two-group test. This
+was found and fixed during the evaluation; the full before/after is in
+`results_and_failure_analysis.md` §3.5.
 
 ## Conversation history — what it's actually used for
 
-`SessionState.history` accumulates every turn's `(question, agent,
-result)`. **Only the Report Agent consumes it.** Routing and narration
-only ever see the current question, each turn is resolved independently.
-This is a deliberate scope boundary matching the original proposal
-(history feeds the Report Agent; it does not enable multi-turn reference
-resolution).
+`SessionState.history` keeps every turn's `(question, agent, result)`.
+**Only the Report Agent reads it.** Routing and narration only ever see
+the current question - each turn is handled on its own. This is a
+deliberate choice, matching the original proposal: history feeds the
+Report Agent, it doesn't let the system remember earlier turns while
+answering a new question.
 
 ## Execution Flow
 
@@ -106,24 +106,22 @@ resolution).
 
 ## Current Limitations
 
-- Single SQLite database, single table.
-- No multi-turn reference resolution.
-- The Analysis Agent's filter language covers `= != > >= < <= LIKE IN
-  BETWEEN` against real columns — enough for region/category/date-range
-  filtering, not arbitrary boolean expressions.
-- The t-test currently compares exactly two groups from one categorical
-  column (e.g. two specific segments), it doesn't support comparing more
-  than two groups (that would need ANOVA, a different test) or paired
-  samples.
-- Row-cap interaction with `ORDER BY`: when a query's result exceeds
-  `src.core.db.MAX_ROWS = 1000`, *which* 1,000 rows are returned depends
-  on sort order, two structurally equivalent queries with different (or
-  absent) ordering can retrieve different row subsets from a table with
-  more matching rows than the cap.
-- The subprocess/self-correction sandbox model has no execution sandbox
-  beyond SQL validation, no agent here executes arbitrary LLM-generated
-  Python, which limits risk but also limits analytical flexibility to
-  what `src/agents/analysis/statistics.py` implements.
+- One SQLite database, one table.
+- No memory of earlier turns when answering a new question.
+- The Analysis Agent's filters only support `= != > >= < <= LIKE IN
+  BETWEEN` on real columns - enough for filtering by region, category,
+  or a date range, but not any arbitrary condition.
+- The t-test only compares exactly two groups from one categorical
+  column (e.g. two specific segments). It can't compare more than two
+  groups (that needs ANOVA, a different test) or paired samples.
+- Row cap + `ORDER BY`: when a query's result has more than
+  `src.core.db.MAX_ROWS = 1000` rows, *which* 1,000 come back depends on
+  the sort order. Two queries that ask the same thing but sort
+  differently (or don't sort at all) can return different rows if there
+  are more matches than the cap.
+- No agent here runs LLM-generated Python - the only safety check is on
+  the SQL. That keeps things safe, but it also means the system can only
+  do what `src/agents/analysis/statistics.py` already implements.
 
 ## Future Extensions
 

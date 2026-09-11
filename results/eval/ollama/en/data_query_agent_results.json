@@ -1,0 +1,934 @@
+[
+  {
+    "id": 1,
+    "category": "data_query",
+    "task_type": "count",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "How many orders are there?",
+    "question_en": "How many orders are there?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 3.956,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "total_orders"
+      ],
+      "rows": [
+        [
+          9994
+        ]
+      ],
+      "sql": "SELECT COUNT(*) AS total_orders FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 2,
+    "category": "data_query",
+    "task_type": "count_distinct",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "How many customers are there?",
+    "question_en": "How many customers are there?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": false,
+    "latency_seconds": 23.1462,
+    "attempts": 3,
+    "retried": true,
+    "answer": {
+      "columns": [],
+      "rows": [],
+      "sql": null,
+      "error": "OperationalError: no such column: customer_id"
+    },
+    "error": "OperationalError: no such column: customer_id"
+  },
+  {
+    "id": 3,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "Which region has the highest sales?",
+    "question_en": "Which region has the highest sales?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 13.9182,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "region",
+        "total_sales"
+      ],
+      "rows": [
+        [
+          "West",
+          725457.8245
+        ]
+      ],
+      "sql": "SELECT \n    region,\n    SUM(sales) AS total_sales\nFROM orders\nGROUP BY region\nORDER BY total_sales DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 4,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "Which category generated the highest profit?",
+    "question_en": "Which category generated the highest profit?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 13.8668,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "category",
+        "total_profit"
+      ],
+      "rows": [
+        [
+          "Technology",
+          145454.9481
+        ]
+      ],
+      "sql": "SELECT \n    category,\n    SUM(profit) AS total_profit\nFROM orders\nGROUP BY category\nORDER BY total_profit DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 5,
+    "category": "data_query",
+    "task_type": "group_by",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "What are the total sales by region?",
+    "question_en": "What are the total sales by region?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 10.2265,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "region",
+        "total_sales"
+      ],
+      "rows": [
+        [
+          "Central",
+          501239.8908
+        ],
+        [
+          "East",
+          678781.24
+        ],
+        [
+          "South",
+          391721.905
+        ],
+        [
+          "West",
+          725457.8245
+        ]
+      ],
+      "sql": "SELECT \n    region,\n    SUM(sales) AS total_sales\nFROM orders\nGROUP BY region",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 6,
+    "category": "data_query",
+    "task_type": "top_k",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "Show the five most profitable products.",
+    "question_en": "Show the five most profitable products.",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 14.9701,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "product_name",
+        "total_profit"
+      ],
+      "rows": [
+        [
+          "Canon imageCLASS 2200 Advanced Copier",
+          25199.928
+        ],
+        [
+          "Fellowes PB500 Electric Punch Plastic Comb Binding Machine with Manual Bind",
+          7753.039
+        ],
+        [
+          "Hewlett Packard LaserJet 3310 Copier",
+          6983.8836
+        ],
+        [
+          "Canon PC1060 Personal Laser Copier",
+          4570.9347
+        ],
+        [
+          "HP Designjet T520 Inkjet Large Format Printer - 24\" Color",
+          4094.9766
+        ]
+      ],
+      "sql": "SELECT \n    product_name,\n    SUM(profit) AS total_profit\nFROM orders\nGROUP BY product_name\nORDER BY total_profit DESC\nLIMIT 5",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 7,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "Which customer placed the most orders?",
+    "question_en": "Which customer placed the most orders?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 13.8547,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "customer_name",
+        "total_orders"
+      ],
+      "rows": [
+        [
+          "William Brown",
+          37
+        ]
+      ],
+      "sql": "SELECT \n    customer_name,\n    COUNT(*) AS total_orders\nFROM orders\nGROUP BY customer_name\nORDER BY total_orders DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 8,
+    "category": "data_query",
+    "task_type": "aggregation",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "What is the total profit?",
+    "question_en": "What is the total profit?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 6.5894,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "total_profit"
+      ],
+      "rows": [
+        [
+          286397.0217
+        ]
+      ],
+      "sql": "SELECT SUM(profit) AS total_profit FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 9,
+    "category": "data_query",
+    "task_type": "distinct",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "List all product categories.",
+    "question_en": "List all product categories.",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 5.382,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "category"
+      ],
+      "rows": [
+        [
+          "Furniture"
+        ],
+        [
+          "Office Supplies"
+        ],
+        [
+          "Technology"
+        ]
+      ],
+      "sql": "SELECT DISTINCT category AS category FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 10,
+    "category": "data_query",
+    "task_type": "filter_count",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "How many orders were shipped using Second Class?",
+    "question_en": "How many orders were shipped using Second Class?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 10.6503,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "total_orders"
+      ],
+      "rows": [
+        [
+          1945
+        ]
+      ],
+      "sql": "SELECT \n    COUNT(*) AS total_orders\nFROM orders\nWHERE ship_mode = 'Second Class'",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 11,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "Who generated the largest amount of revenue?",
+    "question_en": "Who generated the largest amount of revenue?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 14.9583,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "customer_name",
+        "total_profit"
+      ],
+      "rows": [
+        [
+          "Tamara Chand",
+          8981.323900000001
+        ]
+      ],
+      "sql": "SELECT \n    customer_name,\n    SUM(profit) AS total_profit\nFROM orders\nGROUP BY customer_name\nORDER BY total_profit DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 12,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "Which state sold the most products?",
+    "question_en": "Which state sold the most products?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 13.2581,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "state",
+        "total_products"
+      ],
+      "rows": [
+        [
+          "California",
+          2001
+        ]
+      ],
+      "sql": "SELECT \n    state,\n    COUNT(*) AS total_products\nFROM orders\nGROUP BY state\nORDER BY total_products DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 13,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "Which city earned the greatest profit?",
+    "question_en": "Which city earned the greatest profit?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 14.2006,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "city",
+        "total_profit"
+      ],
+      "rows": [
+        [
+          "New York City",
+          62036.9837
+        ]
+      ],
+      "sql": "SELECT \n    city,\n    SUM(profit) AS total_profit\nFROM orders\nGROUP BY city\nORDER BY total_profit DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 14,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "Which shipping mode appears most frequently?",
+    "question_en": "Which shipping mode appears most frequently?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 14.6144,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "ship_mode",
+        "total_orders"
+      ],
+      "rows": [
+        [
+          "Standard Class",
+          5968
+        ]
+      ],
+      "sql": "SELECT \n    ship_mode, \n    COUNT(*) AS total_orders\nFROM orders\nGROUP BY ship_mode\nORDER BY total_orders DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 15,
+    "category": "data_query",
+    "task_type": "count_distinct",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "How many distinct product names are there?",
+    "question_en": "How many distinct product names are there?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 8.5459,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "total_product_names"
+      ],
+      "rows": [
+        [
+          1850
+        ]
+      ],
+      "sql": "SELECT COUNT(DISTINCT product_name) AS total_product_names FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 16,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "Which segment contributes the largest share of sales?",
+    "question_en": "Which segment contributes the largest share of sales?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 14.6318,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "segment",
+        "total_sales"
+      ],
+      "rows": [
+        [
+          "Consumer",
+          1161401.345
+        ]
+      ],
+      "sql": "SELECT \n    segment,\n    SUM(sales) AS total_sales\nFROM orders\nGROUP BY segment\nORDER BY total_sales DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 17,
+    "category": "data_query",
+    "task_type": "top_k",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "Find the order with the highest sales.",
+    "question_en": "Find the order with the highest sales.",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 10.9,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "order_id",
+        "sales"
+      ],
+      "rows": [
+        [
+          "CA-2014-145317",
+          22638.48
+        ]
+      ],
+      "sql": "SELECT \n    order_id,\n    sales\nFROM orders\nORDER BY sales DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 18,
+    "category": "data_query",
+    "task_type": "count_distinct",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "How many unique cities are represented?",
+    "question_en": "How many unique cities are represented?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 7.8961,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "total_cities"
+      ],
+      "rows": [
+        [
+          531
+        ]
+      ],
+      "sql": "SELECT COUNT(DISTINCT city) AS total_cities FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 19,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "Which region generated the least profit?",
+    "question_en": "Which region generated the least profit?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 10.4026,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "region",
+        "least_profit"
+      ],
+      "rows": [
+        [
+          "Central",
+          -3701.8928
+        ],
+        [
+          "East",
+          -6599.978
+        ],
+        [
+          "South",
+          -3839.9904
+        ],
+        [
+          "West",
+          -3399.98
+        ]
+      ],
+      "sql": "SELECT \n    region,\n    MIN(profit) AS least_profit\nFROM orders\nGROUP BY region",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 20,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "Which category contains the greatest number of orders?",
+    "question_en": "Which category contains the greatest number of orders?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 13.6057,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "category",
+        "total_orders"
+      ],
+      "rows": [
+        [
+          "Office Supplies",
+          6026
+        ]
+      ],
+      "sql": "SELECT \n    category,\n    COUNT(*) AS total_orders\nFROM orders\nGROUP BY category\nORDER BY total_orders DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 21,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "Where does the business seem to perform best in terms of revenue?",
+    "question_en": "Where does the business seem to perform best in terms of revenue?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 14.9171,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "region",
+        "total_sales"
+      ],
+      "rows": [
+        [
+          "West",
+          725457.8245
+        ]
+      ],
+      "sql": "SELECT \n    region,\n    SUM(sales) AS total_sales\nFROM orders\nGROUP BY region\nORDER BY total_sales DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 22,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "Which customer appears to buy the most often?",
+    "question_en": "Which customer appears to buy the most often?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 15.4228,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "customer_name",
+        "total_orders"
+      ],
+      "rows": [
+        [
+          "William Brown",
+          37
+        ]
+      ],
+      "sql": "SELECT \n    customer_name,\n    COUNT(*) AS total_orders\nFROM orders\nGROUP BY customer_name\nORDER BY total_orders DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 23,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "Which region generated the highest total profit?",
+    "question_en": "Which region generated the highest total profit?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 13.8863,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "region",
+        "total_profit"
+      ],
+      "rows": [
+        [
+          "West",
+          108418.4489
+        ]
+      ],
+      "sql": "SELECT \n    region,\n    SUM(profit) AS total_profit\nFROM orders\nGROUP BY region\nORDER BY total_profit DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 24,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "Which product has generated the greatest revenue overall?",
+    "question_en": "Which product has generated the greatest revenue overall?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 14.6392,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "product_name",
+        "total_sales"
+      ],
+      "rows": [
+        [
+          "Canon imageCLASS 2200 Advanced Copier",
+          61599.824
+        ]
+      ],
+      "sql": "SELECT \n    product_name,\n    SUM(sales) AS total_sales\nFROM orders\nGROUP BY product_name\nORDER BY total_sales DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 25,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "Which shipping option do customers prefer the most?",
+    "question_en": "Which shipping option do customers prefer the most?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 14.2159,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "ship_mode",
+        "total_orders"
+      ],
+      "rows": [
+        [
+          "Standard Class",
+          5968
+        ]
+      ],
+      "sql": "SELECT \n    ship_mode,\n    COUNT(*) AS total_orders\nFROM orders\nGROUP BY ship_mode\nORDER BY total_orders DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 26,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "Which market segment seems to dominate sales?",
+    "question_en": "Which market segment seems to dominate sales?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 12.0838,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "segment",
+        "total_sales"
+      ],
+      "rows": [
+        [
+          "Consumer",
+          1161401.345
+        ],
+        [
+          "Corporate",
+          706146.3668
+        ],
+        [
+          "Home Office",
+          429653.1485
+        ]
+      ],
+      "sql": "SELECT \n    segment,\n    SUM(sales) AS total_sales\nFROM orders\nGROUP BY segment\nORDER BY total_sales DESC",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 27,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "Which state accumulated the highest total profit?",
+    "question_en": "Which state accumulated the highest total profit?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 13.814,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "state",
+        "total_profit"
+      ],
+      "rows": [
+        [
+          "California",
+          76381.3871
+        ]
+      ],
+      "sql": "SELECT \n    state,\n    SUM(profit) AS total_profit\nFROM orders\nGROUP BY state\nORDER BY total_profit DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 28,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "Which product sold the greatest number of units?",
+    "question_en": "Which product sold the greatest number of units?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 14.5341,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "product_name",
+        "total_quantity"
+      ],
+      "rows": [
+        [
+          "Staples",
+          215
+        ]
+      ],
+      "sql": "SELECT \n    product_name,\n    SUM(quantity) AS total_quantity\nFROM orders\nGROUP BY product_name\nORDER BY total_quantity DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 29,
+    "category": "data_query",
+    "task_type": "count",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "How many purchases have been registered in total?",
+    "question_en": "How many purchases have been registered in total?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 6.6796,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "total_purchases"
+      ],
+      "rows": [
+        [
+          9994
+        ]
+      ],
+      "sql": "SELECT COUNT(*) AS total_purchases FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 30,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "Identify the most successful region according to sales.",
+    "question_en": "Identify the most successful region according to sales.",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 14.5196,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "region",
+        "total_sales"
+      ],
+      "rows": [
+        [
+          "West",
+          725457.8245
+        ]
+      ],
+      "sql": "SELECT \n    region,\n    SUM(sales) AS total_sales\nFROM orders\nGROUP BY region\nORDER BY total_sales DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  }
+]

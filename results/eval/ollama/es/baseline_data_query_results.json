@@ -1,0 +1,878 @@
+[
+  {
+    "id": 1,
+    "category": "data_query",
+    "task_type": "count",
+    "difficulty": "easy",
+    "language": "es",
+    "question": "¿Cuántos pedidos hay?",
+    "question_en": "How many orders are there?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 4.3392,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "COUNT(row_id)"
+      ],
+      "rows": [
+        [
+          9994
+        ]
+      ],
+      "sql": "SELECT COUNT(row_id) FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 2,
+    "category": "data_query",
+    "task_type": "count_distinct",
+    "difficulty": "easy",
+    "language": "es",
+    "question": "¿Cuántos clientes hay?",
+    "question_en": "How many customers are there?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 4.9461,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "COUNT(DISTINCT customer_id)"
+      ],
+      "rows": [
+        [
+          793
+        ]
+      ],
+      "sql": "SELECT COUNT(DISTINCT customer_id) FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 3,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "easy",
+    "language": "es",
+    "question": "¿Qué región tiene las mayores ventas?",
+    "question_en": "Which region has the highest sales?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 6.2873,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "region"
+      ],
+      "rows": [
+        [
+          "West"
+        ]
+      ],
+      "sql": "SELECT region FROM orders GROUP BY region ORDER BY SUM(sales) DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 4,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "easy",
+    "language": "es",
+    "question": "¿Qué categoría generó el mayor beneficio?",
+    "question_en": "Which category generated the highest profit?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 6.3218,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "category"
+      ],
+      "rows": [
+        [
+          "Technology"
+        ]
+      ],
+      "sql": "SELECT category FROM orders GROUP BY category ORDER BY SUM(profit) DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 5,
+    "category": "data_query",
+    "task_type": "group_by",
+    "difficulty": "easy",
+    "language": "es",
+    "question": "¿Cuáles son las ventas totales por región?",
+    "question_en": "What are the total sales by region?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 5.9576,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "total_sales",
+        "region"
+      ],
+      "rows": [
+        [
+          501239.8908,
+          "Central"
+        ],
+        [
+          678781.24,
+          "East"
+        ],
+        [
+          391721.905,
+          "South"
+        ],
+        [
+          725457.8245,
+          "West"
+        ]
+      ],
+      "sql": "SELECT SUM(sales) AS total_sales, region FROM orders GROUP BY region",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 6,
+    "category": "data_query",
+    "task_type": "top_k",
+    "difficulty": "easy",
+    "language": "es",
+    "question": "Muestra los cinco productos más rentables.",
+    "question_en": "Show the five most profitable products.",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 5.1491,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "product_name"
+      ],
+      "rows": [
+        [
+          "Canon imageCLASS 2200 Advanced Copier"
+        ],
+        [
+          "Canon imageCLASS 2200 Advanced Copier"
+        ],
+        [
+          "Canon imageCLASS 2200 Advanced Copier"
+        ],
+        [
+          "GBC Ibimaster 500 Manual ProClick Binding System"
+        ],
+        [
+          "Ibico EPK-21 Electric Binding System"
+        ]
+      ],
+      "sql": "SELECT product_name FROM orders ORDER BY profit DESC LIMIT 5",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 7,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "easy",
+    "language": "es",
+    "question": "¿Qué cliente realizó más pedidos?",
+    "question_en": "Which customer placed the most orders?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 7.9038,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "customer_name"
+      ],
+      "rows": [
+        [
+          "William Brown"
+        ]
+      ],
+      "sql": "SELECT customer_name FROM orders GROUP BY customer_name ORDER BY COUNT(row_id) DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 8,
+    "category": "data_query",
+    "task_type": "aggregation",
+    "difficulty": "easy",
+    "language": "es",
+    "question": "¿Cuál es el beneficio total?",
+    "question_en": "What is the total profit?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 3.7527,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "SUM(profit)"
+      ],
+      "rows": [
+        [
+          286397.0217
+        ]
+      ],
+      "sql": "SELECT SUM(profit) FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 9,
+    "category": "data_query",
+    "task_type": "distinct",
+    "difficulty": "easy",
+    "language": "es",
+    "question": "Enumera todas las categorías de productos.",
+    "question_en": "List all product categories.",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 3.6735,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "category"
+      ],
+      "rows": [
+        [
+          "Furniture"
+        ],
+        [
+          "Office Supplies"
+        ],
+        [
+          "Technology"
+        ]
+      ],
+      "sql": "SELECT DISTINCT category FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 10,
+    "category": "data_query",
+    "task_type": "filter_count",
+    "difficulty": "easy",
+    "language": "es",
+    "question": "¿Cuántos pedidos se enviaron mediante Second Class?",
+    "question_en": "How many orders were shipped using Second Class?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 6.5253,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "COUNT(row_id)"
+      ],
+      "rows": [
+        [
+          1945
+        ]
+      ],
+      "sql": "SELECT COUNT(row_id) FROM orders WHERE ship_mode = 'Second Class'",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 11,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "es",
+    "question": "¿Quién generó la mayor cantidad de ingresos?",
+    "question_en": "Who generated the largest amount of revenue?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 5.4686,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "customer_name"
+      ],
+      "rows": [
+        [
+          "Tamara Chand"
+        ]
+      ],
+      "sql": "SELECT customer_name FROM orders ORDER BY profit DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 12,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "es",
+    "question": "¿Qué estado vendió más productos?",
+    "question_en": "Which state sold the most products?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 6.1946,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "state"
+      ],
+      "rows": [
+        [
+          "California"
+        ]
+      ],
+      "sql": "SELECT state FROM orders GROUP BY state ORDER BY SUM(quantity) DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 13,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "es",
+    "question": "¿Qué ciudad obtuvo el mayor beneficio?",
+    "question_en": "Which city earned the greatest profit?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 6.2706,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "city"
+      ],
+      "rows": [
+        [
+          "New York City"
+        ]
+      ],
+      "sql": "SELECT city FROM orders GROUP BY city ORDER BY SUM(profit) DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 14,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "es",
+    "question": "¿Qué modo de envío aparece con más frecuencia?",
+    "question_en": "Which shipping mode appears most frequently?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 6.3125,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "ship_mode"
+      ],
+      "rows": [
+        [
+          "Standard Class"
+        ]
+      ],
+      "sql": "SELECT ship_mode FROM orders GROUP BY ship_mode ORDER BY COUNT(*) DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 15,
+    "category": "data_query",
+    "task_type": "count_distinct",
+    "difficulty": "medium",
+    "language": "es",
+    "question": "¿Cuántos nombres de productos distintos hay?",
+    "question_en": "How many distinct product names are there?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 4.8502,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "COUNT(DISTINCT product_name)"
+      ],
+      "rows": [
+        [
+          1850
+        ]
+      ],
+      "sql": "SELECT COUNT(DISTINCT product_name) FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 16,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "es",
+    "question": "¿Qué segmento aporta la mayor parte de las ventas?",
+    "question_en": "Which segment contributes the largest share of sales?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 7.5513,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "segment",
+        "total_sales"
+      ],
+      "rows": [
+        [
+          "Consumer",
+          1161401.345
+        ]
+      ],
+      "sql": "SELECT segment, SUM(sales) AS total_sales FROM orders GROUP BY segment ORDER BY total_sales DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 17,
+    "category": "data_query",
+    "task_type": "top_k",
+    "difficulty": "medium",
+    "language": "es",
+    "question": "Encuentra el pedido con las mayores ventas.",
+    "question_en": "Find the order with the highest sales.",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 6.4714,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "order_id"
+      ],
+      "rows": [
+        [
+          "CA-2014-145317"
+        ]
+      ],
+      "sql": "SELECT order_id FROM orders ORDER BY sales DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 18,
+    "category": "data_query",
+    "task_type": "count_distinct",
+    "difficulty": "medium",
+    "language": "es",
+    "question": "¿Cuántas ciudades únicas están representadas?",
+    "question_en": "How many unique cities are represented?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 4.3852,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "COUNT(DISTINCT city)"
+      ],
+      "rows": [
+        [
+          531
+        ]
+      ],
+      "sql": "SELECT COUNT(DISTINCT city) FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 19,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "es",
+    "question": "¿Qué región generó el menor beneficio?",
+    "question_en": "Which region generated the least profit?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 6.2376,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "region"
+      ],
+      "rows": [
+        [
+          "Central"
+        ]
+      ],
+      "sql": "SELECT region FROM orders GROUP BY region ORDER BY SUM(profit) ASC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 20,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "es",
+    "question": "¿Qué categoría contiene el mayor número de pedidos?",
+    "question_en": "Which category contains the greatest number of orders?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 5.8827,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "category"
+      ],
+      "rows": [
+        [
+          "Office Supplies"
+        ]
+      ],
+      "sql": "SELECT category FROM orders GROUP BY category ORDER BY COUNT(*) DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 21,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "es",
+    "question": "¿Dónde parece que el negocio funciona mejor en términos de ingresos?",
+    "question_en": "Where does the business seem to perform best in terms of revenue?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 6.6428,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "region"
+      ],
+      "rows": [
+        [
+          "West"
+        ]
+      ],
+      "sql": "SELECT region FROM orders GROUP BY region ORDER BY SUM(sales) DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 22,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "es",
+    "question": "¿Qué cliente parece comprar con más frecuencia?",
+    "question_en": "Which customer appears to buy the most often?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 6.5332,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "customer_name"
+      ],
+      "rows": [
+        [
+          "William Brown"
+        ]
+      ],
+      "sql": "SELECT customer_name FROM orders GROUP BY customer_name ORDER BY COUNT(row_id) DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 23,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "es",
+    "question": "¿Qué región generó el mayor beneficio total?",
+    "question_en": "Which region generated the highest total profit?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 7.0571,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "region"
+      ],
+      "rows": [
+        [
+          "West"
+        ]
+      ],
+      "sql": "SELECT region FROM orders GROUP BY region ORDER BY SUM(profit) DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 24,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "es",
+    "question": "¿Qué producto ha generado los mayores ingresos en total?",
+    "question_en": "Which product has generated the greatest revenue overall?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 7.3221,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "product_name"
+      ],
+      "rows": [
+        [
+          "Canon imageCLASS 2200 Advanced Copier"
+        ]
+      ],
+      "sql": "SELECT product_name FROM orders GROUP BY product_name ORDER BY SUM(profit) DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 25,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "es",
+    "question": "¿Qué opción de envío prefieren más los clientes?",
+    "question_en": "Which shipping option do customers prefer the most?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 6.7936,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "ship_mode"
+      ],
+      "rows": [
+        [
+          "Standard Class"
+        ]
+      ],
+      "sql": "SELECT ship_mode FROM orders GROUP BY ship_mode ORDER BY COUNT(*) DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 26,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "es",
+    "question": "¿Qué segmento de mercado parece dominar las ventas?",
+    "question_en": "Which market segment seems to dominate sales?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 6.3081,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "segment"
+      ],
+      "rows": [
+        [
+          "Consumer"
+        ]
+      ],
+      "sql": "SELECT segment FROM orders GROUP BY segment ORDER BY COUNT(*) DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 27,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "es",
+    "question": "¿Qué estado acumuló el mayor beneficio total?",
+    "question_en": "Which state accumulated the highest total profit?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 8.5233,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "state",
+        "total_profit"
+      ],
+      "rows": [
+        [
+          "California",
+          76381.3871
+        ]
+      ],
+      "sql": "SELECT state, SUM(profit) AS total_profit FROM orders GROUP BY state ORDER BY total_profit DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 28,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "es",
+    "question": "¿Qué producto vendió el mayor número de unidades?",
+    "question_en": "Which product sold the greatest number of units?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 7.1698,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "product_name"
+      ],
+      "rows": [
+        [
+          "Staples"
+        ]
+      ],
+      "sql": "SELECT product_name FROM orders GROUP BY product_name ORDER BY SUM(quantity) DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 29,
+    "category": "data_query",
+    "task_type": "count",
+    "difficulty": "hard",
+    "language": "es",
+    "question": "¿Cuántas compras se han registrado en total?",
+    "question_en": "How many purchases have been registered in total?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 3.9078,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "COUNT(row_id)"
+      ],
+      "rows": [
+        [
+          9994
+        ]
+      ],
+      "sql": "SELECT COUNT(row_id) FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 30,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "es",
+    "question": "Identifica la región con más éxito según las ventas.",
+    "question_en": "Identify the most successful region according to sales.",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 6.7914,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "region"
+      ],
+      "rows": [
+        [
+          "West"
+        ]
+      ],
+      "sql": "SELECT region FROM orders GROUP BY region ORDER BY SUM(sales) DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  }
+]

@@ -1,0 +1,3087 @@
+[
+  {
+    "id": 1,
+    "category": "data_query",
+    "task_type": "count",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "How many orders are there?",
+    "question_en": "How many orders are there?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 11.1069,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "total_orders"
+      ],
+      "rows": [
+        [
+          9994
+        ]
+      ],
+      "sql": "SELECT COUNT(*) AS total_orders FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 2,
+    "category": "data_query",
+    "task_type": "count_distinct",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "How many customers are there?",
+    "question_en": "How many customers are there?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 16.6315,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "total_customers"
+      ],
+      "rows": [
+        [
+          793
+        ]
+      ],
+      "sql": "SELECT COUNT(DISTINCT customer_id) AS total_customers FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 3,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "Which region has the highest sales?",
+    "question_en": "Which region has the highest sales?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 22.2076,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "region",
+        "total_sales"
+      ],
+      "rows": [
+        [
+          "West",
+          725457.8245
+        ]
+      ],
+      "sql": "SELECT region, SUM(sales) AS total_sales FROM orders GROUP BY region ORDER BY total_sales DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 4,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "Which category generated the highest profit?",
+    "question_en": "Which category generated the highest profit?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 22.2567,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "category",
+        "total_profit"
+      ],
+      "rows": [
+        [
+          "Technology",
+          145454.9481
+        ]
+      ],
+      "sql": "SELECT category, SUM(profit) AS total_profit FROM orders GROUP BY category ORDER BY total_profit DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 5,
+    "category": "data_query",
+    "task_type": "group_by",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "What are the total sales by region?",
+    "question_en": "What are the total sales by region?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 18.3184,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "region",
+        "total_sales"
+      ],
+      "rows": [
+        [
+          "Central",
+          501239.8908
+        ],
+        [
+          "East",
+          678781.24
+        ],
+        [
+          "South",
+          391721.905
+        ],
+        [
+          "West",
+          725457.8245
+        ]
+      ],
+      "sql": "SELECT region, SUM(sales) AS total_sales FROM orders GROUP BY region",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 6,
+    "category": "data_query",
+    "task_type": "top_k",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "Show the five most profitable products.",
+    "question_en": "Show the five most profitable products.",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 23.2063,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "product_name",
+        "total_profit"
+      ],
+      "rows": [
+        [
+          "Canon imageCLASS 2200 Advanced Copier",
+          25199.928
+        ],
+        [
+          "Fellowes PB500 Electric Punch Plastic Comb Binding Machine with Manual Bind",
+          7753.039
+        ],
+        [
+          "Hewlett Packard LaserJet 3310 Copier",
+          6983.8836
+        ],
+        [
+          "Canon PC1060 Personal Laser Copier",
+          4570.9347
+        ],
+        [
+          "HP Designjet T520 Inkjet Large Format Printer - 24\" Color",
+          4094.9766
+        ]
+      ],
+      "sql": "SELECT product_name, SUM(profit) AS total_profit FROM orders GROUP BY product_name ORDER BY total_profit DESC LIMIT 5",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 7,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "Which customer placed the most orders?",
+    "question_en": "Which customer placed the most orders?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 22.5171,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "customer_name",
+        "total_orders"
+      ],
+      "rows": [
+        [
+          "William Brown",
+          37
+        ]
+      ],
+      "sql": "SELECT customer_name, COUNT(*) AS total_orders FROM orders GROUP BY customer_name ORDER BY total_orders DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 8,
+    "category": "data_query",
+    "task_type": "aggregation",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "What is the total profit?",
+    "question_en": "What is the total profit?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 15.0773,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "total_profit"
+      ],
+      "rows": [
+        [
+          286397.0217
+        ]
+      ],
+      "sql": "SELECT SUM(profit) AS total_profit FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 9,
+    "category": "data_query",
+    "task_type": "distinct",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "List all product categories.",
+    "question_en": "List all product categories.",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 12.381,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "category"
+      ],
+      "rows": [
+        [
+          "Furniture"
+        ],
+        [
+          "Office Supplies"
+        ],
+        [
+          "Technology"
+        ]
+      ],
+      "sql": "SELECT DISTINCT category FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 10,
+    "category": "data_query",
+    "task_type": "filter_count",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "How many orders were shipped using Second Class?",
+    "question_en": "How many orders were shipped using Second Class?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 19.2974,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "total_orders"
+      ],
+      "rows": [
+        [
+          1945
+        ]
+      ],
+      "sql": "SELECT COUNT(*) AS total_orders FROM orders WHERE ship_mode = 'Second Class'",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 11,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "Who generated the largest amount of revenue?",
+    "question_en": "Who generated the largest amount of revenue?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 23.4698,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "customer_name",
+        "total_profit"
+      ],
+      "rows": [
+        [
+          "Tamara Chand",
+          8981.323900000001
+        ]
+      ],
+      "sql": "SELECT customer_name, SUM(profit) AS total_profit FROM orders GROUP BY customer_name ORDER BY total_profit DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 12,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "Which state sold the most products?",
+    "question_en": "Which state sold the most products?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 22.2154,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "state",
+        "total_quantity"
+      ],
+      "rows": [
+        [
+          "California",
+          7667
+        ]
+      ],
+      "sql": "SELECT state, SUM(quantity) AS total_quantity FROM orders GROUP BY state ORDER BY total_quantity DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 13,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "Which city earned the greatest profit?",
+    "question_en": "Which city earned the greatest profit?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 17.7221,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "city",
+        "max_profit"
+      ],
+      "rows": [
+        [
+          "Aberdeen",
+          6.63
+        ],
+        [
+          "Abilene",
+          -3.7584
+        ],
+        [
+          "Akron",
+          66.5408
+        ],
+        [
+          "Albuquerque",
+          138.3552
+        ],
+        [
+          "Alexandria",
+          83.281
+        ],
+        [
+          "Allen",
+          5.3784
+        ],
+        [
+          "Allentown",
+          15.49
+        ],
+        [
+          "Altoona",
+          2.2044
+        ],
+        [
+          "Amarillo",
+          42.8805
+        ],
+        [
+          "Anaheim",
+          310.9872
+        ],
+        [
+          "Andover",
+          88.725
+        ],
+        [
+          "Ann Arbor",
+          111.591
+        ],
+        [
+          "Antioch",
+          9.3312
+        ],
+        [
+          "Apopka",
+          50.3658
+        ],
+        [
+          "Apple Valley",
+          210.735
+        ],
+        [
+          "Appleton",
+          544.4175
+        ],
+        [
+          "Arlington",
+          2799.984
+        ],
+        [
+          "Arlington Heights",
+          1.2348
+        ],
+        [
+          "Arvada",
+          52.5114
+        ],
+        [
+          "Asheville",
+          85.2475
+        ],
+        [
+          "Athens",
+          293.9804
+        ],
+        [
+          "Atlanta",
+          3177.475
+        ],
+        [
+          "Atlantic City",
+          11.68
+        ],
+        [
+          "Auburn",
+          240.8595
+        ],
+        [
+          "Aurora",
+          250.396
+        ],
+        [
+          "Austin",
+          265.4232
+        ],
+        [
+          "Avondale",
+          83.5128
+        ],
+        [
+          "Bakersfield",
+          37.0
+        ],
+        [
+          "Baltimore",
+          272.792
+        ],
+        [
+          "Bangor",
+          131.355
+        ],
+        [
+          "Bartlett",
+          10.008
+        ],
+        [
+          "Bayonne",
+          52.49
+        ],
+        [
+          "Baytown",
+          3.6288
+        ],
+        [
+          "Beaumont",
+          95.9904
+        ],
+        [
+          "Bedford",
+          13.4386
+        ],
+        [
+          "Belleville",
+          71.991
+        ],
+        [
+          "Bellevue",
+          8.3754
+        ],
+        [
+          "Bellingham",
+          362.835
+        ],
+        [
+          "Bethlehem",
+          0.711
+        ],
+        [
+          "Beverly",
+          503.7822
+        ],
+        [
+          "Billings",
+          2.6936
+        ],
+        [
+          "Bloomington",
+          42.3625
+        ],
+        [
+          "Boca Raton",
+          2.308
+        ],
+        [
+          "Boise",
+          160.1766
+        ],
+        [
+          "Bolingbrook",
+          16.704
+        ],
+        [
+          "Bossier City",
+          258.696
+        ],
+        [
+          "Bowling Green",
+          74.9985
+        ],
+        [
+          "Boynton Beach",
+          41.262
+        ],
+        [
+          "Bozeman",
+          13.9392
+        ],
+        [
+          "Brentwood",
+          654.7554
+        ],
+        [
+          "Bridgeton",
+          3.0342
+        ],
+        [
+          "Bristol",
+          93.5948
+        ],
+        [
+          "Broken Arrow",
+          350.427
+        ],
+        [
+          "Broomfield",
+          74.574
+        ],
+        [
+          "Brownsville",
+          113.3055
+        ],
+        [
+          "Bryan",
+          -2.3232
+        ],
+        [
+          "Buffalo",
+          726.5619
+        ],
+        [
+          "Buffalo Grove",
+          95.1888
+        ],
+        [
+          "Bullhead City",
+          3.9512
+        ],
+        [
+          "Burbank",
+          415.9896
+        ],
+        [
+          "Burlington",
+          1013.127
+        ],
+        [
+          "Caldwell",
+          42.0256
+        ],
+        [
+          "Camarillo",
+          81.2646
+        ],
+        [
+          "Cambridge",
+          93.594
+        ],
+        [
+          "Canton",
+          138.2016
+        ],
+        [
+          "Carlsbad",
+          92.2368
+        ],
+        [
+          "Carol Stream",
+          48.9942
+        ],
+        [
+          "Carrollton",
+          52.4979
+        ],
+        [
+          "Cary",
+          21.5397
+        ],
+        [
+          "Cedar Hill",
+          40.3536
+        ],
+        [
+          "Cedar Rapids",
+          80.736
+        ],
+        [
+          "Champaign",
+          -182.352
+        ],
+        [
+          "Chandler",
+          105.297
+        ],
+        [
+          "Chapel Hill",
+          4.7304
+        ],
+        [
+          "Charlotte",
+          303.804
+        ],
+        [
+          "Charlottesville",
+          12.2328
+        ],
+        [
+          "Chattanooga",
+          48.796
+        ],
+        [
+          "Chesapeake",
+          314.0586
+        ],
+        [
+          "Chester",
+          62.8075
+        ],
+        [
+          "Cheyenne",
+          100.196
+        ],
+        [
+          "Chicago",
+          874.9875
+        ],
+        [
+          "Chico",
+          102.9528
+        ],
+        [
+          "Chula Vista",
+          106.5408
+        ],
+        [
+          "Cincinnati",
+          69.999
+        ],
+        [
+          "Citrus Heights",
+          54.3438
+        ],
+        [
+          "Clarksville",
+          12.012
+        ],
+        [
+          "Cleveland",
+          88.0299
+        ],
+        [
+          "Clifton",
+          76.47
+        ],
+        [
+          "Clinton",
+          327.5818
+        ],
+        [
+          "Clovis",
+          8.1072
+        ],
+        [
+          "Coachella",
+          43.9956
+        ],
+        [
+          "College Station",
+          10.3936
+        ],
+        [
+          "Colorado Springs",
+          149.148
+        ],
+        [
+          "Columbia",
+          1270.99
+        ],
+        [
+          "Columbus",
+          764.3818
+        ],
+        [
+          "Commerce City",
+          -32.9292
+        ],
+        [
+          "Concord",
+          247.485
+        ],
+        [
+          "Conroe",
+          6.9795
+        ],
+        [
+          "Conway",
+          45.294
+        ],
+        [
+          "Coon Rapids",
+          78.9516
+        ],
+        [
+          "Coppell",
+          34.742
+        ],
+        [
+          "Coral Gables",
+          19.755
+        ],
+        [
+          "Coral Springs",
+          24.196
+        ],
+        [
+          "Corpus Christi",
+          23.235
+        ],
+        [
+          "Costa Mesa",
+          81.8432
+        ],
+        [
+          "Cottage Grove",
+          47.92
+        ],
+        [
+          "Covington",
+          66.3264
+        ],
+        [
+          "Cranston",
+          481.47
+        ],
+        [
+          "Cuyahoga Falls",
+          1.2528
+        ],
+        [
+          "Dallas",
+          128.6805
+        ],
+        [
+          "Danbury",
+          9.8856
+        ],
+        [
+          "Danville",
+          206.6232
+        ],
+        [
+          "Davis",
+          15.552
+        ],
+        [
+          "Daytona Beach",
+          14.628
+        ],
+        [
+          "Dearborn",
+          178.901
+        ],
+        [
+          "Dearborn Heights",
+          47.0548
+        ],
+        [
+          "Decatur",
+          316.1392
+        ],
+        [
+          "Deer Park",
+          -10.386
+        ],
+        [
+          "Delray Beach",
+          13.8528
+        ],
+        [
+          "Deltona",
+          71.99
+        ],
+        [
+          "Denver",
+          247.996
+        ],
+        [
+          "Des Moines",
+          701.9883
+        ],
+        [
+          "Des Plaines",
+          47.98
+        ],
+        [
+          "Detroit",
+          4946.37
+        ],
+        [
+          "Dover",
+          517.4793
+        ],
+        [
+          "Draper",
+          47.46
+        ],
+        [
+          "Dublin",
+          107.9892
+        ],
+        [
+          "Dubuque",
+          394.268
+        ],
+        [
+          "Durham",
+          62.8075
+        ],
+        [
+          "Eagan",
+          19.872
+        ],
+        [
+          "East Orange",
+          100.4255
+        ],
+        [
+          "East Point",
+          74.691
+        ],
+        [
+          "Eau Claire",
+          176.8026
+        ],
+        [
+          "Edinburg",
+          30.392
+        ],
+        [
+          "Edmond",
+          236.2325
+        ],
+        [
+          "Edmonds",
+          311.652
+        ],
+        [
+          "El Cajon",
+          47.848
+        ],
+        [
+          "El Paso",
+          43.1976
+        ],
+        [
+          "Elkhart",
+          11.1825
+        ],
+        [
+          "Elmhurst",
+          5.6784
+        ],
+        [
+          "Elyria",
+          -1.3984
+        ],
+        [
+          "Encinitas",
+          57.5904
+        ],
+        [
+          "Englewood",
+          8.1432
+        ],
+        [
+          "Escondido",
+          15.6426
+        ],
+        [
+          "Eugene",
+          228.0792
+        ],
+        [
+          "Evanston",
+          485.9892
+        ],
+        [
+          "Everett",
+          260.6112
+        ],
+        [
+          "Fairfield",
+          251.202
+        ],
+        [
+          "Fargo",
+          162.0948
+        ],
+        [
+          "Farmington",
+          114.6285
+        ],
+        [
+          "Fayetteville",
+          843.1706
+        ],
+        [
+          "Florence",
+          1416.8
+        ],
+        [
+          "Fort Collins",
+          9.8328
+        ],
+        [
+          "Fort Lauderdale",
+          239.976
+        ],
+        [
+          "Fort Worth",
+          624.9875
+        ],
+        [
+          "Frankfort",
+          26.9024
+        ],
+        [
+          "Franklin",
+          585.552
+        ],
+        [
+          "Freeport",
+          64.518
+        ],
+        [
+          "Fremont",
+          50.328
+        ],
+        [
+          "Fresno",
+          141.723
+        ],
+        [
+          "Frisco",
+          -1.3584
+        ],
+        [
+          "Gaithersburg",
+          67.2742
+        ],
+        [
+          "Garden City",
+          74.8142
+        ],
+        [
+          "Garland",
+          3.798
+        ],
+        [
+          "Gastonia",
+          76.6395
+        ],
+        [
+          "Georgetown",
+          195.9944
+        ],
+        [
+          "Gilbert",
+          111.3024
+        ],
+        [
+          "Gladstone",
+          40.416
+        ],
+        [
+          "Glendale",
+          105.0228
+        ],
+        [
+          "Glenview",
+          13.8579
+        ],
+        [
+          "Goldsboro",
+          3.0576
+        ],
+        [
+          "Grand Island",
+          7.98
+        ],
+        [
+          "Grand Prairie",
+          24.7275
+        ],
+        [
+          "Grand Rapids",
+          100.656
+        ],
+        [
+          "Grapevine",
+          5.8604
+        ],
+        [
+          "Great Falls",
+          1379.977
+        ],
+        [
+          "Greeley",
+          7.008
+        ],
+        [
+          "Green Bay",
+          206.316
+        ],
+        [
+          "Greensboro",
+          118.9965
+        ],
+        [
+          "Greenville",
+          31.198
+        ],
+        [
+          "Greenwood",
+          356.225
+        ],
+        [
+          "Gresham",
+          148.704
+        ],
+        [
+          "Grove City",
+          15.992
+        ],
+        [
+          "Gulfport",
+          38.038
+        ],
+        [
+          "Hackensack",
+          213.735
+        ],
+        [
+          "Hagerstown",
+          20.586
+        ],
+        [
+          "Haltom City",
+          36.3972
+        ],
+        [
+          "Hamilton",
+          9.294
+        ],
+        [
+          "Hampton",
+          421.5853
+        ],
+        [
+          "Harlingen",
+          16.3737
+        ],
+        [
+          "Harrisonburg",
+          493.7856
+        ],
+        [
+          "Hattiesburg",
+          126.225
+        ],
+        [
+          "Helena",
+          42.495
+        ],
+        [
+          "Hempstead",
+          314.8418
+        ],
+        [
+          "Henderson",
+          757.4112
+        ],
+        [
+          "Hendersonville",
+          19.0848
+        ],
+        [
+          "Hesperia",
+          81.744
+        ],
+        [
+          "Hialeah",
+          101.3832
+        ],
+        [
+          "Hickory",
+          2.7144
+        ],
+        [
+          "Highland Park",
+          13.4386
+        ],
+        [
+          "Hillsboro",
+          6.6177
+        ],
+        [
+          "Holland",
+          53.8608
+        ],
+        [
+          "Hollywood",
+          38.396
+        ],
+        [
+          "Holyoke",
+          60.392
+        ],
+        [
+          "Homestead",
+          15.5344
+        ],
+        [
+          "Hoover",
+          9.5448
+        ],
+        [
+          "Hot Springs",
+          31.984
+        ],
+        [
+          "Houston",
+          569.9905
+        ],
+        [
+          "Huntington Beach",
+          839.986
+        ],
+        [
+          "Huntsville",
+          527.984
+        ],
+        [
+          "Independence",
+          757.4112
+        ],
+        [
+          "Indianapolis",
+          793.716
+        ],
+        [
+          "Inglewood",
+          329.994
+        ],
+        [
+          "Iowa City",
+          4.4955
+        ],
+        [
+          "Irving",
+          79.692
+        ],
+        [
+          "Jackson",
+          2504.2216
+        ],
+        [
+          "Jacksonville",
+          156.338
+        ],
+        [
+          "Jamestown",
+          1228.1787
+        ],
+        [
+          "Jefferson City",
+          8.662
+        ],
+        [
+          "Johnson City",
+          29.1424
+        ],
+        [
+          "Jonesboro",
+          224.2674
+        ],
+        [
+          "Jupiter",
+          0.1548
+        ],
+        [
+          "Keller",
+          2.1
+        ],
+        [
+          "Kenner",
+          15.1158
+        ],
+        [
+          "Kenosha",
+          223.2855
+        ],
+        [
+          "Kent",
+          385.3752
+        ],
+        [
+          "Kirkwood",
+          34.0704
+        ],
+        [
+          "Kissimmee",
+          84.5982
+        ],
+        [
+          "Knoxville",
+          22.2
+        ],
+        [
+          "La Crosse",
+          174.9825
+        ],
+        [
+          "La Mesa",
+          85.491
+        ],
+        [
+          "La Porte",
+          129.384
+        ],
+        [
+          "La Quinta",
+          18.0648
+        ],
+        [
+          "Lafayette",
+          8399.976
+        ],
+        [
+          "Laguna Niguel",
+          16.7986
+        ],
+        [
+          "Lake Charles",
+          219.6546
+        ],
+        [
+          "Lake Elsinore",
+          17.745
+        ],
+        [
+          "Lake Forest",
+          152.0232
+        ],
+        [
+          "Lakeland",
+          89.997
+        ],
+        [
+          "Lakeville",
+          580.5394
+        ],
+        [
+          "Lakewood",
+          2365.9818
+        ],
+        [
+          "Lancaster",
+          83.2097
+        ],
+        [
+          "Lansing",
+          209.993
+        ],
+        [
+          "Laredo",
+          28.7679
+        ],
+        [
+          "Las Cruces",
+          23.0864
+        ],
+        [
+          "Las Vegas",
+          70.1955
+        ],
+        [
+          "Laurel",
+          36.2877
+        ],
+        [
+          "Lawrence",
+          467.9922
+        ],
+        [
+          "Lawton",
+          155.727
+        ],
+        [
+          "Layton",
+          2.3312
+        ],
+        [
+          "League City",
+          5.8751
+        ],
+        [
+          "Lebanon",
+          59.4355
+        ],
+        [
+          "Lehi",
+          449.985
+        ],
+        [
+          "Leominster",
+          30.52
+        ],
+        [
+          "Lewiston",
+          14.9556
+        ],
+        [
+          "Lincoln Park",
+          31.0912
+        ],
+        [
+          "Linden",
+          49.6048
+        ],
+        [
+          "Lindenhurst",
+          26.6304
+        ],
+        [
+          "Little Rock",
+          229.3018
+        ],
+        [
+          "Littleton",
+          -98.8018
+        ],
+        [
+          "Lodi",
+          28.217
+        ],
+        [
+          "Logan",
+          20.1656
+        ],
+        [
+          "Long Beach",
+          352.3065
+        ],
+        [
+          "Longmont",
+          54.3528
+        ],
+        [
+          "Longview",
+          22.0748
+        ],
+        [
+          "Lorain",
+          76.7904
+        ],
+        [
+          "Los Angeles",
+          1049.985
+        ],
+        [
+          "Louisville",
+          314.0384
+        ],
+        [
+          "Loveland",
+          3.1842
+        ],
+        [
+          "Lowell",
+          284.1855
+        ],
+        [
+          "Lubbock",
+          161.9919
+        ],
+        [
+          "Macon",
+          52.688
+        ],
+        [
+          "Madison",
+          673.8816
+        ],
+        [
+          "Malden",
+          13.9152
+        ],
+        [
+          "Manchester",
+          271.4192
+        ],
+        [
+          "Manhattan",
+          10.9584
+        ],
+        [
+          "Mansfield",
+          14.5152
+        ],
+        [
+          "Manteca",
+          150.984
+        ],
+        [
+          "Maple Grove",
+          331.191
+        ],
+        [
+          "Margate",
+          2.3328
+        ],
+        [
+          "Marietta",
+          315.825
+        ],
+        [
+          "Marion",
+          54.4448
+        ],
+        [
+          "Marlborough",
+          61.3824
+        ],
+        [
+          "Marysville",
+          2.3814
+        ],
+        [
+          "Mason",
+          16.3172
+        ],
+        [
+          "Mcallen",
+          24.4768
+        ],
+        [
+          "Medford",
+          11.1024
+        ],
+        [
+          "Medina",
+          8.88
+        ],
+        [
+          "Melbourne",
+          9.5616
+        ],
+        [
+          "Memphis",
+          70.198
+        ],
+        [
+          "Mentor",
+          65.9934
+        ],
+        [
+          "Meriden",
+          294.671
+        ],
+        [
+          "Meridian",
+          66.0736
+        ],
+        [
+          "Mesa",
+          49.716
+        ],
+        [
+          "Mesquite",
+          1.8144
+        ],
+        [
+          "Miami",
+          88.074
+        ],
+        [
+          "Middletown",
+          38.2095
+        ],
+        [
+          "Midland",
+          1906.485
+        ],
+        [
+          "Milford",
+          185.2578
+        ],
+        [
+          "Milwaukee",
+          427.4368
+        ],
+        [
+          "Minneapolis",
+          4630.4755
+        ],
+        [
+          "Miramar",
+          55.016
+        ],
+        [
+          "Mishawaka",
+          64.2
+        ],
+        [
+          "Mission Viejo",
+          85.904
+        ],
+        [
+          "Missoula",
+          152.495
+        ],
+        [
+          "Missouri City",
+          -9.555
+        ],
+        [
+          "Mobile",
+          1459.2
+        ],
+        [
+          "Modesto",
+          43.5981
+        ],
+        [
+          "Monroe",
+          217.767
+        ],
+        [
+          "Montebello",
+          3.9032
+        ],
+        [
+          "Montgomery",
+          362.687
+        ],
+        [
+          "Moorhead",
+          81.583
+        ],
+        [
+          "Moreno Valley",
+          202.2528
+        ],
+        [
+          "Morgan Hill",
+          7.308
+        ],
+        [
+          "Morristown",
+          843.1706
+        ],
+        [
+          "Mount Pleasant",
+          87.3504
+        ],
+        [
+          "Mount Vernon",
+          282.2092
+        ],
+        [
+          "Murfreesboro",
+          16.0056
+        ],
+        [
+          "Murray",
+          74.8098
+        ],
+        [
+          "Murrieta",
+          92.0835
+        ],
+        [
+          "Muskogee",
+          374.3792
+        ],
+        [
+          "Naperville",
+          83.986
+        ],
+        [
+          "Nashua",
+          6.9654
+        ],
+        [
+          "Nashville",
+          223.9936
+        ],
+        [
+          "New Albany",
+          35.3346
+        ],
+        [
+          "New Bedford",
+          23.49
+        ],
+        [
+          "New Brunswick",
+          3.58
+        ],
+        [
+          "New Castle",
+          16.3863
+        ],
+        [
+          "New Rochelle",
+          140.396
+        ],
+        [
+          "New York City",
+          3919.9888
+        ],
+        [
+          "Newark",
+          5039.9856
+        ],
+        [
+          "Newport News",
+          751.9624
+        ],
+        [
+          "Niagara Falls",
+          47.8065
+        ],
+        [
+          "Noblesville",
+          241.1046
+        ],
+        [
+          "Norfolk",
+          8.0178
+        ],
+        [
+          "Normal",
+          -110.0232
+        ],
+        [
+          "Norman",
+          244.6155
+        ],
+        [
+          "North Charleston",
+          5.3898
+        ],
+        [
+          "North Las Vegas",
+          1644.2913
+        ],
+        [
+          "North Miami",
+          4.8924
+        ],
+        [
+          "Norwich",
+          144.3546
+        ],
+        [
+          "Oak Park",
+          79.794
+        ],
+        [
+          "Oakland",
+          290.0058
+        ],
+        [
+          "Oceanside",
+          296.0671
+        ],
+        [
+          "Odessa",
+          15.5092
+        ],
+        [
+          "Oklahoma City",
+          383.931
+        ],
+        [
+          "Olathe",
+          149.382
+        ],
+        [
+          "Olympia",
+          46.575
+        ],
+        [
+          "Omaha",
+          743.988
+        ],
+        [
+          "Ontario",
+          -46.137
+        ],
+        [
+          "Orange",
+          22.0748
+        ],
+        [
+          "Orem",
+          240.2649
+        ],
+        [
+          "Orland Park",
+          67.992
+        ],
+        [
+          "Orlando",
+          311.9948
+        ],
+        [
+          "Ormond Beach",
+          -1.9656
+        ],
+        [
+          "Oswego",
+          4.1125
+        ],
+        [
+          "Overland Park",
+          93.6988
+        ],
+        [
+          "Owensboro",
+          21.0128
+        ],
+        [
+          "Oxnard",
+          222.588
+        ],
+        [
+          "Palatine",
+          23.2624
+        ],
+        [
+          "Palm Coast",
+          15.9912
+        ],
+        [
+          "Park Ridge",
+          48.5514
+        ],
+        [
+          "Parker",
+          50.098
+        ],
+        [
+          "Parma",
+          33.0288
+        ],
+        [
+          "Pasadena",
+          122.7648
+        ],
+        [
+          "Pasco",
+          121.99
+        ],
+        [
+          "Passaic",
+          172.3384
+        ],
+        [
+          "Paterson",
+          134.652
+        ],
+        [
+          "Pearland",
+          52.9173
+        ],
+        [
+          "Pembroke Pines",
+          50.396
+        ],
+        [
+          "Pensacola",
+          -1.476
+        ],
+        [
+          "Peoria",
+          35.099
+        ],
+        [
+          "Perth Amboy",
+          280.59
+        ],
+        [
+          "Pharr",
+          -10.1736
+        ],
+        [
+          "Philadelphia",
+          1119.9968
+        ],
+        [
+          "Phoenix",
+          211.4955
+        ],
+        [
+          "Pico Rivera",
+          62.737
+        ],
+        [
+          "Pine Bluff",
+          63.984
+        ],
+        [
+          "Plainfield",
+          621.9744
+        ],
+        [
+          "Plano",
+          62.988
+        ],
+        [
+          "Plantation",
+          89.5888
+        ],
+        [
+          "Pleasant Grove",
+          305.13
+        ],
+        [
+          "Pocatello",
+          92.3936
+        ],
+        [
+          "Pomona",
+          111.824
+        ],
+        [
+          "Pompano Beach",
+          8.048
+        ],
+        [
+          "Port Arthur",
+          164.997
+        ],
+        [
+          "Port Orange",
+          2.934
+        ],
+        [
+          "Port Saint Lucie",
+          5.798
+        ],
+        [
+          "Portage",
+          6.512
+        ],
+        [
+          "Portland",
+          80.4839
+        ],
+        [
+          "Providence",
+          2591.9568
+        ],
+        [
+          "Provo",
+          118.6575
+        ],
+        [
+          "Pueblo",
+          84.5728
+        ],
+        [
+          "Quincy",
+          93.204
+        ],
+        [
+          "Raleigh",
+          126.8973
+        ],
+        [
+          "Rancho Cucamonga",
+          41.2938
+        ],
+        [
+          "Rapid City",
+          39.7488
+        ],
+        [
+          "Reading",
+          7.7896
+        ],
+        [
+          "Redding",
+          25.0182
+        ],
+        [
+          "Redlands",
+          145.782
+        ],
+        [
+          "Redmond",
+          38.3572
+        ],
+        [
+          "Redondo Beach",
+          94.0702
+        ],
+        [
+          "Redwood City",
+          14.1426
+        ],
+        [
+          "Reno",
+          59.493
+        ],
+        [
+          "Renton",
+          103.9992
+        ],
+        [
+          "Revere",
+          125.469
+        ],
+        [
+          "Richardson",
+          123.4737
+        ],
+        [
+          "Richmond",
+          694.5015
+        ],
+        [
+          "Rio Rancho",
+          99.432
+        ],
+        [
+          "Riverside",
+          160.623
+        ],
+        [
+          "Rochester",
+          456.588
+        ],
+        [
+          "Rochester Hills",
+          54.3332
+        ],
+        [
+          "Rock Hill",
+          3.792
+        ],
+        [
+          "Rockford",
+          143.9968
+        ],
+        [
+          "Rockville",
+          51.75
+        ],
+        [
+          "Rogers",
+          18.5886
+        ],
+        [
+          "Rome",
+          67.495
+        ],
+        [
+          "Romeoville",
+          -14.7708
+        ],
+        [
+          "Roseville",
+          274.995
+        ],
+        [
+          "Roswell",
+          1264.7559
+        ],
+        [
+          "Round Rock",
+          32.3982
+        ],
+        [
+          "Royal Oak",
+          10.7424
+        ],
+        [
+          "Sacramento",
+          1906.485
+        ],
+        [
+          "Saginaw",
+          35.6346
+        ],
+        [
+          "Saint Charles",
+          137.264
+        ],
+        [
+          "Saint Cloud",
+          275.478
+        ],
+        [
+          "Saint Louis",
+          43.5981
+        ],
+        [
+          "Saint Paul",
+          22.5852
+        ],
+        [
+          "Saint Peters",
+          146.4036
+        ],
+        [
+          "Saint Petersburg",
+          54.215
+        ],
+        [
+          "Salem",
+          168.4704
+        ],
+        [
+          "Salinas",
+          196.6132
+        ],
+        [
+          "Salt Lake City",
+          106.9578
+        ],
+        [
+          "San Angelo",
+          -1.2178
+        ],
+        [
+          "San Antonio",
+          117.432
+        ],
+        [
+          "San Bernardino",
+          38.6848
+        ],
+        [
+          "San Clemente",
+          35.985
+        ],
+        [
+          "San Diego",
+          636.0003
+        ],
+        [
+          "San Francisco",
+          944.9865
+        ],
+        [
+          "San Gabriel",
+          148.704
+        ],
+        [
+          "San Jose",
+          125.3
+        ],
+        [
+          "San Luis Obispo",
+          1.1946
+        ],
+        [
+          "San Marcos",
+          3.6288
+        ],
+        [
+          "San Mateo",
+          35.3346
+        ],
+        [
+          "Sandy Springs",
+          291.3778
+        ],
+        [
+          "Sanford",
+          -3.5508
+        ],
+        [
+          "Santa Ana",
+          601.9699
+        ],
+        [
+          "Santa Barbara",
+          226.7946
+        ],
+        [
+          "Santa Clara",
+          31.47
+        ],
+        [
+          "Santa Fe",
+          18.504
+        ],
+        [
+          "Santa Maria",
+          30.0144
+        ],
+        [
+          "Scottsdale",
+          111.5688
+        ],
+        [
+          "Seattle",
+          6719.9808
+        ],
+        [
+          "Sheboygan",
+          17.6673
+        ],
+        [
+          "Shelton",
+          14.9925
+        ],
+        [
+          "Sierra Vista",
+          9.8625
+        ],
+        [
+          "Sioux Falls",
+          132.5898
+        ],
+        [
+          "Skokie",
+          24.9984
+        ],
+        [
+          "Smyrna",
+          170.9316
+        ],
+        [
+          "South Bend",
+          124.68
+        ],
+        [
+          "Southaven",
+          125.9874
+        ],
+        [
+          "Sparks",
+          179.73
+        ],
+        [
+          "Spokane",
+          62.82
+        ],
+        [
+          "Springdale",
+          1.419
+        ],
+        [
+          "Springfield",
+          2302.9671
+        ],
+        [
+          "Sterling Heights",
+          20.6336
+        ],
+        [
+          "Stockton",
+          107.0388
+        ],
+        [
+          "Suffolk",
+          157.1292
+        ],
+        [
+          "Summerville",
+          157.3632
+        ],
+        [
+          "Sunnyvale",
+          45.588
+        ],
+        [
+          "Superior",
+          301.968
+        ],
+        [
+          "Tallahassee",
+          327.5922
+        ],
+        [
+          "Tamarac",
+          24.316
+        ],
+        [
+          "Tampa",
+          98.4802
+        ],
+        [
+          "Taylor",
+          33.2156
+        ],
+        [
+          "Temecula",
+          49.4376
+        ],
+        [
+          "Tempe",
+          107.46
+        ],
+        [
+          "Texarkana",
+          145.2816
+        ],
+        [
+          "Texas City",
+          41.934
+        ],
+        [
+          "The Colony",
+          19.4194
+        ],
+        [
+          "Thomasville",
+          29.985
+        ],
+        [
+          "Thornton",
+          89.5888
+        ],
+        [
+          "Thousand Oaks",
+          70.219
+        ],
+        [
+          "Tigard",
+          22.518
+        ],
+        [
+          "Tinley Park",
+          -8.9152
+        ],
+        [
+          "Toledo",
+          94.4937
+        ],
+        [
+          "Torrance",
+          459.396
+        ],
+        [
+          "Trenton",
+          274.995
+        ],
+        [
+          "Troy",
+          121.4416
+        ],
+        [
+          "Tucson",
+          179.1888
+        ],
+        [
+          "Tulsa",
+          523.7052
+        ],
+        [
+          "Tuscaloosa",
+          35.49
+        ],
+        [
+          "Twin Falls",
+          259.5297
+        ],
+        [
+          "Tyler",
+          4.5201
+        ],
+        [
+          "Urbandale",
+          22.788
+        ],
+        [
+          "Utica",
+          78.3888
+        ],
+        [
+          "Vacaville",
+          110.0528
+        ],
+        [
+          "Vallejo",
+          272.792
+        ],
+        [
+          "Vancouver",
+          31.6
+        ],
+        [
+          "Vineland",
+          34.96
+        ],
+        [
+          "Virginia Beach",
+          1276.4871
+        ],
+        [
+          "Visalia",
+          65.435
+        ],
+        [
+          "Waco",
+          2.3968
+        ],
+        [
+          "Warner Robins",
+          43.2234
+        ],
+        [
+          "Warwick",
+          899.982
+        ],
+        [
+          "Washington",
+          648.5624
+        ],
+        [
+          "Waterbury",
+          153.0819
+        ],
+        [
+          "Waterloo",
+          11.8248
+        ],
+        [
+          "Watertown",
+          302.373
+        ],
+        [
+          "Waukesha",
+          14.17
+        ],
+        [
+          "Wausau",
+          68.8464
+        ],
+        [
+          "Waynesboro",
+          148.1064
+        ],
+        [
+          "West Allis",
+          24.196
+        ],
+        [
+          "West Jordan",
+          41.823
+        ],
+        [
+          "West Palm Beach",
+          25.2784
+        ],
+        [
+          "Westfield",
+          91.7892
+        ],
+        [
+          "Westland",
+          135.219
+        ],
+        [
+          "Westminster",
+          412.468
+        ],
+        [
+          "Wheeling",
+          219.4416
+        ],
+        [
+          "Whittier",
+          44.4768
+        ],
+        [
+          "Wichita",
+          137.151
+        ],
+        [
+          "Wilmington",
+          390.977
+        ],
+        [
+          "Wilson",
+          20.392
+        ],
+        [
+          "Woodbury",
+          160.623
+        ],
+        [
+          "Woodland",
+          23.9984
+        ],
+        [
+          "Woodstock",
+          98.1396
+        ],
+        [
+          "Woonsocket",
+          22.89
+        ],
+        [
+          "Yonkers",
+          2400.9657
+        ],
+        [
+          "York",
+          23.7742
+        ],
+        [
+          "Yucaipa",
+          13.208
+        ],
+        [
+          "Yuma",
+          48.7011
+        ]
+      ],
+      "sql": "SELECT city, MAX(profit) AS max_profit FROM orders GROUP BY city",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 14,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "Which shipping mode appears most frequently?",
+    "question_en": "Which shipping mode appears most frequently?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 21.8274,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "ship_mode",
+        "total_orders"
+      ],
+      "rows": [
+        [
+          "Standard Class",
+          5968
+        ]
+      ],
+      "sql": "SELECT ship_mode, COUNT(*) AS total_orders FROM orders GROUP BY ship_mode ORDER BY total_orders DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 15,
+    "category": "data_query",
+    "task_type": "count_distinct",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "How many distinct product names are there?",
+    "question_en": "How many distinct product names are there?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 17.9028,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "distinct_product_names"
+      ],
+      "rows": [
+        [
+          1850
+        ]
+      ],
+      "sql": "SELECT COUNT(DISTINCT product_name) AS distinct_product_names FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 16,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "Which segment contributes the largest share of sales?",
+    "question_en": "Which segment contributes the largest share of sales?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 22.6424,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "segment",
+        "total_sales"
+      ],
+      "rows": [
+        [
+          "Consumer",
+          1161401.345
+        ]
+      ],
+      "sql": "SELECT segment, SUM(sales) AS total_sales FROM orders GROUP BY segment ORDER BY total_sales DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 17,
+    "category": "data_query",
+    "task_type": "top_k",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "Find the order with the highest sales.",
+    "question_en": "Find the order with the highest sales.",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 17.8968,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "order_id",
+        "sales"
+      ],
+      "rows": [
+        [
+          "CA-2014-145317",
+          22638.48
+        ]
+      ],
+      "sql": "SELECT order_id, sales FROM orders ORDER BY sales DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 18,
+    "category": "data_query",
+    "task_type": "count_distinct",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "How many unique cities are represented?",
+    "question_en": "How many unique cities are represented?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 16.8092,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "unique_cities"
+      ],
+      "rows": [
+        [
+          531
+        ]
+      ],
+      "sql": "SELECT COUNT(DISTINCT city) AS unique_cities FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 19,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "Which region generated the least profit?",
+    "question_en": "Which region generated the least profit?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 17.8424,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "region",
+        "min_profit"
+      ],
+      "rows": [
+        [
+          "Central",
+          -3701.8928
+        ],
+        [
+          "East",
+          -6599.978
+        ],
+        [
+          "South",
+          -3839.9904
+        ],
+        [
+          "West",
+          -3399.98
+        ]
+      ],
+      "sql": "SELECT region, MIN(profit) AS min_profit FROM orders GROUP BY region",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 20,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "Which category contains the greatest number of orders?",
+    "question_en": "Which category contains the greatest number of orders?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 22.1456,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "category",
+        "total_orders"
+      ],
+      "rows": [
+        [
+          "Office Supplies",
+          6026
+        ]
+      ],
+      "sql": "SELECT category, COUNT(*) AS total_orders FROM orders GROUP BY category ORDER BY total_orders DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 21,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "Where does the business seem to perform best in terms of revenue?",
+    "question_en": "Where does the business seem to perform best in terms of revenue?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 25.849,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "mean",
+      "columns": [
+        "profit"
+      ],
+      "target": null,
+      "filters": [
+        {
+          "column": "region",
+          "op": "=",
+          "value": "South"
+        }
+      ],
+      "sql": "SELECT profit FROM orders WHERE region = ?",
+      "result": {
+        "analysis": "mean",
+        "result": 28.85767302469136
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 22,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "Which customer appears to buy the most often?",
+    "question_en": "Which customer appears to buy the most often?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": false,
+    "latency_seconds": 51.5969,
+    "attempts": 3,
+    "retried": true,
+    "answer": {
+      "action": null,
+      "columns": null,
+      "rows": null,
+      "result": null,
+      "sql": null,
+      "error": "ValueError: No numeric columns found."
+    },
+    "error": "ValueError: No numeric columns found."
+  },
+  {
+    "id": 23,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "Which region generated the highest total profit?",
+    "question_en": "Which region generated the highest total profit?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 22.0362,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "region",
+        "total_profit"
+      ],
+      "rows": [
+        [
+          "West",
+          108418.4489
+        ]
+      ],
+      "sql": "SELECT region, SUM(profit) AS total_profit FROM orders GROUP BY region ORDER BY total_profit DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 24,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "Which product has generated the greatest revenue overall?",
+    "question_en": "Which product has generated the greatest revenue overall?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 23.3172,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "product_name",
+        "total_sales"
+      ],
+      "rows": [
+        [
+          "Canon imageCLASS 2200 Advanced Copier",
+          61599.824
+        ]
+      ],
+      "sql": "SELECT product_name, SUM(sales) AS total_sales FROM orders GROUP BY product_name ORDER BY total_sales DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 25,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "Which shipping option do customers prefer the most?",
+    "question_en": "Which shipping option do customers prefer the most?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 22.9175,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "ship_mode",
+        "total_orders"
+      ],
+      "rows": [
+        [
+          "Standard Class",
+          5968
+        ]
+      ],
+      "sql": "SELECT ship_mode, COUNT(*) AS total_orders FROM orders GROUP BY ship_mode ORDER BY total_orders DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 26,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "Which market segment seems to dominate sales?",
+    "question_en": "Which market segment seems to dominate sales?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 24.0088,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "count",
+      "columns": [
+        "sales"
+      ],
+      "target": null,
+      "filters": [
+        {
+          "column": "segment",
+          "op": "=",
+          "value": "Consumer"
+        }
+      ],
+      "sql": "SELECT sales FROM orders WHERE segment = ?",
+      "result": {
+        "analysis": "count",
+        "result": 5191
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 27,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "Which state accumulated the highest total profit?",
+    "question_en": "Which state accumulated the highest total profit?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 22.4895,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "state",
+        "total_profit"
+      ],
+      "rows": [
+        [
+          "California",
+          76381.3871
+        ]
+      ],
+      "sql": "SELECT state, SUM(profit) AS total_profit FROM orders GROUP BY state ORDER BY total_profit DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 28,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "Which product sold the greatest number of units?",
+    "question_en": "Which product sold the greatest number of units?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 22.6163,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "product_name",
+        "total_quantity"
+      ],
+      "rows": [
+        [
+          "Staples",
+          215
+        ]
+      ],
+      "sql": "SELECT product_name, SUM(quantity) AS total_quantity FROM orders GROUP BY product_name ORDER BY total_quantity DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 29,
+    "category": "data_query",
+    "task_type": "count",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "How many purchases have been registered in total?",
+    "question_en": "How many purchases have been registered in total?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 15.4831,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "total_purchases"
+      ],
+      "rows": [
+        [
+          9994
+        ]
+      ],
+      "sql": "SELECT COUNT(*) AS total_purchases FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 30,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "Identify the most successful region according to sales.",
+    "question_en": "Identify the most successful region according to sales.",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 23.5228,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "sql",
+      "columns": [
+        "region",
+        "total_sales"
+      ],
+      "rows": [
+        [
+          "West",
+          725457.8245
+        ]
+      ],
+      "sql": "SELECT region, SUM(sales) AS total_sales FROM orders GROUP BY region ORDER BY total_sales DESC LIMIT 1",
+      "error": null
+    },
+    "error": null
+  }
+]

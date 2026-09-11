@@ -1,23 +1,23 @@
 """
 src/core/summarize.py
 
-Agent results can contain large row lists -- e.g. the Viz Agent's
+Agent results can hold large row lists - e.g. the Viz Agent's
 scatter/histogram/boxplot results, capped at src.core.db.MAX_ROWS = 1000,
-or a Data Query Agent question with no aggregation ("list all products" ->
-~1850 rows). Dumping these raw into an LLM prompt is neither useful (an
-LLM reading 1000 raw (x, y) pairs cannot summarize a chart any better
-than one reading a count + a few samples) nor safe -- it can push a
-single request past a provider's per-request/per-minute token limit.
+or a Data Query question with no aggregation ("list all products" -
+about 1850 rows). Putting these raw into an LLM prompt isn't useful (an
+LLM reading 1000 raw (x, y) pairs can't summarize a chart any better than
+one reading a count plus a few examples) and isn't safe either - it can
+push one request past a provider's token limit.
 
-Observed in practice, twice, in two different places before this fix:
-  1. Narration (src.orchestrator.narrate): a 1000-row scatter result
-     narrated directly triggered a 413 "Request too large" error.
+This actually happened, twice, in two different places, before this fix:
+  1. Narration (src.orchestrator.narrate): narrating a 1000-row scatter
+     result directly caused a 413 "Request too large" error.
   2. Report generation (src.agents.report.engine): a session with
-     several large-row chart results serialized via json.dumps(history)
-     produced a single ~14,700-token request.
+     several large chart results, turned into JSON with
+     json.dumps(history), made one ~14,700-token request.
 
-Both now share this one recursive summarizer instead of each having (or
-one having, and the other lacking) its own ad hoc fix.
+Both now use this one recursive summarizer, instead of each agent having
+its own separate fix (or, as before, only one of them having one).
 """
 from __future__ import annotations
 

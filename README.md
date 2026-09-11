@@ -118,6 +118,28 @@ python -m src.ingest
 
 ---
 
+## Dataset
+
+The system runs on the **Superstore** dataset, a well-known sample
+retail dataset (orders from a US office-supplies retailer). `src.ingest`
+loads the CSV into a single SQLite table `orders` with ~9,994 rows and
+21 columns: order and ship dates, ship mode, customer id/name, segment
+(Consumer / Corporate / Home Office), location (country / state / city /
+postal code / region), product id/name, category, sub-category, and the
+numeric fields `sales`, `quantity`, `discount`, `profit`.
+
+It was chosen because it's small, public, has a clear schema, and covers
+the kinds of questions this system targets: aggregates ("total sales by
+region"), statistics ("standard deviation of profit"), and charts. One
+row is a line item, not a whole order, which is the source of the
+"how many orders" ambiguity discussed in the evaluation
+([`results_and_failure_analysis.md`](results_and_failure_analysis.md) §3.1).
+
+The whole system is closed-world: it only answers from this local
+database, with no web access.
+
+---
+
 ## Running the System
 
 ```bash
@@ -158,9 +180,12 @@ failure analysis, including two bugs found and fixed during the
 evaluation (a t-test bug and a scoring limitation), are in
 [`results_and_failure_analysis.md`](results_and_failure_analysis.md).
 
-All reported numbers are from Anthropic Haiku. The system was run on Groq
-and Ollama earlier in the project, but those runs don't match the final
-system and aren't reported; §5 explains, and an Ollama re-run is planned.
+All reported numbers above are from Anthropic Haiku. A local model
+(Ollama `llama3.1:8b`) was also fully re-run on the current system, in
+all three languages, with its own results in §5. Groq was attempted but
+never completed a full run (rate limits, then the tested model got
+retired by the provider) - §5 explains what happened, but there are no
+Groq numbers to report.
 
 The evaluation was also run in **Spanish and Catalan** on Anthropic Haiku
 (same questions translated, same ground truth). Results are in
