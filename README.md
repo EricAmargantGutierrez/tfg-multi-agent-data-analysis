@@ -17,18 +17,18 @@ Bachelor's Thesis (TFG)
 
 ## Overview
 
-This project implements a conversational system that answers natural
-language questions over structured datasets using a modular multi-agent
-architecture. The system combines Large Language Models (LLMs), LangGraph
-for orchestration, and the Model Context Protocol (MCP) to coordinate
-specialized agents responsible for data querying, statistical analysis,
-visualization, and report generation.
+I built a conversational system that answers natural language questions
+about structured data. Instead of using one big model for everything, it
+splits the work between several specialized agents: a Data Query Agent,
+an Analysis Agent, a Visualization Agent, and a Report Agent. Large
+Language Models (LLMs) do the thinking, LangGraph manages the flow
+between agents, and the Model Context Protocol (MCP) is how each agent
+gets called.
 
-The objective is to investigate how agent-based architectures can improve
-natural language interaction with structured data, and to empirically
-evaluate how much that architecture actually buys you, over a single,
-minimally-prompted LLM, and over a single agent with the same tools but
-no architectural split, across multiple different underlying models.
+My goal is to check how much this multi-agent design actually helps,
+compared to two simpler options: one LLM with a short, plain prompt and
+no tools, and one LLM with the same tools but not split into separate
+agents. I tested this on more than one model, not just one.
 
 ---
 
@@ -38,16 +38,17 @@ no architectural split, across multiple different underlying models.
   <img src="docs/architecture-diagram.svg" width="900">
 </p>
 
-The system consists of four specialized MCP agents coordinated by a
-LangGraph orchestrator: **Data Query Agent**, **Analysis Agent** (statistics and
-ML, including column filters and group-based hypothesis testing),
-**Visualization Agent**, and **Report Agent**. All database access is
-centralized through `src/core/db.py`, opened strictly read-only. Large
-result sets are summarized (`src/core/summarize.py`) before being sent to
-an LLM for narration or report generation.
+The system has four specialized agents, and a LangGraph orchestrator
+decides which one to call for each question: the **Data Query Agent**,
+the **Analysis Agent** (statistics and machine learning, with column
+filters and group comparisons), the **Visualization Agent**, and the
+**Report Agent**. Every agent reaches the database through one file,
+`src/core/db.py`, and every connection is read-only. If a result has a
+lot of rows, `src/core/summarize.py` shrinks it down before it goes to an
+LLM to be explained or written up in a report.
 
 Full details: [`docs/architecture.md`](docs/architecture.md). Evaluation
-methodology, results, and failure analysis:
+method, results, and failure analysis:
 [`results_and_failure_analysis.md`](results_and_failure_analysis.md).
 Full development log: [`docs/development_log.md`](docs/development_log.md).
 
@@ -74,13 +75,13 @@ src/
 ├── agents/safety.py                     read-only SQL guard (checked in src/core/db.py)
 ├── core/                                db.py, retry.py, llm_json.py, summarize.py, paths.py
 ├── config/settings.py
-├── llm/                                 provider-agnostic LLM factory + registry
+├── llm/                                 works with any LLM provider: factory + registry
 ├── models/schemas.py                    Pydantic validation
 ├── orchestrator/                        router, MCP client, narrator, session state, LangGraph graph
 ├── eval/
 │   ├── datasets/                        55 questions, each in en/es/ca (data_query, analysis, visualization)
 │   ├── languages.py                     language codes + question/results-dir helpers
-│   ├── ground_truth/                    generators, executed against the real DB (language-independent)
+│   ├── ground_truth/                    generators, run against the real DB (same in every language)
 │   ├── checks.py                        scoring logic
 │   ├── baselines/                       single_agent.py + monolithic_agent.py
 │   ├── benchmarks/                      correctness_benchmark.py, pipeline_benchmark.py, report_agent_benchmark.py (all take --language)
@@ -121,23 +122,24 @@ python -m src.ingest
 
 ## Dataset
 
-The system runs on the **Superstore** dataset, a well-known sample
-retail dataset (orders from a US office-supplies retailer). `src.ingest`
-loads the CSV into a single SQLite table `orders` with ~9,994 rows and
-21 columns: order and ship dates, ship mode, customer id/name, segment
+I used the **Superstore** dataset, a well-known sample dataset with
+orders from a US office-supplies company. `src.ingest` loads the CSV
+file into one SQLite table called `orders`, with about 9,994 rows and 21
+columns: order and ship dates, ship mode, customer id and name, segment
 (Consumer / Corporate / Home Office), location (country / state / city /
-postal code / region), product id/name, category, sub-category, and the
-numeric fields `sales`, `quantity`, `discount`, `profit`.
+postal code / region), product id and name, category, sub-category, and
+the number fields `sales`, `quantity`, `discount`, `profit`.
 
-It was chosen because it's small, public, has a clear schema, and covers
-the kinds of questions this system targets: aggregates ("total sales by
-region"), statistics ("standard deviation of profit"), and charts. One
-row is a line item, not a whole order, which is the source of the
-"how many orders" ambiguity discussed in the evaluation
+I picked this dataset because it is small, public, has a clear
+structure, and fits the kind of questions I wanted the system to answer:
+totals ("total sales by region"), statistics ("standard deviation of
+profit"), and charts. One row is one line item, not one whole order.
+This is why there is a "how many orders" problem, which I explain later
+in the evaluation
 ([`results_and_failure_analysis.md`](results_and_failure_analysis.md) §3.1).
 
-The whole system is closed-world: it only answers from this local
-database, with no web access.
+The system only knows what is in this local database. It cannot search
+the web or use any outside information.
 
 ---
 
@@ -164,12 +166,12 @@ python -m src.eval.run_all --language ca          # Catalan
 ```
 
 The three benchmark scripts and `run_all.py` all take a `--language
-{en,es,ca}` flag, and each benchmark can resume an interrupted run with
+{en,es,ca}` flag. Each benchmark can also pick up an interrupted run with
 its own flag: `--side` and `--categories` for `correctness_benchmark.py`,
 `--categories` for `pipeline_benchmark.py`, `--sessions` for
 `report_agent_benchmark.py`. Output goes to
 `results/eval/<TFG_MODEL>/<language>/`, so running a different model
-does not overwrite the previous one.
+does not overwrite the results from the last one.
 
 ### Results (55-question benchmark; primary run: Anthropic Claude Haiku 4.5, English)
 
@@ -180,19 +182,19 @@ does not overwrite the previous one.
 | Visualization | 90.0% | 50.0% | 100% | +40.0pp | -10.0pp |
 
 ("pp" = percentage points, e.g. 93.3% minus 76.7% is 16.7pp.) Routing
-accuracy: 90.9%. Full breakdowns and a question-by-question
-failure analysis, including two bugs found and fixed during the
-evaluation (a t-test bug and a scoring limitation), are in
+accuracy: 90.9%. The full breakdown and a question-by-question failure
+analysis, including two bugs I found and fixed during the evaluation (a
+t-test bug and a scoring limitation), are in
 [`results_and_failure_analysis.md`](results_and_failure_analysis.md).
 
-All reported numbers above are from Anthropic Haiku. A local model
-(Ollama `llama3.1:8b`) was also fully re-run on the current system, in
-all three languages, with its own results in §5. Groq was attempted but
-never completed a full run (rate limits, then the tested model got
-retired by the provider) - §5 explains what happened, but there are no
+All the numbers above are from Anthropic Haiku. I also fully re-ran a
+local model (Ollama `llama3.1:8b`) on the current system, in all three
+languages - its results are in §5. I tried Groq too, but it never
+finished a full run (rate limits, and then the model I was using got
+removed by the provider) - §5 explains what happened, but there are no
 Groq numbers to report.
 
-The evaluation was also run in **Spanish and Catalan** on Anthropic Haiku
+I also ran the evaluation in **Spanish and Catalan** on Anthropic Haiku
 (same questions translated, same ground truth). Results are in
 `results/eval/anthropic/{en,es,ca}/` and §7.
 
