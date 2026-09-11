@@ -52,21 +52,33 @@ fixed bugs in two of them (`compute_ttest` §3.5, and an earlier
 `compute_regression` target bug), so this is a real dependency, not a
 formality.
 
-All three providers are called as plain text-completion models - no web
-search, no tool use, no retrieval. The only inputs are the system
-prompt, the database schema, and the question. So the only things that
-vary between runs are the model's reasoning and the architecture, not
-what tools the model can reach. The models never write or run code
-either: they produce a SQL string or a JSON plan that names one of the
-system's fixed, pre-written computations (see §6).
+All three providers are called as plain text-completion models: one
+prompt in, one block of text out, no provider tool-use/function-calling
+API, no web search, no retrieval built into the call. The LLM's only
+inputs are the system prompt, the database schema, and the question, and
+it never sees a tool result come back mid-generation. This is about how
+the model is called, not about whether real computation happens - it
+does. The Analysis Agent's output is a JSON plan that names one of 15
+pre-written functions (mean, correlation, regression, PCA, K-Means, ...)
+and fills in the parameters; separate, plain Python code (not the
+LLM) then actually runs that function against the real data (see §6).
+So the model decides *which* analysis to run and with *what* parameters,
+but it never writes or executes the analysis code itself, and the only
+thing that varies between providers is the model's reasoning, not what
+tools it can reach.
 
 The benchmark has 55 questions: 30 Data Query, 15 Analysis, 10
-Visualization, split into easy/medium/hard. **All the results below are
-from one model, Anthropic `claude-haiku-4.5`.** The system was also run
-on Groq and Ollama earlier in the project, but those runs don't match
-the final system and are not reported here (§5). Two bugs found during
-the evaluation were fixed and the affected runs repeated; §3.2 and §3.5
-have the before/after.
+Visualization, split into easy/medium/hard. **§2 and §3 below are
+Anthropic `claude-haiku-4.5`, in English** - this was the first run done,
+before Spanish/Catalan questions existed, and it stays the main
+reference dataset throughout this document. Two bugs found during the
+evaluation were fixed and the affected runs repeated; §3.2 and §3.5 have
+the before/after. Two other things happened later and are covered
+further down, not here: the same 55 questions were translated and run
+again in Spanish and Catalan on this same Anthropic model (§7), and a
+separate local model (Ollama) was evaluated in all three languages (§5).
+An early attempt to also evaluate Groq never produced a usable run in
+any language (§5.1).
 
 The evaluation was then run again in **Spanish and Catalan** on the main
 model, with the 55 questions and the 6 report-agent sessions translated.
@@ -76,15 +88,21 @@ languages.
 
 ---
 
-## 2. Primary results (Anthropic, Claude Haiku 4.5) — current, post-fix
+## 2. Primary results (Anthropic, Claude Haiku 4.5, English) — current, post-fix
 
 ### 2.1 Correctness
+
+**Model: Anthropic Claude Haiku 4.5. Language: English.**
 
 | Category | Real system | Baseline | Monolithic | Architecture value | Decomposition value |
 |---|---|---|---|---|---|
 | Data Query | 93.3% (28/30) | 76.7% (23/30) | 90.0% (27/30) | +16.7pp | +3.3pp |
 | Analysis | 100% (15/15) | 40.0% (6/15) | 80.0% (12/15) | +60.0pp | +20.0pp |
 | Visualization | 90.0% (9/10) | 50.0% (5/10) | 100% (10/10) | +40.0pp | -10.0pp |
+
+"pp" means percentage points, the plain difference between two
+percentages (e.g. 93.3% minus 76.7% is 16.7pp, not "16.7%"). Used
+throughout this document wherever two percentages are compared directly.
 
 The Analysis figures reflect two corrections made during the evaluation
 (before them: baseline 20.0%, monolithic 86.7%, architecture value
@@ -107,6 +125,8 @@ effectively 100%. Automating this check in the pipeline benchmark is
 future work (§9).
 
 ### 2.3 Latency
+
+**Model: Anthropic Claude Haiku 4.5. Language: English.**
 
 | Category | Agent-only | Full pipeline | Baseline | Monolithic |
 |---|---|---|---|---|
@@ -283,6 +303,8 @@ over the 1,000-row cap.
 
 ### 4.1 Normal sessions 1–5 (Session 5 re-rated after the fix)
 
+**Model: Anthropic Claude Haiku 4.5. Language: English.**
+
 | Session | Accuracy | Completeness | No fabrication | Fluency |
 |---|---|---|---|---|
 | 1 — Data Query, easy | 3/5 | 5/5 | 2/5 | 5/5 |
@@ -311,9 +333,10 @@ or get asked for something the data doesn't have, does the Report Agent
 say so, or does it make up a finding? All six questions can't be answered
 from the Superstore data (missing column, a customer that doesn't exist,
 a metric we don't collect, a country not in the data, a "why" question,
-a chart of a column that isn't there). Run on the same setup as the rest
-of this document (Anthropic Claude Haiku 4.5). Rated with a
-failure-focused template instead of the normal one:
+a chart of a column that isn't there). Rated with a failure-focused
+template instead of the normal one.
+
+**Model: Anthropic Claude Haiku 4.5. Language: English.**
 
 | Dimension | Score | Justification |
 |---|---|---|
@@ -322,7 +345,8 @@ failure-focused template instead of the normal one:
 | Completeness | **4/5** | All six questions are in "Questions Asked" and each is covered in the body. Docked one point because Q6 is shown as something other than what was asked. |
 | Fluency | **5/5** | Well structured, with a clear "Successful" vs "Failed" split. If anything it reads too confidently: the made-up correlation looks just like the real findings. |
 
-What each agent did with its turn:
+What each agent did with its turn (Model: Anthropic Claude Haiku 4.5.
+Language: English.):
 
 | Q | Asked for | Routed to | What happened |
 |---|---|---|---|
@@ -428,6 +452,10 @@ that re-run, in `results/eval/ollama/{en,es,ca}/`.
 
 All three languages now have a full run.
 
+**Model: Ollama `llama3.1:8b` (local). Languages: English (EN), Spanish
+(ES), Catalan (CA). "real" = real system, "base" = baseline, "mono" =
+monolithic agent.**
+
 | | EN real | EN base | EN mono | ES real | ES base | ES mono | CA real | CA base | CA mono |
 |---|---|---|---|---|---|---|---|---|---|
 | Data Query | 83.3% | 43.3% | 80.0% | 76.7% | 36.7% | 80.0% | 70.0% | 26.7% | 60.0% |
@@ -449,6 +477,9 @@ so a real language effect and a tired machine can't be fully told apart
 here.
 
 ### 5.4 Ollama routing - the real weak point
+
+**Model: Ollama `llama3.1:8b` (local). Languages: English (EN), Spanish
+(ES), Catalan (CA).**
 
 | | EN | ES | CA |
 |---|---|---|---|
@@ -549,6 +580,9 @@ whole "line chart"), an even coarser guess than daily or monthly.
 
 ### 5.6 Ollama latency, and the machine slowing down over long runs
 
+**Model: Ollama `llama3.1:8b` (local). Languages: English (EN), Spanish
+(ES), Catalan (CA). DQ = Data Query, An = Analysis, Viz = Visualization.**
+
 | | EN | ES | CA |
 |---|---|---|---|
 | Agent-only (DQ/An/Viz) | 12.5 / 13.7 / 19.8 s | 9.3 / 13.1 / 19.7 s | 12.4 / 16.7 / 16.3 s |
@@ -583,6 +617,9 @@ took and how many pipeline calls errored.
 ### 5.7 Ollama Report Agent
 
 Same 6 sessions and rubric as the Anthropic review (§4). Ratings:
+
+**Model: Ollama `llama3.1:8b` (local). Languages: English (EN), Spanish
+(ES), Catalan (CA).**
 
 | | EN sessions 1-5 mean | ES sessions 1-5 mean | CA sessions 1-5 mean |
 |---|---|---|---|
@@ -644,8 +681,8 @@ The Ollama re-run is real, retained data for all three languages now.
 This section is still less complete than the Anthropic evaluation (§2,
 §7) in one way: only one translation pass (not independently checked).
 A by-difficulty comparison across both models is in §8. The routing
-weakness (§5.4) and the marketing-
-spend fabrication (§5.7) are the two findings here that don't have an
+weakness (§5.4) and the marketing-spend fabrication (§5.7) are the two
+findings here that don't have an
 equivalent on Anthropic - genuine differences in model capability, not
 artifacts of a different setup, since everything else about the
 pipeline is identical. Catalan ran last, on a machine that had already
@@ -697,14 +734,14 @@ fabrications (§5.7) may partly reflect that, not just the language.
   ("why did sales drop in 2017", "is a 12% margin good", industry
   benchmarks) are out of scope.
 - **Fixed set of analyses.** The Analysis Agent doesn't write code - it
-  picks one of ~16 pre-written functions in `statistics.py` (mean,
-  median, correlation, t-test, regression, PCA, K-Means, ...) and fills
-  in its parameters. This is a deliberate trade: the system gives up
-  open-ended analytical flexibility to get safety (no arbitrary code
-  runs), determinism, and results that can be checked against exact
-  ground truth. A code-generating agent would be more flexible but
-  neither safe to run nor checkable this way. It can only answer what
-  those ~16 cover.
+  picks one of 15 pre-written functions in `statistics.py` (mean, median,
+  mode, variance, std, min, max, count, describe, correlation,
+  covariance, t-test, regression, PCA, K-Means) and fills in its
+  parameters. This is a deliberate trade: the system gives up open-ended
+  analytical flexibility to get safety (no arbitrary code runs),
+  determinism, and results that can be checked against exact ground
+  truth. A code-generating agent would be more flexible but neither safe
+  to run nor checkable this way. It can only answer what those 15 cover.
 
 **Not established, and should be stated as open questions:**
 - **The baseline can't do 3 of the Analysis questions at all** (regression,
@@ -773,6 +810,9 @@ here.
 
 ### 7.2 Correctness by language
 
+**Model: Anthropic Claude Haiku 4.5. Languages: English (EN), Spanish
+(ES), Catalan (CA).**
+
 | | EN | ES | CA |
 |---|---|---|---|
 | **Real system** — Data Query | 93.3% | 93.3% | 100% |
@@ -793,6 +833,9 @@ model being worse or better at a language. The baseline also fails on the
 same questions in every language (see §7.4).
 
 ### 7.3 Routing, latency, retry by language
+
+**Model: Anthropic Claude Haiku 4.5. Languages: English (EN), Spanish
+(ES), Catalan (CA). DQ = Data Query, An = Analysis, Viz = Visualization.**
 
 | | EN | ES | CA |
 |---|---|---|---|
@@ -854,6 +897,9 @@ same way for all three languages; the English column matches §4.1 within
 about ±0.2. Per-session scores with a short reason each are in the
 `results/eval/anthropic/{es,ca}/report_agent_review.md` files. Means:
 
+**Model: Anthropic Claude Haiku 4.5. Languages: English (EN), Spanish
+(ES), Catalan (CA).**
+
 | | EN | ES | CA |
 |---|---|---|---|
 | Sessions 1–5 mean — Accuracy / Completeness / No-fabrication / Fluency | 4.0 / 5.0 / 3.8 / 5.0 | 4.2 / 5.0 / 3.8 / 5.0 | 3.8 / 5.0 / 3.4 / 5.0 |
@@ -913,8 +959,9 @@ never pulled together into one place. Doing that, and putting it next to
 the language and model comparisons already in this document, gives a few
 findings that are not visible from any single table above.
 
-**By difficulty.** Averaged across the three languages, real-system vs.
-baseline correctness:
+**By difficulty.** Real-system vs. baseline correctness, averaged across
+English, Spanish, and Catalan for each model (Anthropic Claude Haiku 4.5;
+Ollama `llama3.1:8b`, local):
 
 | | Easy: real / base | Medium: real / base | Hard: real / base |
 |---|---|---|---|
@@ -978,6 +1025,29 @@ originally tested meant no full run ever finished, in any language
 (§5.1) - the only thing learned from Groq is practical (a free
 third-party API is not a reliable base for a reproducible benchmark),
 not a result about model quality.
+
+**By architecture design (does splitting the work up help, on its
+own?).** This is a different question from "beats a plain baseline" -
+it's real system vs. the monolithic agent, which has the *same* tools
+and prompts but as one agent instead of several (decomposition value,
+§1). In percentage points, real system minus monolithic:
+
+| | Data Query EN/ES/CA | Analysis EN/ES/CA | Visualization EN/ES/CA |
+|---|---|---|---|
+| Anthropic | +3.3 / +6.7 / +6.7 | +20.0 / +6.7 / +13.3 | -10.0 / 0 / 0 |
+| Ollama | +3.3 / -3.3 / +10.0 | +20.0 / +53.3 / +60.0 | +10.0 / 0 / 0 |
+
+Splitting the work up helps almost everywhere, but by very different
+amounts depending on the model. On Anthropic the gain is modest (0 to
++20pp); the one negative number (Visualization, English) is entirely the
+single granularity-ambiguous question from §3.3, not a real pattern. On
+Ollama the gain on Analysis is large and grows with each language (+20pp
+in English, up to +60pp in Catalan) - splitting the "which statistic do I
+compute" decision out into its own focused agent matters much more for a
+small model than a strong one, which makes sense: a smaller model has
+less room to juggle several different tool sets inside one prompt at
+once. The one negative number for Ollama (Spanish Data Query, -3.3pp) is
+a single question flipping at n=30, not a real reversal either.
 
 **By routing.** Overall accuracy: Anthropic 90.9-92.7% across the three
 languages, Ollama 56.4% (EN), 50.9% (ES), 52.7% (CA). But the overall
@@ -1057,13 +1127,16 @@ the moment there is genuinely nothing true to say.
 **Bottom line.** The architecture's core promise - specialized agents
 with real tools beat one generic prompt - holds up everywhere this was
 tested: three languages, two very different models, every difficulty
-tier. What changes between models is everything downstream of that: which
-category the router gets wrong (and how much it costs when it does),
-how often self-correction is even needed, how fast the answer comes
-back, and how the system behaves when a question genuinely cannot be
-answered. A smaller, free, local model is a real option for the core
-task, but it needs a better router and closer supervision of its Report
-Agent before it could be trusted the way the hosted model was here.
+tier. Splitting that same toolset across separate agents (instead of one
+agent with all of them) helps too, and it helps the weaker model more
+than the stronger one. What changes between models is everything
+downstream of those two points: which category the router gets wrong
+(and how much it costs when it does), how often self-correction is even
+needed, how fast the answer comes back, and how the system behaves when
+a question genuinely cannot be answered. A smaller, free, local model is
+a real option for the core task, but it needs a better router and closer
+supervision of its Report Agent before it could be trusted the way the
+hosted model was here.
 
 ---
 
@@ -1075,7 +1148,7 @@ Agent before it could be trusted the way the hosted model was here.
   input) or a planner could chain several for one question.
 - **More agents, or better ones.** Add agent types (forecasting, data
   quality checks, ...) or widen the existing ones - especially the
-  Analysis Agent's fixed menu of ~16 functions (§6).
+  Analysis Agent's fixed menu of 15 functions (§6).
 - **Score the pipeline answers automatically.** The pipeline benchmark
   only records routing and latency, not whether the final answer was
   right. The misrouted questions were checked by hand here (§3.4), but

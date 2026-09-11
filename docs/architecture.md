@@ -42,6 +42,15 @@ regression a target, or for a t-test a grouping column and the two
 groups to compare). This plan is checked as a Pydantic `AnalysisPlan`,
 and `build_select` turns it into a real, parameterized query.
 
+Data Query and Visualization *do* let the LLM write raw SQL, so their
+queries pass through `src/agents/safety.py::validate_sql_readonly`
+before `db.py` runs them: it must start with `SELECT` or `WITH`, can't
+contain a second statement after a `;`, and can't contain a write
+keyword (`INSERT`, `UPDATE`, `DELETE`, `DROP`, ...). This is a keyword
+check, not a full SQL parser - simple, but enough to block the one thing
+that actually matters here (a write), and it's what raises the
+`UnsafeSQLError` seen in `results_and_failure_analysis.md` §4.2.
+
 ## Protecting the LLM from its own agents' output size
 
 `src/core/summarize.py` - putting a Viz Agent result with a big row list

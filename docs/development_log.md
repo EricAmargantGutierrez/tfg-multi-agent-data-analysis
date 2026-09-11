@@ -54,7 +54,7 @@ Looking closely at the Milestone 13 results turned up two things worth actually 
 
 **Fix 2 - baseline scoring no longer auto-rejects correlation/covariance/t-test.** The scorer used to mark those `incorrect` automatically, assuming a plain SQL model couldn't do them - but the baseline had actually worked out the correct Pearson correlation in raw SQL and was being marked wrong just because of how the scorer worked. `check_baseline_analysis` now checks the real number it returned. Regression, PCA, and K-Means still get auto-rejected, correctly - those really can't be done in one plain `SELECT`. Baseline Analysis correctness went from 20.0% to 40.0% with no change to what the baseline actually does.
 
-Post-fix Anthropic results:
+Post-fix results (Model: Anthropic Claude Haiku 4.5. Language: English.):
 
 | Category | Real system | Baseline | Monolithic | Architecture value | Decomposition value |
 |---|---|---|---|---|---|
