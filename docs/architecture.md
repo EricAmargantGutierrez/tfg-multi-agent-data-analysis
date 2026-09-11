@@ -113,6 +113,78 @@ answering a new question.
 8. When the session ends, the full history is handed to the Report Agent
    (also summarized first before serialization).
 
+## What each agent actually does
+
+The Execution Flow above is the same for every agent from the outside
+(router picks it, MCP calls it, it runs, the result comes back). This
+section looks inside each agent's own box - what it gets as input, the
+steps it runs, and exactly what it can and can't do.
+
+### Data Query Agent
+
+- **Input:** the question, plus the database schema (table and column
+  names).
+- **Steps:** the LLM writes one plain SQL query. That query goes through
+  `src/agents/safety.py::validate_sql_readonly` (must be `SELECT`/`WITH`,
+  no second statement, no write keyword), then runs for real against the
+  database. If it fails, the error message goes back to the LLM and it
+  tries again, up to 3 times (`src/core/retry.py`).
+- **Can do:** anything answerable with one read-only SQL query - totals,
+  averages, counts, filtering, sorting, grouping.
+- **Can't do:** anything that needs more than plain SQL (a real
+  statistical test, a chart) - those go to the other two agents.
+
+### Analysis Agent
+
+- **Input:** the question, plus the schema.
+- **Steps:** the LLM never writes SQL here. It returns a JSON plan
+  instead: which analysis to run, which columns, an optional filter, and
+  (only for regression) a target column or (only for a t-test) a group
+  column and the two groups to compare. This plan is checked with
+  Pydantic (`AnalysisPlan`), turned into a safe, parameterized SQL query
+  that fetches just the needed columns, loaded into a pandas DataFrame,
+  and then the named function actually runs on that data. Same retry
+  loop as Data Query if something fails.
+- **Can do:** exactly 15 functions, all in `statistics.py`: mean, median,
+  mode, variance, std, min, max, count, describe, correlation,
+  covariance, a two-group t-test, linear regression, PCA, and K-Means.
+- **Can't do:** anything not on that list (e.g. ANOVA, forecasting), or
+  a t-test across more than two groups. It never writes or runs its own
+  code - it only picks from this fixed menu.
+
+### Visualization Agent
+
+- **Input:** the question, plus the schema.
+- **Steps:** the LLM decides *what* to plot - chart type, the SQL to
+  fetch the data, title and axis labels - as a JSON "chart spec"
+  (`ChartSpec`). The system runs that SQL, then fixed, trusted
+  Matplotlib code (not the LLM) actually draws the chart and saves it as
+  a PNG. Correctness is checked against the data behind the chart, not
+  by reading the image. Same retry loop on failure.
+- **Can do:** 6 chart types - bar, line, scatter, pie, histogram,
+  boxplot. Rows with a missing (`NULL`) value in a plotted column are
+  dropped rather than crashing the chart.
+- **Can't do:** any chart type outside that list of 6.
+
+### Report Agent
+
+- **Input:** the *entire* conversation history so far - every earlier
+  turn's question, which agent handled it, and its result (summarized
+  first if any turn has a big row list, see above).
+- **Steps:** one single LLM call - there is no retry loop here. If the
+  call fails, report generation just fails (`ok: False`); there's no
+  syntax error to correct and retry the way there is for the other
+  three. The LLM writes a full report (Executive Summary, Questions
+  Asked, Key Findings, Conclusions) as one block of text, saved to a
+  file.
+- **Can do:** summarize a whole conversation into one readable report.
+- **Can't do:** check any of it. It never runs its own SQL, analysis, or
+  chart - it only sees what the other agents already returned, so if an
+  earlier turn was wrong (or an agent quietly substituted a column for
+  one that doesn't exist), the Report Agent has no way to catch that and
+  can end up repeating or even dressing up the mistake. See
+  `results_and_failure_analysis.md` §4.2 for real examples of this.
+
 ## Current Limitations
 
 - One SQLite database, one table.

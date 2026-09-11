@@ -135,5 +135,5 @@
   <text x="580" y="851" font-size="11" fill="#334155">3. Narrator turns the structured result into natural language</text>
   <text x="580" y="869" font-size="11" fill="#334155">4. On session end, the Report Agent writes a Markdown summary to results/</text>
 
-  <text x="640" y="915" text-anchor="middle" font-size="10.5" fill="#94a3b8">Phase 1 — v1.1 (restructured) · TFG: Multi-Agent Conversational Data Analysis System · UPF</text>
+  <text x="640" y="915" text-anchor="middle" font-size="10.5" fill="#94a3b8">TFG: Multi-Agent Conversational Data Analysis System · UPF</text>
 </svg>
