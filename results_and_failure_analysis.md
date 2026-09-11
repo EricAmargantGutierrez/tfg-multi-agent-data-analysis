@@ -77,8 +77,6 @@ the before/after. Two other things happened later and are covered
 further down, not here: the same 55 questions were translated and run
 again in Spanish and Catalan on this same Anthropic model (§7), and a
 separate local model (Ollama) was evaluated in all three languages (§5).
-An early attempt to also evaluate Groq never produced a usable run in
-any language (§5.1).
 
 The evaluation was then run again in **Spanish and Catalan** on the main
 model, with the 55 questions and the 6 report-agent sessions translated.
@@ -381,54 +379,31 @@ Things worth knowing:
 
 ## 5. Other model providers (Groq, Ollama)
 
-Anthropic (Claude Haiku 4.5) is the primary dataset (§2). Groq and Ollama
-were both run earlier in the project too, but those *original* runs are
-not reported as results (§5.1 explains why for each). For Ollama, a
-clean re-run on the current system was done for this document instead,
-and its real numbers are in §5.3-5.7. Groq could not be re-run on the
-same model at all (§5.1) and has no numbers reported here.
+Anthropic (Claude Haiku 4.5) is the primary dataset (§2). Ollama was also
+run earlier in the project, but that *original* run is not reported as a
+result (§5.1 explains why). A clean re-run on the current system was
+done for this document instead, and its real numbers are in §5.3-5.7.
 
 ### 5.1 What happened with each
 
-**Groq (`llama-3.3-70b-versatile`).** The full 55-question benchmark and
-the pipeline benchmark were run on Groq in the first evaluation round.
-That run is still in git history (commit `354902e`) with every
-per-question file. But it happened before the architecture restructure and both
-fixes (§3.2, §3.5), so it does not match the current system. During the
-original development, re-running on Groq's free tier was already a
-recurring problem - both the per-minute and the daily token limits ran
-out quickly, so a full run often had to be split across several days.
-
-A re-run on the *same* model is no longer possible at all: Groq retired
-`llama-3.3-70b-versatile` and it now returns `model_not_found`. The
-closest model still on the platform, `openai/gpt-oss-120b`, was tried as
-a substitute (the registry now points `TFG_MODEL=groq` there) - a
-quick first test worked from start to end in a few seconds per question, so a full
-attempt was made. It got through the Data Query agent and baseline in
-about 6 minutes, then stalled for 13+ minutes on the very first
-monolithic-agent question. Checking the API's rate-limit headers
-confirmed why: the free tier caps `gpt-oss-120b` at 8,000 tokens/minute,
-and the monolithic agent's combined prompt (all three agents' tools in
-one) uses up all of that almost immediately, so the run gets stuck
-waiting and retrying because of the rate limit. The run was killed rather than left to hang for
-hours. A paid tier would remove the cap, but that wasn't pursued.
+**Groq.** I tried to run the evaluation on Groq, but ran into a few
+issues: the model I originally planned to use was retired by the
+provider, and the replacement model hit the free tier's rate limit
+partway through a run. No Groq numbers are reported anywhere in this
+document.
 
 **Ollama (`llama3.1:8b`, local).** The benchmark was also run on this
 model earlier, but the result files were overwritten by a later run
 before they were committed, so only the aggregate numbers were ever
-recorded (in the development log) - no per-question detail survives from
-that run. A clean re-run on the current system was done for this
-document instead, for **all three languages** - see the real numbers in
-§5.3-5.7, not the old ones. Each language needed a multi-hour session on
-this hardware (§5.6).
+recorded - no per-question detail survives from that run. A clean re-run
+on the current system was done for this document instead, for **all
+three languages** - see the real numbers in §5.3-5.7, not the old ones.
+Each language needed a multi-hour session on this hardware (§5.6).
 
 ### 5.2 Provider trade-offs seen during development
 
 - **Anthropic** - fast, reliable, no rate-limit trouble across the whole
   evaluation. Costs money per token (small for this benchmark, but real).
-- **Groq (free tier)** - the per-minute token limit (8,000) and a daily
-  limit both run out quickly; long runs stall or have to be spread over
-  days. And the model can be removed by the provider, as happened here.
 - **Ollama (local)** - free and private, but slow on a normal laptop
   (CPU only): ~12-20 s per question once warm, 160-340 s to load the
   model the first time, several hours for a full run, and it holds the
@@ -444,9 +419,10 @@ see the per-language numbers below). So the slowdown looks tied to how long a si
 than something rest breaks between runs fix.
 This is stated honestly as something I am not sure about, not as a firm conclusion.
 
-The old Groq/Ollama runs are gone from this document (§5.1). A **clean
-Ollama re-run on the current system** was done for this thesis instead,
-for all three languages. Everything below is real, retained data from
+The old Ollama run is gone from this document (§5.1). A **clean Ollama
+re-run on the current system** was done for this thesis instead, for
+all three languages.
+Everything below is real, retained data from
 that re-run, in `results/eval/ollama/{en,es,ca}/`.
 
 ### 5.3 Ollama correctness, by language
@@ -769,14 +745,11 @@ fabrications (§5.7) may partly reflect that, not just the language.
   dataset. Ollama (`llama3.1:8b`) has a real re-run on the current
   system for all three languages (§5.3-5.7), with the Catalan run
   affected by machine issues (§5.6). A by-difficulty comparison of both
-  models is in §8. Groq never completed a full run in any language, so
-  it has no correctness numbers at all - see §5.1 for what was tried and
-  why it didn't work. Cost per provider was not measured.
+  models is in §8. Cost per provider was not measured.
 - **The multilingual evaluation (§7) is Anthropic Haiku only** - the
   Ollama multilingual comparison (§5.3-5.7) is a separate, smaller
   exercise (all three languages, but fewer dimensions measured, and the
-  Catalan run affected by machine issues). Groq has no multilingual data
-  at all.
+  Catalan run affected by machine issues).
 
 ---
 
@@ -786,9 +759,7 @@ The evaluation was run again with the 55 questions and the 6 Report-Agent
 sessions translated into Spanish and Catalan, to see if the language of
 the question changes anything. This section is Anthropic Claude Haiku
 4.5 only. Ollama has its own three-language results in §5.3-5.7 (a
-different local model, run and written up separately). Groq never
-managed a full run in any language at all (§5.1), so it has no numbers
-here.
+different local model, run and written up separately).
 
 ### 7.1 Method
 
@@ -1018,12 +989,7 @@ separate that from machine fatigue.
 in all three languages, and at every difficulty tier: **the specialized
 multi-agent architecture beats a plain single-prompt baseline.** That is
 true even on a much smaller, free, local model that is clearly weaker
-than the hosted one in other ways. Groq contributes nothing to this
-comparison: the free tier's rate limits and the retirement of the model
-originally tested meant no full run ever finished, in any language
-(§5.1) - the only thing learned from Groq is practical (a free
-third-party API is not a reliable base for a reproducible benchmark),
-not a result about model quality.
+than the hosted one in other ways.
 
 **By architecture design (does splitting the work up help, on its
 own?).** This is a different question from "beats a plain baseline" -
@@ -1084,8 +1050,7 @@ Anthropic. On Ollama the numbers move around more (e.g. Catalan Analysis
 is actually the fastest of the three), but that is almost certainly the
 laptop's own state at the time (§5.6: it slowed down over long runs, and
 the Catalan run also had a sleep event and a crash) rather than Catalan
-being an easier language to process. Latency was not measured for Groq
-beyond the failed attempts in §5.1.
+being an easier language to process.
 
 **On retries.** The self-correcting loop (§2.4) fires far more often on
 Ollama than on Anthropic. Anthropic only triggered it once in the entire
@@ -1161,8 +1126,8 @@ hosted model was here.
 - **Answer in the user's language** - the Report Agent's system prompt is
   English-only (§7.5); a one-line change would make it follow the
   conversation language, like the narrator already does.
-- **Finish the cross-provider picture** - a Groq re-run once a suitable
-  model is available, and cost measurement per provider (§5).
+- **Finish the cross-provider picture** - a real Groq run once a
+  suitable model is available, and cost measurement per provider (§5).
 - **Fix the Ollama router's Data Query blind spot** (§5.4) - it's the
   single biggest gap found on the local model, and unlike Anthropic's
   routing gaps it produces real wrong answers, not just a scoring
