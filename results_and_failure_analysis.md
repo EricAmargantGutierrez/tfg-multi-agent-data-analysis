@@ -1150,6 +1150,17 @@ fixing or extending those, not restating them.
   Agent's fixed list of 15 functions - for example ANOVA, so it can
   compare more than the two groups the current t-test is limited to, or
   paired samples.
+- **A real code-generating agent.** This is a different kind of change
+  from the one above - not more pre-written functions, but letting an
+  agent write and run its own Python code, so it isn't limited to a
+  fixed list at all. Right now no agent does this on purpose (§6): it
+  trades away flexibility for safety, a result that's always the same,
+  and answers that can be checked against an exact right answer. Doing
+  this safely would need real sandboxing - running the generated code
+  somewhere isolated, with no access to anything outside that one task -
+  and a way to still check its answers, since a code-generating agent
+  can't be checked against ground truth as directly as a fixed list of
+  functions can.
 - **Score the pipeline answers automatically.** The pipeline benchmark
   only records routing and latency, not whether the final answer was
   right. The misrouted questions were checked by hand here (§3.4), but
