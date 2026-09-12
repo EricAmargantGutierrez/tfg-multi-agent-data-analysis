@@ -1157,6 +1157,14 @@ fixing or extending those, not restating them.
   number, and a fair end-to-end comparison of the monolithic agent vs the
   full system as a user hits it (router + agents, routing mistakes
   included) instead of vs the agents with routing forced correct (§2.1).
+- **Reduce the Data Query / Analysis routing overlap.** Right now a
+  mean, median, or other simple statistic can be answered correctly by
+  either agent (§2.2, §3.4), so there's no single right routing choice
+  for those questions. Either the two agents' jobs could be split more
+  clearly (e.g. Analysis only handles anything beyond a raw count or
+  sum), or the benchmark's "expected agent" label could allow more than
+  one correct agent per question, so routing accuracy measures real
+  mistakes instead of penalizing a defensible choice.
 - **A second, harder dataset.** Everything here is on Superstore.
   Running the same evaluation on a larger or messier dataset - or one
   with more than one table (e.g. Olist), to see how well the system

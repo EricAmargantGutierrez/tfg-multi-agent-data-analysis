@@ -226,6 +226,13 @@ don't end up repeated in two files.
   can't do, whether the query is written by this system's Analysis
   Agent or by a single generic agent. Full detail in
   `results_and_failure_analysis.md` §3.2.
+- **The Visualization Agent can only draw 6 chart types** - bar, line,
+  scatter, pie, histogram, boxplot. The LLM does choose which one to
+  use, and it does write the real SQL to fetch the data for it (see
+  below), but the actual drawing is fixed Matplotlib code
+  (`src/agents/viz/engine.py::render()`) that only knows how to draw
+  those 6. A question that needs a different kind of chart (a map, a
+  heatmap, a Sankey diagram, ...) can't be answered.
 - **The Report Agent always writes its report in English**, no matter
   what language the conversation was in. None of this system's prompts
   give an explicit language instruction; the narrator happens to answer
@@ -238,6 +245,14 @@ don't end up repeated in two files.
   §7.5. The fix (§9) is a one-line prompt change.
 - One SQLite database, one table.
 - No memory of earlier turns when answering a new question.
+- **The router can't always tell Data Query and Analysis apart.** A
+  question like "what is the average discount" can be answered
+  correctly by either agent - a mean is just one SQL `AVG(...)`, and
+  it's also one of the Analysis Agent's 15 functions. There's no single
+  "correct" agent for this kind of question, so the router has to pick
+  one anyway, and there's no way to measure routing accuracy precisely
+  for these questions - see `results_and_failure_analysis.md` §2.2 and
+  §3.4 for the real numbers this causes.
 - The Analysis Agent's filters only support `= != > >= < <= LIKE IN
   BETWEEN` on real columns - enough for filtering by region, category,
   or a date range, but not any condition you could think of.
