@@ -216,6 +216,14 @@ directly: the baseline's correlation answers (Q5, Q13) now score correct
 where they didn't before, with no change to what the baseline actually
 does.
 
+This fix checks correctness in both directions, not just gives more
+credit. On the t-test question specifically, the baseline wrote an
+elaborate answer - mean, count, even a standard deviation worked out by
+hand for each group - but never actually computed a real t-statistic.
+The fixed scorer still correctly marks this one wrong, exactly as it
+did before the fix. So the change is a real fix to how correctness is
+checked, not just a rule that always favors the baseline.
+
 **A note on what the baseline can and can't do.** 3 of the 15 Analysis
 questions - linear regression (Q10), PCA (Q11) and K-Means (Q12) - cannot
 be done in a single SQL query at all. They need many repeated steps, or matrix math, and one `SELECT`
