@@ -153,7 +153,7 @@ def test_check_monolithic_analysis_fails_gracefully_on_wrong_action():
     assert not check_monolithic_analysis(answer, gt)
 
 
-# --- Baseline analysis: correlation/covariance/ttest are now genuinely
+# --- Baseline analysis: correlation/covariance/ttest are now really
 # checked, not auto-rejected -- regression/pca/kmeans remain auto-rejected
 # since those really are infeasible in one plain SQL SELECT. ---
 

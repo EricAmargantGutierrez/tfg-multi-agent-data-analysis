@@ -121,7 +121,7 @@ def run(categories: list[str] | None = None, language: str = DEFAULT_LANGUAGE) -
             if consecutive_failures >= 3:
                 print(f"\n{consecutive_failures} consecutive failures -- stopping early. "
                       "Check the 'error' field in the saved JSON for why (rate limit, "
-                      "resource exhaustion, or a genuine model/routing failure all look "
+                      "resource exhaustion, or a real model/routing failure all look "
                       "different there). Re-run the remaining categories with "
                       "--categories once resolved.")
                 stopped_early = True

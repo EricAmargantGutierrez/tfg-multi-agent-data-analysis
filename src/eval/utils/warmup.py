@@ -15,7 +15,7 @@ Matters most for local models (Ollama). Found out the hard way, twice:
      warmed up that specific kind of call yet.
 
 So there's no single "the model is warm now" you can reach with one
-call. Each genuinely different kind of call (different function,
+call. Each truly different kind of call (different function,
 different code path) needs its own warm-up, right before its own timed
 loop starts.
 """

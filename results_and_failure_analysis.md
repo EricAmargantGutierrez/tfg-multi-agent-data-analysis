@@ -262,14 +262,14 @@ either agent. Checked against the ground truth: the Data Query agent
 returned 0.156 (avg discount), 8.67 (median profit), $33.85 (avg profit
 West), $346.57 (avg sales East/Furniture) and $54.66 (median sales
 South) - all correct. So the router picking Data Query here is a
-reasonable choice on a genuinely unclear question, not a failure. The
+reasonable choice on a truly unclear question, not a failure. The
 90.9% figure counts them as failures because it compares against a fixed
 label.
 
 This is not always harmless, though. In the Ollama run (§5) the router
 misroutes the *opposite* way - it sends ranking questions ("which region
 has the highest sales", "which state sold the most") to the Analysis
-agent, whose fixed menu of scalar statistics genuinely cannot group and
+agent, whose fixed menu of scalar statistics really cannot group and
 rank. Those misroutes produce wrong answers that sound completely sure of themselves. So
 whether a misroute matters depends on which direction it goes and
 whether the receiving agent can actually do the task.
@@ -716,7 +716,7 @@ fabrications (§5.7) may partly reflect that, not just the language.
   language. But routing quality does not transfer: the same small model
   that is close to Anthropic in raw ability misroutes about 80%
   of Data Query questions in all three languages (§5.4), and unlike
-  Anthropic's routing gaps these produce genuinely wrong answers, not
+  Anthropic's routing gaps these produce actually wrong answers, not
   just a scoring mismatch.
 **Scope / design choices (state these, they are deliberate):**
 - **Closed-world, and no LLM-written code.** The system has no internet
@@ -1085,7 +1085,7 @@ more broken SQL and JSON to begin with. But it is also less reliable once trigge
 Ollama retries fix the problem (English Visualization, 100% success),
 some don't (Catalan Analysis - the K-Means/"describe" mix-up in §5.5
 survived the retry and still failed). So the retry loop is doing real
-work on the weaker model, catching some genuine mistakes, but it is not
+work on the weaker model, catching some real mistakes, but it is not
 a substitute for the model actually understanding the question.
 
 **On honesty (Report Agent).** Same rubric, both models, normal sessions
@@ -1110,7 +1110,7 @@ correlation number in all three languages (§5.7), a complete answer made
 up for a turn that had actually crashed, and sample rows mislabeled as
 computed statistics (§5.7, Catalan). So a model can look equally honest
 on ordinary questions and still be much more willing to make something up
-the moment there is genuinely nothing true to say.
+the moment there is really nothing true to say.
 
 **Bottom line.** The architecture's core promise - specialized agents
 with real tools beat one generic prompt - holds up everywhere this was
@@ -1121,7 +1121,7 @@ than the stronger one. What changes between models is everything that
 follows from those two points: which category the router gets wrong
 (and how much it costs when it does), how often self-correction is even
 needed, how fast the answer comes back, and how the system behaves when
-a question genuinely cannot be answered. A smaller, free, local model is
+a question truly cannot be answered. A smaller, free, local model is
 a real option for the core task, but it needs a better router and closer
 supervision of its Report Agent before it could be trusted the way the
 hosted model was here.
