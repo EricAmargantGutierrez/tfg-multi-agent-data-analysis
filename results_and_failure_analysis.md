@@ -1155,12 +1155,18 @@ fixing or extending those, not restating them.
   agent write and run its own Python code, so it isn't limited to a
   fixed list at all. Right now no agent does this on purpose (§6): it
   trades away flexibility for safety, a result that's always the same,
-  and answers that can be checked against an exact right answer. Doing
-  this safely would need real sandboxing - running the generated code
-  somewhere isolated, with no access to anything outside that one task -
-  and a way to still check its answers, since a code-generating agent
-  can't be checked against ground truth as directly as a fixed list of
-  functions can.
+  and answers that can be checked against an exact right answer. This
+  would also close the specific gap in §3.2: the single-agent baseline
+  can't answer 3 of the 15 Analysis questions at all (regression, PCA,
+  K-Means), because a plain SQL query has no way to do those - but a
+  single agent that could write and run real Python (e.g. with
+  scikit-learn) wouldn't have that problem, since it's the "SQL only, no
+  code" restriction that blocks it, not the number of agents involved.
+  Doing this safely would need real sandboxing - running the generated
+  code somewhere isolated, with no access to anything outside that one
+  task - and a way to still check its answers, since a code-generating
+  agent can't be checked against ground truth as directly as a fixed
+  list of functions can.
 - **Score the pipeline answers automatically.** The pipeline benchmark
   only records routing and latency, not whether the final answer was
   right. The misrouted questions were checked by hand here (§3.4), but
@@ -1176,6 +1182,18 @@ fixing or extending those, not restating them.
   sum), or the benchmark's "expected agent" label could allow more than
   one correct agent per question, so routing accuracy measures real
   mistakes instead of penalizing a defensible choice.
+- **Rewrite the benchmark questions that turned out to have more than
+  one fair answer.** This is different from the routing overlap above -
+  it's not about which agent gets a question, it's about the question
+  itself not having one single correct answer to check against, no
+  matter who answers it. Two real cases found here: "how many orders"
+  (§3.1) can mean `COUNT(*)` or `COUNT(DISTINCT order_id)`, both
+  reasonable; and the "profit over time" chart (§3.3) never says
+  whether to group by day or by month. Either reword these specific
+  questions to remove the ambiguity, or change the ground truth to
+  accept more than one correct reading, so a wrong score reflects a
+  real mistake and not just a fair guess that happened to disagree with
+  the one answer the scorer expected.
 - **A second, harder dataset.** Everything here is on Superstore.
   Running the same evaluation on a larger or messier dataset - or one
   with more than one table (e.g. Olist), to see how well the system
