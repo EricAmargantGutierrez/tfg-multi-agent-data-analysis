@@ -367,7 +367,7 @@ Language: English.):
 |---|---|---|---|
 | 1 | Average customer age (no such column) | data_query | Errored, but with the wrong message: the SQL failed the safety check (`UnsafeSQLError: Only SELECT queries are allowed`) instead of a clear "no such column: age". 3 retries, all rejected. |
 | 2 | Sales for customer "Jonathan Q. Fakename" (doesn't exist) | data_query | Correct. Query returned null; the narration said there are no records and the customer may not exist. |
-| 3 | Correlation of "marketing spend" with profit (no such column) | analysis | The planner quietly put `sales` in place of the missing column (`"columns": ["sales", "profit"]`), then added a note that broke the JSON parsing, so it failed with a `ValueError` after 3 retries. If the JSON had been clean it would have computed a sales-vs-profit correlation and called it "marketing spend". |
+| 3 | Correlation of "marketing spend" with profit (no such column) | analysis | The planner put `sales` in place of the missing column without saying so (`"columns": ["sales", "profit"]`), then added a note that broke the JSON parsing, so it failed with a `ValueError` after 3 retries. If the JSON had been clean it would have computed a sales-vs-profit correlation and called it "marketing spend". |
 | 4 | Orders shipped to Germany (data is US-only) | data_query | Correct. Returned 0; the narration says no matching records (it doesn't mention that the data is US-only). |
 | 5 | "Why did profit decline in 2016?" (false premise) | data_query | Best handling of the six. It pushed back ("I cannot confirm that profit declined overall in 2016"), gave the real monthly numbers, and said 2015 data would be needed to compare. No made-up answer. |
 | 6 | Scatter of "employee salary" vs profit (no such column) | viz | The chart engine actually plotted `Sales` vs `Profit` (the saved file is titled "Sales versus Profit per Order"), but the narration kept calling it "Employee Salary vs Profit" and made up a "Salary range: $14.62 to $957.58". Reported as a success. |
@@ -375,7 +375,7 @@ Language: English.):
 Things worth knowing:
 
 - The main problem happens earlier in the pipeline, not in the Report
-  Agent: the Data Query and Analysis planners quietly swap `sales` in
+  Agent: the Data Query and Analysis planners swap `sales` in without saying so
   for a missing column (Q3 and Q6 both did this). The Report Agent
   mostly just repeats what it's given.
 - The Report Agent actually sticks closer to the real data than the
@@ -634,7 +634,7 @@ worth knowing:
 - **A serious fabrication that shows up in all three languages.**
   Session 6's "correlation between marketing spend and profit" -
   impossible, no such column - was never reported as a failure in
-  English, Spanish, *or* Catalan. Instead the model silently substituted
+  English, Spanish, *or* Catalan. Instead the model substituted
   a real column and reported a precise, confident correlation as fact
   ("0.48, p=0.0" in English; "-0.219" - the real discount/profit
   correlation - in both Spanish and Catalan). Every other run in this

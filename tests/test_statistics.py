@@ -31,7 +31,8 @@ def test_regression_target_changes_which_column_is_predicted():
     # predicting "noise" (not well explained by x1) should give a much
     # worse r2 than predicting "y" (which IS well explained by x1) --
     # this is the exact failure mode the target field fixes: picking the
-    # wrong column silently gives a low-r2 "valid-looking" wrong answer.
+    # wrong column gives a low-r2 "valid-looking" wrong answer, with no
+    # error raised.
     result_right = compute_regression(_df(), target="y")
     result_wrong = compute_regression(_df(), target="noise")
     assert result_right["result"]["r2"] > result_wrong["result"]["r2"]

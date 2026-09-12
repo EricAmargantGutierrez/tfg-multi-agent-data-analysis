@@ -29,7 +29,7 @@ def execute_query(sql: str) -> list[list]:
         # Capped identically to src.core.db.run_readonly_query_dicts, which
         # is what the real Viz Agent actually uses. Ground truth must
         # reflect what the system can structurally return -- for a chart
-        # over more than MAX_ROWS points, the agent silently truncates,
+        # over more than MAX_ROWS points, the agent truncates with no warning,
         # and comparing it against an uncapped "true" answer would be
         # comparing it against a target it was never going to hit.
         rows = cursor.fetchmany(MAX_ROWS)

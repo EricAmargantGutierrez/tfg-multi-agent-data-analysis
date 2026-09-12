@@ -55,7 +55,7 @@ from src.agents.viz.prompts import SYSTEM_PROMPT as _VIZ_PROMPT
 # the monolithic agent had done worse with that version, we couldn't
 # have told whether that was about the architecture (one agent vs. four)
 # or just a less detailed prompt. Importing the real prompts also means
-# this baseline can't quietly fall out of sync if the specialized
+# this baseline can't fall out of sync unnoticed if the specialized
 # prompts get edited later.
 SYSTEM_PROMPT = f"""
 You are a data analysis assistant with THREE capabilities. For each

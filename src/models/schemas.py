@@ -8,16 +8,17 @@ checks scattered across the engines.
 AnalysisPlan.filters is the fix for a real correctness bug: the previous
 planner could only ever SELECT whole columns with no WHERE clause, so any
 analysis question with a condition in it ("average profit in the West
-region") silently computed over the entire table and returned ok=True.
+region") was computed over the entire table anyway, with no error,
+and returned ok=True.
 
 AnalysisPlan.target is the fix for a second real correctness bug: the
 regression function used to treat "the last column in the list" as the
 prediction target. That's an implicit convention the LLM has no reason to
 know about -- it naturally lists columns in question order ("predict
-profit from sales, discount, quantity" -> profit first), which silently
-swapped the regression target and produced a low-r2 result with no error.
+profit from sales, discount, quantity" -> profit first), which swapped
+the regression target with no warning, and produced a low-r2 result.
 `target` makes this an explicit, named field instead of a positional
-convention, so it can't be silently wrong.
+convention, so it can't be wrong with no error raised.
 """
 from __future__ import annotations
 

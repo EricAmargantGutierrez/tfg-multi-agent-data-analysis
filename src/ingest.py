@@ -10,7 +10,7 @@ Steps:
 4. Create the SQLite database.
 5. Check that grouping by year on the date column actually returns real
    numbers before saying it worked. This is the check that would have
-   caught the old bug where `strftime()` silently returned NULL on
+   caught the old bug where `strftime()` returned NULL with no error on
    M/D/YYYY-formatted dates, if that bug ever came back.
 """
 from __future__ import annotations

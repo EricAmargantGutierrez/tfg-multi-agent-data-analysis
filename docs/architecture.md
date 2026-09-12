@@ -187,8 +187,8 @@ input, the steps it runs, and exactly what it can and can't do.
 - **Can do:** turn a whole conversation into one readable report.
 - **Can't do:** check any of it. It never runs its own SQL, analysis,
   or chart - it only sees what the other agents already returned. So if
-  an earlier turn was wrong (or an agent quietly used a different
-  column instead of a missing one), the Report Agent has no way to
+  an earlier turn was wrong (or an agent used a different
+  column instead of a missing one, without saying so), the Report Agent has no way to
   catch that, and it can end up repeating the mistake, or even making
   it sound fine. See `results_and_failure_analysis.md` §4.2 for real
   examples of this.

@@ -4,7 +4,7 @@ from src.orchestrator.narrate import narrate
 
 class _ExplodingLLM:
     """If narrate() ever calls build_llm() for a path that shouldn't need
-    an LLM, this makes the test fail loudly instead of silently."""
+    an LLM, this makes the test fail with a clear error instead of passing by mistake."""
     def invoke(self, messages):
         raise AssertionError("narrate() should not call the LLM for this path")
 

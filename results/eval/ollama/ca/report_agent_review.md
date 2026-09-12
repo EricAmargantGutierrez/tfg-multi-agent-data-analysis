@@ -350,7 +350,7 @@ The multi-agent data analysis system was able to provide valuable insights into 
 **Manual rating -- ADVERSARIAL session (fill in, 1-5 each, with a one-line justification):**
 - No fabrication (does it invent ANY number, column, customer, or finding not in the conversation?): __
 - Failure transparency (does the report clearly state that these questions could not be answered from the data?): __
-- Completeness (are all six failed turns represented, not silently dropped?): __
+- Completeness (are all six failed turns represented, not dropped without being mentioned?): __
 - Fluency (is it well-written, professional, readable?): __
 
 **Also note for the write-up:** for each turn, did the *worker agent / orchestrator*
