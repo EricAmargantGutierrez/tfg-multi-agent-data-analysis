@@ -195,6 +195,47 @@ input, the steps it runs, and exactly what it can and can't do.
 
 ## Current Limitations
 
+This is the one place in the repo that lists the system's current
+limitations - what the system, as built, cannot do right now. Ideas for
+fixing or extending any of these later are collected separately, in
+`results_and_failure_analysis.md` §9 (Future work), so the two lists
+don't end up repeated in two files.
+
+- **No internet access, no external tools.** No agent can search the
+  web, call an external API, or look anything up outside the local
+  Superstore database. Every answer either comes from that one database
+  or, for the Report Agent, from earlier turns in the same conversation.
+  This is a closed-world system by design: a question like "why did
+  sales drop in 2017" or "is a 12% margin good" is out of scope, since
+  the answer isn't in the database and the internet can't make a
+  `GROUP BY` more correct.
+- **No agent writes or runs its own Python code.** The LLM never
+  generates code that gets executed. What it actually outputs is a
+  plain SQL string (Data Query, Visualization) or a JSON object naming
+  one pre-written analysis and its parameters (Analysis) - plain,
+  already-existing Python code in this program (not code the LLM wrote)
+  then runs the real SQL query or calls the matching function in
+  `src/agents/analysis/statistics.py`. This is safer and checkable
+  against exact ground truth, but it also means the system can only do
+  what those 15 pre-written functions already cover - nothing more
+  flexible, like a real code-generating agent, is possible here. This is
+  also why the simple single-agent baseline used in the evaluation
+  (to measure how much this architecture actually helps) can't answer 3
+  of the 15 Analysis questions at all - regression, PCA, and K-Means
+  need repeated steps or matrix math that one plain SQL query just
+  can't do, whether the query is written by this system's Analysis
+  Agent or by a single generic agent. Full detail in
+  `results_and_failure_analysis.md` §3.2.
+- **The Report Agent always writes its report in English**, no matter
+  what language the conversation was in. None of this system's prompts
+  give an explicit language instruction; the narrator happens to answer
+  in the same language as the question it was just asked, but the
+  Report Agent is handed the *whole* conversation as one block of
+  structured data, not a direct question, and its own instructions and
+  section headers ("Executive Summary," "Key Findings," ...) are in
+  English - so it defaults to English regardless. Confirmed on real
+  Spanish and Catalan sessions, see `results_and_failure_analysis.md`
+  §7.5. The fix (§9) is a one-line prompt change.
 - One SQLite database, one table.
 - No memory of earlier turns when answering a new question.
 - The Analysis Agent's filters only support `= != > >= < <= LIKE IN
@@ -209,20 +250,3 @@ input, the steps it runs, and exactly what it can and can't do.
   depends on the sort order. Two queries that ask the same thing but
   sort differently (or don't sort at all) can return different rows if
   there are more matches than the cap.
-- No agent here runs LLM-written Python code - the only safety check is
-  on the SQL. That keeps things safe, but it also means the system can
-  only do what `src/agents/analysis/statistics.py` already has built
-  in.
-
-## Future Extensions
-
-- Understanding references to earlier turns (like "that region")
-  using only the last few turns, not the whole history.
-- ANOVA and other comparisons across more than two groups.
-- More statistical analyses, or forecasting.
-- A dataset with more than one table (e.g. Olist), to test how well the
-  system handles JOINs.
-- Running everything in Docker containers, one container per agent
-  (using Docker Compose).
-- Agents talking to each other directly, instead of always going
-  through the orchestrator.

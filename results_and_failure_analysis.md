@@ -33,10 +33,12 @@ separately from the value of the prompts themselves.
 
 **How scoring works.** Data Query and Visualization answers are scored
 by comparing the returned rows (the chart's underlying data, for
-Visualization) against the ground-truth rows as an order-independent
-multiset, with numbers matched to a 0.01 tolerance. Analysis answers are
-scored by comparing the specific statistic returned (the mean, the
-`t_statistic`, the regression r², ...) to the ground-truth value with a
+Visualization) against the ground-truth rows. The order of the rows
+doesn't matter, but the count does - if a row is supposed to appear
+twice, it has to appear twice in the answer too - and numbers are
+matched with a small tolerance of 0.01. Analysis answers are scored by
+comparing the specific statistic returned (the mean, the `t_statistic`,
+the regression r², ...) to the ground-truth value, also with a small
 tolerance. Only the Report Agent is scored subjectively: I rate it by
 hand, because a session summary has no single correct answer to check
 against.
@@ -67,8 +69,22 @@ but it never writes or executes the analysis code itself, and the only
 thing that varies between providers is the model's reasoning, not what
 tools it can reach.
 
+Every LLM call in this project uses `temperature=0`, on every provider
+(`src/llm/factory.py`). This makes the model's answers close to the same
+each time, instead of picking randomly among several likely answers, so
+re-running the same benchmark should give close to the same results. It
+doesn't make the results perfectly identical every single time - a live
+hosted API can still vary a little between calls - but it removes most
+of the randomness.
+
 The benchmark has 55 questions: 30 Data Query, 15 Analysis, 10
-Visualization, split into easy/medium/hard. **§2 and §3 below are
+Visualization, split into easy/medium/hard. With so few questions per
+category, one single answer flipping from wrong to right (or the other
+way round) moves the percentage a lot: 3.3 percentage points per
+question in Data Query, 6.7pp in Analysis, and a full 10pp in
+Visualization (only 10 questions there). Keep this in mind everywhere in
+this document - a gap of 10pp in Visualization can be just one question.
+**§2 and §3 below are
 Anthropic `claude-haiku-4.5`, in English** - this was the first run done,
 before Spanish/Catalan questions existed, and it stays the main
 reference dataset throughout this document. Two bugs found during the
@@ -174,7 +190,7 @@ customer placed the most orders" - "Emily Phan" under DISTINCT vs.
 "William Brown" under the ground truth's convention. Not affected by
 the two fixes below.
 
-### 3.2 FIXED: a real limitation in the evaluation's own scoring, not the baseline's capability
+### 3.2 FIXED: a real limitation in the evaluation's own scoring, not in what the baseline can do
 
 **Original finding**: the baseline scorer assumed a plain SQL model
 could only ever manage simple statistics like a mean; correlation,
@@ -210,7 +226,7 @@ scored wrong on all 3 by design, because being able to do them is part
 of what the specialized agents add. This does make the raw difference look a little bigger than it should,
 though - the most the baseline could ever score on Analysis is 12/15,
 not 15/15.
-On the 12 SQL-feasible Analysis questions, the Anthropic baseline scores
+On the 12 Analysis questions that SQL can answer, the Anthropic baseline scores
 50% (6/12) and the architecture value is +50pp, versus 40% and +60pp
 over all 15. Both are true; the conclusion (the architecture is much
 better on analytical questions) is the same either way. This only
@@ -358,12 +374,13 @@ Language: English.):
 
 Things worth knowing:
 
-- The main problem is upstream, not in the Report Agent: the Data Query
-  and Analysis planners quietly swap `sales` in for a missing column
-  (Q3 and Q6 both did this). The Report Agent mostly just repeats what
-  it's given.
-- The Report Agent is actually more grounded than the narration. For Q6
-  it used the structured chart data (labelled Sales/Profit) and so
+- The main problem happens earlier in the pipeline, not in the Report
+  Agent: the Data Query and Analysis planners quietly swap `sales` in
+  for a missing column (Q3 and Q6 both did this). The Report Agent
+  mostly just repeats what it's given.
+- The Report Agent actually sticks closer to the real data than the
+  narration does. For Q6 it used the structured chart data (labelled
+  Sales/Profit) and so
   didn't repeat the "employee salary" mistake, but it also didn't say
   the request was impossible, and it added a "positive correlation"
   claim nobody computed.
@@ -607,10 +624,10 @@ Same 6 sessions and rubric as the Anthropic review (§4). Ratings:
 | ES | 2 | 2 | 5 | 4 |
 | CA | 2 | 2 | 5 | 4 |
 
-Lower accuracy than Anthropic (§4.1's mean was 4.0), which tracks - the
-routing cascade means several sessions ask the Analysis agent something
-it simply can't do (§5.4), and the report just repeats the wrong
-answer. Catalan scores lowest of the three, mainly because of two
+Lower accuracy than Anthropic (§4.1's mean was 4.0), which makes sense -
+the routing mistakes (§5.4) send several sessions to the Analysis agent
+with something it simply can't do, and the report just repeats the
+wrong answer. Catalan scores lowest of the three, mainly because of two
 sessions with real fabrication (below) rather than routing alone. Things
 worth knowing:
 
@@ -702,21 +719,14 @@ fabrications (§5.7) may partly reflect that, not just the language.
   Anthropic's routing gaps these produce genuinely wrong answers, not
   just a scoring mismatch.
 **Scope / design choices (state these, they are deliberate):**
-- **Closed-world.** The system only answers from the local Superstore
-  database. There is no web search or external knowledge - by design,
-  since every benchmark answer is in the database and the internet can't
-  make a `GROUP BY` more correct. Questions that need outside context
-  ("why did sales drop in 2017", "is a 12% margin good", industry
-  benchmarks) are out of scope.
-- **Fixed set of analyses.** The Analysis Agent doesn't write code - it
-  picks one of 15 pre-written functions in `statistics.py` (mean, median,
-  mode, variance, std, min, max, count, describe, correlation,
-  covariance, t-test, regression, PCA, K-Means) and fills in its
-  parameters. This is a deliberate trade-off: the system gives up
-  open-ended analysis in exchange for safety (no code runs freely), the
-  same result every time, and answers that can be checked against an
-  exact right answer. A code-generating agent would be more flexible but neither safe
-  to run nor checkable this way. It can only answer what those 15 cover.
+- **Closed-world, and no LLM-written code.** The system has no internet
+  access and no agent writes or runs its own code - full detail in
+  `docs/architecture.md` (Current Limitations). Two consequences for
+  this evaluation specifically: questions needing outside context ("why
+  did sales drop in 2017", "is a 12% margin good", industry benchmarks)
+  are out of scope, and the Analysis Agent can only answer what its 15
+  pre-written functions cover (§3.2 has what that means for the
+  baseline comparison).
 
 **Not established, and should be stated as open questions:**
 - **The baseline can't do 3 of the Analysis questions at all** (regression,
@@ -970,20 +980,34 @@ Two things stand out:
   mistakes in §5.5 (grouping and ranking mistakes cluster on the harder
   questions).
 
-**By language.** Anthropic is flat across English, Spanish, and Catalan
-(§7.2, §7.3) - correctness, routing, and latency all stay within a few
-points of each other, and every wrong answer traces back to one of the
-two scoring problems already documented (§3.1, §3.3), not to the
-model struggling with Spanish or Catalan. Ollama does not hold as flat:
-correctness declines from English to Spanish to Catalan on Data Query
-and the monolithic baseline (§5.3), and the Report Agent's worst
-fabrications of the whole project happened on the Catalan run (§5.7).
-Catalan was also the run with the most machine trouble - a sleep event
-and a server crash (§5.6) - so some, but probably not all, of that
-decline may be the hardware rather than the language itself. The honest
-conclusion: on a strong hosted model, language doesn't matter much for
-this task; on a small local model, it might, but this single run can't
-separate that from machine fatigue.
+**By language.** The point of testing three languages was to see if
+language is an issue for this system at all. Going in, there was a real
+reason to expect it might not be a fair fight between the three: English
+is by far the most common language in the text LLMs are trained on,
+Spanish is also widely used online but with less of it, and Catalan is a
+minority language with much less text available anywhere - so a model
+could reasonably be expected to know it less well, and perform worse on
+it, in that order (English, then Spanish, then Catalan).
+
+Anthropic is flat across English, Spanish, and Catalan (§7.2, §7.3) -
+correctness, routing, and latency all stay within a few points of each
+other, and every wrong answer comes from one of the two scoring
+problems already documented (§3.1, §3.3), not from the model struggling
+with Spanish or Catalan. So on this model, the expected English > Spanish
+> Catalan pattern doesn't really show up - a strong hosted model seems
+to have more than enough of each language to handle a closed-world task
+like this one equally well. Ollama does not hold as flat: correctness
+declines from English to Spanish to Catalan on Data Query and the
+monolithic baseline (§5.3), and the Report Agent's worst fabrications of
+the whole project happened on the Catalan run (§5.7) - which does match
+the expected order, for what that's worth. Catalan was also the run
+with the most machine trouble - a sleep event and a server crash
+(§5.6) - so some, but probably not all, of that decline may be the
+hardware rather than the language itself. The honest conclusion: on a
+strong hosted model, language doesn't matter much for this task; on a
+small local model, it might, in the direction the relevance of each
+language would predict, but this single run can't separate that from
+machine fatigue.
 
 **By model.** The one finding that holds up everywhere, on both models,
 in all three languages, and at every difficulty tier: **the specialized
@@ -1093,8 +1117,8 @@ with real tools beat one generic prompt - holds up everywhere this was
 tested: three languages, two very different models, every difficulty
 tier. Splitting that same toolset across separate agents (instead of one
 agent with all of them) helps too, and it helps the weaker model more
-than the stronger one. What changes between models is everything
-downstream of those two points: which category the router gets wrong
+than the stronger one. What changes between models is everything that
+follows from those two points: which category the router gets wrong
 (and how much it costs when it does), how often self-correction is even
 needed, how fast the answer comes back, and how the system behaves when
 a question genuinely cannot be answered. A smaller, free, local model is
@@ -1106,13 +1130,26 @@ hosted model was here.
 
 ## 9. Future work
 
+This is the one place in the repo for ideas on what to build or change
+next. What the system can't currently do is listed separately, in
+`docs/architecture.md` (Current Limitations) - this section is about
+fixing or extending those, not restating them.
+
 - **Make the agents actually cooperate.** Right now each agent is
   independent - the router picks one, it runs, done. They could pass
-  results to each other (e.g. Analysis using a Data Query result as
-  input) or a planner could chain several for one question.
-- **More agents, or better ones.** Add agent types (forecasting, data
-  quality checks, ...) or widen the existing ones - especially the
-  Analysis Agent's fixed menu of 15 functions (§6).
+  results to each other directly (e.g. Analysis using a Data Query
+  result as input), instead of only ever going through the orchestrator,
+  or a planner could chain several agents for one question.
+- **Remember recent turns, not just the current question.** Routing and
+  narration only ever see the current question right now. Using the
+  last few turns (not the whole history) would let the system
+  understand something like "that region," referring back to an earlier
+  answer.
+- **More agents, or a wider Analysis Agent.** Add agent types
+  (forecasting, data quality checks, ...), or widen the Analysis
+  Agent's fixed list of 15 functions - for example ANOVA, so it can
+  compare more than the two groups the current t-test is limited to, or
+  paired samples.
 - **Score the pipeline answers automatically.** The pipeline benchmark
   only records routing and latency, not whether the final answer was
   right. The misrouted questions were checked by hand here (§3.4), but
@@ -1120,9 +1157,11 @@ hosted model was here.
   number, and a fair end-to-end comparison of the monolithic agent vs the
   full system as a user hits it (router + agents, routing mistakes
   included) instead of vs the agents with routing forced correct (§2.1).
-- **A second, harder dataset.** Everything here is on Superstore. Running
-  the same evaluation on a larger or messier dataset would show how much
-  of what was found is specific to this one.
+- **A second, harder dataset.** Everything here is on Superstore.
+  Running the same evaluation on a larger or messier dataset - or one
+  with more than one table (e.g. Olist), to see how well the system
+  handles JOINs - would show how much of what was found is specific to
+  this one.
 - **Answer in the user's language** - the Report Agent's system prompt is
   English-only (§7.5); a one-line change would make it follow the
   conversation language, like the narrator already does.
@@ -1133,3 +1172,5 @@ hosted model was here.
   routing gaps it produces real wrong answers, not just a scoring
   mismatch. A few more example questions (with their correct agent) in the router prompt would be
   the first thing to try.
+- **Full containerization.** Running everything in Docker containers,
+  one container per agent (with Docker Compose), for easier deployment.
