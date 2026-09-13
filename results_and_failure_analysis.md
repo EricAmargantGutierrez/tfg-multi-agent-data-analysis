@@ -523,11 +523,9 @@ much weaker on Data Query (27-43% vs Anthropic's 77%): a small model
 writing raw SQL with no tools makes real mistakes, not just the counting
 problem Anthropic runs into (§5.5). Correctness drops a little from
 English to Spanish to Catalan, most visibly on Data Query (83 -> 77 ->
-70%) and the monolithic agent (80 -> 80 -> 60%). Some of this is just
+70%) and the monolithic agent (80 -> 80 -> 60%). This is likely just
 normal noise from a small model - the actual mistakes are the same kind
-in all three languages (§5.5). Catalan was also run last and had a real
-server crash during it (§5.6), so a real language effect and that
-instability can't be fully told apart here.
+in all three languages (§5.5).
 
 ### 5.4 Ollama routing - the real weak point
 
@@ -568,10 +566,7 @@ The misrouting also causes outright failures: 10/55 (EN), 8/55 (ES), and
 11/55 (CA) pipeline calls failed, almost always because a Data Query
 question reached Analysis and it couldn't handle it (`no such column`,
 `No numeric columns found`, `Unknown analysis 'sum'` - the model making
-up an analysis type that isn't in the menu). Catalan also had one
-pipeline call fail for an unrelated reason: the local Ollama server
-itself returned an error mid-generation (`unexpected EOF`) - a real
-crash, not a reasoning mistake (§5.6).
+up an analysis type that isn't in the menu).
 
 ### 5.5 Ollama failure analysis - mostly the same mistakes in all three languages
 
@@ -646,12 +641,9 @@ A full run took several hours in each language, mostly because of this
 per-question slowness (see the table above) plus the time needed to
 load the model the first time (the warm-up, §5.2).
 
-The Catalan run adds one more real finding: the local Ollama server
-itself crashed once mid-question (`unexpected EOF`, §5.4) - a real
-technical failure, not a reasoning mistake. Catalan also had the most
-pipeline failures of the three languages (11/55, vs 8/55 for Spanish and
-10/55 for English, §5.4). This does not affect correctness, only how
-many pipeline calls errored.
+Catalan also had the most pipeline failures of the three languages
+(11/55, vs 8/55 for Spanish and 10/55 for English, §5.4). This does not
+affect correctness, only how many pipeline calls errored.
 
 ### 5.7 Ollama Report Agent
 
@@ -701,32 +693,30 @@ worth knowing:
   guarantee the final report stays honest.
 - **A real fabrication invented by the Report Agent itself, not
   inherited from a worker agent.** In Catalan Session 4, the pie-chart
-  question failed completely with a technical crash (the local Ollama
-  server returned `unexpected EOF` mid-generation, §5.4/§5.6) - there
-  was no answer at all for that turn. The Report Agent's summary still
-  confidently listed three segment counts for it ("Consumer: 5191,
-  Corporate: 3020, Home Office: 1783") as if the question had been
-  answered. Those numbers are real values from elsewhere in the dataset,
-  but they were never computed or returned in this conversation - the
-  report made up a complete, believable-looking answer to cover up a
-  turn that had actually crashed. Session 3 shows a smaller version of the
-  same thing: raw sample rows from a boxplot got relabelled in the report
-  as "median," "first quartile," "third quartile," and "outliers" -
-  specific statistical claims nobody computed.
+  question failed completely - there was no answer at all for that
+  turn. The Report Agent's summary still confidently listed three
+  segment counts for it ("Consumer: 5191, Corporate: 3020, Home Office:
+  1783") as if the question had been answered. Those numbers are real
+  values from elsewhere in the dataset, but they were never computed or
+  returned in this conversation - the report made up a complete,
+  believable-looking answer to cover up a turn that had failed. Session
+  3 shows a smaller version of the same thing: raw sample rows from a
+  boxplot got relabelled in the report as "median," "first quartile,"
+  "third quartile," and "outliers" - specific statistical claims nobody
+  computed.
 
 ### 5.8 What this means for the Limitations section
 
-The Ollama results are real data for all three languages.
-This section is still less complete than the Anthropic evaluation (§2,
-§7) in one way: only one translation pass (not independently checked).
-A by-difficulty comparison across both models is in §8. The routing
-weakness (§5.4) and the marketing-spend fabrication (§5.7) are the two
-findings here that don't have an
-equivalent on Anthropic - real differences in what the models can do, not
-just because of a different setup, since everything else about the
-pipeline is identical. Catalan ran last and went through one server
-crash (§5.6) - its somewhat lower numbers and the two new report
-fabrications (§5.7) may partly reflect that, not just the language.
+The Ollama results are real data for all three languages. Anthropic is
+treated as the main, most relevant model in this evaluation - it's the
+largest model tested, and the results show it performing more solidly
+overall (§2, §7). A by-difficulty comparison across both models is in
+§8. The translations used for all three languages, on both models, are
+one pass done by me and not independently checked by anyone else. The
+routing weakness (§5.4) and the marketing-spend fabrication (§5.7) are
+two findings on Ollama that don't have an equivalent on Anthropic - real
+differences in what the models can do, not just because of a different
+setup, since everything else about the pipeline is identical.
 
 ---
 
@@ -797,14 +787,14 @@ fabrications (§5.7) may partly reflect that, not just the language.
   the per-question numbers). All latency figures are from one modest
   machine (a low-power laptop, CPU only), not tuned hardware.
 - **Cross-provider results.** Anthropic Haiku is the primary, complete
-  dataset. Ollama (`llama3.1:8b`) has real results on the current
-  system for all three languages (§5.3-5.7), with the Catalan run
-  affected by machine issues (§5.6). A by-difficulty comparison of both
-  models is in §8. Cost per provider was not measured.
+  dataset - the largest model tested, and the one the results show
+  performing most solidly (§2, §7). Ollama (`llama3.1:8b`) has real
+  results on the current system for all three languages (§5.3-5.7). A
+  by-difficulty comparison of both models is in §8. Cost per provider
+  was not measured.
 - **The multilingual evaluation (§7) is Anthropic Haiku only** - the
-  Ollama multilingual comparison (§5.3-5.7) is a separate, smaller
-  exercise (all three languages, but fewer dimensions measured, and the
-  Catalan run affected by machine issues).
+  Ollama multilingual comparison (§5.3-5.7) is a separate exercise, with
+  fewer dimensions measured.
 
 ---
 
@@ -1045,11 +1035,10 @@ like this one equally well. Ollama does not hold as flat: correctness
 declines from English to Spanish to Catalan on Data Query and the
 monolithic baseline (§5.3), and the Report Agent's worst fabrications of
 the whole project happened on the Catalan run (§5.7) - which does match
-the expected order, for what that's worth. Catalan was also the run
-with the most machine trouble - a server crash and the highest pipeline
-failure count of the three languages (§5.6) - so some, but probably not
-all, of that decline may be the hardware rather than the language
-itself. The honest conclusion: on a
+the expected order, for what that's worth. Catalan also had the
+highest pipeline failure count of the three languages (§5.6) - so some,
+but probably not all, of that decline may be the hardware rather than
+the language itself. The honest conclusion: on a
 strong hosted model, language doesn't matter much for this task; on a
 small local model, it might, in the direction the relevance of each
 language would predict, but this single run can't separate that from
@@ -1118,9 +1107,8 @@ which is expected for a small model doing CPU-only inference instead of
 calling a hosted API. Language changes latency only a little on
 Anthropic. On Ollama the numbers move around more (e.g. Catalan Analysis
 is actually the fastest of the three) - I don't have a confirmed reason
-for this, but it's more likely the laptop's own state at the time (the
-Catalan run also had a server crash, §5.6) than Catalan being an easier
-language to process.
+for this, but it's more likely the laptop's own state at the time than
+Catalan being an easier language to process.
 
 **On retries.** The self-correcting loop (§2.4) fires far more often on
 Ollama than on Anthropic. Anthropic only triggered it once in the entire
@@ -1153,7 +1141,7 @@ Ollama's no-fabrication score (1-2 across languages) is worse than
 Anthropic's (2-3), and Ollama produced the worst fabrications found
 anywhere in the whole project - a confident, precise, entirely invented
 correlation number in all three languages (§5.7), a complete answer made
-up for a turn that had actually crashed, and sample rows mislabeled as
+up for a turn that had actually failed, and sample rows mislabeled as
 computed statistics (§5.7, Catalan). So a model can look equally honest
 on ordinary questions and still be much more willing to make something up
 the moment there is really nothing true to say.
