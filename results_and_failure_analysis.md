@@ -23,6 +23,23 @@ question:
    session with impossible questions (§4.2), where every question is
    impossible to answer, to see if the agent makes something up.
 
+**Of these four scores, only accuracy can be pulled down by a mistake
+that isn't the Report Agent's own fault.** Say a turn earlier in the
+same conversation got a wrong answer - either the agent itself made a
+mistake, or the router sent the question to the wrong agent - and the
+Report Agent just repeats that wrong answer, word for word, changing
+nothing. That still counts against **accuracy**, because accuracy asks
+whether what the report says is actually correct, not just whether it
+matches what the report was given. The other three scores do not work
+this way: **no-fabrication** only looks at whether the Report Agent
+invented something nobody computed (repeating someone else's wrong
+answer is not that), and **completeness** and **fluency** are about
+whether every turn is covered and how well it's written, neither of
+which depends on whether the content was correct. So a report can score
+low on accuracy and still score high on the other three in the exact
+same session, and that is expected, not a contradiction - see §5.7 and
+§8 for real examples of exactly this.
+
 All comparisons use the structured output (rows, statistics results),
 never the narrated text, because the same correct answer can be worded
 in many different ways. The baseline uses a short, generic prompt, not
