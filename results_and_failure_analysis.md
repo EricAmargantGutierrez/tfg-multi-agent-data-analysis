@@ -77,14 +77,33 @@ API, no web search, no retrieval built into the call. The LLM's only
 inputs are the system prompt, the database schema, and the question, and
 it never sees a tool result come back mid-generation. This is about how
 the model is called, not about whether real computation happens - it
-does. The Analysis Agent's output is a JSON plan that names one of 15
-pre-written functions (mean, correlation, regression, PCA, K-Means, ...)
-and fills in the parameters; separate, plain Python code (not the
-LLM) then actually runs that function against the real data (see §6).
-So the model decides *which* analysis to run and with *what* parameters,
-but it never writes or executes the analysis code itself, and the only
-thing that varies between providers is the model's reasoning, not what
-tools it can reach.
+does, just differently for each of the three agents that touch the
+database:
+
+- The **Data Query Agent**'s output is the SQL query itself, as plain
+  text. The model writes it directly, and that exact text is what runs
+  against the database.
+- The **Visualization Agent**'s output is a JSON object that includes a
+  SQL query the model writes itself, the same as Data Query - so unlike
+  Analysis (below), it *does* write its own SQL. But it also has to pick
+  the chart type from a fixed list of 6 (bar, line, scatter, pie,
+  histogram, boxplot), in a similar way to how the Analysis Agent picks
+  a statistic from its own fixed list: the model decides *which* one to
+  use, not how to actually draw it.
+- The **Analysis Agent**'s output is a JSON plan that names one of 15
+  pre-written functions (mean, correlation, regression, PCA, K-Means,
+  ...) and fills in the parameters; separate, plain Python code (not the
+  LLM) then actually runs that function against the real data (see §6).
+  Unlike the other two, it never writes any SQL at all - the columns and
+  filters it names are turned into a query by other code, not by the
+  model.
+
+So across all three, the model decides *what* to do - which query to
+write, which chart type, which analysis - but the actual computation
+(running the query, drawing the chart, computing the statistic) never
+comes from code the model wrote itself, and the only thing that varies
+between providers is the model's reasoning, not what tools it can
+reach.
 
 Every LLM call in this project uses `temperature=0`, on every provider
 (`src/llm/factory.py`). This makes the model's answers close to the same
