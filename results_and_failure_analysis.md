@@ -494,15 +494,13 @@ to load it into memory. Anthropic is a hosted API with no local model
 to load, and its numbers show no such pattern - the first question in a
 run is not slower than the rest.
 
-**On the Ollama run specifically:** it was done in stages with
-deliberate rest breaks between them (20-30 minutes) to keep the laptop
-from overheating during multi-hour runs. Whether the breaks actually
-helped is unclear either way - performance still degraded within a
-single long run regardless (the Spanish `run_all` took 7.5 hours where
-English took about 3, with one warm-up alone taking over 8 minutes -
-see the per-language numbers below). So the slowdown looks tied to how long a single run lasts, rather
-than something rest breaks between runs fix.
-This is stated honestly as something I am not sure about, not as a firm conclusion.
+**On the Ollama run specifically:** it was done in stages, with breaks
+between them to keep the laptop from overheating during multi-hour
+runs. The runs were left going unattended for long stretches (including
+overnight), so I don't have a reliable total wall-clock time for any of
+them, and I'm not making any claim here about how run length affects
+performance - the per-question numbers below are the real, measured
+data.
 
 The Ollama evaluation on the current system covers all three
 languages. Everything below is real data from that run, in
@@ -531,10 +529,9 @@ problem Anthropic runs into (§5.5). Correctness drops a little from
 English to Spanish to Catalan, most visibly on Data Query (83 -> 77 ->
 70%) and the monolithic agent (80 -> 80 -> 60%). Some of this is just
 normal noise from a small model - the actual mistakes are the same kind
-in all three languages (§5.5) - but Catalan was also run last, on the
-same machine after it had already been under load for many hours (§5.6),
-so a real language effect and a tired machine can't be fully told apart
-here.
+in all three languages (§5.5). Catalan was also run last and had a real
+server crash during it (§5.6), so a real language effect and that
+instability can't be fully told apart here.
 
 ### 5.4 Ollama routing - the real weak point
 
@@ -578,8 +575,7 @@ question reached Analysis and it couldn't handle it (`no such column`,
 up an analysis type that isn't in the menu). Catalan also had one
 pipeline call fail for an unrelated reason: the local Ollama server
 itself returned an error mid-generation (`unexpected EOF`) - a real
-crash, not a reasoning mistake, and consistent with §5.6's finding that
-this machine got less stable the longer it ran.
+crash, not a reasoning mistake (§5.6).
 
 ### 5.5 Ollama failure analysis - mostly the same mistakes in all three languages
 
@@ -638,7 +634,7 @@ grouping guesses on the same chart question, which never says how to group the d
 and Catalan both chose to group by *year* (a single data point for the
 whole "line chart"), an even coarser guess than daily or monthly.
 
-### 5.6 Ollama latency, and the machine slowing down over long runs
+### 5.6 Ollama latency
 
 **Model: Ollama `llama3.1:8b` (local). Languages: English (EN), Spanish
 (ES), Catalan (CA). DQ = Data Query, An = Analysis, Viz = Visualization.**
@@ -650,19 +646,14 @@ whole "line chart"), an even coarser guess than daily or monthly.
 | Retry rate | DQ 3.3%, Viz 10% | DQ 6.7%, Viz 10% | Analysis 6.7% (failed) |
 
 10-25x slower than Anthropic, which is expected for local CPU inference.
-The more interesting finding: **the machine got slower the longer it
-ran, not just because the model is slow.** The English `run_all`
-(correctness + pipeline) took about 3 hours; the same Spanish run took
-**7.5 hours**, and one report-session warm-up alone took over 9 minutes
-(573 s), worse than earlier warm-ups of 100-340 s. I checked this
-instead of guessing: the CPU itself was not maxed out (about 50% idle),
-but the machine was down to a few hundred MB of free RAM with real swap
-use, on a 15 GB laptop already using almost all of that between Windows
-and the WSL2 Linux VM running Ollama - there was no spare RAM left to
-give it. This looks like the memory slowly filling up over many hours,
-not a one-off. Rest breaks between runs were tried but didn't fix it,
-because the slowdown builds up *inside* one long run - whether the
-breaks helped at all is honestly not clear (§5.2).
+I don't have a reliable total run time for English, Spanish, or Catalan
+to compare against each other - the runs were left going for long
+stretches without me watching them, including overnight, so any gap
+between "start" and "finish" timestamps includes real idle time, not
+just computation. Because of that, I'm not claiming the machine got
+slower the longer a run went on - I don't have solid evidence for that,
+only the per-question numbers in the table above, which are the real,
+directly measured data.
 
 The Catalan run adds one more real finding: the local Ollama server
 itself crashed once mid-question (`unexpected EOF`, §5.4) - a real
@@ -742,10 +733,9 @@ weakness (§5.4) and the marketing-spend fabrication (§5.7) are the two
 findings here that don't have an
 equivalent on Anthropic - real differences in what the models can do, not
 just because of a different setup, since everything else about the
-pipeline is identical. Catalan ran last, on a machine that had already
-been under load for hours and went through one server crash (§5.6) -
-its somewhat lower numbers and the two new report fabrications (§5.7)
-may partly reflect that, not just the language.
+pipeline is identical. Catalan ran last and went through one server
+crash (§5.6) - its somewhat lower numbers and the two new report
+fabrications (§5.7) may partly reflect that, not just the language.
 
 ---
 
@@ -1136,10 +1126,10 @@ Ollama is roughly 15-30x slower than Anthropic on the same questions,
 which is expected for a small model doing CPU-only inference instead of
 calling a hosted API. Language changes latency only a little on
 Anthropic. On Ollama the numbers move around more (e.g. Catalan Analysis
-is actually the fastest of the three), but that is almost certainly the
-laptop's own state at the time (§5.6: it slowed down over long runs, and
-the Catalan run also had a server crash) rather than Catalan being an
-easier language to process.
+is actually the fastest of the three) - I don't have a confirmed reason
+for this, but it's more likely the laptop's own state at the time (the
+Catalan run also had a server crash, §5.6) than Catalan being an easier
+language to process.
 
 **On retries.** The self-correcting loop (§2.4) fires far more often on
 Ollama than on Anthropic. Anthropic only triggered it once in the entire
