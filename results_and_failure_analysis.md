@@ -628,14 +628,12 @@ not a one-off. Rest breaks between runs were tried but didn't fix it,
 because the slowdown builds up *inside* one long run - whether the
 breaks helped at all is honestly not clear (§5.2).
 
-The Catalan run adds one more real finding: **the laptop went to sleep
-partway through** (checked directly - the system log showed repeated
-clock-jump messages, the sign of a machine waking up from sleep), which
-paused the benchmark process for a long stretch with no data lost, just
-lost time - and separately, the local Ollama server itself crashed once
-mid-question (`unexpected EOF`, §5.4). Between this and the memory filling up over time, Catalan is the least stable of the three language runs on this
-hardware. None of this affects correctness, only how long everything
-took and how many pipeline calls errored.
+The Catalan run adds one more real finding: the local Ollama server
+itself crashed once mid-question (`unexpected EOF`, §5.4) - a real
+technical failure, not a reasoning mistake. Catalan also had the most
+pipeline failures of the three languages (11/55, vs 8/55 for Spanish and
+10/55 for English, §5.4). This does not affect correctness, only how
+many pipeline calls errored.
 
 ### 5.7 Ollama Report Agent
 
@@ -709,9 +707,9 @@ findings here that don't have an
 equivalent on Anthropic - real differences in what the models can do, not
 just because of a different setup, since everything else about the
 pipeline is identical. Catalan ran last, on a machine that had already
-been under load for hours and went through an unplanned sleep and one
-server crash (§5.6) - its somewhat lower numbers and the two new report
-fabrications (§5.7) may partly reflect that, not just the language.
+been under load for hours and went through one server crash (§5.6) -
+its somewhat lower numbers and the two new report fabrications (§5.7)
+may partly reflect that, not just the language.
 
 ---
 
@@ -1031,9 +1029,10 @@ declines from English to Spanish to Catalan on Data Query and the
 monolithic baseline (§5.3), and the Report Agent's worst fabrications of
 the whole project happened on the Catalan run (§5.7) - which does match
 the expected order, for what that's worth. Catalan was also the run
-with the most machine trouble - a sleep event and a server crash
-(§5.6) - so some, but probably not all, of that decline may be the
-hardware rather than the language itself. The honest conclusion: on a
+with the most machine trouble - a server crash and the highest pipeline
+failure count of the three languages (§5.6) - so some, but probably not
+all, of that decline may be the hardware rather than the language
+itself. The honest conclusion: on a
 strong hosted model, language doesn't matter much for this task; on a
 small local model, it might, in the direction the relevance of each
 language would predict, but this single run can't separate that from
@@ -1103,8 +1102,8 @@ calling a hosted API. Language changes latency only a little on
 Anthropic. On Ollama the numbers move around more (e.g. Catalan Analysis
 is actually the fastest of the three), but that is almost certainly the
 laptop's own state at the time (§5.6: it slowed down over long runs, and
-the Catalan run also had a sleep event and a crash) rather than Catalan
-being an easier language to process.
+the Catalan run also had a server crash) rather than Catalan being an
+easier language to process.
 
 **On retries.** The self-correcting loop (§2.4) fires far more often on
 Ollama than on Anthropic. Anthropic only triggered it once in the entire
