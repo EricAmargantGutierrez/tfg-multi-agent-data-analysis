@@ -439,15 +439,19 @@ would land inside the first real, timed question and make it look far
 slower than the rest, for no real reason.
 
 I found this while testing Ollama, before running the full evaluation.
-My first attempt used a warm-up question that had nothing to do with
-the real benchmark questions, and it did not fix anything: the first
-real question still took a very long time, almost as if there had been
-no warm-up at all. Only when I changed the warm-up to a question that
-goes through the exact same code as the real ones (same function, same
-kind of prompt) did it actually work - after that, the first real
-question took about the same time as the rest. So a warm-up call only
-pays that loading cost if it goes through the same path as what is
-about to be timed; an unrelated question does not.
+At first there was no warm-up at all, and I noticed the first question
+in a run was taking much longer to answer than the rest - since latency
+is one of the main things this project measures, that was a real bias I
+had to fix, not something to ignore. My first attempt at a fix used a
+warm-up question that had nothing to do with the real benchmark
+questions, and it did not fix anything: the first real question still
+took a very long time, almost as if there had been no warm-up at all.
+Only when I changed the warm-up to a question that goes through the
+exact same code as the real ones (same function, same kind of prompt)
+did it actually work - after that, the first real question took about
+the same time as the rest. So a warm-up call only pays that loading
+cost if it goes through the same path as what is about to be timed; an
+unrelated question does not.
 
 This only matters for Ollama, since it runs the model locally and has
 to load it into memory. Anthropic is a hosted API with no local model
