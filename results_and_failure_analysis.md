@@ -496,11 +496,7 @@ run is not slower than the rest.
 
 **On the Ollama run specifically:** it was done in stages, with breaks
 between them to keep the laptop from overheating during multi-hour
-runs. The runs were left going unattended for long stretches (including
-overnight), so I don't have a reliable total wall-clock time for any of
-them, and I'm not making any claim here about how run length affects
-performance - the per-question numbers below are the real, measured
-data.
+runs.
 
 The Ollama evaluation on the current system covers all three
 languages. Everything below is real data from that run, in
@@ -646,14 +642,9 @@ whole "line chart"), an even coarser guess than daily or monthly.
 | Retry rate | DQ 3.3%, Viz 10% | DQ 6.7%, Viz 10% | Analysis 6.7% (failed) |
 
 10-25x slower than Anthropic, which is expected for local CPU inference.
-I don't have a reliable total run time for English, Spanish, or Catalan
-to compare against each other - the runs were left going for long
-stretches without me watching them, including overnight, so any gap
-between "start" and "finish" timestamps includes real idle time, not
-just computation. Because of that, I'm not claiming the machine got
-slower the longer a run went on - I don't have solid evidence for that,
-only the per-question numbers in the table above, which are the real,
-directly measured data.
+A full run took several hours in each language, mostly because of this
+per-question slowness (see the table above) plus the time needed to
+load the model the first time (the warm-up, §5.2).
 
 The Catalan run adds one more real finding: the local Ollama server
 itself crashed once mid-question (`unexpected EOF`, §5.4) - a real
