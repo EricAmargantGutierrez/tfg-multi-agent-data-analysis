@@ -428,6 +428,32 @@ Each language needed a multi-hour session on this hardware (§5.6).
   model the first time, several hours for a full run, and it holds the
   CPU at 100% (the machine runs hot) the whole time.
 
+**What a "warm-up" call is, and why it only matters for Ollama.** Before
+timing any real questions, the benchmark first sends one throwaway
+question through the same code and does not count its time
+(`src/eval/utils/warmup.py`). This exists because Ollama has to load the
+whole model into memory the first time it is used, which takes a long
+time on its own (160-340 seconds here) and has nothing to do with
+actually answering a question. Without a warm-up, that loading cost
+would land inside the first real, timed question and make it look far
+slower than the rest, for no real reason.
+
+I found this while testing Ollama, before running the full evaluation.
+My first attempt used a warm-up question that had nothing to do with
+the real benchmark questions, and it did not fix anything: the first
+real question still took a very long time, almost as if there had been
+no warm-up at all. Only when I changed the warm-up to a question that
+goes through the exact same code as the real ones (same function, same
+kind of prompt) did it actually work - after that, the first real
+question took about the same time as the rest. So a warm-up call only
+pays that loading cost if it goes through the same path as what is
+about to be timed; an unrelated question does not.
+
+This only matters for Ollama, since it runs the model locally and has
+to load it into memory. Anthropic is a hosted API with no local model
+to load, and its numbers show no such pattern - the first question in a
+run is not slower than the rest.
+
 **On the Ollama run specifically:** it was done in stages with
 deliberate rest breaks between them (20-30 minutes) to keep the laptop
 from overheating during multi-hour runs. Whether the breaks actually
