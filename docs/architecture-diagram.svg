@@ -46,8 +46,8 @@
   <text x="795" y="347" text-anchor="middle" font-size="9.5" fill="#e0e7ff">session memory</text>
 
   <!-- Grouping box for agents -->
-  <rect x="70" y="410" width="1140" height="155" rx="16" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6,5"/>
-  <text x="640" y="400" text-anchor="middle" font-size="12.5" fill="#64748b" font-weight="600">Specialized MCP Agents — each exposes exactly one MCP tool</text>
+  <rect x="70" y="410" width="1140" height="172" rx="16" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6,5"/>
+  <text x="640" y="400" text-anchor="middle" font-size="12.5" fill="#64748b" font-weight="600">Specialized MCP Agents — the router calls exactly one of these per question</text>
 
   <!-- Fan-out arrows from orchestrator to agents (bidirectional) -->
   <path d="M640,383 L220,432" stroke="#475569" stroke-width="1.75" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
@@ -56,32 +56,36 @@
   <path d="M640,383 L1060,432" stroke="#475569" stroke-width="1.75" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
 
   <!-- Data Query Agent -->
-  <rect x="90" y="432" width="260" height="112" rx="12" fill="#059669"/>
+  <rect x="90" y="432" width="260" height="130" rx="12" fill="#059669"/>
   <text x="220" y="462" text-anchor="middle" font-size="14.5" font-weight="700" fill="#ffffff">Data Query Agent</text>
   <text x="220" y="482" text-anchor="middle" font-size="10.5" fill="#d1fae5">NL → read-only SQL</text>
-  <text x="220" y="497" text-anchor="middle" font-size="10.5" fill="#d1fae5">validates + self-corrects</text>
+  <text x="220" y="497" text-anchor="middle" font-size="10.5" fill="#d1fae5">validated by safety.py</text>
   <text x="220" y="512" text-anchor="middle" font-size="10.5" fill="#d1fae5">reads via core/db.py</text>
+  <text x="220" y="527" text-anchor="middle" font-size="10.5" fill="#d1fae5">self-corrects, up to 3 tries</text>
 
   <!-- Analysis Agent -->
-  <rect x="370" y="432" width="260" height="112" rx="12" fill="#d97706"/>
+  <rect x="370" y="432" width="260" height="130" rx="12" fill="#d97706"/>
   <text x="500" y="462" text-anchor="middle" font-size="14.5" font-weight="700" fill="#ffffff">Analysis Agent</text>
   <text x="500" y="482" text-anchor="middle" font-size="10.5" fill="#ffedd5">plan (cols + filters) → DataFrame</text>
-  <text x="500" y="497" text-anchor="middle" font-size="10.5" fill="#ffedd5">correlation · t-test · regression</text>
-  <text x="500" y="512" text-anchor="middle" font-size="10.5" fill="#ffedd5">PCA · K-Means · reads via core/db.py</text>
+  <text x="500" y="497" text-anchor="middle" font-size="10.5" fill="#ffedd5">1 of 15 fixed functions</text>
+  <text x="500" y="512" text-anchor="middle" font-size="10.5" fill="#ffedd5">reads via core/db.py</text>
+  <text x="500" y="527" text-anchor="middle" font-size="10.5" fill="#ffedd5">self-corrects, up to 3 tries</text>
 
   <!-- Visualization Agent -->
-  <rect x="650" y="432" width="260" height="112" rx="12" fill="#7c3aed"/>
+  <rect x="650" y="432" width="260" height="130" rx="12" fill="#7c3aed"/>
   <text x="780" y="462" text-anchor="middle" font-size="14.5" font-weight="700" fill="#ffffff">Visualization Agent</text>
   <text x="780" y="482" text-anchor="middle" font-size="10.5" fill="#ede9fe">NL request → SQL → chart</text>
-  <text x="780" y="497" text-anchor="middle" font-size="10.5" fill="#ede9fe">rendered with Matplotlib</text>
-  <text x="780" y="512" text-anchor="middle" font-size="10.5" fill="#ede9fe">reads via core/db.py · saved to results/</text>
+  <text x="780" y="497" text-anchor="middle" font-size="10.5" fill="#ede9fe">1 of 6 chart types, Matplotlib</text>
+  <text x="780" y="512" text-anchor="middle" font-size="10.5" fill="#ede9fe">reads via core/db.py · saves to results/</text>
+  <text x="780" y="527" text-anchor="middle" font-size="10.5" fill="#ede9fe">self-corrects, up to 3 tries</text>
 
   <!-- Report Agent -->
-  <rect x="930" y="432" width="260" height="112" rx="12" fill="#e11d48"/>
+  <rect x="930" y="432" width="260" height="130" rx="12" fill="#e11d48"/>
   <text x="1060" y="462" text-anchor="middle" font-size="14.5" font-weight="700" fill="#ffffff">Report Agent</text>
-  <text x="1060" y="482" text-anchor="middle" font-size="10.5" fill="#ffe4e6">summarizes full session</text>
-  <text x="1060" y="497" text-anchor="middle" font-size="10.5" fill="#ffe4e6">findings + conclusions</text>
-  <text x="1060" y="512" text-anchor="middle" font-size="10.5" fill="#ffe4e6">Markdown → results/ (no DB access)</text>
+  <text x="1060" y="482" text-anchor="middle" font-size="10.5" fill="#ffe4e6">reads full session history</text>
+  <text x="1060" y="497" text-anchor="middle" font-size="10.5" fill="#ffe4e6">one LLM call, no DB access</text>
+  <text x="1060" y="512" text-anchor="middle" font-size="10.5" fill="#ffe4e6">Markdown → results/</text>
+  <text x="1060" y="527" text-anchor="middle" font-size="10.5" fill="#ffe4e6">no retry loop (unlike the other three)</text>
 
   <!-- SQLite cylinder -->
   <g>
@@ -101,15 +105,15 @@
   </g>
 
   <!-- Data Query Agent -> SQLite -->
-  <path d="M225,544 L330,608" stroke="#475569" stroke-width="1.75" marker-end="url(#arrow)"/>
+  <path d="M225,562 L330,608" stroke="#475569" stroke-width="1.75" marker-end="url(#arrow)"/>
   <!-- Analysis Agent -> SQLite -->
-  <path d="M480,544 L370,608" stroke="#475569" stroke-width="1.75" marker-end="url(#arrow)"/>
+  <path d="M480,562 L370,608" stroke="#475569" stroke-width="1.75" marker-end="url(#arrow)"/>
   <!-- Visualization Agent -> SQLite -->
-  <path d="M740,544 L410,614" stroke="#475569" stroke-width="1.75" marker-end="url(#arrow)"/>
+  <path d="M740,562 L410,614" stroke="#475569" stroke-width="1.75" marker-end="url(#arrow)"/>
   <!-- Visualization Agent -> results -->
-  <path d="M800,544 L900,608" stroke="#475569" stroke-width="1.75" marker-end="url(#arrow)"/>
+  <path d="M800,562 L900,608" stroke="#475569" stroke-width="1.75" marker-end="url(#arrow)"/>
   <!-- Report Agent -> results -->
-  <path d="M1050,544 L950,608" stroke="#475569" stroke-width="1.75" marker-end="url(#arrow)"/>
+  <path d="M1050,562 L950,608" stroke="#475569" stroke-width="1.75" marker-end="url(#arrow)"/>
 
   <!-- Legend -->
   <rect x="70" y="770" width="450" height="110" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
