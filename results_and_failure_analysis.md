@@ -404,10 +404,8 @@ Things worth knowing:
 
 ## 5. Other model providers (Groq, Ollama)
 
-Anthropic (Claude Haiku 4.5) is the primary dataset (§2). Ollama was also
-run earlier in the project, but that *original* run is not reported as a
-result (§5.1 explains why). A clean re-run on the current system was
-done for this document instead, and its real numbers are in §5.3-5.7.
+Anthropic (Claude Haiku 4.5) is the primary dataset (§2). Ollama was
+also run on the current system, and its real numbers are in §5.3-5.7.
 
 ### 5.1 What happened with each
 
@@ -417,12 +415,8 @@ provider, and the replacement model hit the free tier's rate limit
 partway through a run. No Groq numbers are reported anywhere in this
 document.
 
-**Ollama (`llama3.1:8b`, local).** The benchmark was also run on this
-model earlier, but the result files were overwritten by a later run
-before they were committed, so only the aggregate numbers were ever
-recorded - no per-question detail survives from that run. A clean re-run
-on the current system was done for this document instead, for **all
-three languages** - see the real numbers in §5.3-5.7, not the old ones.
+**Ollama (`llama3.1:8b`, local).** The benchmark ran on the current
+system, for **all three languages** - see the real numbers in §5.3-5.7.
 Each language needed a multi-hour session on this hardware (§5.6).
 
 ### 5.2 Provider trade-offs seen during development
@@ -434,7 +428,7 @@ Each language needed a multi-hour session on this hardware (§5.6).
   model the first time, several hours for a full run, and it holds the
   CPU at 100% (the machine runs hot) the whole time.
 
-**On the Ollama re-run specifically:** it was done in stages with
+**On the Ollama run specifically:** it was done in stages with
 deliberate rest breaks between them (20-30 minutes) to keep the laptop
 from overheating during multi-hour runs. Whether the breaks actually
 helped is unclear either way - performance still degraded within a
@@ -444,11 +438,9 @@ see the per-language numbers below). So the slowdown looks tied to how long a si
 than something rest breaks between runs fix.
 This is stated honestly as something I am not sure about, not as a firm conclusion.
 
-The old Ollama run is gone from this document (§5.1). A **clean Ollama
-re-run on the current system** was done for this thesis instead, for
-all three languages.
-Everything below is real, retained data from
-that re-run, in `results/eval/ollama/{en,es,ca}/`.
+The Ollama evaluation on the current system covers all three
+languages. Everything below is real data from that run, in
+`results/eval/ollama/{en,es,ca}/`.
 
 ### 5.3 Ollama correctness, by language
 
@@ -678,7 +670,7 @@ worth knowing:
 
 ### 5.8 What this means for the Limitations section
 
-The Ollama re-run is real, retained data for all three languages now.
+The Ollama results are real data for all three languages.
 This section is still less complete than the Anthropic evaluation (§2,
 §7) in one way: only one translation pass (not independently checked).
 A by-difficulty comparison across both models is in §8. The routing
@@ -760,7 +752,7 @@ fabrications (§5.7) may partly reflect that, not just the language.
   the per-question numbers). All latency figures are from one modest
   machine (a low-power laptop, CPU only), not tuned hardware.
 - **Cross-provider results.** Anthropic Haiku is the primary, complete
-  dataset. Ollama (`llama3.1:8b`) has a real re-run on the current
+  dataset. Ollama (`llama3.1:8b`) has real results on the current
   system for all three languages (§5.3-5.7), with the Catalan run
   affected by machine issues (§5.6). A by-difficulty comparison of both
   models is in §8. Cost per provider was not measured.

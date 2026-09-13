@@ -28,7 +28,7 @@ gets called.
 My goal is to check how much this multi-agent design actually helps,
 compared to two simpler options: one LLM with a short, plain prompt and
 no tools, and one LLM with the same tools but not split into separate
-agents. I tested this on more than one model, not just one.
+agents. I tested this on more than one model.
 
 ---
 
@@ -185,8 +185,8 @@ analysis, including two bugs I found and fixed during the evaluation (a
 t-test bug and a scoring limitation), are in
 [`results_and_failure_analysis.md`](results_and_failure_analysis.md).
 
-All the numbers above are from Anthropic Haiku. I also fully re-ran a
-local model (Ollama `llama3.1:8b`) on the current system, in all three
+All the numbers above are from Anthropic Haiku. I also ran a local
+model (Ollama `llama3.1:8b`) on the current system, in all three
 languages - its results are in §5. I tried Groq too, but it never
 finished a full run (rate limits, and then the model I was using got
 removed by the provider) - §5 explains what happened, but there are no
