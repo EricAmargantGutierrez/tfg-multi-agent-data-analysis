@@ -226,14 +226,9 @@ don't end up repeated in two files.
   `src/agents/analysis/statistics.py`. This is safer and checkable
   against exact ground truth, but it also means the system can only do
   what those 15 pre-written functions already cover - nothing more
-  flexible, like a real code-generating agent, is possible here. This is
-  also why the simple single-agent baseline used in the evaluation
-  (to measure how much this architecture actually helps) can't answer 3
-  of the 15 Analysis questions at all - regression, PCA, and K-Means
-  need repeated steps or matrix math that one plain SQL query just
-  can't do, whether the query is written by this system's Analysis
-  Agent or by a single generic agent. Full detail in
-  `results_and_failure_analysis.md` §3.2.
+  flexible, like a real code-generating agent, is possible here. See
+  `results_and_failure_analysis.md` §3.2 for what this means for the
+  evaluation's baseline comparison.
 - **The Visualization Agent can only draw 6 chart types** - bar, line,
   scatter, pie, histogram, boxplot. The LLM does choose which one to
   use, and it does write the real SQL to fetch the data for it (see
@@ -242,15 +237,11 @@ don't end up repeated in two files.
   those 6. A question that needs a different kind of chart (a map, a
   heatmap, a Sankey diagram, ...) can't be answered.
 - **The Report Agent always writes its report in English**, no matter
-  what language the conversation was in. None of this system's prompts
-  give an explicit language instruction; the narrator happens to answer
-  in the same language as the question it was just asked, but the
-  Report Agent is handed the *whole* conversation as one block of
-  structured data, not a direct question, and its own instructions and
-  section headers ("Executive Summary," "Key Findings," ...) are in
-  English - so it defaults to English regardless. Confirmed on real
-  Spanish and Catalan sessions, see `results_and_failure_analysis.md`
-  §7.5.
+  what language the conversation was in - its prompt has no language
+  instruction, and its section headers ("Executive Summary," "Key
+  Findings," ...) are written in English. See
+  `results_and_failure_analysis.md` §7.5 for why this differs from the
+  narrator, and real Spanish/Catalan examples.
 - One SQLite database, one table.
 - No memory of earlier turns when answering a new question.
 - **The router can't always tell Data Query and Analysis apart.** A
