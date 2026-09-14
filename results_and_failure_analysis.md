@@ -702,7 +702,7 @@ worth knowing:
   "third quartile," and "outliers" - specific statistical claims nobody
   computed.
 
-### 5.8 What this means for the Limitations section
+### 5.8 Insightful findings
 
 The Ollama results are real data for all three languages. Anthropic is
 treated as the main, most relevant model in this evaluation - it's the
@@ -717,7 +717,7 @@ setup, since everything else about the pipeline is identical.
 
 ---
 
-## 6. What this evaluation does and does not establish — for the Limitations section
+## 6. What this evaluation does and does not establish
 
 **Established, with evidence:**
 - The specialized multi-agent architecture beats a minimal no-tools
@@ -789,9 +789,6 @@ setup, since everything else about the pipeline is identical.
   results on the current system for all three languages (§5.3-5.7). A
   by-difficulty comparison of both models is in §8. Cost per provider
   was not measured.
-- **The multilingual evaluation (§7) is Anthropic Haiku only** - the
-  Ollama multilingual comparison (§5.3-5.7) is a separate exercise, with
-  fewer dimensions measured.
 
 ---
 
