@@ -250,7 +250,7 @@ don't end up repeated in two files.
   section headers ("Executive Summary," "Key Findings," ...) are in
   English - so it defaults to English regardless. Confirmed on real
   Spanish and Catalan sessions, see `results_and_failure_analysis.md`
-  §7.5. The fix (§9) is a one-line prompt change.
+  §7.5.
 - One SQLite database, one table.
 - No memory of earlier turns when answering a new question.
 - **The router can't always tell Data Query and Analysis apart.** A
