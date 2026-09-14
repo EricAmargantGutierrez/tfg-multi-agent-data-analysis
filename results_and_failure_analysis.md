@@ -952,8 +952,7 @@ Other things:
   No new kind of failure shows up - every wrong answer is one of the two
   unclear points from the English analysis, or a normal baseline limit.
 - The one gap is the output: the Report Agent always writes English, even
-  when the conversation was in another language. A one-line prompt change
-  would fix it; left as future work.
+  when the conversation was in another language.
 - This was one model (Anthropic Haiku) and one set of translations, done
   by me and not checked by anyone else.
 
