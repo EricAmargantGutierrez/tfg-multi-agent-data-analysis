@@ -343,10 +343,7 @@ n=3,020) - matching the ground truth exactly. **The Report Agent's
 re-generated Session 5 confirms the fix worked end to end**: it now
 correctly says "there is not a statistically significant difference...
 the p-value of 0.392 is well above the standard significance threshold
-of 0.05," replacing the old wrong correlation claim. This is one of the
-few cases in this evaluation where a problem wasn't just written down
-but actually fixed and checked at every level - unit test, integration
-test, and the generated report itself.
+of 0.05," replacing the old wrong correlation claim.
 
 ### 3.6 Small formatting misses and the row-cap ordering issue
 
