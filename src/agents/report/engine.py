@@ -1,9 +1,8 @@
 """
 src/agents/report/engine.py
 
-Report Agent core logic, extracted out of agent.py so it's directly unit
-testable (previously this agent was the only one of the four without an
-engine module, so it could only be exercised through FastMCP).
+Report Agent core logic, kept out of agent.py so it's unit testable
+without going through FastMCP.
 """
 from __future__ import annotations
 
@@ -18,10 +17,8 @@ from src.llm import build_llm
 def generate_report_core(history: list) -> dict:
     try:
         llm = build_llm()
-        # Each turn's raw result can contain a large row list (e.g. a
-        # boxplot/scatter/histogram result, or an unaggregated SQL
-        # query) -- summarized before serializing, or a session with a
-        # few large-row charts can blow a single request past the
+        # A turn's raw result can hold a large row list (e.g. an
+        # unaggregated query) -- summarize first or it can blow past the
         # provider's token limit. See src/core/summarize.py.
         prompt = json.dumps(summarize_large_rows(history), indent=2)
 

@@ -2,22 +2,17 @@
 src/eval/languages.py
 
 The evaluation can run in three languages. Only the questions are
-translated. The reference SQL and the ground truth stay the same in every
-language (same database, same expected answer), so each dataset file
-keeps one copy of them.
+translated -- reference SQL and ground truth stay the same, since it's
+the same database and expected answer either way.
 
-In the dataset files, each item's "question" is a dict with one entry per
-language, like {"en": "...", "es": "...", "ca": "..."}. question_text()
-picks the right one (and still works if it's just a plain string).
+Each dataset item's "question" is a dict with one entry per language
+({"en": ..., "es": ..., "ca": ...}); question_text() picks the right one.
+Data values ("West", "Technology", ...) stay in English in every
+language, so this tests handling the question's language, not
+translating stored values.
 
-Names that are actual values in the data -- "West", "Technology",
-"Consumer", "Second Class" -- are left in English in all three languages.
-That way we test how the system handles the language of the question, not
-the separate problem of translating a value name back to what's stored.
-
-Results are saved under results/eval/<model>/<language>/, where <model>
-is the current TFG_MODEL (e.g. "anthropic", "ollama"). So running a
-different model writes to its own folder instead of overwriting.
+Results are saved under results/eval/<model>/<language>/, so a
+different TFG_MODEL writes to its own folder instead of overwriting.
 """
 from __future__ import annotations
 

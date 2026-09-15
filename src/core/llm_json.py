@@ -2,8 +2,7 @@
 src/core/llm_json.py
 
 One shared helper for the "LLM was asked to return JSON" pattern used by
-the router, the Viz planner, and the Analysis planner. Previously each
-had its own copy-pasted ```json fence stripping.
+the router, the Viz planner, and the Analysis planner.
 """
 from __future__ import annotations
 

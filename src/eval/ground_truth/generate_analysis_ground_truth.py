@@ -1,14 +1,11 @@
 """
 src/eval/ground_truth/generate_analysis_ground_truth.py
 
-For each question, executes its hand-written reference plan (analysis +
-columns + filters -- the SAME shape the real AnalysisPlan uses) through
-the real, already-tested `src/core/db.py` and
-`src/agents/analysis/statistics.py` code. No LLM is involved in computing
-ground truth: the plan was written by a human when the question was
-authored, exactly the way generate_data_query_ground_truth.py uses a
-human-written reference SQL rather than asking an LLM what the "right"
-query is.
+Executes each question's hand-written reference plan (analysis + columns
++ filters, the same shape AnalysisPlan uses) through the real
+`src/core/db.py` and `src/agents/analysis/statistics.py` code. No LLM
+involved -- the plan was written by hand, like the reference SQL in
+generate_data_query_ground_truth.py.
 
 Run once, after `python -m src.ingest`, and whenever the dataset changes:
     python -m src.eval.ground_truth.generate_analysis_ground_truth

@@ -1,36 +1,24 @@
 """
 src/eval/benchmarks/report_agent_benchmark.py
 
-The Report Agent has no ground truth. A session summary has no single
-"correct" answer, so this one is checked by hand, not scored.
+The Report Agent has no ground truth (a session summary has no single
+"correct" answer), so this is checked by hand, not scored. It runs 6
+sessions -- each a few questions covering data_query/analysis/viz --
+through the real orchestrator, then generates a report for each.
 
-It also doesn't test single questions. The Report Agent works on a whole
-session, so this runs 6 sessions -- each a few questions covering
-data_query / analysis / visualization -- through the real orchestrator
-(routing, agents, narration), then generates a report for each.
+Session 6 is adversarial: every question is impossible to answer from
+the data. It checks whether the report admits that or makes something
+up, using its own rating template, reported separately from 1-5.
 
-Sessions 1-5 are normal. Session 6 is adversarial: every question is
-impossible to answer from the data (missing columns, a customer that
-doesn't exist, causal questions). It checks whether the Report Agent
-says so or instead makes something up. It uses a different rating
-template and is reported on its own, not averaged with sessions 1-5.
+Output: results/eval/<model>/<language>/report_agent_review.md, with a
+rating template per session to fill in by hand (accuracy, completeness,
+no-fabrication, fluency; session 6 uses failure-transparency instead).
 
-Output: results/eval/<model>/<language>/report_agent_review.md -- one
-file with every session's questions, what the system answered, and the
-generated report, for reading by hand. Each session has a rating
-template to fill in (accuracy, completeness, no-fabrication, fluency,
-1-5; session 6 uses failure-transparency instead).
-
-The sessions run in the language given by --language (en/es/ca). Only
-the questions change, everything else is the same.
-
-Requires a live LLM (real API calls) -- like scripts/manual_check/, this
-is not part of the offline pytest suite.
+Sessions run in the language given by --language (en/es/ca) -- only the
+questions change. Requires a live LLM, so it's not part of pytest.
 
 Usage:
-    python -m src.eval.benchmarks.report_agent_benchmark
-    python -m src.eval.benchmarks.report_agent_benchmark --language es
-    python -m src.eval.benchmarks.report_agent_benchmark --language ca --sessions 6
+    python -m src.eval.benchmarks.report_agent_benchmark [--language es] [--sessions 6]
 """
 from __future__ import annotations
 
@@ -43,11 +31,9 @@ from src.eval.languages import DEFAULT_LANGUAGE, LANGUAGES, results_dir
 from src.orchestrator.graph import answer
 from src.orchestrator.mcp_clients import call_agent_tool
 
-# Each session's `questions` has one list per language. English is the
-# original; es / ca are the same questions translated, with value names
-# ("West", "Technology", ...) left in English like in the datasets.
-# Sessions 1-5 reuse questions from the 55-question benchmark; session 6
-# is its own thing.
+# One question list per language (es/ca are translations of en; value
+# names like "West" stay in English, matching the datasets). Sessions
+# 1-5 reuse questions from the 55-question benchmark; session 6 is new.
 SESSIONS = [
     {
         "id": 1,
@@ -226,10 +212,8 @@ def run_session(session: dict, language: str = DEFAULT_LANGUAGE) -> dict:
                 "ok": result["ok"],
             })
         except Exception as e:
-            # answer() -> narrate() makes an unguarded LLM call on the
-            # success path (only the error path skips it) -- a rate limit
-            # hitting exactly there would otherwise crash this whole
-            # session (and everything after it) with zero output written.
+            # narrate() makes an unguarded LLM call on success -- without
+            # this, a rate limit here would crash the whole session.
             turns.append({
                 "question": question, "agent": None,
                 "narrated_answer": f"(pipeline error: {type(e).__name__}: {e})",
@@ -331,11 +315,8 @@ def run(session_ids: list[int] | None = None, language: str = DEFAULT_LANGUAGE) 
         if session["id"] not in session_ids:
             continue
 
-        # Each session's first question may route to a different agent
-        # (SQL/Analysis/Viz) with a different, unwarmed system prompt --
-        # warm up per session, using that session's own first question,
-        # not a generic one that only covers whichever category happens
-        # to come first.
+        # Warm up per session with its own first question, since each
+        # may route to a different, unwarmed agent.
         warm_up(lambda q: answer(q, []), question=session["questions"][language][0])
 
         print(f"Session {session['id']}/{len(SESSIONS)}: {session['label']}")

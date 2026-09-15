@@ -1,22 +1,13 @@
 """
 src/eval/benchmarks/pipeline_benchmark.py
 
-ONE pass through the real orchestrator (src.orchestrator.graph.answer())
-for every question, capturing BOTH:
-  - full end-to-end latency (router + agent + narrator), the number
-    that's actually comparable to the baseline's single-call latency;
-  - routing accuracy (did the router pick the expected agent?).
-
-These used to be two separate scripts (pipeline_latency_benchmark.py and
-the routing-check part of multiagent_benchmark.py) that each re-asked all
-55 questions independently -- not useful, since both call graph.answer()
-and the routing decision is already known the moment you time the call.
+One pass through the real orchestrator (graph.answer()) for every
+question, capturing full end-to-end latency (router + agent + narrator)
+and routing accuracy (did the router pick the expected agent?).
 
 Does NOT re-score answer correctness -- that's correctness_benchmark.py,
-which deliberately isolates each agent's own capability by calling it
-directly, bypassing the router (so a misroute there wouldn't look like an
-agent-capability failure). Here, correctness of the underlying answer is
-irrelevant; only "did routing succeed" and "how long did it take" matter.
+which calls each agent directly, bypassing the router, so a misroute
+there can't look like an agent-capability failure.
 
 Usage:
     python -m src.eval.benchmarks.pipeline_benchmark
@@ -71,14 +62,8 @@ def run(categories: list[str] | None = None, language: str = DEFAULT_LANGUAGE) -
         with open(DATASETS_DIR / DATASET_FILES[category], encoding="utf-8") as f:
             questions = json.load(f)
 
-        # graph.answer() routes internally to a different agent (each with
-        # its own, differently-shaped system prompt) depending on the
-        # question's category. A warm-up call using a SQL-style question
-        # only exercises the Data Query Agent's prompt -- the first
-        # Analysis-routed and first Visualization-routed question in this
-        # same run would each still pay their own unwarmed cost otherwise.
-        # So: warm up per category, using a real question from THAT
-        # category, right before its questions start.
+        # Warm up per category, using a real question from that category
+        # -- each routes to a different agent with its own prompt.
         warm_up(lambda q: answer(q, []), question=question_text(questions[0], language))
 
         for q in questions:

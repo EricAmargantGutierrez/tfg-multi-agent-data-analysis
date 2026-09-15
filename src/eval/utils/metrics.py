@@ -69,12 +69,10 @@ def _pipeline_results(rdir: Path) -> list[dict] | None:
 
 
 def _pipeline_latency_by_category(rdir: Path, category: str) -> float | None:
-    """Full router+agent+narrator latency. Distinct from avg_latency_s,
-    which only measures the agent's own *_core() execution time
-    (bypassing router/narrator to isolate the agent's capability for
-    scoring). This is the number that's actually comparable to the
-    baseline's single-call latency. Only successful calls are averaged --
-    a fast failure (e.g. a rate limit) is not a real latency measurement."""
+    """Full router+agent+narrator latency -- distinct from avg_latency_s,
+    which only measures the agent's own *_core() time. This is the
+    number comparable to the baseline's single-call latency. Only
+    successful calls are averaged; a fast failure isn't a real one."""
     results = _pipeline_results(rdir)
     if not results:
         return None

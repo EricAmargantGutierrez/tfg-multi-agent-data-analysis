@@ -1,23 +1,17 @@
 """
 src/eval/checks.py
 
-Scoring logic. Every check here compares the structured output (rows, or
-a result dict) against the ground truth - never the narrated text, since
-the same correct answer can be worded in many different ways.
+Scoring logic. Compares structured output (rows, or a result dict)
+against ground truth - never the narrated text, since the same correct
+answer can be worded many ways.
 
-Two simplifications I made on purpose, written down here instead of
-hidden in the code:
-  - Numbers are compared with a fixed tolerance (rounded to 2 decimals by
-    default), not real floating-point epsilon comparison. That's fine for
-    currency/count values at this size, but would need changing for a
-    dataset with much smaller or much bigger numbers.
-  - Comparing rows for Data Query/Viz splits each row into its numbers
-    and its text, and compares each part as a set (order doesn't
-    matter). This means the check doesn't care about column or row
-    order, but it also can't tell apart two different numeric columns
-    that happen to hold the same values in the same shape. That's fine
-    for this benchmark's questions, but a trickier question set would
-    need a check that actually knows what each column means.
+Two deliberate simplifications:
+  - Numbers are compared with a fixed tolerance (2 decimals), not real
+    float epsilon. Fine at this scale, but wouldn't hold for a dataset
+    with much smaller/bigger numbers.
+  - Row comparison ignores column/row order by splitting each row into
+    a set of numbers and a set of strings. Can't tell apart two numeric
+    columns with the same values - not an issue for this question set.
 """
 from __future__ import annotations
 
@@ -102,8 +96,8 @@ def _check_regression(actual: dict, expected: dict) -> bool:
     a, e = actual.get("result"), expected.get("result")
     if not isinstance(a, dict) or not isinstance(e, dict):
         return False
-    # r2 is the main number to check; the coefficients can shift a little
-    # more than r2 does just from floating point, without being wrong.
+    # r2 is the number that matters; coefficients drift more from
+    # floating point without being wrong.
     return numbers_close(a.get("r2", -999), e.get("r2", -999), tol=0.02)
 
 
@@ -156,22 +150,13 @@ CHECKERS = {
 
 
 # ---------------------------------------------------------------------
-# Baseline scoring: the baseline always just returns {columns, rows} from
-# one plain SQL query, never a proper "analysis result" dict. For Data
-# Query and Viz questions that shape is already what the ground truth
-# looks like, so nothing extra is needed.
+# Baseline scoring: the baseline only ever returns {columns, rows} from
+# one plain SQL query, which already matches Data Query/Viz ground truth.
 #
-# For Analysis questions: this used to auto-fail anything except
-# {mean, count, min, max, ...}, on the assumption that one SQL query
-# can't express correlation/covariance/ttest. That assumption was wrong:
-# testing showed the model working out the correct Pearson correlation
-# formula by hand in plain SQL, matching the real system almost exactly,
-# but still marked wrong just because of this rule. Fixed: correlation,
-# covariance, and (group-based) ttest are now actually checked against
-# the key number in whatever row the baseline returned. Regression, PCA,
-# and K-Means are still auto-failed - those really do need repeated
-# optimization or matrix math that one plain SQL SELECT cannot do. That
-# one is a real limit of SQL, not just an assumption in the checker.
+# For Analysis questions, correlation/covariance/ttest ARE checked (a
+# model can derive these by hand in SQL - testing showed one doing so
+# correctly). Regression/PCA/K-Means are auto-failed: those genuinely
+# need iterative optimization or matrix math a single SELECT can't do.
 # ---------------------------------------------------------------------
 def check_baseline_sql_shaped(answer: dict, ground_truth: list[list]) -> bool:
     return check_data_query(answer, ground_truth)
@@ -206,8 +191,7 @@ def check_baseline_analysis(answer: dict, ground_truth: dict) -> bool:
             return False
         return any(numbers_close(c, expected) for c in candidates)
 
-    # regression / pca / kmeans: really can't be done in one plain SQL
-    # SELECT. This is a real limit, not just an assumption.
+    # regression / pca / kmeans: can't be done in one plain SQL SELECT.
     return False
 
 
@@ -219,15 +203,10 @@ BASELINE_CHECKERS = {
 
 
 # ---------------------------------------------------------------------
-# Monolithic baseline scoring: for the SAME question it might pick
-# action="sql" (rows as a list of lists) or action="chart" (rows as a
-# list of dicts, from sqlite3.Row) - both get compared against the same
-# ground truth that Data Query and Visualization questions already
-# share (the visualization ground truth is built the same way as SQL's:
-# raw rows from the reference SQL, nothing chart-specific). Turning both
-# shapes into the same format here means the checker doesn't need to
-# care which action the model picked - it just checks whether the data
-# itself is right, which is the actual thing being tested either way.
+# Monolithic baseline: for the same question it might pick action="sql"
+# (list of lists) or action="chart" (list of dicts). Normalize both to
+# the same shape so the checker only cares whether the data is right,
+# not which action the model picked.
 # ---------------------------------------------------------------------
 def check_monolithic_rows(answer: dict, ground_truth: list[list]) -> bool:
     if not answer.get("ok"):
@@ -240,11 +219,9 @@ def check_monolithic_rows(answer: dict, ground_truth: list[list]) -> bool:
 
 
 def check_monolithic_analysis(answer: dict, ground_truth: dict) -> bool:
-    # If the model picked action="sql" instead of "analysis" for a
-    # question that actually needs real statistics, `answer` won't have
-    # a "result" dict in the right shape, so this correctly returns
-    # False. That's a real finding ("it picked the wrong tool for this
-    # question"), not a bug in the checker.
+    # If the model picked action="sql" for a question needing real
+    # statistics, `answer` won't have a "result" dict and this correctly
+    # fails - a real finding, not a checker bug.
     return check_analysis(answer, ground_truth)
 
 

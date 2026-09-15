@@ -1,25 +1,21 @@
 """
 src/eval/baselines/monolithic_agent.py
 
-A second, stronger baseline than src.eval.baselines.single_agent: ONE
-agent that has all three real capabilities (SQL, statistics, charts) in
-one combined system prompt. It decides for itself, in one LLM call,
-which capability the question needs and with what parameters - then the
-same real code the specialized agents use actually runs it
-(src.core.db, src.agents.analysis.statistics,
-src.agents.viz.engine.render - not a copy of that code).
+A stronger baseline than single_agent: ONE agent with all three real
+capabilities (SQL, statistics, charts) in one system prompt, deciding
+for itself which to use. Runs the same real code the specialized agents
+use (src.core.db, src.agents.analysis.statistics, src.agents.viz.engine)
+- not a copy of it.
 
-Why this baseline exists, on top of the simple single_agent one: the
-simple baseline mostly shows "does having tools help at all" (SQL only
-vs. real Python statistics is a big, almost guaranteed gap). This one
-keeps the tools the same - it has the exact same tools as the four
-specialized agents put together - and only changes the architecture: one
-agent deciding by itself vs. a router plus four separate agents. If the
-multi-agent system still wins against this, that says something real
-about splitting the work up, not just about having tools.
+Point of this baseline: single_agent mostly shows "does having tools
+help at all". This one gives the model the same tools the multi-agent
+system has, and only changes the architecture - one agent deciding for
+itself vs. a router plus four separate agents. If the multi-agent
+system still wins, that's evidence for splitting the work up, not just
+for having tools.
 
-Self-correcting, like the real agents: a bad action/spec is fed back as
-an error and tried again, using the same shared retry loop.
+Self-correcting like the real agents: a bad action/spec is fed back as
+an error and retried, via the same shared retry loop.
 """
 from __future__ import annotations
 
@@ -46,17 +42,11 @@ from src.agents.analysis.prompts import SYSTEM_PROMPT as _ANALYSIS_PROMPT
 from src.agents.data_query.prompts import SYSTEM_PROMPT as _SQL_PROMPT
 from src.agents.viz.prompts import SYSTEM_PROMPT as _VIZ_PROMPT
 
-# Built by copying in the three real specialized agents' prompts exactly
-# (imported, not retyped), instead of a hand-written summary. A summary
-# was tried first and it turned out to be a real mistake: it was about
-# 206 words vs. the real prompts' combined ~845 words, and it left out
-# whole parts (SQL's worked ranking examples, Viz's warning against
-# EXTRACT()/DATE_TRUNC()/MONTH()/YEAR(), Analysis's filter examples). If
-# the monolithic agent had done worse with that version, we couldn't
-# have told whether that was about the architecture (one agent vs. four)
-# or just a less detailed prompt. Importing the real prompts also means
-# this baseline can't fall out of sync unnoticed if the specialized
-# prompts get edited later.
+# Imports the three real agents' prompts directly rather than a
+# hand-written summary - a summary was tried first and left out real
+# content (worked examples, warnings), which would have confounded
+# "worse architecture" with "worse prompt". Importing also keeps this
+# baseline from drifting out of sync if the real prompts change.
 SYSTEM_PROMPT = f"""
 You are a data analysis assistant with THREE capabilities. For each
 question, decide which ONE capability best answers it.

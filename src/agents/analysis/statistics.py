@@ -15,11 +15,8 @@ EXCLUDED_COLUMNS = {"postal_code", "row_id", "order_id"}
 
 
 def _numeric(df: pd.DataFrame) -> pd.DataFrame:
-    """Numeric columns, dropping any row that has a NaN in them.
-    Without this, scipy/sklearn functions (regression, PCA, K-Means)
-    would crash on missing data instead of handling it - unlike pandas'
-    own .mean()/.median()/etc., which already skip NaN by default. Done
-    here once so every analysis function behaves the same way."""
+    """Numeric columns, dropping rows with NaN - scipy/sklearn (unlike
+    pandas' own .mean()/.median()) crash on missing data otherwise."""
     numeric = df.select_dtypes(include=[np.number])
     numeric = numeric.drop(columns=[c for c in EXCLUDED_COLUMNS if c in numeric.columns], errors="ignore")
     return numeric.dropna()
@@ -61,13 +58,9 @@ def compute_covariance(df):
 
 def compute_ttest(df, group_column=None, group_values=None):
     """Compares ONE numeric variable across TWO groups defined by a
-    categorical column (e.g. profit in the Consumer segment vs. profit in
-    the Corporate segment) -- the standard meaning of a t-test.
-
-    Previously this compared two numeric COLUMNS directly as independent
-    samples (e.g. discount vs. profit) -- not a real two-group hypothesis
-    test, since the two "samples" were different variables on different
-    scales. group_column/group_values fixes this; see AnalysisPlan."""
+    categorical column (e.g. profit in Consumer vs. Corporate segment) --
+    the standard meaning of a t-test. See AnalysisPlan for group_column
+    and group_values."""
     if group_column is None or group_values is None:
         raise ValueError("compute_ttest requires group_column and group_values "
                           "(a t-test compares one variable across two groups).")
@@ -99,10 +92,8 @@ def compute_ttest(df, group_column=None, group_values=None):
 
 
 def compute_regression(df, target=None):
-    """target: the column name to predict (y). Everything else numeric is a
-    predictor (X). If target is None, falls back to the old "last column"
-    convention for backward compatibility -- but callers should always pass
-    target now; see AnalysisPlan.target."""
+    """target: column to predict (y); every other numeric column is a
+    predictor (X). Falls back to the last column if target is None."""
     numeric = _numeric(df)
     if numeric.shape[1] < 2:
         raise ValueError("Regression requires at least two numeric columns.")

@@ -26,12 +26,9 @@ def execute_query(sql: str) -> list[list]:
     connection = sqlite3.connect(settings.database_path)
     try:
         cursor = connection.execute(sql)
-        # Capped identically to src.core.db.run_readonly_query_dicts, which
-        # is what the real Viz Agent actually uses. Ground truth must
-        # reflect what the system can structurally return -- for a chart
-        # over more than MAX_ROWS points, the agent truncates with no warning,
-        # and comparing it against an uncapped "true" answer would be
-        # comparing it against a target it was never going to hit.
+        # Capped the same as run_readonly_query_dicts (what the real Viz
+        # Agent uses) -- otherwise ground truth wouldn't match what the
+        # agent can actually return for a chart over MAX_ROWS points.
         rows = cursor.fetchmany(MAX_ROWS)
         return [list(row) for row in rows]
     finally:

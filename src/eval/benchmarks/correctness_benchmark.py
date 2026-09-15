@@ -1,25 +1,18 @@
 """
 src/eval/benchmarks/correctness_benchmark.py
 
-Correctness comparison across THREE points, all three categories, in one
-file:
-  - "agent": the real specialized agents (forced routing, isolates each
-    agent's own capability -- routing accuracy is measured separately,
-    in pipeline_benchmark.py).
+Correctness comparison across three points, for all three categories:
+  - "agent": the real specialized agents (forced routing -- routing
+    accuracy is measured separately, in pipeline_benchmark.py).
   - "baseline": a minimal single LLM, one plain SQL query, no tools.
     Isolates "does having any specialized tooling help at all."
-  - "monolithic": a single LLM with the SAME tools as the four
-    specialized agents combined (data queries, statistics, charting), deciding
-    for itself which to use. Isolates "does SPLITTING those tools across
-    separate agents + routing add value, beyond just having them
-    available to one agent."
+  - "monolithic": a single LLM with the same tools as the four
+    specialized agents combined, deciding for itself which to use.
+    Isolates "does splitting tools across agents + routing add value,
+    beyond just having them available to one agent."
 
 Usage:
-    python -m src.eval.benchmarks.correctness_benchmark
-    python -m src.eval.benchmarks.correctness_benchmark --side agent
-    python -m src.eval.benchmarks.correctness_benchmark --side baseline
-    python -m src.eval.benchmarks.correctness_benchmark --side monolithic
-    python -m src.eval.benchmarks.correctness_benchmark --categories analysis
+    python -m src.eval.benchmarks.correctness_benchmark [--side agent|baseline|monolithic] [--categories analysis]
 """
 from __future__ import annotations
 

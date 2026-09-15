@@ -1,24 +1,15 @@
 """
 src/models/schemas.py
 
-Pydantic models for the structured objects LLMs are asked to produce.
-Replaces the previous hand-rolled `if "x" not in plan: raise ValueError(...)`
-checks scattered across the engines.
+Pydantic models for the structured objects LLMs are asked to produce,
+replacing hand-rolled `if "x" not in plan: raise ValueError(...)` checks
+scattered across the engines.
 
-AnalysisPlan.filters is the fix for a real correctness bug: the previous
-planner could only ever SELECT whole columns with no WHERE clause, so any
-analysis question with a condition in it ("average profit in the West
-region") was computed over the entire table anyway, with no error,
-and returned ok=True.
-
-AnalysisPlan.target is the fix for a second real correctness bug: the
-regression function used to treat "the last column in the list" as the
-prediction target. That's an implicit convention the LLM has no reason to
-know about -- it naturally lists columns in question order ("predict
-profit from sales, discount, quantity" -> profit first), which swapped
-the regression target with no warning, and produced a low-r2 result.
-`target` makes this an explicit, named field instead of a positional
-convention, so it can't be wrong with no error raised.
+AnalysisPlan.filters lets a question with a condition ("average profit
+in the West region") actually filter, instead of silently running over
+the whole table. AnalysisPlan.target makes the regression target an
+explicit field instead of "the last column in the list" -- an implicit
+convention that used to silently swap targets.
 """
 from __future__ import annotations
 

@@ -2,21 +2,7 @@
 src/core/retry.py
 
 The one self-correcting retry loop, shared by the Data Query, Viz, and
-Analysis agents (previously copy-pasted three times, nearly identically).
-
-Usage:
-    def step(error_context):
-        # ... generate + execute, using error_context to correct a prior
-        # failure ...
-        return {"columns": [...], "rows": [...], "sql": "..."}   # no ok/attempts/error
-
-    result = run_self_correcting(step, max_retries=3,
-                                  failure_defaults={"columns": [], "rows": [], "sql": None})
-
-On success: result has ok=True, attempts=N, retried=(N>1), error=None, plus
-whatever keys `step` returned.
-On exhausting retries: result is failure_defaults merged with
-ok=False, attempts=max_retries, retried=True, error=<last exception message>.
+Analysis agents.
 """
 from __future__ import annotations
 

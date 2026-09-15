@@ -5,18 +5,14 @@ The baseline: same LLM, same schema and question, but just ONE plain
 instruction to write a single SQL query. No tuned system prompt, no
 retry, no agent routing, no statistics or charting.
 
-On purpose, this does NOT reuse src/agents/data_query/prompts.py's tuned
-prompt (its ranking-question rules, worked examples, aggregation
-conventions). If it did, using the real prompt would sneak the real Data
-Query Agent's prompt work into the "baseline" and make the architecture
-look less useful than it is. A baseline is only useful if it stays a
-deliberately minimal comparison point.
+Deliberately does NOT reuse the Data Query Agent's tuned prompt - doing
+so would sneak that prompt work into the "baseline" and understate the
+architecture's value. A baseline only works if it stays minimal.
 
-Used for ALL question categories, not just Data Query ones: for analysis
-and visualization questions, it still only ever writes SQL. Whether it
-can get close this way (e.g. `AVG` for "mean") or just can't express the
-question at all (correlation, PCA, K-Means have no SQLite equivalent) is
-exactly the thing the evaluation is trying to find out.
+Used for ALL question categories, not just Data Query: for analysis and
+visualization questions it still only writes SQL. Whether it can get
+close (e.g. AVG for "mean") or can't express the question at all
+(correlation, PCA, K-Means) is exactly what the evaluation measures.
 """
 from __future__ import annotations
 

@@ -34,9 +34,7 @@ def render(spec: ChartSpec, rows: list[dict]) -> str:
     y = keys[1] if len(keys) > 1 else None
 
     # Drop rows with a NULL in a plotted column -- matplotlib raises an
-    # opaque TypeError on None labels/values rather than skipping them,
-    # and a NULL category/value is a data-quality issue, not something
-    # the chart itself should crash on.
+    # opaque TypeError on None labels/values instead of skipping them.
     before = len(rows)
     rows = [r for r in rows if r[x] is not None and (y is None or r[y] is not None)]
     if not rows:

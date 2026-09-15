@@ -28,7 +28,7 @@ gets called.
 My goal is to check how much this multi-agent design actually helps,
 compared to two simpler options: one LLM with a short, plain prompt and
 no tools, and one LLM with the same tools but not split into separate
-agents. I tested this on more than one model.
+agents. The architecture was tested on several models.
 
 ---
 

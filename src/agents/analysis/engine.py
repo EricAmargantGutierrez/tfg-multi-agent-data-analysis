@@ -7,12 +7,10 @@ Question -> LLM planner -> AnalysisPlan (analysis + columns + filters)
          -> src.core.db.build_select (validated, parameterized SQL)
          -> pandas DataFrame -> statistics.py -> structured result
 
-The `filters` field is the fix for a real bug: previously the planner
-could only select whole columns with no WHERE clause, so any question
-with a condition in it ("average profit in the West region"), 
-computed over the entire table. Filter values are bound as SQL
-parameters (never string-interpolated), same defense-in-depth standard
-as the rest of the codebase.
+The `filters` field lets a question with a condition in it ("average
+profit in the West region") actually filter, instead of always
+computing over the whole table. Filter values are always bound as SQL
+parameters, never string-interpolated.
 """
 from __future__ import annotations
 

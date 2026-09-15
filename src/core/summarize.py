@@ -1,23 +1,14 @@
 """
 src/core/summarize.py
 
-Agent results can hold large row lists - e.g. the Viz Agent's
-scatter/histogram/boxplot results, capped at src.core.db.MAX_ROWS = 1000,
-or a Data Query question with no aggregation ("list all products" -
-about 1850 rows). Putting these raw into an LLM prompt isn't useful (an
-LLM reading 1000 raw (x, y) pairs can't summarize a chart any better than
-one reading a count plus a few examples) and isn't safe either - it can
-push one request past a provider's token limit.
+Agent results can hold large row lists (e.g. a Viz Agent scatter result
+capped at MAX_ROWS=1000, or an unaggregated Data Query answer). Putting
+these raw into an LLM prompt isn't useful and can push a request past
+the provider's token limit -- this actually caused a 413 error during
+narration and a ~14,700-token report-generation request before this fix.
 
-This actually happened, twice, in two different places, before this fix:
-  1. Narration (src.orchestrator.narrate): narrating a 1000-row scatter
-     result directly caused a 413 "Request too large" error.
-  2. Report generation (src.agents.report.engine): a session with
-     several large chart results, turned into JSON with
-     json.dumps(history), made one ~14,700-token request.
-
-Both now use this one recursive summarizer, instead of each agent having
-its own separate fix (or, as before, only one of them having one).
+One shared recursive summarizer, used by both narration and report
+generation instead of each having its own fix.
 """
 from __future__ import annotations
 
@@ -28,11 +19,10 @@ SAMPLE_ROWS_SHOWN = 5
 
 
 def summarize_large_rows(obj: Any) -> Any:
-    """Recursively walk a dict/list structure. Any list longer than
-    MAX_ROWS_IN_PROMPT whose elements are themselves dicts or lists (i.e.
-    row-shaped data, not a short list of floats like PCA's
-    explained_variance_ratio or regression's coefficients) is replaced
-    with a compact summary. Everything else passes through unchanged."""
+    """Walk a dict/list structure. Any list longer than MAX_ROWS_IN_PROMPT
+    whose elements are dicts or lists (row-shaped data, not a short list
+    of floats like PCA's explained_variance_ratio) gets replaced with a
+    compact summary. Everything else passes through unchanged."""
     if isinstance(obj, dict):
         return {k: summarize_large_rows(v) for k, v in obj.items()}
 
