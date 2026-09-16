@@ -187,10 +187,11 @@ t-test bug and a scoring limitation), are in
 
 All the numbers above are from Anthropic Haiku. I also ran a local
 model (Ollama `llama3.1:8b`) on the current system, in all three
-languages - its results are in §5. I tried Groq too, but it never
-finished a full run (rate limits, and then the model I was using got
-removed by the provider) - §5 explains what happened, but there are no
-Groq numbers to report.
+languages - its results are in §5. I also tried Groq, but decided not
+to pursue it after running into real infrastructure limits (a model
+retired mid-project, then a free-tier daily token limit too tight to
+finish a full run in reasonable time) - §5.1 explains what happened,
+but there are no Groq numbers to report.
 
 I also ran the evaluation in **Spanish and Catalan** on Anthropic Haiku
 (same questions translated, same ground truth). Results are in
