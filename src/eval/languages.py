@@ -13,22 +13,22 @@ translating stored values.
 
 Results are saved under results/eval/<model>/<language>/, so a
 different TFG_MODEL writes to its own folder instead of overwriting.
+
+LANGUAGES/LANGUAGE_NAMES/DEFAULT_LANGUAGE live in src/core/languages.py,
+not here, so an agent (Report) can use them without depending on eval
+code; re-exported here so existing benchmark imports don't change.
 """
 from __future__ import annotations
 
 from pathlib import Path
 
 from src.config.settings import settings
+from src.core.languages import DEFAULT_LANGUAGE, LANGUAGE_NAMES, LANGUAGES
 
-LANGUAGES: tuple[str, ...] = ("en", "es", "ca")
-
-LANGUAGE_NAMES: dict[str, str] = {
-    "en": "English",
-    "es": "Spanish",
-    "ca": "Catalan",
-}
-
-DEFAULT_LANGUAGE = "en"
+__all__ = [
+    "DEFAULT_LANGUAGE", "LANGUAGE_NAMES", "LANGUAGES",
+    "question_text", "results_dir",
+]
 
 
 def question_text(item: dict, language: str = DEFAULT_LANGUAGE) -> str:

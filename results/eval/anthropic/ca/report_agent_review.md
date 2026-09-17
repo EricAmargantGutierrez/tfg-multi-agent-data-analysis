@@ -1,8 +1,8 @@
-# Report Agent — Manual Qualitative Review
+# Report Agent - manual review
 
-Each session below ran through the real orchestrator end-to-end (routing, agent execution, narration), then the Report Agent generated a real summary from the accumulated history. No automated scoring -- read each report and fill in the rating template.
+Each session ran through the real orchestrator (routing, agents, narration), then the Report Agent wrote a report from the conversation history. There is no automatic score -- read each report and fill in the ratings.
 
-Sessions 1-5 are happy-path. **Session 6 is adversarial**: every question is impossible to answer from the dataset. It has its own rating template (no fabrication / failure transparency) and is reported separately -- do not average it into the sessions 1-5 mean.
+Sessions 1-5 are normal. Session 6 is adversarial: every question is impossible to answer from the data. It has its own rating template and is not averaged with sessions 1-5.
 
 ---
 
@@ -20,42 +20,44 @@ Sessions 1-5 are happy-path. **Session 6 is adversarial**: every question is imp
 
 ### Generated report
 ```markdown
-# Data Analysis Report
+# Informe d'Anàlisi de Dades
 
-## Executive Summary
+## Resum Executiu
 
-This report presents the findings from a multi-agent data analysis system querying an orders database. The analysis reveals key metrics regarding order volume, regional sales performance, and overall profitability.
+S'ha realitzat una anàlisi de les dades de comandes i vendes del sistema. L'estudi proporciona una visió general del volum de comandes, el rendiment per regió i la rendibilitat global de l'organització.
 
-## Questions Asked
+## Preguntes Formulades
 
-1. How many orders are there?
-2. Which region has the highest sales?
-3. What is the total profit?
+1. Quantes comandes hi ha?
+2. Quina regió té les vendes més altes?
+3. Quin és el benefici total?
 
-## Key Findings
+## Descobriments Clau
 
-| Metric | Value |
-|--------|-------|
-| **Total Orders** | 9,994 |
-| **Highest Sales Region** | West |
-| **West Region Sales** | $725,457.82 |
-| **Total Profit** | $286,397.02 |
+| Mètrica | Valor |
+|---------|-------|
+| **Total de comandes** | 9.994 |
+| **Regió amb vendes més altes** | West |
+| **Vendes totals (West)** | 725.457,82 € |
+| **Benefici total** | 286.397,02 € |
 
-The dataset contains nearly 10,000 orders. The West region significantly outperforms other regions with total sales exceeding $725,000. The overall profitability across all orders reaches approximately $286,400.
+### Observacions Destacades
+
+- La base de dades conté gairebé 10.000 comandes registrades.
+- La regió **West** lidera en volum de vendes, generant més de 725.000 € en ingressos.
+- El benefici total acumulat és de 286.397,02 €, representant una rendibilitat significativa sobre les operacions.
 
 ## Conclusions
 
-- The organization maintains a substantial order volume of approximately 10,000 transactions.
-- The West region is the primary revenue driver and should be prioritized for strategic focus.
-- The profit margin relative to total sales (approximately 39.4%) indicates healthy business performance.
+L'organització manté un volum de comandes robust amb gairebé 10.000 registres. La regió West és el motor principal de vendes, suggerint una concentració de negoci en aquesta zona geogràfica. La rendibilitat global és positiva, amb un benefici total de més de 286.000 €, indicant operacions comercials saludables.
 ```
 
 
-**Manual rating (Claude qualitative pass):**
-- Accuracy: **3/5** — faithfully reflects the conversation, but the underlying answer used COUNT(*) = 9,994 (line items) rather than 5,009 distinct orders
-- Completeness: **5/5** — all three turns covered
-- No fabrication: **2/5** — invents a '~39.4% profit margin relative to total sales' — not asked, not computed, and not a meaningful ratio
-- Fluency: **5/5** — clean, professional English prose
+**Manual rating (fill in, 1-5 each, with a one-line justification):**
+- Accuracy (does the report correctly reflect what was actually asked/answered?): __
+- Completeness (does it cover all the turns, not just some?): __
+- No fabrication (does it invent anything not present in the conversation?): __
+- Fluency (is it well-written, professional, readable?): __
 
 ---
 
@@ -92,52 +94,55 @@ S'ha executat correctament una regressió lineal per predir el **benefici** a pa
 
 ### Generated report
 ```markdown
-# Executive Summary
+# INFORME D'ANÀLISI DE DADES
 
-This analysis examined profitability metrics and predictive factors in the orders dataset. Three key analyses were conducted: average profit calculation for the West region, correlation analysis between discount and profit, and linear regression modeling to predict profit based on sales, discount, and quantity variables.
+## Resum Executiu
 
-# Questions Asked
+S'ha realitzat una anàlisi de dades sobre comandes comercials per examinar el benefici regional, la relació entre descomptes i beneficis, i els factors predictius del benefici. Els resultats mostren que els descomptes tenen un impacte negatiu significatiu en la rendibilitat, i que les vendes, descomptes i quantitat expliquen aproximadament el 27% de la variabilitat del benefici.
 
-1. What is the average profit in the West region?
-2. What is the correlation between discount and profit?
-3. Execute a linear regression to predict profit from sales, discount, and quantity.
+## Preguntes Formulades
 
-# Key Findings
+1. Quin és el benefici mitjà a la regió West?
+2. Quina és la correlació entre el descompte i el benefici?
+3. Executa una regressió lineal que predigui el benefici a partir de les vendes, el descompte i la quantitat.
 
-## Average Profit - West Region
-The average profit in the West region is **$33.85**, based on analysis of the orders dataset.
+## Descobriments Clau
 
-## Discount-Profit Correlation
-There is a **negative correlation of -0.219** between discount and profit, with a highly significant p-value (2.70e-109). This indicates that as discounts increase, profit tends to decrease, though the relationship is moderate in strength.
+### Benefici Regional
+- El benefici mitjà a la regió West és de **33,85 unitats**.
 
-## Linear Regression Model
-A linear regression model was developed to predict profit using three predictors:
+### Correlació Descompte-Benefici
+- Existeix una correlació **negativa de -0,219** entre descomptes i benefici.
+- Aquesta correlació és **estadísticament significativa** (p-value: 2,70 × 10⁻¹⁰⁹).
+- Interpretació: A major descompte, menor benefici, de manera consistent.
 
-| Predictor | Coefficient |
-|-----------|------------|
-| Sales | +0.180 |
-| Discount | -233.457 |
-| Quantity | -2.962 |
-| Intercept | +34.972 |
+### Model de Regressió Lineal
+El model prediu el benefici segons la fórmula:
 
-**Model Performance:** R² = 0.273, indicating the model explains approximately 27.3% of profit variance.
+**Benefici = 34,97 + (0,180 × Vendes) + (-233,46 × Descompte) + (-2,96 × Quantitat)**
 
-**Key Insights:**
-- Each unit increase in sales contributes +$0.18 to profit
-- Each unit increase in discount reduces profit by approximately -$233.46
-- Each unit increase in quantity reduces profit by approximately -$2.96
+- **Coeficient de Vendes**: 0,180 (impacte positiu)
+- **Coeficient de Descompte**: -233,46 (impacte fortament negatiu)
+- **Coeficient de Quantitat**: -2,96 (impacte negatiu)
+- **R² = 0,273**: El model explica el 27,3% de la variabilitat del benefici
 
-# Conclusions
+## Conclusions
 
-Discount strategy has a substantial negative impact on profitability. While sales volume positively contributes to profit, the strong negative effect of discounts suggests that aggressive discounting may not be an effective profit optimization strategy. The moderate R² value indicates that other unmeasured factors also significantly influence profit outcomes.
+1. Els descomptes són un factor perjudicial per al benefici, amb un efecte negatiu molt pronunciat en el model de regressió.
+
+2. Les vendes són l'únic predictor amb impacte positiu en el benefici, suggerint que augmentar volum de vendes sense descomptes és beneficiós.
+
+3. La quantitat de productes té una relació negativa amb el benefici, possiblement indicant costos operacionals més alts.
+
+4. El model de regressió té una capacitat predictiva moderada (R² = 0,273), suggerint que altres factors no inclosos influeixen significativament en el benefici.
 ```
 
 
-**Manual rating (Claude qualitative pass):**
-- Accuracy: **4/5** — West avg profit $33.85, correlation -0.219, regression coefficients and R2 all match; t-statistic -0.856 is pulled correctly from the structured result
-- Completeness: **5/5** — all three turns covered
-- No fabrication: **4/5** — faithful to the conversation and the structured data
-- Fluency: **5/5** — well structured, good tables
+**Manual rating (fill in, 1-5 each, with a one-line justification):**
+- Accuracy (does the report correctly reflect what was actually asked/answered?): __
+- Completeness (does it cover all the turns, not just some?): __
+- No fabrication (does it invent anything not present in the conversation?): __
+- Fluency (is it well-written, professional, readable?): __
 
 ---
 
@@ -145,28 +150,31 @@ Discount strategy has a substantial negative impact on profitability. While sale
 
 ### Conversation
 **Q1** _(routed to: viz)_: Mostra un gràfic de barres de les vendes totals per categoria.
-**A1:** # Vendes Totals per Categoria
+**A1:** # Gràfic de Vendes Totals per Categoria
 
-S'ha generat correctament un gràfic de barres amb les vendes totals per categoria:
+S'ha generat correctament el gràfic de barres amb les vendes totals per categoria:
 
+**Resultats:**
 - **Technology**: 836.154,03 € (categoria amb més vendes)
 - **Furniture**: 741.999,80 €
 - **Office Supplies**: 719.047,03 €
 
-El gràfic mostra que la categoria de Tecnologia lidera les vendes, seguida de Mobles i Fournitures d'Oficina.
+La categoria de Technology lidera amb les vendes més altes, seguida de Furniture i Office Supplies. El gràfic ha estat guardat i mostra clarament aquesta distribució de vendes per categoria.
 
 **Q2** _(routed to: viz)_: Mostra un gràfic de línies de les vendes mensuals el 2017.
-**A2:** # Vendes mensuals el 2017
+**A2:** # Vendes Mensuals 2017
 
-S'ha generat un gràfic de línies amb les vendes mensuals de 2017. Els resultats mostren:
+S'ha generat correctament el gràfic de línies amb les vendes mensuals de 2017.
 
-- **Mes més baix**: Febrer amb 20.301€
-- **Mes més alt**: Novembre amb 118.448€
-- **Tendència**: Les vendes mostren una tendència general a l'alça al llarg de l'any, amb un creixement notable a partir de setembre
+**Dades principals:**
+- **Mes amb menys vendes:** Febrer amb 20.301€
+- **Mes amb més vendes:** Novembre amb 118.448€
+- **Tendència:** Les vendes mostren una tendència general a l'alça al llarg de l'any, amb un pic notable a novembre i desembre
 
-Els mesos amb més vendes van ser novembre (118.448€), setembre (87.867€) i desembre (83.829€), mentre que febrer va registrar les vendes més baixes de l'any.
+**Evolució mensual:**
+Les vendes van oscil·lar entre 20.301€ (febrer) i 118.448€ (novembre), amb un creixement progressiu especialment a partir de setembre, on van arribar a 87.867€.
 
-El gràfic ha estat generat correctament i es pot visualitzar a la imatge adjunta.
+El gràfic ha estat generat correctament i es pot visualitzar a la ruta indicada.
 
 **Q3** _(routed to: viz)_: Mostra un diagrama de caixa del benefici per a les comandes del segment Consumer.
 **A3:** # Diagrama de Caixa del Benefici - Segment Consumer
@@ -177,64 +185,68 @@ S'ha generat correctament el diagrama de caixa del benefici per a les comandes d
 - **Total de comandes analitzades:** 1.000
 - **Gràfic:** Boxplot que mostra la distribució del benefici
 
-**Alguns valors de mostra del benefici:**
-- 41,91€
-- 219,58€
-- -383,03€
-- 2,52€
-- 14,17€
+**Mostra de valors de benefici:**
+- 41,91
+- 219,58
+- -383,03
+- 2,52
+- 14,17
 
-El diagrama mostra que hi ha una variabilitat considerable en els beneficis, amb alguns casos de pèrdues (valors negatius) i altres amb guanys significatius. La visualització permet identificar la mediana, quartils i possibles valors atípics en la distribució de beneficis del segment Consumer.
+El diagrama visualitza la distribució completa del benefici per al segment Consumer, mostrant la mediana, quartils i possibles valors atípics. Es pot observar que hi ha una variabilitat significativa en els beneficis, amb alguns valors negatius (pèrdues) i altres positius.
 
 ### Generated report
 ```markdown
-# Executive Summary
+# Informe d'Anàlisi de Dades
 
-A multi-agent data analysis system successfully processed three visualization requests to analyze sales and profit data. All queries executed without errors, generating a bar chart of sales by category, a line chart of monthly sales trends for 2017, and a box plot of profit distribution for the Consumer segment.
+## Resum Executiu
 
-# Questions Asked
+S'ha realitzat una anàlisi de dades de vendes i beneficis utilitzant un sistema multi-agent de visualització. L'anàlisi ha generat tres visualitzacions que proporcionen informació sobre el rendiment per categoria, tendències mensuals i distribució de beneficis. Totes les consultes s'han executat correctament en el primer intent.
 
-1. **Sales by Category**: Display a bar chart of total sales per category
-2. **Monthly Sales Trend**: Display a line chart of monthly sales for 2017
-3. **Profit Distribution**: Display a box plot of profit for Consumer segment orders
+## Preguntes Realitzades
 
-# Key Findings
+1. **Vendes totals per categoria**: Solicitud de gràfic de barres per visualitzar les vendes acumulades per cada categoria de producte.
 
-## Sales Performance by Category
-- **Technology** leads with €836,154.03 in total sales
-- **Furniture** follows with €741,999.80
-- **Office Supplies** generates €719,047.03
-- Technology category outperforms other categories by approximately 12.7% over Furniture
+2. **Vendes mensuals el 2017**: Solicitud de gràfic de línies per analitzar l'evolució de les vendes mensuals durant l'any 2017.
 
-## 2017 Monthly Sales Trend
-- Sales showed significant seasonal variation throughout 2017
-- **Peak performance**: November 2017 with €118,447.83
-- **Lowest performance**: February 2017 with €20,301.13
-- Notable growth trend from September onwards, with Q4 showing the strongest performance
-- Average monthly sales: €61,524.27
+3. **Distribució de beneficis (segment Consumer)**: Solicitud de diagrama de caixa per examinar la distribució del benefici en les comandes del segment Consumer.
 
-## Consumer Segment Profit Analysis
-- Analysis covered 1,000 Consumer segment orders
-- Profit distribution shows variability, including both positive and negative margins
-- Sample data indicates profit ranges from -€383.03 to €219.58 (in sampled records)
-- Box plot visualization enables identification of outliers and quartile distribution
+## Descobriments Clau
 
-# Conclusions
+### Vendes per Categoria
+- **Technology** lidera amb 836.154,03 € en vendes totals
+- **Furniture** ocupa la segona posició amb 741.999,80 €
+- **Office Supplies** completa el rànquing amb 719.047,03 €
 
-The analysis demonstrates that:
-- Technology is the strongest performing category and should remain a strategic focus
-- Sales exhibit clear seasonal patterns with Q4 being the most profitable period
-- The Consumer segment contains profitable orders but also shows instances of negative profit, warranting further investigation into loss-making transactions
+### Tendències Mensuals 2017
+- El mes de **novembre** va registrar les vendes més altes (118.447,83 €)
+- El mes de **febrer** va ser el més baix (20.301,13 €)
+- Es detecta una tendència creixent durant el segon semestre de l'any
+- Els mesos de tardor (setembre, octubre, novembre) mostren un rendiment superior
 
-All queries executed successfully on the first attempt, indicating robust system performance.
+### Distribució de Beneficis (Segment Consumer)
+- S'han analitzat 1.000 comandes del segment Consumer
+- La distribució inclou valors positius i negatius, indicant tant comandes rendibles com amb pèrdues
+- Es detecten casos amb benefici negatiu (exemple: -383,031 €)
+
+## Conclusions
+
+L'anàlisi revela que:
+
+1. La categoria de **Technology** és el principal motor de vendes, superant les altres categories en aproximadament 94.000-117.000 €.
+
+2. Les vendes de 2017 mostren **estacionalitat clara**, amb un pic significatiu en els mesos de tardor, especialment novembre.
+
+3. El segment Consumer presenta una **variabilitat considerable** en els beneficis per comanda, amb alguns casos de pèrdues que mereixen investigació addicional.
+
+4. Totes les consultes s'han executat de manera eficient sense errors, demostrant la fiabilitat del sistema d'anàlisi.
 ```
 
 
-**Manual rating (Claude qualitative pass):**
-- Accuracy: **5/5** — category sales, Nov/Feb extremes and the Consumer boxplot samples all match
-- Completeness: **5/5** — all three charts covered
-- No fabrication: **4/5** — adds a derived 'average monthly sales ~EUR 61,524' and a '12.7% over Furniture' figure not stated in the conversation
-- Fluency: **5/5** — professional, readable
+**Manual rating (fill in, 1-5 each, with a one-line justification):**
+- Accuracy (does the report correctly reflect what was actually asked/answered?): __
+- Completeness (does it cover all the turns, not just some?): __
+- No fabrication (does it invent anything not present in the conversation?): __
+- Fluency (is it well-written, professional, readable?): __
 
 ---
 
@@ -242,7 +254,7 @@ All queries executed successfully on the first attempt, indicating robust system
 
 ### Conversation
 **Q1** _(routed to: data_query)_: Quina categoria va generar el benefici més alt?
-**A1:** La categoria que va generar el benefici més alt és **Technology** amb un benefici total de **145.454,95** (aproximadament 145.455 unitats).
+**A1:** La categoria que va generar el benefici més alt és **Technology** amb un benefici total de **145.454,95** (en la moneda corresponent).
 
 **Q2** _(routed to: analysis)_: Quina és la desviació estàndard del benefici per a la categoria Technology?
 **A2:** La desviació estàndard del benefici per a la categoria Technology és **428,82**.
@@ -250,67 +262,57 @@ All queries executed successfully on the first attempt, indicating robust system
 Aquesta mesura es basa en 1.847 registres de comandes de la categoria Technology i indica la dispersió dels valors de benefici al voltant de la mitjana.
 
 **Q3** _(routed to: viz)_: Mostra un gràfic de sectors del nombre de comandes per segment.
-**A3:** # Gràfic de sectors: Nombre de comandes per segment
+**A3:** # Gràfic de sectors del nombre de comandes per segment
 
-S'ha generat correctament el gràfic de sectors sol·licitat. Els resultats mostren la distribució de comandes entre els tres segments:
+S'ha generat correctament el gràfic de sectors sol·licitat. Els resultats mostren la distribució de comandes per segment:
 
 - **Consumer**: 2.586 comandes (segment més gran)
 - **Corporate**: 1.514 comandes
 - **Home Office**: 909 comandes (segment més petit)
 
-El segment de consumidors representa la majoria de les comandes, seguït pel segment corporatiu i finalment el segment de petites oficines.
+El segment de consumidors representa la majoria de les comandes, seguït pel segment corporatiu i finalment el segment de treball des de casa.
 
 ### Generated report
 ```markdown
-# Professional Data Analysis Report
+# Informe d'Anàlisi de Dades
 
-## Executive Summary
+## Resum Executiu
 
-This report presents the findings from a multi-agent data analysis system examining profit performance and order distribution across product categories and customer segments. The analysis identified Technology as the highest-profit category and revealed the distribution of orders across three distinct customer segments.
+S'ha realitzat una anàlisi de les dades de comandes per identificar les categories més rendibles, avaluar la variabilitat dels beneficis i comprendre la distribució de comandes per segment de client. Els resultats mostren que la categoria Technology és la més lucrativa, amb una variabilitat moderada en els beneficis, i que el segment Consumer representa la majoria de comandes.
 
-## Questions Asked
+## Preguntes Formulades
 
-1. Which category generated the highest profit?
-2. What is the standard deviation of profit for the Technology category?
-3. Show a pie chart of the number of orders by segment.
+1. Quina categoria va generar el benefici més alt?
+2. Quina és la desviació estàndard del benefici per a la categoria Technology?
+3. Mostra un gràfic de sectors del nombre de comandes per segment.
 
-## Key Findings
+## Descobriments Clau
 
-### Highest Profit Category
-- **Technology** is the top-performing category with total profit of **$145,454.95**
-- This result was obtained from aggregating profit data across all orders in the dataset
+### Categoria més rendible
+- **Technology** és la categoria que ha generat el benefici més elevat amb **145.454,95 €** en benefici total.
 
-### Technology Category Profit Variability
-- The standard deviation of profit for Technology products is **$428.82**
-- This analysis was based on 1,847 individual orders in the Technology category
-- The moderate standard deviation indicates moderate variability in individual order profitability
+### Variabilitat del benefici en Technology
+- La desviació estàndard del benefici per a la categoria Technology és de **428,82 €**, indicant una variabilitat moderada en els beneficis individuals de les comandes d'aquesta categoria.
+- L'anàlisi es basa en 1.847 comandes de Technology.
 
-### Order Distribution by Segment
-The analysis identified three customer segments with the following order volumes:
+### Distribució de comandes per segment
+- **Consumer**: 2.586 comandes (47,4%)
+- **Corporate**: 1.514 comandes (27,7%)
+- **Home Office**: 909 comandes (16,6%)
 
-| Segment | Number of Orders | Percentage |
-|---------|------------------|-----------|
-| Consumer | 2,586 | 58.8% |
-| Corporate | 1,514 | 34.4% |
-| Home Office | 909 | 20.7% |
-
-**Total Orders: 5,009**
-
-The Consumer segment represents the largest portion of orders, accounting for more than half of all transactions.
+El segment Consumer representa la majoria de comandes, seguit significativament pel segment Corporate.
 
 ## Conclusions
 
-- Technology products are the primary profit driver for the organization
-- Profit performance within the Technology category shows consistent patterns with moderate variability
-- Consumer segment dominates order volume, suggesting it should be a focus area for business strategy and resource allocation
+La categoria Technology és el motor principal de beneficis de l'organització. Malgrat la variabilitat en els beneficis individuals, aquesta categoria manté un rendiment superior. Pel que fa a la distribució de clients, el segment Consumer és el més actiu en volum de comandes, suggerint que aquest segment mereix una atenció especial en estratègies de retencció i creixement.
 ```
 
 
-**Manual rating (Claude qualitative pass):**
-- Accuracy: **3/5** — Technology profit and std correct; segment counts 2,586/1,514/909 correct
-- Completeness: **5/5** — all three turns covered
-- No fabrication: **3/5** — fabricates the segment percentages (58.8/34.4/20.7 — they sum to 114%; true values are 51.6/30.2/18.1)
-- Fluency: **5/5** — clean report despite the bad percentages
+**Manual rating (fill in, 1-5 each, with a one-line justification):**
+- Accuracy (does the report correctly reflect what was actually asked/answered?): __
+- Completeness (does it cover all the turns, not just some?): __
+- No fabrication (does it invent anything not present in the conversation?): __
+- Fluency (is it well-written, professional, readable?): __
 
 ---
 
@@ -325,86 +327,84 @@ The Consumer segment represents the largest portion of orders, accounting for mo
 
 Segons l'anàlisi estadística (test t):
 
-- **Segment Consumer**: benefici mitjà de 25,84€ (n=5.191)
-- **Segment Corporate**: benefici mitjà de 30,46€ (n=3.020)
+- **Segment Consumer**: benefici mitjà de 25,84€ (5.191 comandes)
+- **Segment Corporate**: benefici mitjà de 30,46€ (3.020 comandes)
 
-Malgrat que el segment Corporate mostra un benefici mitjà lleugerament superior (4,62€ més), aquesta diferència **no és estadísticament significativa** (p-value = 0,39, que és superior al llindar de 0,05).
+Malgrat que el segment Corporate mostra un benefici mitjà lleugerament superior (4,62€ més), aquesta diferència **no és estadísticament significativa** (p-value = 0,39). Això significa que la diferència observada pot ser deguda a l'atzar i no reflecteix una diferència real entre els dos segments.
 
 **Q3** _(routed to: analysis)_: Agrupa les comandes en 3 grups segons les vendes, la quantitat, el descompte i el benefici.
 **A3:** # Agrupació de comandes en 3 grups
 
-S'ha realitzat una anàlisi de clustering (K-means) sobre 9.994 comandes, agrupant-les segons vendes, quantitat, descompte i benefici. Els resultats són:
+S'ha realitzat una agrupació de les 9.994 comandes en 3 grups segons vendes, quantitat, descompte i benefici. Els resultats són:
 
-## Grup 1 - Comandes petites
-- **Vendes**: 135,90 €
-- **Quantitat**: 3,68 unitats
-- **Descompte**: 15,76%
-- **Benefici**: 13,81 €
+**Grup 1 - Comandes petites:**
+- Vendes mitjanes: 135,90 €
+- Quantitat mitjana: 3,68 unitats
+- Descompte mitjà: 15,76%
+- Benefici mitjà: 13,81 €
 
-## Grup 2 - Comandes mitjanes
-- **Vendes**: 1.806,68 €
-- **Quantitat**: 5,89 unitats
-- **Descompte**: 12,96%
-- **Benefici**: 248,62 €
+**Grup 2 - Comandes mitjanes:**
+- Vendes mitjanes: 1.806,68 €
+- Quantitat mitjana: 5,89 unitats
+- Descompte mitjà: 12,96%
+- Benefici mitjà: 248,62 €
 
-## Grup 3 - Comandes grans
-- **Vendes**: 10.608,89 €
-- **Quantitat**: 5,47 unitats
-- **Descompte**: 13,33%
-- **Benefici**: 2.578,44 €
+**Grup 3 - Comandes grans:**
+- Vendes mitjanes: 10.608,89 €
+- Quantitat mitjana: 5,47 unitats
+- Descompte mitjà: 13,33%
+- Benefici mitjà: 2.578,44 €
 
-Els tres grups mostren una clara progressió en volum de vendes i benefici, mentre que la quantitat es manté relativament estable i els descomptes són similars entre grups.
+Els grups mostren una clara progressió: les comandes grans generen molt més benefici (2.578 €) respecte a les petites (13,81 €), tot i que el descompte aplicat és similar en tots els grups (entre 12-16%).
 
 ### Generated report
 ```markdown
-# Professional Data Analysis Report
+# INFORME D'ANÀLISI DE DADES
 
-## Executive Summary
+## Resum Executiu
 
-This report presents findings from a multi-agent data analysis system examining business performance across regional, segmental, and transactional dimensions. The analysis reveals that the West region leads in revenue generation, profit differences between customer segments are not statistically significant, and orders naturally cluster into three distinct performance tiers.
+S'ha realitzat una anàlisi integral del rendiment del negoci examinant tres aspectes clau: la distribució geogràfica dels ingressos, les diferències de benefici entre segments de clients i la segmentació de comandes segons múltiples variables operacionals. Els resultats revelen una concentració significativa d'ingressos en la regió Oest i identifiquen tres grups de comandes clarament diferenciats per volum de negoci.
 
-## Questions Asked
+## Preguntes Formulades
 
-1. **Regional Performance**: Which region generates the highest revenue?
-2. **Segment Profitability**: Is there a significant profit difference between Consumer and Corporate segments?
-3. **Order Clustering**: Can orders be grouped into meaningful clusters based on sales, quantity, discount, and profit metrics?
+1. On sembla que el negoci funciona millor en termes d'ingressos?
+2. Hi ha una diferència significativa en el benefici entre els segments Consumer i Corporate?
+3. Agrupa les comandes en 3 grups segons les vendes, la quantitat, el descompte i el benefici.
 
-## Key Findings
+## Descobriments Clau
 
-### Regional Revenue Leadership
-- The **West region** generates the highest total sales at **$725,457.82**
-- This region outperforms all other regions in revenue generation
+### Rendiment per Regió
+- La regió **Oest** lidera amb **725.457,82 €** en vendes totals, posicionant-se com la zona de major generació d'ingressos.
 
-### Segment Profit Analysis
-- **Consumer segment**: Mean profit of $25.84 (n=5,191 orders)
-- **Corporate segment**: Mean profit of $30.46 (n=3,020 orders)
-- **Statistical significance**: No significant difference detected (t-statistic: -0.856, p-value: 0.392)
-- The 4.62% profit difference between segments is not statistically meaningful
+### Comparativa de Benefici per Segment
+- **Segment Consumer**: benefici mitjà de **25,84 €** (5.191 comandes)
+- **Segment Corporate**: benefici mitjà de **30,46 €** (3.020 comandes)
+- **Resultat estadístic**: La diferència NO és estadísticament significativa (p-value = 0,392 > 0,05)
+- Malgrat que Corporate mostra un benefici mitjà superior, aquesta diferència pot atribuir-se a la variabilitat natural de les dades.
 
-### Order Segmentation (K-Means Clustering)
-Three distinct order clusters were identified:
+### Segmentació de Comandes (K-means, 3 grups)
 
-| Cluster | Sales | Quantity | Discount | Profit |
-|---------|-------|----------|----------|--------|
-| **Small Orders** | $135.90 | 3.68 units | 15.8% | $13.81 |
-| **Medium Orders** | $1,806.68 | 5.89 units | 13.0% | $248.62 |
-| **Large Orders** | $10,608.89 | 5.47 units | 13.3% | $2,578.44 |
+| Grup | Vendes Mitjanes | Quantitat | Descompte | Benefici |
+|------|-----------------|-----------|-----------|----------|
+| **Grup 1** | 135,90 € | 3,68 unitats | 15,76% | 13,81 € |
+| **Grup 2** | 1.806,68 € | 5,89 unitats | 12,96% | 248,62 € |
+| **Grup 3** | 10.608,89 € | 5,47 unitats | 13,33% | 2.578,44 € |
 
 ## Conclusions
 
-1. **Geographic Focus**: The West region represents a key revenue driver and warrants continued strategic attention.
+1. **Concentració geogràfica**: La regió Oest és el motor principal del negoci i mereix atenció prioritària en estratègies de manteniment i creixement.
 
-2. **Segment Strategy**: Consumer and Corporate segments show comparable profitability. Differentiation strategies should focus on factors beyond profit margins.
+2. **Paritat de segments**: No existeixen diferències significatives de rentabilitat entre clients Consumer i Corporate, suggerint que ambdós segments són igualment viables.
 
-3. **Order Value Tiers**: Orders naturally segment into three distinct value categories, suggesting opportunities for tailored pricing, service levels, and marketing strategies for each tier.
+3. **Oportunitats de segmentació**: Els tres grups identificats representen perfils de comanda clarament diferenciats, des de transaccions petites de baixa marge fins a comandes de gran volum altament lucratives. Aquesta segmentació pot informar estratègies de preu, promoció i gestió de clients.
 ```
 
 
-**Manual rating (Claude qualitative pass):**
-- Accuracy: **4/5** — West region, t-test not significant, clusters all correct; one unit slip — '4.62% profit difference' should be '$4.62'
-- Completeness: **5/5** — all three turns covered
-- No fabrication: **5/5** — nothing invented; correctly hedged on the t-test
-- Fluency: **5/5** — well-organised, professional
+**Manual rating (fill in, 1-5 each, with a one-line justification):**
+- Accuracy (does the report correctly reflect what was actually asked/answered?): __
+- Completeness (does it cover all the turns, not just some?): __
+- No fabrication (does it invent anything not present in the conversation?): __
+- Fluency (is it well-written, professional, readable?): __
 
 ---
 
@@ -412,7 +412,7 @@ Three distinct order clusters were identified:
 
 ### Conversation
 **Q1** _(routed to: data_query)_: Quina és l'edat mitjana dels nostres clients?
-**A1:** L'edat mitjana dels vostres clients és de **9,82 anys**.
+**A1:** L'edat mitjana dels vostres clients és de **9,84 anys**.
 
 Nota: Aquest resultat sembla anòmal, ja que s'ha calculat basant-se en la data de les comandes en lloc de la data de naixement dels clients. Això suggereix que potser caldria revisar la consulta per obtenir l'edat real dels clients si disposeu d'aquesta informació a la base de dades.
 
@@ -439,77 +439,74 @@ Això significa que no hi ha registres de vendes per a aquest client a la base d
 Tanmateix, les dades que tenim només mostren el benefici per categoria del 2016, però no inclouen informació de comparació amb anys anteriors. Per poder explicar **per què va disminuir** el benefici el 2016, caldria tenir dades dels anys anteriors per veure la tendència i identificar les causes de la disminució.
 
 **Q6** _(routed to: viz)_: Mostra un diagrama de dispersió del salari de l'empleat respecte al benefici per comanda.
-**A6:** # Diagrama de Dispersió: Vendes vs Benefici per Comanda
+**A6:** # Diagrama de Dispersió: Salari vs Benefici per Comanda
 
 S'ha generat correctament el diagrama de dispersió sol·licitat. 
 
 **Dades analitzades:**
-- **Total de comandes:** 1.000
-- **Variables:** Vendes (eix X) vs Benefici (eix Y)
+- **Total de registres:** 1.000 comandes
+- **Eixos:** 
+  - X (Salari): Vendes per comanda
+  - Y (Benefici): Benefici per comanda
 
-**Resultats mostrats:**
-El gràfic mostra la relació entre l'import de vendes i el benefici per comanda. Alguns exemples de les dades:
-- Comanda amb vendes de 261,96€ va generar 41,91€ de benefici
-- Comanda amb vendes de 731,94€ va generar 219,58€ de benefici
-- Comanda amb vendes de 957,58€ va generar -383,03€ de pèrdua
+**Observacions dels datos:**
+Els valors mostren una variabilitat considerable en la relació entre vendes i benefici. Per exemple:
+- Comandes amb vendes de 261,96€ generen 41,91€ de benefici
+- Comandes amb vendes de 957,58€ generen -383,03€ de pèrdua
+- Comandes amb vendes de 731,94€ generen 219,58€ de benefici
 
-El diagrama permet visualitzar la correlació entre vendes i benefici, identificant tant les comandes més rendibles com aquelles que generen pèrdues malgrat tenir vendes significatives.
-
-El gràfic està disponible a: `/home/eric/Projects/tfg-multi-agent-data-analysis/results/de3dcedf472944d3aff25e5a98fff4bd.png`
+El diagrama ha estat guardat correctament i mostra la dispersió de tots els 1.000 registres, revelant la relació entre el volum de vendes i el benefici obtingut per cada comanda.
 
 ### Generated report
 ```markdown
-# Professional Data Analysis Report
+# Informe d'Anàlisi de Dades
 
-## Executive Summary
+## Resum Executiu
 
-A multi-agent data analysis system was used to answer six questions regarding customer and sales data. Four queries executed successfully, one returned no results for a specific customer, and one analysis request failed due to data schema limitations. The analysis provides insights into customer ordering patterns, geographic distribution, and profit trends.
+S'ha realitzat una anàlisi de dades del sistema de comandes de l'empresa mitjançant un sistema multi-agent. Les consultes han proporcionat informació sobre l'antiguitat de les comandes, les vendes per client, la distribució geogràfica de comandes i l'evolució del benefici per any. Una de les consultes sobre correlació entre despesa en màrqueting i benefici no ha pogut ser processada per manca de dades disponibles.
 
-## Questions Asked
+## Preguntes Realitzades
 
-1. What is the average age of our clients?
-2. What were the total sales for customer 'Jonathan Q. Fakename'?
-3. What is the correlation between marketing spending and profit?
-4. How many orders were shipped to customers in Germany?
-5. Why did profit decrease in 2016?
-6. Show a scatter plot of employee salary versus profit per order.
+1. Quina és l'edat mitjana dels nostres clients?
+2. Quines van ser les vendes totals del client 'Jonathan Q. Fakename'?
+3. Quina és la correlació entre la despesa en màrqueting i el benefici?
+4. Quantes comandes es van enviar a clients a Alemanya?
+5. Per què va disminuir el benefici el 2016?
+6. Mostra un diagrama de dispersió del salari de l'empleat respecte al benefici per comanda.
 
-## Key Findings
+## Descobriments Clau
 
-| Question | Result | Status |
-|----------|--------|--------|
-| Average client age | 9.82 years | ✓ Successful |
-| Jonathan Q. Fakename total sales | No records found (NULL) | ✓ Successful |
-| Marketing vs. profit correlation | Unable to analyze | ✗ Failed |
-| Orders to Germany | 0 orders | ✓ Successful |
-| 2016 profit by category | Furniture: €6,960; Office Supplies: €35,061; Technology: €39,774 | ✓ Successful |
-| Sales vs. profit scatter plot | Generated visualization (1,000 orders analyzed) | ✓ Successful |
+- **Antiguitat de comandes**: L'edat mitjana de les comandes és de 9,84 anys.
 
-### Notable Observations
+- **Vendes del client 'Jonathan Q. Fakename'**: No es van trobar registres per a aquest client (resultat nul).
 
-- **Data Quality Issue**: The average client age of 9.82 years appears anomalous and suggests the metric may be measuring order age rather than customer age.
-- **Missing Customer**: No sales records exist for 'Jonathan Q. Fakename' in the database.
-- **Geographic Gap**: Zero orders recorded for Germany, indicating either no market presence or data collection gaps.
-- **2016 Profit Distribution**: Technology category generated the highest profit (€39,774), followed by Office Supplies (€35,061).
-- **Schema Limitation**: Marketing spending data is not available in the database, preventing correlation analysis.
+- **Comandes a Alemanya**: Es van registrar 0 comandes enviades a Alemanya.
+
+- **Benefici per categoria el 2016**:
+  - Furniture: 6.959,95 €
+  - Office Supplies: 35.061,23 €
+  - Technology: 39.773,99 €
+  - **Total 2016**: 81.795,17 €
+
+- **Correlació màrqueting-benefici**: No va ser possible calcular aquesta correlació. La base de dades no conté una columna de despesa en màrqueting.
+
+- **Visualització vendes-benefici**: S'ha generat un diagrama de dispersió amb 1.000 comandes que mostra la relació entre vendes i benefici per comanda.
 
 ## Conclusions
 
-The analysis system successfully retrieved operational data for most queries. However, three issues warrant attention:
-
-1. **Data Interpretation**: The "average age" metric requires clarification regarding its calculation methodology.
-2. **Schema Gaps**: Marketing spending data is absent, limiting financial correlation analysis.
-3. **Geographic Coverage**: The absence of German orders suggests either market gaps or incomplete data collection.
-
-Recommendations include validating data definitions, expanding the database schema to include marketing metrics, and investigating geographic market coverage.
+- Els registres de comandes analitzats corresponen a un període de gairebé una dècada.
+- El client especificat no existeix a la base de dades o no té comandes registrades.
+- No hi ha presència comercial registrada a Alemanya.
+- El benefici el 2016 va ser positiu en totes les categories, amb Technology com a categoria més rendible.
+- Per a futures anàlisis sobre l'impacte del màrqueting, serà necessari disposar de dades de despesa en màrqueting a la base de dades.
 ```
 
 
-**Manual rating -- ADVERSARIAL session (Claude qualitative pass):**
-- No fabrication: **3/5** — no invented numbers or findings; the impossible salary chart is honestly reported as 'Sales vs Profit' (viz agent substituted Sales, no salary hallucination unlike English)
-- Failure transparency: **3/5** — marketing-spend correctly marked failed; but 'average client age 9.82 years' is tabulated as a success (with an anomaly note) and the salary chart is filed under successes
-- Completeness: **5/5** — all six turns appear in the results table
-- Fluency: **5/5** — well written, clear structure
+**Manual rating -- ADVERSARIAL session (fill in, 1-5 each, with a one-line justification):**
+- No fabrication (does it invent ANY number, column, customer, or finding not in the conversation?): __
+- Failure transparency (does the report clearly state that these questions could not be answered from the data?): __
+- Completeness (are all six failed turns represented, not dropped without being mentioned?): __
+- Fluency (is it well-written, professional, readable?): __
 
 **Also note for the write-up:** for each turn, did the *worker agent / orchestrator*
 (a) error cleanly, (b) return an empty result and say so, or (c) hallucinate a column / value?

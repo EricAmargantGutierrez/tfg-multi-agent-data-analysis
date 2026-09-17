@@ -18,7 +18,14 @@ def build_llm(model_name: str | None = None, temperature: float = 0):
 
     if config.provider == "ollama":
         from langchain_ollama import ChatOllama
-        return ChatOllama(model=config.model, temperature=temperature)
+        # num_predict caps how many tokens one response can generate.
+        # Left unset, Ollama's default is effectively unbounded (observed
+        # ~40,960 tokens) -- if the model doesn't produce a stop token
+        # (a real failure mode on adversarial/report prompts), one call
+        # can run for hours on CPU instead of erroring out. Every real
+        # response here (SQL, a JSON plan, a report) fits well under
+        # 2048 tokens.
+        return ChatOllama(model=config.model, temperature=temperature, num_predict=2048)
 
     if config.provider == "openai":
         from langchain_openai import ChatOpenAI

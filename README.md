@@ -71,14 +71,14 @@ docs/
 src/
 ├── agents/{data_query,viz,analysis,report}/    agent.py + engine.py + prompts.py (analysis also has statistics.py)
 ├── agents/safety.py                     read-only SQL guard (checked in src/core/db.py)
-├── core/                                db.py, retry.py, llm_json.py, summarize.py, paths.py
+├── core/                                db.py, retry.py, llm_json.py, summarize.py, paths.py, languages.py
 ├── config/settings.py
 ├── llm/                                 works with any LLM provider: factory + registry
 ├── models/schemas.py                    Pydantic validation
 ├── orchestrator/                        router, MCP client, narrator, session state, LangGraph graph
 ├── eval/
 │   ├── datasets/                        55 questions, each in en/es/ca (data_query, analysis, visualization)
-│   ├── languages.py                     language codes + question/results-dir helpers
+│   ├── languages.py                     question/results-dir helpers (language codes live in src/core/languages.py)
 │   ├── ground_truth/                    generators, run against the real DB (same in every language)
 │   ├── checks.py                        scoring logic
 │   ├── baselines/                       single_agent.py + monolithic_agent.py

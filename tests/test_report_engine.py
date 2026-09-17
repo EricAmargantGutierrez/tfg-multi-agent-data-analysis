@@ -33,3 +33,46 @@ def test_report_prompt_is_summarized_for_large_row_history(monkeypatch, tmp_path
     assert result["ok"] is True
     assert "800" in captured_prompt["text"]  # row count still mentioned
     assert len(captured_prompt["text"]) < 3000  # not the full 800 rows dumped raw
+
+
+def test_report_language_is_named_explicitly_when_known(monkeypatch, tmp_path):
+    """The eval harness always knows the session's language -- the report
+    must be told to write in it, not left to guess from the JSON history."""
+    captured = {}
+
+    class _CapturingLLM:
+        def invoke(self, messages):
+            captured["system"] = messages[0]["content"]
+            class R:
+                content = "# Executive Summary\n\nInforme de prueba."
+            return R()
+
+    import src.agents.report.engine as engine_mod
+    monkeypatch.setattr(engine_mod, "build_llm", lambda: _CapturingLLM())
+    monkeypatch.setattr(engine_mod, "RESULTS_DIR", tmp_path)
+
+    generate_report_core([], language="es")
+
+    assert "Spanish" in captured["system"]
+
+
+def test_report_falls_back_to_matching_the_conversation_when_language_unknown(monkeypatch, tmp_path):
+    """Real interactive use (the REPL) has no language selector -- with
+    no language given, the report should be told to match the
+    conversation instead of defaulting to English."""
+    captured = {}
+
+    class _CapturingLLM:
+        def invoke(self, messages):
+            captured["system"] = messages[0]["content"]
+            class R:
+                content = "# Executive Summary\n\nTest report."
+            return R()
+
+    import src.agents.report.engine as engine_mod
+    monkeypatch.setattr(engine_mod, "build_llm", lambda: _CapturingLLM())
+    monkeypatch.setattr(engine_mod, "RESULTS_DIR", tmp_path)
+
+    generate_report_core([])
+
+    assert "same language as the user's questions" in captured["system"]

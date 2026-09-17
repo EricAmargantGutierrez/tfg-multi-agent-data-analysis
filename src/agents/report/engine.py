@@ -8,13 +8,13 @@ from __future__ import annotations
 
 import json
 
-from src.agents.report.prompts import SYSTEM_PROMPT
+from src.agents.report.prompts import build_system_prompt
 from src.core.paths import RESULTS_DIR
 from src.core.summarize import summarize_large_rows
 from src.llm import build_llm
 
 
-def generate_report_core(history: list) -> dict:
+def generate_report_core(history: list, language: str | None = None) -> dict:
     try:
         llm = build_llm()
         # A turn's raw result can hold a large row list (e.g. an
@@ -23,7 +23,7 @@ def generate_report_core(history: list) -> dict:
         prompt = json.dumps(summarize_large_rows(history), indent=2)
 
         response = llm.invoke([
-            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "system", "content": build_system_prompt(language)},
             {"role": "user", "content": prompt},
         ])
 

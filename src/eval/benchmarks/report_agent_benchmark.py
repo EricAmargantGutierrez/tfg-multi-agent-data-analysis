@@ -221,7 +221,7 @@ def run_session(session: dict, language: str = DEFAULT_LANGUAGE) -> dict:
             })
 
     try:
-        report_result = anyio.run(call_agent_tool, "report", {"history": history})
+        report_result = anyio.run(call_agent_tool, "report", {"history": history, "language": language})
     except Exception as e:
         report_result = {"ok": False, "error": f"{type(e).__name__}: {e}"}
 

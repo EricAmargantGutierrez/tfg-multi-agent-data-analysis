@@ -236,12 +236,6 @@ don't end up repeated in two files.
   (`src/agents/viz/engine.py::render()`) that only knows how to draw
   those 6. A question that needs a different kind of chart (a map, a
   heatmap, a Sankey diagram, ...) can't be answered.
-- **The Report Agent always writes its report in English**, no matter
-  what language the conversation was in - its prompt has no language
-  instruction, and its section headers ("Executive Summary," "Key
-  Findings," ...) are written in English. See
-  `results_and_failure_analysis.md` §7.5 for why this differs from the
-  narrator, and real Spanish/Catalan examples.
 - One SQLite database, one table.
 - No memory of earlier turns when answering a new question.
 - **The router can't always tell Data Query and Analysis apart.** A

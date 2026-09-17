@@ -8,9 +8,9 @@ mcp = FastMCP("ReportAgent")
 
 
 @mcp.tool()
-def generate_report(history: list) -> dict:
+def generate_report(history: list, language: str | None = None) -> dict:
     """Generate the final Markdown report."""
-    return generate_report_core(history)
+    return generate_report_core(history, language)
 
 
 if __name__ == "__main__":

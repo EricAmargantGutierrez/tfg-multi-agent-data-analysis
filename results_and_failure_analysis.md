@@ -196,6 +196,8 @@ I found this while testing Ollama, before the full evaluation: with no warm-up a
 
 This only matters for Ollama, since it loads a model locally. Anthropic is a hosted API with nothing to load, and its numbers show no such pattern - the first question in a run isn't slower than the rest.
 
+**A second real Ollama-only bug, found while re-running the Report Agent benchmark after the language fix (§5.7): nothing was limiting how many tokens one answer could generate.** `ChatOllama` was set up with no `num_predict` value, so Ollama used its own default instead - which turned out to be about 40,960 tokens, basically no limit at all. On one adversarial-session report, the model never produced a stop token, and the call kept running on CPU for over 5 hours before I killed it by hand. I checked it wasn't just frozen by asking the local server directly (`llama.cpp`'s `/slots` endpoint): it was still actively generating the whole time, just with nothing telling it when to stop. Fixed by setting a cap of `num_predict=2048` for Ollama in `src/llm/factory.py` (Ollama only - every real answer here, a SQL query, a JSON plan, a report, easily fits under that; Anthropic and Groq don't use this setting and aren't affected). I ran the same session again afterward and it finished normally in a few minutes.
+
 The Ollama run was done in stages, with breaks between them to keep the laptop from overheating during multi-hour runs.
 
 ### 5.3 Ollama correctness, by language
@@ -259,27 +261,27 @@ The one Visualization miss per language is the familiar §3.3 grouping problem -
 
 Catalan also had the most pipeline failures of the three languages (11/55, vs. 8/55 Spanish and 10/55 English). This doesn't affect correctness, only how many pipeline calls errored.
 
-### 5.7 Ollama Report Agent
+### 5.7 FIXED (same bug and fix as §7.5): Ollama's Report Agent, re-run after the fix
 
-Same 6 sessions and rubric as the Anthropic review (§4).
+Same bug as Anthropic's (§7.5 has the full story): the Report Agent's output was always in English no matter the session's language, on both models, since the code had no language setting for it at all. This section shows what the same fix did to Ollama's numbers. One extra problem turned up while re-running this on Ollama: the Spanish Session 6 re-run got stuck for over 5 hours generating a single response, before I killed it and found the real cause - nothing was limiting how many tokens Ollama could generate in one go (§5.2 has that story). Fixed at the same time as the language bug, then re-run cleanly.
 
-**Model: Ollama `llama3.1:8b` (local). Languages: English (EN), Spanish (ES), Catalan (CA).**
+Same 6 sessions and rubric as the Anthropic review (§4, §7.5).
+
+**Model: Ollama `llama3.1:8b` (local). Languages: English (EN, unaffected by the language fix), Spanish (ES), Catalan (CA).**
 
 | | EN sessions 1-5 mean | ES sessions 1-5 mean | CA sessions 1-5 mean |
 |---|---|---|---|
-| Accuracy / Completeness / No-fab / Fluency | 3.0 / 5.0 / 4.2 / 4.6 | 3.2 / 5.0 / 4.2 / 4.6 | 2.8 / 4.6 / 3.2 / 4.6 |
+| Accuracy / Completeness / No-fab / Fluency | 3.0 / 5.0 / 4.2 / 4.6 | 3.0 / 5.0 / 5.0 / 4.8 | 3.4 / 5.0 / 5.0 / 4.8 |
 
 | Session 6 (impossible questions) | No-fab | Failure-transp. | Completeness | Fluency |
 |---|---|---|---|---|
 | EN | 1 | 2 | 4 | 4 |
-| ES | 2 | 2 | 5 | 4 |
+| ES | 1 | 2 | 4 | 4 |
 | CA | 2 | 2 | 5 | 4 |
 
-Lower accuracy than Anthropic (§4.1's mean was 4.0) makes sense - routing mistakes (§5.4) send several sessions to an agent that structurally can't do the task, and the report just repeats the wrong answer. Catalan scores lowest, mainly from two real fabrications:
+Accuracy stays low in both languages, for the same reason as before this fix: Ollama's weak routing (§5.4) sends several questions to an agent that can't really answer them, and the report just repeats a wrong or incomplete answer without adding anything made up of its own - that counts against accuracy, not against no-fabrication (§1 explains the difference). One new mistake turned up this time, and it's different from the rest: in Spanish Session 3, the chart turn itself correctly says Technology has the highest category sales ("la categoría de tecnología generó las ventas totales más altas") - but the Report Agent's own summary gets it wrong anyway, crediting Furniture instead. Unlike everything else in this section, that mistake is the Report Agent's own, not something it copied from a bad answer.
 
-- **A serious fabrication in all three languages.** Session 6's impossible "marketing spend" correlation was never reported as a failure anywhere - the model substituted a real column and reported a precise, confident correlation as fact ("0.48, p=0.0" in English; "-0.219," the real discount/profit correlation, in Spanish and Catalan). Every Anthropic run on this exact question either errored or refused. The worst single fabrication found in the whole evaluation, and consistent across all three languages here.
-- **The "employee salary" chart, and a case where the report undoes what the agent got right.** Made up in English (fake salary figures, a claimed "positive correlation"), but Spanish *and* Catalan correctly called it "sales vs profit" with real values and no invented relationship - the same honest pattern seen on Anthropic (§7.5). But in Catalan the *Report Agent* then wrote the summary back using the dishonest "employee salary" framing anyway - so a correct underlying answer doesn't guarantee an honest final report.
-- **A fabrication invented by the Report Agent itself, not inherited from a worker agent.** In Catalan Session 4, the pie-chart question failed completely - no answer at all for that turn. The report still confidently listed three segment counts ("Consumer: 5191, Corporate: 3020, Home Office: 1783") as if it had been answered; those numbers are real values from elsewhere in the dataset, but were never computed or returned in this conversation. Session 3 shows a smaller version: raw boxplot sample rows relabelled in the report as "median," "first quartile," "third quartile," and "outliers" - specific statistical claims nobody computed.
+No-fabrication for sessions 1-5 is better than the old English numbers, in both new languages - the wrong-answer cases from §5.4's routing problems don't come with any extra made-up detail added on top this time. Session 6 tells a different story, and shows the worst problem found here isn't about report language at all: asked for the correlation between "marketing spend" and profit (a column that doesn't exist), the Analysis Agent quietly uses `discount` instead and reports a precise, confident correlation as if it were the real answer - `-0.219` in Spanish, `-0.22` in Catalan - in both new languages, exactly like before this fix. Every Anthropic run on this same question either failed with an error or refused to guess (§7.5). Spanish adds a second made-up claim on top: its report also says there is a "negative relationship" between the (made-up) "employee salary" and profit in the Q6 chart - but that chart doesn't show any such relationship either way, since it's really sales vs. profit. Catalan's report describes the same chart without making up a direction for the relationship.
 
 ### 5.8 Insightful findings
 
@@ -368,30 +370,31 @@ Set those two aside, and the real system is basically 100% correct in all three 
 
 The baseline fails on the same questions everywhere, for good reason: SQLite has no `MEDIAN`/`STDEV`/`VAR_POP`, and regression/PCA/K-Means can't be done in one `SELECT`. The monolithic agent's few extra misses are the same vague questions ("where does the business perform best," "which segment dominates sales"), plus one Catalan-only JSON parse error.
 
-### 7.5 Report Agent by language
+### 7.5 FIXED: the Report Agent always answered in English, no matter the conversation's language
 
-Same 6 sessions, translated; ratings are my own pass, done the same way for all three languages (English matches §4.1 within about ±0.2). Per-session detail is in `results/eval/anthropic/{es,ca}/report_agent_review.md`.
+**Original finding.** Everything else in the system followed the conversation's language correctly - questions, per-turn answers, even number formatting ("725.457,82", "-0,219", "9,82 anys"). Only the Report Agent's output, and its "Questions Asked" section, stayed in English every time, even in a Spanish or Catalan session.
 
-**Model: Anthropic Claude Haiku 4.5. Languages: English (EN), Spanish (ES), Catalan (CA).**
+**Why this happened.** `generate_report_core(history)` had no language setting at all, and its instructions to the model ("Write a professional report...") are plain English with no mention of language anywhere. The per-turn narrator (`narrate.py`) doesn't have this problem, even though it also has no language setting: it puts the real question text straight into its own prompt ("User question:\n\n{question}"), so the model just naturally answers in the same language as the question. The Report Agent's prompt instead dumps the whole conversation as one block of JSON data - the original-language questions are in there, but buried under English instructions, and the English wins out.
+
+**The fix.** The instructions stay in English, as they should. I added one extra line, built by a new `build_system_prompt(language)` function in `src/agents/report/prompts.py`. When the caller knows the language for sure - the eval scripts always do - that line names it directly ("Write the report in Spanish."). When it doesn't - a real conversation through the REPL, which has no language setting at all - the line instead says "write the report in the same language as the user's questions below." This second case is the one that actually matters for real use: a user who doesn't speak English just types in their own language, with nothing to configure, and needs the report back in that same language. I checked this directly, with no eval script involved at all: I called the Report Agent with a Catalan question and no language given, and it correctly wrote the report in Catalan, from that fallback line alone.
+
+**Checked, then re-run.** I added two new unit tests, one for each of the two cases above. The Spanish and Catalan Report Agent benchmarks (all 6 sessions each) were then re-run on Anthropic with the fix in place, and the results below replace the old English-only ones completely. There's no useful "before" to keep here, unlike the t-test fix (§3.5) - grading an English report for a Spanish or Catalan session was never measuring anything real to begin with.
+
+**Model: Anthropic Claude Haiku 4.5. Languages: English (EN, unaffected by this fix), Spanish (ES), Catalan (CA).**
 
 | | EN | ES | CA |
 |---|---|---|---|
-| Sessions 1–5 mean — Accuracy / Completeness / No-fabrication / Fluency | 4.0 / 5.0 / 3.8 / 5.0 | 4.2 / 5.0 / 3.8 / 5.0 | 3.8 / 5.0 / 3.4 / 5.0 |
-| Session 6 (impossible questions) — No-fab / Failure-transparency / Completeness / Fluency | 2 / 3 / 4 / 5 | 3 / 3 / 5 / 5 | 3 / 3 / 5 / 5 |
+| Sessions 1–5 mean — Accuracy / Completeness / No-fabrication / Fluency | 4.0 / 5.0 / 3.8 / 5.0 | 4.8 / 5.0 / 5.0 / 5.0 | 4.8 / 5.0 / 5.0 / 5.0 |
+| Session 6 (impossible questions) — No-fab / Failure-transparency / Completeness / Fluency | 2 / 3 / 4 / 5 | 4 / 3 / 5 / 5 | 4 / 3 / 5 / 5 |
 
-**The one clear language difference: the report is always in English.** Everything else follows the conversation's language - questions, answers, even number formatting ("725.457,82", "-0,219", "9,82 anys") - but the Report Agent's output and its "Questions Asked" section are always English, because its prompt is English and says nothing about language; the narrator, by contrast, naturally follows the question's language.
+Sessions 1-5 score a little higher in both new languages than in English. The main reason: the fake profit-margin number that shows up in English Session 1 (§4.1) doesn't appear in either the Spanish or Catalan version, and nothing else got invented in its place. There is one real mistake in both: Session 4's segment breakdown (Consumer/Corporate/Home Office) has the right order counts in both languages, but the percentages worked out from them are wrong, in two different ways - Spanish's three percentages add up to 110%, Catalan's add up to 91.7%. Just a plain arithmetic mistake by the model each time, not a data problem.
 
-Other things:
-
-- The report's usual mistakes repeat across languages: Session 1 invents a profit-margin number in all three (English/Catalan "~39%", Spanish "5.7%", also just wrong math); Session 4 gets segment percentages a bit wrong in English, badly wrong in Catalan (add to 114%), right in Spanish.
-- Session 6 was handled better in Spanish and Catalan: the English chart invented a fake salary axis and the report claimed a correlation, while Spanish/Catalan just said "Sales vs Profit" honestly - likely luck (the narrator didn't pick up the false premise), but real.
-- Session 6's "average customer age" also differed: English hit a hard error (the SQL failed the safety check); Spanish/Catalan returned a wrong "9.82 years" (the SQL measured order age) that both flagged as odd, yet the report still lists it as "✓ Success."
-- Sessions 2, 3, and 5 are good and consistent across all three languages - correct stats, correct t-test wording, correct clusters.
+Session 6 also does better than English, but for a reason that has nothing to do with this fix: the per-turn narration for question 6 was already better in Spanish and Catalan before this fix, in the old evaluation too. The English chart turn invents a fake "employee salary" label and a made-up correlation; the Spanish and Catalan narration correctly describes it as a sales-vs-profit chart instead. That difference lives in the turns, not the report, so it shows up the same way now that the report is finally written in the right language. Failure-transparency stays at 3/5 in every language, for the same reason each time: question 1's answer ("9.84 years", really the average *order* age, not customer age - an odd result the narration itself already flags, and unrelated to this fix) gets turned by the report into a finding about how old the data is, instead of being stated plainly as something the system can't answer. Question 3's marketing-spend correlation is the only one of the three impossible questions each report handles honestly, by saying it failed.
 
 ### 7.6 What this part shows
 
 - The system handles Spanish and Catalan about as well as English - correctness, routing, and latency all close to English, and every wrong answer traces to one of the two already-known ambiguities, not language misunderstanding.
-- The one real gap: the Report Agent always writes in English, regardless of conversation language.
+- The one real gap found here - the Report Agent always writing in English regardless of conversation language - was fixed after this evaluation and independently re-verified (§7.5); the numbers above already reflect the fix, not the original bug.
 - This was one model, one set of translations, done by me and not independently checked.
 
 ---
@@ -455,8 +458,8 @@ Ollama is roughly 15-30x slower, expected for a small model doing CPU-only infer
 
 | | EN | ES | CA |
 |---|---|---|---|
-| Anthropic | 4.0 / 5.0 / 3.8 / 5.0 | 4.2 / 5.0 / 3.8 / 5.0 | 3.8 / 5.0 / 3.4 / 5.0 |
-| Ollama | 3.0 / 5.0 / 4.2 / 4.6 | 3.2 / 5.0 / 4.2 / 4.6 | 2.8 / 4.6 / 3.2 / 4.6 |
+| Anthropic | 4.0 / 5.0 / 3.8 / 5.0 | 4.8 / 5.0 / 5.0 / 5.0 | 4.8 / 5.0 / 5.0 / 5.0 |
+| Ollama | 3.0 / 5.0 / 4.2 / 4.6 | 3.0 / 5.0 / 5.0 / 4.8 | 3.4 / 5.0 / 5.0 / 4.8 |
 
 Surprising: Ollama's no-fabrication score on normal sessions isn't worse than Anthropic's, sometimes a touch better - the accuracy gap is a routing problem, not an honesty problem: several Ollama sessions ask the Analysis agent something it simply can't do (§5.4), and the report faithfully relays that wrong answer without inventing anything. The picture flips on the session with impossible questions, where every question truly can't be answered: Ollama's no-fabrication score (1-2 across languages) drops below Anthropic's (2-3), and Ollama produced the worst fabrications found anywhere in the whole project - a confident, precise, entirely invented correlation number in all three languages (§5.7), a complete answer made up for a turn that had actually failed, and sample rows mislabeled as computed statistics (§5.7, Catalan). So a model can look equally honest on ordinary questions and still be much more willing to make something up the moment there is really nothing true to say.
 
@@ -476,6 +479,6 @@ This is the one place in the repo for ideas on what to build or change next. Wha
 - **Reduce the Data Query/Analysis routing overlap.** Right now a mean, median, or other simple statistic can be answered correctly by either agent (§2.2, §3.4), so there's no single right routing choice for those questions. Either the two agents' jobs could be split more clearly (e.g. Analysis only handles anything beyond a raw count or sum), or the benchmark's "expected agent" label could allow more than one correct agent per question.
 - **Rewrite the benchmark questions that turned out to have more than one fair answer.** Different from the routing overlap above - this is about the question itself not having one single correct answer, no matter who answers it: "how many orders" (§3.1) can mean `COUNT(*)` or `COUNT(DISTINCT order_id)`, both reasonable; the "profit over time" chart (§3.3) never says whether to group by day or month. Either reword these questions to remove the ambiguity, or accept more than one correct reading in the ground truth, so a wrong score reflects a real mistake.
 - **A second, harder dataset.** Everything here is on Superstore. A larger or messier dataset - or one with more than one table (e.g. Olist), to test JOIN handling - would show how much of what was found is specific to this one.
-- **Answer in the user's language** - the Report Agent's system prompt is English-only (§7.5).
+- **A general safety net on LLM calls, not just Ollama's token cap.** §5.2's runaway-generation bug was fixed by capping Ollama's output length, but nothing currently protects against a similar failure mode on another provider (e.g. a hung connection) - a wall-clock timeout on any LLM call, not just a token limit, would be a more general fix.
 - **Finish the cross-provider picture** - a real Groq run, if its paid tier ever reopens (the free tier's daily token limit makes a full run take weeks, not the lack of a working model - see §5.1), and cost measurement per provider.
 - **Full containerization.** Running everything in Docker containers, one container per agent (with Docker Compose), for easier deployment.
