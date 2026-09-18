@@ -22,7 +22,7 @@ about structured data. Instead of using one big model for everything, it
 splits the work between several specialized agents: a Data Query Agent,
 an Analysis Agent, a Visualization Agent, and a Report Agent. Large
 Language Models (LLMs) do the thinking, LangGraph manages the flow
-between agents, and the Model Context Protocol (MCP) is how each agent
+between agents, and the Model Context Protocol (MCP) defines how each agent
 gets called.
 
 My goal is to check how much this multi-agent design actually helps,
@@ -194,8 +194,7 @@ infrastructure limits (a model retired mid-project, then a free-tier
 daily token limit too tight to finish a full run in reasonable time) -
 §5.1 explains what happened, but there are no Groq numbers to report.
 
-I also ran the evaluation in **Spanish and Catalan** on Anthropic Haiku
-(same questions translated, same ground truth). Results are in
+I also ran the evaluation in **Spanish and Catalan** (same questions translated, same ground truth). Results are in
 `results/eval/anthropic/{en,es,ca}/` and §7.
 
 ---
