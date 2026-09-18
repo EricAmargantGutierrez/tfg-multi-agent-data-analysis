@@ -197,7 +197,7 @@ numbers to report.
 
 I also ran the evaluation in **Spanish and Catalan on Anthropic Haiku**
 (same questions translated, same ground truth). Results are in
-`results/eval/anthropic/{en,es,ca}/` and §2.4.
+`results/eval/anthropic/{en,es,ca}/` and §2 (which covers all three languages together, not as a separate section).
 
 ---
 
