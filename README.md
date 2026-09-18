@@ -134,7 +134,7 @@ totals ("total sales by region"), statistics ("standard deviation of
 profit"), and charts. One row is one line item, not one whole order.
 This is why there is a "how many orders" problem, which I explain later
 in the evaluation
-([`results_and_failure_analysis.md`](results_and_failure_analysis.md) §3.1).
+([`results_and_failure_analysis.md`](results_and_failure_analysis.md) §2.2).
 
 The system only knows what is in this local database. It cannot search
 the web or use any outside information.
@@ -189,15 +189,15 @@ All the numbers above are from Anthropic Haiku. I also ran two local
 models (`llama3.1:8b`, then `Salamandra-7b-instruct`, picked
 specifically for its Spanish/Catalan training focus, both run through
 Ollama) on the current system, in all three languages - their results
-are in §5. I also tried Groq, but decided not to pursue it after
+are in §3. I also tried Groq, but decided not to pursue it after
 running into real infrastructure limits (a model retired mid-project,
 then a free-tier daily token limit too tight to finish a full run in
-reasonable time) - §5.1 explains what happened, but there are no Groq
+reasonable time) - §3.1 explains what happened, but there are no Groq
 numbers to report.
 
 I also ran the evaluation in **Spanish and Catalan on Anthropic Haiku**
 (same questions translated, same ground truth). Results are in
-`results/eval/anthropic/{en,es,ca}/` and §7.
+`results/eval/anthropic/{en,es,ca}/` and §2.4.
 
 ---
 

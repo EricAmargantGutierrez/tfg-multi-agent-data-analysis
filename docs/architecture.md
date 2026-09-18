@@ -61,7 +61,7 @@ write keyword (`INSERT`, `UPDATE`, `DELETE`, `DROP`, ...). This is a
 simple keyword check, not a full SQL parser, but it's enough to block
 the one thing that actually matters here (a write). It's also what
 raises the `UnsafeSQLError` you can see in
-`results_and_failure_analysis.md` §4.2.
+`results_and_failure_analysis.md` §2.3.
 
 ## Protecting the LLM from its own agents' output size
 
@@ -98,7 +98,7 @@ runs the real two-group comparison.
 An earlier version compared two numeric *columns* directly, as if they
 were two separate groups - that isn't a valid two-group test. I found
 this bug and fixed it during the evaluation; the full before-and-after
-is in `results_and_failure_analysis.md` §3.5.
+is in `results_and_failure_analysis.md` §2.2.
 
 ## Conversation history — what it's actually used for
 
@@ -198,7 +198,7 @@ input, the steps it runs, and exactly what it can and can't do.
   an earlier turn was wrong (or an agent used a different
   column instead of a missing one, without saying so), the Report Agent has no way to
   catch that, and it can end up repeating the mistake, or even making
-  it sound fine. See `results_and_failure_analysis.md` §4.2 for real
+  it sound fine. See `results_and_failure_analysis.md` §2.3 for real
   examples of this.
 
 ## Current Limitations
@@ -206,7 +206,7 @@ input, the steps it runs, and exactly what it can and can't do.
 This is the one place in the repo that lists the system's current
 limitations - what the system, as built, cannot do right now. Ideas for
 fixing or extending any of these later are collected separately, in
-`results_and_failure_analysis.md` §9 (Future work), so the two lists
+`results_and_failure_analysis.md` §5 (Future work), so the two lists
 don't end up repeated in two files.
 
 - **No internet access, no external tools.** No agent can search the
@@ -227,7 +227,7 @@ don't end up repeated in two files.
   against exact ground truth, but it also means the system can only do
   what those 15 pre-written functions already cover - nothing more
   flexible, like a real code-generating agent, is possible here. See
-  `results_and_failure_analysis.md` §3.2 for what this means for the
+  `results_and_failure_analysis.md` §2.2 for what this means for the
   evaluation's baseline comparison.
 - **The Visualization Agent can only draw 6 chart types** - bar, line,
   scatter, pie, histogram, boxplot. The LLM does choose which one to
@@ -244,8 +244,8 @@ don't end up repeated in two files.
   it's also one of the Analysis Agent's 15 functions. There's no single
   "correct" agent for this kind of question, so the router has to pick
   one anyway, and there's no way to measure routing accuracy precisely
-  for these questions - see `results_and_failure_analysis.md` §2.2 and
-  §3.4 for the real numbers this causes.
+  for these questions - see `results_and_failure_analysis.md` §2.1 and
+  §2.2 for the real numbers this causes.
 - The Analysis Agent's filters only support `= != > >= < <= LIKE IN
   BETWEEN` on real columns - enough for filtering by region, category,
   or a date range, but not any condition you could think of.
