@@ -1,0 +1,5720 @@
+[
+  {
+    "id": 1,
+    "category": "data_query",
+    "task_type": "count",
+    "difficulty": "easy",
+    "language": "ca",
+    "question": "Quantes comandes hi ha?",
+    "question_en": "How many orders are there?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 2.484,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          9994
+        ]
+      ],
+      "sql": "SELECT COUNT(*) FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 2,
+    "category": "data_query",
+    "task_type": "count_distinct",
+    "difficulty": "easy",
+    "language": "ca",
+    "question": "Quants clients hi ha?",
+    "question_en": "How many customers are there?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 2.2925,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          9994
+        ]
+      ],
+      "sql": "SELECT COUNT(*) FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 3,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "easy",
+    "language": "ca",
+    "question": "Quina regió té les vendes més altes?",
+    "question_en": "Which region has the highest sales?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 6.6912,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "region",
+        "SUM(sales)"
+      ],
+      "rows": [
+        [
+          "West",
+          725457.8245
+        ]
+      ],
+      "sql": "SELECT region, SUM(sales)\nFROM orders\nGROUP BY region\nORDER BY SUM(sales) DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 4,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "easy",
+    "language": "ca",
+    "question": "Quina categoria va generar el benefici més alt?",
+    "question_en": "Which category generated the highest profit?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": false,
+    "latency_seconds": 4.7242,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [],
+      "rows": [],
+      "sql": "SELECT category FROM orders\nWHERE sales = MAX(sales)\nORDER BY sales DESC;",
+      "error": "OperationalError: misuse of aggregate function MAX()"
+    },
+    "error": "OperationalError: misuse of aggregate function MAX()"
+  },
+  {
+    "id": 5,
+    "category": "data_query",
+    "task_type": "group_by",
+    "difficulty": "easy",
+    "language": "ca",
+    "question": "Quines són les vendes totals per regió?",
+    "question_en": "What are the total sales by region?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 5.5336,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "total_sales"
+      ],
+      "rows": [
+        [
+          null
+        ]
+      ],
+      "sql": "SELECT SUM(sales) AS total_sales\nFROM orders\nWHERE region = 'United States'",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 6,
+    "category": "data_query",
+    "task_type": "top_k",
+    "difficulty": "easy",
+    "language": "ca",
+    "question": "Mostra els cinc productes més rendibles.",
+    "question_en": "Show the five most profitable products.",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 7.2391,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "product_name",
+        "profit"
+      ],
+      "rows": [
+        [
+          "Canon imageCLASS 2200 Advanced Copier",
+          25199.928
+        ],
+        [
+          "Fellowes PB500 Electric Punch Plastic Comb Binding Machine with Manual Bind",
+          7753.039
+        ],
+        [
+          "Hewlett Packard LaserJet 3310 Copier",
+          6983.8836
+        ],
+        [
+          "Canon PC1060 Personal Laser Copier",
+          4570.9347
+        ],
+        [
+          "HP Designjet T520 Inkjet Large Format Printer - 24\" Color",
+          4094.9766
+        ]
+      ],
+      "sql": "SELECT product_name, SUM(profit) AS profit\nFROM orders\nGROUP BY product_name\nORDER BY profit DESC\nLIMIT 5",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 7,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "easy",
+    "language": "ca",
+    "question": "Quin client va fer més comandes?",
+    "question_en": "Which customer placed the most orders?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 7.5238,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "customer_name",
+        "SUM(quantity)"
+      ],
+      "rows": [
+        [
+          "Jonathan Doherty",
+          150
+        ]
+      ],
+      "sql": "SELECT customer_name, SUM(quantity)\nFROM orders\nGROUP BY customer_name\nORDER BY SUM(quantity) DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 8,
+    "category": "data_query",
+    "task_type": "aggregation",
+    "difficulty": "easy",
+    "language": "ca",
+    "question": "Quin és el benefici total?",
+    "question_en": "What is the total profit?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 2.7608,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "SUM(profit)"
+      ],
+      "rows": [
+        [
+          286397.0217
+        ]
+      ],
+      "sql": "SELECT SUM(profit)\nFROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 9,
+    "category": "data_query",
+    "task_type": "distinct",
+    "difficulty": "easy",
+    "language": "ca",
+    "question": "Enumera totes les categories de productes.",
+    "question_en": "List all product categories.",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 2.9472,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "category"
+      ],
+      "rows": [
+        [
+          "Furniture"
+        ],
+        [
+          "Office Supplies"
+        ],
+        [
+          "Technology"
+        ]
+      ],
+      "sql": "SELECT DISTINCT category FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 10,
+    "category": "data_query",
+    "task_type": "filter_count",
+    "difficulty": "easy",
+    "language": "ca",
+    "question": "Quantes comandes es van enviar mitjançant Second Class?",
+    "question_en": "How many orders were shipped using Second Class?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 4.7943,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          1945
+        ]
+      ],
+      "sql": "SELECT COUNT(*)\nFROM orders\nWHERE ship_mode = 'Second Class'",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 11,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Qui va generar la major quantitat d'ingressos?",
+    "question_en": "Who generated the largest amount of revenue?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 8.3844,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "customer_name",
+        "total_sales"
+      ],
+      "rows": [
+        [
+          "Sean Miller",
+          25043.05
+        ]
+      ],
+      "sql": "SELECT customer_name, SUM(sales) AS total_sales\nFROM orders\nGROUP BY customer_name\nORDER BY total_sales DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 12,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Quin estat va vendre més productes?",
+    "question_en": "Which state sold the most products?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 5.6251,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "state"
+      ],
+      "rows": [
+        [
+          "Florida"
+        ]
+      ],
+      "sql": "SELECT state\nFROM orders\nWHERE sales > 0\nORDER BY sales DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 13,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Quina ciutat va obtenir el benefici més gran?",
+    "question_en": "Which city earned the greatest profit?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 6.9732,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "city",
+        "SUM(profit)"
+      ],
+      "rows": [
+        [
+          "New York City",
+          62036.9837
+        ]
+      ],
+      "sql": "SELECT city, SUM(profit)\nFROM orders\nGROUP BY city\nORDER BY SUM(profit) DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 14,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Quin mode d'enviament apareix amb més freqüència?",
+    "question_en": "Which shipping mode appears most frequently?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 9.7532,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "ship_mode"
+      ],
+      "rows": [
+        [
+          "Standard Class"
+        ],
+        [
+          "Second Class"
+        ],
+        [
+          "First Class"
+        ]
+      ],
+      "sql": "SELECT ship_mode\nFROM orders\nWHERE ship_date = '2016-11-08'\nGROUP BY ship_mode\nORDER BY COUNT(ship_mode) DESC",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 15,
+    "category": "data_query",
+    "task_type": "count_distinct",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Quants noms de productes diferents hi ha?",
+    "question_en": "How many distinct product names are there?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 4.4489,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "COUNT(DISTINCT product_name)"
+      ],
+      "rows": [
+        [
+          1850
+        ]
+      ],
+      "sql": "SELECT COUNT(DISTINCT product_name) FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 16,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Quin segment aporta la major part de les vendes?",
+    "question_en": "Which segment contributes the largest share of sales?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 6.4068,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "segment"
+      ],
+      "rows": [
+        [
+          "Home Office"
+        ]
+      ],
+      "sql": "SELECT segment\nFROM orders\nWHERE sales > 0\nORDER BY sales DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 17,
+    "category": "data_query",
+    "task_type": "top_k",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Troba la comanda amb les vendes més altes.",
+    "question_en": "Find the order with the highest sales.",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 4.4748,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "row_id",
+        "order_id",
+        "order_date",
+        "ship_date",
+        "ship_mode",
+        "customer_id",
+        "customer_name",
+        "segment",
+        "country",
+        "city",
+        "state",
+        "postal_code",
+        "region",
+        "product_id",
+        "category",
+        "sub_category",
+        "product_name",
+        "sales",
+        "quantity",
+        "discount",
+        "profit"
+      ],
+      "rows": [
+        [
+          2698,
+          "CA-2014-145317",
+          "2014-03-18",
+          "2014-03-23",
+          "Standard Class",
+          "SM-20320",
+          "Sean Miller",
+          "Home Office",
+          "United States",
+          "Jacksonville",
+          "Florida",
+          32216,
+          "South",
+          "TEC-MA-10002412",
+          "Technology",
+          "Machines",
+          "Cisco TelePresence System EX90 Videoconferencing Unit",
+          22638.48,
+          6,
+          0.5,
+          -1811.0784
+        ]
+      ],
+      "sql": "SELECT * FROM orders\nORDER BY sales DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 18,
+    "category": "data_query",
+    "task_type": "count_distinct",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Quantes ciutats úniques hi ha representades?",
+    "question_en": "How many unique cities are represented?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 3.2676,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "city"
+      ],
+      "rows": [
+        [
+          "Henderson"
+        ],
+        [
+          "Los Angeles"
+        ],
+        [
+          "Fort Lauderdale"
+        ],
+        [
+          "Concord"
+        ],
+        [
+          "Seattle"
+        ],
+        [
+          "Fort Worth"
+        ],
+        [
+          "Madison"
+        ],
+        [
+          "West Jordan"
+        ],
+        [
+          "San Francisco"
+        ],
+        [
+          "Fremont"
+        ],
+        [
+          "Philadelphia"
+        ],
+        [
+          "Orem"
+        ],
+        [
+          "Houston"
+        ],
+        [
+          "Richardson"
+        ],
+        [
+          "Naperville"
+        ],
+        [
+          "Melbourne"
+        ],
+        [
+          "Eagan"
+        ],
+        [
+          "Westland"
+        ],
+        [
+          "Dover"
+        ],
+        [
+          "New Albany"
+        ],
+        [
+          "New York City"
+        ],
+        [
+          "Troy"
+        ],
+        [
+          "Chicago"
+        ],
+        [
+          "Gilbert"
+        ],
+        [
+          "Springfield"
+        ],
+        [
+          "Jackson"
+        ],
+        [
+          "Memphis"
+        ],
+        [
+          "Decatur"
+        ],
+        [
+          "Durham"
+        ],
+        [
+          "Columbia"
+        ],
+        [
+          "Rochester"
+        ],
+        [
+          "Minneapolis"
+        ],
+        [
+          "Portland"
+        ],
+        [
+          "Saint Paul"
+        ],
+        [
+          "Aurora"
+        ],
+        [
+          "Charlotte"
+        ],
+        [
+          "Orland Park"
+        ],
+        [
+          "Urbandale"
+        ],
+        [
+          "Columbus"
+        ],
+        [
+          "Bristol"
+        ],
+        [
+          "Wilmington"
+        ],
+        [
+          "Bloomington"
+        ],
+        [
+          "Phoenix"
+        ],
+        [
+          "Roseville"
+        ],
+        [
+          "Independence"
+        ],
+        [
+          "Pasadena"
+        ],
+        [
+          "Newark"
+        ],
+        [
+          "Franklin"
+        ],
+        [
+          "Scottsdale"
+        ],
+        [
+          "San Jose"
+        ],
+        [
+          "Edmond"
+        ],
+        [
+          "Carlsbad"
+        ],
+        [
+          "San Antonio"
+        ],
+        [
+          "Monroe"
+        ],
+        [
+          "Fairfield"
+        ],
+        [
+          "Grand Prairie"
+        ],
+        [
+          "Redlands"
+        ],
+        [
+          "Hamilton"
+        ],
+        [
+          "Westfield"
+        ],
+        [
+          "Akron"
+        ],
+        [
+          "Denver"
+        ],
+        [
+          "Dallas"
+        ],
+        [
+          "Whittier"
+        ],
+        [
+          "Saginaw"
+        ],
+        [
+          "Medina"
+        ],
+        [
+          "Dublin"
+        ],
+        [
+          "Detroit"
+        ],
+        [
+          "Tampa"
+        ],
+        [
+          "Santa Clara"
+        ],
+        [
+          "Lakeville"
+        ],
+        [
+          "San Diego"
+        ],
+        [
+          "Brentwood"
+        ],
+        [
+          "Chapel Hill"
+        ],
+        [
+          "Morristown"
+        ],
+        [
+          "Cincinnati"
+        ],
+        [
+          "Inglewood"
+        ],
+        [
+          "Tamarac"
+        ],
+        [
+          "Colorado Springs"
+        ],
+        [
+          "Belleville"
+        ],
+        [
+          "Taylor"
+        ],
+        [
+          "Lakewood"
+        ],
+        [
+          "Arlington"
+        ],
+        [
+          "Arvada"
+        ],
+        [
+          "Hackensack"
+        ],
+        [
+          "Saint Petersburg"
+        ],
+        [
+          "Long Beach"
+        ],
+        [
+          "Hesperia"
+        ],
+        [
+          "Murfreesboro"
+        ],
+        [
+          "Layton"
+        ],
+        [
+          "Austin"
+        ],
+        [
+          "Lowell"
+        ],
+        [
+          "Manchester"
+        ],
+        [
+          "Harlingen"
+        ],
+        [
+          "Tucson"
+        ],
+        [
+          "Quincy"
+        ],
+        [
+          "Pembroke Pines"
+        ],
+        [
+          "Des Moines"
+        ],
+        [
+          "Peoria"
+        ],
+        [
+          "Las Vegas"
+        ],
+        [
+          "Warwick"
+        ],
+        [
+          "Miami"
+        ],
+        [
+          "Huntington Beach"
+        ],
+        [
+          "Richmond"
+        ],
+        [
+          "Louisville"
+        ],
+        [
+          "Lawrence"
+        ],
+        [
+          "Canton"
+        ],
+        [
+          "New Rochelle"
+        ],
+        [
+          "Gastonia"
+        ],
+        [
+          "Jacksonville"
+        ],
+        [
+          "Auburn"
+        ],
+        [
+          "Norman"
+        ],
+        [
+          "Park Ridge"
+        ],
+        [
+          "Amarillo"
+        ],
+        [
+          "Lindenhurst"
+        ],
+        [
+          "Huntsville"
+        ],
+        [
+          "Fayetteville"
+        ],
+        [
+          "Costa Mesa"
+        ],
+        [
+          "Parker"
+        ],
+        [
+          "Atlanta"
+        ],
+        [
+          "Gladstone"
+        ],
+        [
+          "Great Falls"
+        ],
+        [
+          "Lakeland"
+        ],
+        [
+          "Montgomery"
+        ],
+        [
+          "Mesa"
+        ],
+        [
+          "Green Bay"
+        ],
+        [
+          "Anaheim"
+        ],
+        [
+          "Marysville"
+        ],
+        [
+          "Salem"
+        ],
+        [
+          "Laredo"
+        ],
+        [
+          "Grove City"
+        ],
+        [
+          "Dearborn"
+        ],
+        [
+          "Warner Robins"
+        ],
+        [
+          "Vallejo"
+        ],
+        [
+          "Mission Viejo"
+        ],
+        [
+          "Rochester Hills"
+        ],
+        [
+          "Plainfield"
+        ],
+        [
+          "Sierra Vista"
+        ],
+        [
+          "Vancouver"
+        ],
+        [
+          "Cleveland"
+        ],
+        [
+          "Tyler"
+        ],
+        [
+          "Burlington"
+        ],
+        [
+          "Waynesboro"
+        ],
+        [
+          "Chester"
+        ],
+        [
+          "Cary"
+        ],
+        [
+          "Palm Coast"
+        ],
+        [
+          "Mount Vernon"
+        ],
+        [
+          "Hialeah"
+        ],
+        [
+          "Oceanside"
+        ],
+        [
+          "Evanston"
+        ],
+        [
+          "Trenton"
+        ],
+        [
+          "Cottage Grove"
+        ],
+        [
+          "Bossier City"
+        ],
+        [
+          "Lancaster"
+        ],
+        [
+          "Asheville"
+        ],
+        [
+          "Lake Elsinore"
+        ],
+        [
+          "Omaha"
+        ],
+        [
+          "Edmonds"
+        ],
+        [
+          "Santa Ana"
+        ],
+        [
+          "Milwaukee"
+        ],
+        [
+          "Florence"
+        ],
+        [
+          "Lorain"
+        ],
+        [
+          "Linden"
+        ],
+        [
+          "Salinas"
+        ],
+        [
+          "New Brunswick"
+        ],
+        [
+          "Garland"
+        ],
+        [
+          "Norwich"
+        ],
+        [
+          "Alexandria"
+        ],
+        [
+          "Toledo"
+        ],
+        [
+          "Farmington"
+        ],
+        [
+          "Riverside"
+        ],
+        [
+          "Torrance"
+        ],
+        [
+          "Round Rock"
+        ],
+        [
+          "Boca Raton"
+        ],
+        [
+          "Virginia Beach"
+        ],
+        [
+          "Murrieta"
+        ],
+        [
+          "Olympia"
+        ],
+        [
+          "Washington"
+        ],
+        [
+          "Jefferson City"
+        ],
+        [
+          "Saint Peters"
+        ],
+        [
+          "Rockford"
+        ],
+        [
+          "Brownsville"
+        ],
+        [
+          "Yonkers"
+        ],
+        [
+          "Oakland"
+        ],
+        [
+          "Clinton"
+        ],
+        [
+          "Encinitas"
+        ],
+        [
+          "Roswell"
+        ],
+        [
+          "Jonesboro"
+        ],
+        [
+          "Antioch"
+        ],
+        [
+          "Homestead"
+        ],
+        [
+          "La Porte"
+        ],
+        [
+          "Lansing"
+        ],
+        [
+          "Cuyahoga Falls"
+        ],
+        [
+          "Reno"
+        ],
+        [
+          "Harrisonburg"
+        ],
+        [
+          "Escondido"
+        ],
+        [
+          "Royal Oak"
+        ],
+        [
+          "Rockville"
+        ],
+        [
+          "Coral Springs"
+        ],
+        [
+          "Buffalo"
+        ],
+        [
+          "Boynton Beach"
+        ],
+        [
+          "Gulfport"
+        ],
+        [
+          "Fresno"
+        ],
+        [
+          "Greenville"
+        ],
+        [
+          "Macon"
+        ],
+        [
+          "Cedar Rapids"
+        ],
+        [
+          "Providence"
+        ],
+        [
+          "Pueblo"
+        ],
+        [
+          "Deltona"
+        ],
+        [
+          "Murray"
+        ],
+        [
+          "Middletown"
+        ],
+        [
+          "Freeport"
+        ],
+        [
+          "Pico Rivera"
+        ],
+        [
+          "Provo"
+        ],
+        [
+          "Pleasant Grove"
+        ],
+        [
+          "Smyrna"
+        ],
+        [
+          "Parma"
+        ],
+        [
+          "Mobile"
+        ],
+        [
+          "New Bedford"
+        ],
+        [
+          "Irving"
+        ],
+        [
+          "Vineland"
+        ],
+        [
+          "Glendale"
+        ],
+        [
+          "Niagara Falls"
+        ],
+        [
+          "Thomasville"
+        ],
+        [
+          "Westminster"
+        ],
+        [
+          "Coppell"
+        ],
+        [
+          "Pomona"
+        ],
+        [
+          "North Las Vegas"
+        ],
+        [
+          "Allentown"
+        ],
+        [
+          "Tempe"
+        ],
+        [
+          "Laguna Niguel"
+        ],
+        [
+          "Bridgeton"
+        ],
+        [
+          "Everett"
+        ],
+        [
+          "Watertown"
+        ],
+        [
+          "Appleton"
+        ],
+        [
+          "Bellevue"
+        ],
+        [
+          "Allen"
+        ],
+        [
+          "El Paso"
+        ],
+        [
+          "Grapevine"
+        ],
+        [
+          "Carrollton"
+        ],
+        [
+          "Kent"
+        ],
+        [
+          "Lafayette"
+        ],
+        [
+          "Tigard"
+        ],
+        [
+          "Skokie"
+        ],
+        [
+          "Plano"
+        ],
+        [
+          "Suffolk"
+        ],
+        [
+          "Indianapolis"
+        ],
+        [
+          "Bayonne"
+        ],
+        [
+          "Greensboro"
+        ],
+        [
+          "Baltimore"
+        ],
+        [
+          "Kenosha"
+        ],
+        [
+          "Olathe"
+        ],
+        [
+          "Tulsa"
+        ],
+        [
+          "Redmond"
+        ],
+        [
+          "Raleigh"
+        ],
+        [
+          "Muskogee"
+        ],
+        [
+          "Meriden"
+        ],
+        [
+          "Bowling Green"
+        ],
+        [
+          "South Bend"
+        ],
+        [
+          "Spokane"
+        ],
+        [
+          "Keller"
+        ],
+        [
+          "Port Orange"
+        ],
+        [
+          "Medford"
+        ],
+        [
+          "Charlottesville"
+        ],
+        [
+          "Missoula"
+        ],
+        [
+          "Apopka"
+        ],
+        [
+          "Reading"
+        ],
+        [
+          "Broomfield"
+        ],
+        [
+          "Paterson"
+        ],
+        [
+          "Oklahoma City"
+        ],
+        [
+          "Chesapeake"
+        ],
+        [
+          "Lubbock"
+        ],
+        [
+          "Johnson City"
+        ],
+        [
+          "San Bernardino"
+        ],
+        [
+          "Leominster"
+        ],
+        [
+          "Bozeman"
+        ],
+        [
+          "Perth Amboy"
+        ],
+        [
+          "Ontario"
+        ],
+        [
+          "Rancho Cucamonga"
+        ],
+        [
+          "Moorhead"
+        ],
+        [
+          "Mesquite"
+        ],
+        [
+          "Stockton"
+        ],
+        [
+          "Ormond Beach"
+        ],
+        [
+          "Sunnyvale"
+        ],
+        [
+          "York"
+        ],
+        [
+          "College Station"
+        ],
+        [
+          "Saint Louis"
+        ],
+        [
+          "Manteca"
+        ],
+        [
+          "San Angelo"
+        ],
+        [
+          "Salt Lake City"
+        ],
+        [
+          "Knoxville"
+        ],
+        [
+          "Little Rock"
+        ],
+        [
+          "Lincoln Park"
+        ],
+        [
+          "Marion"
+        ],
+        [
+          "Littleton"
+        ],
+        [
+          "Bangor"
+        ],
+        [
+          "Southaven"
+        ],
+        [
+          "New Castle"
+        ],
+        [
+          "Midland"
+        ],
+        [
+          "Sioux Falls"
+        ],
+        [
+          "Fort Collins"
+        ],
+        [
+          "Clarksville"
+        ],
+        [
+          "Sacramento"
+        ],
+        [
+          "Thousand Oaks"
+        ],
+        [
+          "Malden"
+        ],
+        [
+          "Holyoke"
+        ],
+        [
+          "Albuquerque"
+        ],
+        [
+          "Sparks"
+        ],
+        [
+          "Coachella"
+        ],
+        [
+          "Elmhurst"
+        ],
+        [
+          "Passaic"
+        ],
+        [
+          "North Charleston"
+        ],
+        [
+          "Newport News"
+        ],
+        [
+          "Jamestown"
+        ],
+        [
+          "Mishawaka"
+        ],
+        [
+          "La Quinta"
+        ],
+        [
+          "Tallahassee"
+        ],
+        [
+          "Nashville"
+        ],
+        [
+          "Bellingham"
+        ],
+        [
+          "Woodstock"
+        ],
+        [
+          "Haltom City"
+        ],
+        [
+          "Wheeling"
+        ],
+        [
+          "Summerville"
+        ],
+        [
+          "Hot Springs"
+        ],
+        [
+          "Englewood"
+        ],
+        [
+          "Las Cruces"
+        ],
+        [
+          "Hoover"
+        ],
+        [
+          "Frisco"
+        ],
+        [
+          "Vacaville"
+        ],
+        [
+          "Waukesha"
+        ],
+        [
+          "Bakersfield"
+        ],
+        [
+          "Pompano Beach"
+        ],
+        [
+          "Corpus Christi"
+        ],
+        [
+          "Redondo Beach"
+        ],
+        [
+          "Orlando"
+        ],
+        [
+          "Orange"
+        ],
+        [
+          "Lake Charles"
+        ],
+        [
+          "Highland Park"
+        ],
+        [
+          "Hempstead"
+        ],
+        [
+          "Noblesville"
+        ],
+        [
+          "Apple Valley"
+        ],
+        [
+          "Mount Pleasant"
+        ],
+        [
+          "Sterling Heights"
+        ],
+        [
+          "Eau Claire"
+        ],
+        [
+          "Pharr"
+        ],
+        [
+          "Billings"
+        ],
+        [
+          "Gresham"
+        ],
+        [
+          "Chattanooga"
+        ],
+        [
+          "Meridian"
+        ],
+        [
+          "Bolingbrook"
+        ],
+        [
+          "Maple Grove"
+        ],
+        [
+          "Woodland"
+        ],
+        [
+          "Missouri City"
+        ],
+        [
+          "Pearland"
+        ],
+        [
+          "San Mateo"
+        ],
+        [
+          "Grand Rapids"
+        ],
+        [
+          "Visalia"
+        ],
+        [
+          "Overland Park"
+        ],
+        [
+          "Temecula"
+        ],
+        [
+          "Yucaipa"
+        ],
+        [
+          "Revere"
+        ],
+        [
+          "Conroe"
+        ],
+        [
+          "Tinley Park"
+        ],
+        [
+          "Dubuque"
+        ],
+        [
+          "Dearborn Heights"
+        ],
+        [
+          "Santa Fe"
+        ],
+        [
+          "Hickory"
+        ],
+        [
+          "Carol Stream"
+        ],
+        [
+          "Saint Cloud"
+        ],
+        [
+          "North Miami"
+        ],
+        [
+          "Plantation"
+        ],
+        [
+          "Port Saint Lucie"
+        ],
+        [
+          "Rock Hill"
+        ],
+        [
+          "Odessa"
+        ],
+        [
+          "West Allis"
+        ],
+        [
+          "Chula Vista"
+        ],
+        [
+          "Manhattan"
+        ],
+        [
+          "Altoona"
+        ],
+        [
+          "Thornton"
+        ],
+        [
+          "Champaign"
+        ],
+        [
+          "Texarkana"
+        ],
+        [
+          "Edinburg"
+        ],
+        [
+          "Baytown"
+        ],
+        [
+          "Greenwood"
+        ],
+        [
+          "Woonsocket"
+        ],
+        [
+          "Superior"
+        ],
+        [
+          "Bedford"
+        ],
+        [
+          "Covington"
+        ],
+        [
+          "Broken Arrow"
+        ],
+        [
+          "Miramar"
+        ],
+        [
+          "Hollywood"
+        ],
+        [
+          "Deer Park"
+        ],
+        [
+          "Wichita"
+        ],
+        [
+          "Mcallen"
+        ],
+        [
+          "Iowa City"
+        ],
+        [
+          "Boise"
+        ],
+        [
+          "Cranston"
+        ],
+        [
+          "Port Arthur"
+        ],
+        [
+          "Citrus Heights"
+        ],
+        [
+          "The Colony"
+        ],
+        [
+          "Daytona Beach"
+        ],
+        [
+          "Bullhead City"
+        ],
+        [
+          "Portage"
+        ],
+        [
+          "Fargo"
+        ],
+        [
+          "Elkhart"
+        ],
+        [
+          "San Gabriel"
+        ],
+        [
+          "Margate"
+        ],
+        [
+          "Sandy Springs"
+        ],
+        [
+          "Mentor"
+        ],
+        [
+          "Lawton"
+        ],
+        [
+          "Hampton"
+        ],
+        [
+          "Rome"
+        ],
+        [
+          "La Crosse"
+        ],
+        [
+          "Lewiston"
+        ],
+        [
+          "Hattiesburg"
+        ],
+        [
+          "Danville"
+        ],
+        [
+          "Logan"
+        ],
+        [
+          "Waterbury"
+        ],
+        [
+          "Athens"
+        ],
+        [
+          "Avondale"
+        ],
+        [
+          "Marietta"
+        ],
+        [
+          "Yuma"
+        ],
+        [
+          "Wausau"
+        ],
+        [
+          "Pasco"
+        ],
+        [
+          "Oak Park"
+        ],
+        [
+          "Pensacola"
+        ],
+        [
+          "League City"
+        ],
+        [
+          "Gaithersburg"
+        ],
+        [
+          "Lehi"
+        ],
+        [
+          "Tuscaloosa"
+        ],
+        [
+          "Moreno Valley"
+        ],
+        [
+          "Georgetown"
+        ],
+        [
+          "Loveland"
+        ],
+        [
+          "Chandler"
+        ],
+        [
+          "Helena"
+        ],
+        [
+          "Kirkwood"
+        ],
+        [
+          "Waco"
+        ],
+        [
+          "Frankfort"
+        ],
+        [
+          "Bethlehem"
+        ],
+        [
+          "Grand Island"
+        ],
+        [
+          "Woodbury"
+        ],
+        [
+          "Rogers"
+        ],
+        [
+          "Clovis"
+        ],
+        [
+          "Jupiter"
+        ],
+        [
+          "Santa Barbara"
+        ],
+        [
+          "Cedar Hill"
+        ],
+        [
+          "Norfolk"
+        ],
+        [
+          "Draper"
+        ],
+        [
+          "Ann Arbor"
+        ],
+        [
+          "La Mesa"
+        ],
+        [
+          "Pocatello"
+        ],
+        [
+          "Holland"
+        ],
+        [
+          "Milford"
+        ],
+        [
+          "Buffalo Grove"
+        ],
+        [
+          "Lake Forest"
+        ],
+        [
+          "Redding"
+        ],
+        [
+          "Chico"
+        ],
+        [
+          "Utica"
+        ],
+        [
+          "Conway"
+        ],
+        [
+          "Cheyenne"
+        ],
+        [
+          "Owensboro"
+        ],
+        [
+          "Caldwell"
+        ],
+        [
+          "Kenner"
+        ],
+        [
+          "Nashua"
+        ],
+        [
+          "Bartlett"
+        ],
+        [
+          "Redwood City"
+        ],
+        [
+          "Lebanon"
+        ],
+        [
+          "Santa Maria"
+        ],
+        [
+          "Des Plaines"
+        ],
+        [
+          "Longview"
+        ],
+        [
+          "Hendersonville"
+        ],
+        [
+          "Waterloo"
+        ],
+        [
+          "Cambridge"
+        ],
+        [
+          "Palatine"
+        ],
+        [
+          "Beverly"
+        ],
+        [
+          "Eugene"
+        ],
+        [
+          "Oxnard"
+        ],
+        [
+          "Renton"
+        ],
+        [
+          "Glenview"
+        ],
+        [
+          "Delray Beach"
+        ],
+        [
+          "Commerce City"
+        ],
+        [
+          "Texas City"
+        ],
+        [
+          "Wilson"
+        ],
+        [
+          "Rio Rancho"
+        ],
+        [
+          "Goldsboro"
+        ],
+        [
+          "Montebello"
+        ],
+        [
+          "El Cajon"
+        ],
+        [
+          "Beaumont"
+        ],
+        [
+          "West Palm Beach"
+        ],
+        [
+          "Abilene"
+        ],
+        [
+          "Normal"
+        ],
+        [
+          "Saint Charles"
+        ],
+        [
+          "Camarillo"
+        ],
+        [
+          "Hillsboro"
+        ],
+        [
+          "Burbank"
+        ],
+        [
+          "Modesto"
+        ],
+        [
+          "Garden City"
+        ],
+        [
+          "Atlantic City"
+        ],
+        [
+          "Longmont"
+        ],
+        [
+          "Davis"
+        ],
+        [
+          "Morgan Hill"
+        ],
+        [
+          "Clifton"
+        ],
+        [
+          "Sheboygan"
+        ],
+        [
+          "East Point"
+        ],
+        [
+          "Rapid City"
+        ],
+        [
+          "Andover"
+        ],
+        [
+          "Kissimmee"
+        ],
+        [
+          "Shelton"
+        ],
+        [
+          "Danbury"
+        ],
+        [
+          "Sanford"
+        ],
+        [
+          "San Marcos"
+        ],
+        [
+          "Greeley"
+        ],
+        [
+          "Mansfield"
+        ],
+        [
+          "Elyria"
+        ],
+        [
+          "Twin Falls"
+        ],
+        [
+          "Coral Gables"
+        ],
+        [
+          "Romeoville"
+        ],
+        [
+          "Marlborough"
+        ],
+        [
+          "Laurel"
+        ],
+        [
+          "Bryan"
+        ],
+        [
+          "Pine Bluff"
+        ],
+        [
+          "Aberdeen"
+        ],
+        [
+          "Hagerstown"
+        ],
+        [
+          "East Orange"
+        ],
+        [
+          "Arlington Heights"
+        ],
+        [
+          "Oswego"
+        ],
+        [
+          "Coon Rapids"
+        ],
+        [
+          "San Clemente"
+        ],
+        [
+          "San Luis Obispo"
+        ],
+        [
+          "Springdale"
+        ],
+        [
+          "Lodi"
+        ],
+        [
+          "Mason"
+        ]
+      ],
+      "sql": "SELECT DISTINCT city FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 19,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Quina regió va generar el benefici més baix?",
+    "question_en": "Which region generated the least profit?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 13.2344,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "region",
+        "profit"
+      ],
+      "rows": [
+        [
+          "East",
+          -6599.978
+        ]
+      ],
+      "sql": "SELECT region, profit\nFROM orders\nWHERE profit = (\n  SELECT MIN(profit)\n  FROM orders\n  WHERE region = (\n    SELECT region\n    FROM orders\n    WHERE profit = (\n      SELECT MIN(profit)\n      FROM orders\n    )\n  )\n)",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 20,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Quina categoria conté el nombre més gran de comandes?",
+    "question_en": "Which category contains the greatest number of orders?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 6.1021,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "category"
+      ],
+      "rows": [
+        [
+          "Furniture"
+        ]
+      ],
+      "sql": "SELECT category FROM orders\nWHERE category LIKE 'Furniture'\nORDER BY quantity DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 21,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "On sembla que el negoci funciona millor en termes d'ingressos?",
+    "question_en": "Where does the business seem to perform best in terms of revenue?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 18.2025,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "total_sales",
+        "total_quantity",
+        "total_discount",
+        "total_profit"
+      ],
+      "rows": [
+        [
+          993.9000000000001,
+          5,
+          0.0,
+          261.49559999999997
+        ],
+        [
+          479.97,
+          3,
+          0.0,
+          177.5889
+        ],
+        [
+          4723.478,
+          144,
+          4.5,
+          1081.5284
+        ],
+        [
+          4944.296,
+          66,
+          2.5,
+          496.0179
+        ]
+      ],
+      "sql": "SELECT SUM(sales) AS total_sales, SUM(quantity) AS total_quantity, SUM(discount) AS total_discount, SUM(profit) AS total_profit\nFROM orders\nWHERE order_date >= '2016-11-08' AND order_date <= '2016-11-11'\nGROUP BY order_date\nORDER BY order_date",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 22,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "Quin client sembla que compra més sovint?",
+    "question_en": "Which customer appears to buy the most often?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 6.0506,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "customer_name",
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          "William Brown",
+          37
+        ],
+        [
+          "Paul Prost",
+          34
+        ],
+        [
+          "Matt Abelman",
+          34
+        ],
+        [
+          "John Lee",
+          34
+        ],
+        [
+          "Seth Vernon",
+          32
+        ],
+        [
+          "Jonathan Doherty",
+          32
+        ],
+        [
+          "Edward Hooks",
+          32
+        ],
+        [
+          "Chloris Kastensmidt",
+          32
+        ],
+        [
+          "Zuschuss Carroll",
+          31
+        ],
+        [
+          "Emily Phan",
+          31
+        ],
+        [
+          "Arthur Prichep",
+          31
+        ],
+        [
+          "Lena Cacioppo",
+          30
+        ],
+        [
+          "Sally Hughsby",
+          29
+        ],
+        [
+          "Ken Lonsdale",
+          29
+        ],
+        [
+          "Greg Tran",
+          29
+        ],
+        [
+          "Dean percer",
+          29
+        ],
+        [
+          "Brian Moss",
+          29
+        ],
+        [
+          "Xylona Preis",
+          28
+        ],
+        [
+          "Kunst Miller",
+          28
+        ],
+        [
+          "Keith Dawkins",
+          28
+        ],
+        [
+          "Clay Ludtke",
+          28
+        ],
+        [
+          "Chris Selesnick",
+          28
+        ],
+        [
+          "Damala Kotsonis",
+          27
+        ],
+        [
+          "Ben Ferrer",
+          27
+        ],
+        [
+          "Steven Cartwright",
+          26
+        ],
+        [
+          "Patrick Gardner",
+          26
+        ],
+        [
+          "Noel Staavos",
+          26
+        ],
+        [
+          "Laura Armstrong",
+          26
+        ],
+        [
+          "Cassandra Brandow",
+          26
+        ],
+        [
+          "Stewart Visinsky",
+          25
+        ],
+        [
+          "Resi P�lking",
+          25
+        ],
+        [
+          "Pete Kriz",
+          25
+        ],
+        [
+          "Erin Ashbrook",
+          25
+        ],
+        [
+          "Clytie Kelty",
+          25
+        ],
+        [
+          "Adam Shillingsburg",
+          25
+        ],
+        [
+          "Sung Pak",
+          24
+        ],
+        [
+          "Stefania Perrino",
+          24
+        ],
+        [
+          "Sanjit Jacobs",
+          24
+        ],
+        [
+          "Rob Lucas",
+          24
+        ],
+        [
+          "Maribeth Schnelling",
+          24
+        ],
+        [
+          "Laurel Beltran",
+          24
+        ],
+        [
+          "Joseph Airdo",
+          24
+        ],
+        [
+          "Greg Guthrie",
+          24
+        ],
+        [
+          "Dan Reichenbach",
+          24
+        ],
+        [
+          "Brosina Hoffman",
+          24
+        ],
+        [
+          "Rick Wilson",
+          23
+        ],
+        [
+          "Rick Bensley",
+          23
+        ],
+        [
+          "Lena Creighton",
+          23
+        ],
+        [
+          "Ken Black",
+          23
+        ],
+        [
+          "Keith Herrera",
+          23
+        ],
+        [
+          "Joel Eaton",
+          23
+        ],
+        [
+          "Dennis Kane",
+          23
+        ],
+        [
+          "Dave Hallsten",
+          23
+        ],
+        [
+          "Anna H�berlin",
+          23
+        ],
+        [
+          "Suzanne McNair",
+          22
+        ],
+        [
+          "Sanjit Chand",
+          22
+        ],
+        [
+          "Russell Applegate",
+          22
+        ],
+        [
+          "Patrick O'Brill",
+          22
+        ],
+        [
+          "Natalie Webber",
+          22
+        ],
+        [
+          "Mick Hernandez",
+          22
+        ],
+        [
+          "Maria Etezadi",
+          22
+        ],
+        [
+          "Lindsay Shagiari",
+          22
+        ],
+        [
+          "Kelly Lampkin",
+          22
+        ],
+        [
+          "Karl Braun",
+          22
+        ],
+        [
+          "Joe Elijah",
+          22
+        ],
+        [
+          "Guy Armstrong",
+          22
+        ],
+        [
+          "Christine Sundaresam",
+          22
+        ],
+        [
+          "Chris Cortes",
+          22
+        ],
+        [
+          "Carlos Soltero",
+          22
+        ],
+        [
+          "Anne McFarland",
+          22
+        ],
+        [
+          "Sue Ann Reed",
+          21
+        ],
+        [
+          "Stewart Carmichael",
+          21
+        ],
+        [
+          "Shirley Daniels",
+          21
+        ],
+        [
+          "Saphhira Shifley",
+          21
+        ],
+        [
+          "Ruben Dartt",
+          21
+        ],
+        [
+          "Pamela Stobb",
+          21
+        ],
+        [
+          "Naresj Patel",
+          21
+        ],
+        [
+          "Muhammed Yedwab",
+          21
+        ],
+        [
+          "Irene Maddox",
+          21
+        ],
+        [
+          "Frank Hawley",
+          21
+        ],
+        [
+          "Eugene Moren",
+          21
+        ],
+        [
+          "Dean Braden",
+          21
+        ],
+        [
+          "Barry Franz�sisch",
+          21
+        ],
+        [
+          "Arthur Gainer",
+          21
+        ],
+        [
+          "Anthony Johnson",
+          21
+        ],
+        [
+          "Andrew Gjertsen",
+          21
+        ],
+        [
+          "Tracy Blumstein",
+          20
+        ],
+        [
+          "Shahid Collister",
+          20
+        ],
+        [
+          "Sam Zeldin",
+          20
+        ],
+        [
+          "Roger Demir",
+          20
+        ],
+        [
+          "Nick Zandusky",
+          20
+        ],
+        [
+          "Michael Paige",
+          20
+        ],
+        [
+          "Marina Lichtenstein",
+          20
+        ],
+        [
+          "Katherine Murray",
+          20
+        ],
+        [
+          "Joe Kamberova",
+          20
+        ],
+        [
+          "Jim Epp",
+          20
+        ],
+        [
+          "Helen Wasserman",
+          20
+        ],
+        [
+          "Harry Marie",
+          20
+        ],
+        [
+          "George Bell",
+          20
+        ],
+        [
+          "Frank Merwin",
+          20
+        ],
+        [
+          "Erin Smith",
+          20
+        ],
+        [
+          "Edward Becker",
+          20
+        ],
+        [
+          "David Smith",
+          20
+        ],
+        [
+          "Darrin Martin",
+          20
+        ],
+        [
+          "Caroline Jumper",
+          20
+        ],
+        [
+          "Brian Thompson",
+          20
+        ],
+        [
+          "Brian Dahlen",
+          20
+        ],
+        [
+          "Brenda Bowman",
+          20
+        ],
+        [
+          "Bart Pistole",
+          20
+        ],
+        [
+          "Adrian Barton",
+          20
+        ],
+        [
+          "Adam Hart",
+          20
+        ],
+        [
+          "Tim Brockman",
+          19
+        ],
+        [
+          "Thomas Seio",
+          19
+        ],
+        [
+          "Tamara Manning",
+          19
+        ],
+        [
+          "Steve Nguyen",
+          19
+        ],
+        [
+          "Sanjit Engle",
+          19
+        ],
+        [
+          "Rob Dowd",
+          19
+        ],
+        [
+          "Peter Fuller",
+          19
+        ],
+        [
+          "Mike Pelletier",
+          19
+        ],
+        [
+          "Mick Crebagga",
+          19
+        ],
+        [
+          "Michelle Moray",
+          19
+        ],
+        [
+          "Maxwell Schwartz",
+          19
+        ],
+        [
+          "Maria Bertelson",
+          19
+        ],
+        [
+          "Logan Haushalter",
+          19
+        ],
+        [
+          "Logan Currie",
+          19
+        ],
+        [
+          "Kalyca Meade",
+          19
+        ],
+        [
+          "Justin MacKendrick",
+          19
+        ],
+        [
+          "Janet Martin",
+          19
+        ],
+        [
+          "Jamie Frazer",
+          19
+        ],
+        [
+          "Herbert Flentye",
+          19
+        ],
+        [
+          "Dean Katz",
+          19
+        ],
+        [
+          "Darrin Sayre",
+          19
+        ],
+        [
+          "Cynthia Voltz",
+          19
+        ],
+        [
+          "Claudia Bergmann",
+          19
+        ],
+        [
+          "Chuck Clark",
+          19
+        ],
+        [
+          "Bill Donatelli",
+          19
+        ],
+        [
+          "Anne Pryor",
+          19
+        ],
+        [
+          "Victoria Wilson",
+          18
+        ],
+        [
+          "Ted Butterfield",
+          18
+        ],
+        [
+          "Stephanie Ulpright",
+          18
+        ],
+        [
+          "Scott Cohen",
+          18
+        ],
+        [
+          "Ross Baird",
+          18
+        ],
+        [
+          "Raymond Buch",
+          18
+        ],
+        [
+          "Philisse Overcash",
+          18
+        ],
+        [
+          "Natalie DeCherney",
+          18
+        ],
+        [
+          "Matt Connell",
+          18
+        ],
+        [
+          "Katharine Harms",
+          18
+        ],
+        [
+          "Karen Ferguson",
+          18
+        ],
+        [
+          "Joy Smith",
+          18
+        ],
+        [
+          "James Galang",
+          18
+        ],
+        [
+          "Helen Andreada",
+          18
+        ],
+        [
+          "Eugene Hildebrand",
+          18
+        ],
+        [
+          "Dan Campbell",
+          18
+        ],
+        [
+          "Carol Triggs",
+          18
+        ],
+        [
+          "Ben Peterman",
+          18
+        ],
+        [
+          "Becky Castell",
+          18
+        ],
+        [
+          "Arianne Irving",
+          18
+        ],
+        [
+          "Anna Andreadi",
+          18
+        ],
+        [
+          "Ann Chong",
+          18
+        ],
+        [
+          "Adam Bellavance",
+          18
+        ],
+        [
+          "Tom Boeckenhauer",
+          17
+        ],
+        [
+          "Theresa Swint",
+          17
+        ],
+        [
+          "Sylvia Foulston",
+          17
+        ],
+        [
+          "Sean Braxton",
+          17
+        ],
+        [
+          "Sam Craven",
+          17
+        ],
+        [
+          "Ralph Arnett",
+          17
+        ],
+        [
+          "Paul Gonzalez",
+          17
+        ],
+        [
+          "Nona Balk",
+          17
+        ],
+        [
+          "Nat Carroll",
+          17
+        ],
+        [
+          "Michael Kennedy",
+          17
+        ],
+        [
+          "Matt Collister",
+          17
+        ],
+        [
+          "Maribeth Dona",
+          17
+        ],
+        [
+          "Ken Heidel",
+          17
+        ],
+        [
+          "Katherine Nockton",
+          17
+        ],
+        [
+          "Justin Deggeller",
+          17
+        ],
+        [
+          "Julie Kriz",
+          17
+        ],
+        [
+          "Jeremy Lonsdale",
+          17
+        ],
+        [
+          "Jay Kimmel",
+          17
+        ],
+        [
+          "Henry Goldwyn",
+          17
+        ],
+        [
+          "Gary Hansen",
+          17
+        ],
+        [
+          "Frank Atkinson",
+          17
+        ],
+        [
+          "Eric Hoffmann",
+          17
+        ],
+        [
+          "Delfina Latchford",
+          17
+        ],
+        [
+          "Darren Powers",
+          17
+        ],
+        [
+          "Cynthia Arntzen",
+          17
+        ],
+        [
+          "Christina Anderson",
+          17
+        ],
+        [
+          "Bradley Nguyen",
+          17
+        ],
+        [
+          "Bart Watters",
+          17
+        ],
+        [
+          "Valerie Dominguez",
+          16
+        ],
+        [
+          "Toby Carlisle",
+          16
+        ],
+        [
+          "Theone Pippenger",
+          16
+        ],
+        [
+          "Tamara Dahlen",
+          16
+        ],
+        [
+          "Ross DeVincentis",
+          16
+        ],
+        [
+          "Rob Williams",
+          16
+        ],
+        [
+          "Richard Bierner",
+          16
+        ],
+        [
+          "Randy Ferguson",
+          16
+        ],
+        [
+          "Nat Gilpin",
+          16
+        ],
+        [
+          "Michael Moore",
+          16
+        ],
+        [
+          "Luke Foster",
+          16
+        ],
+        [
+          "Lena Radford",
+          16
+        ],
+        [
+          "Karen Daniels",
+          16
+        ],
+        [
+          "John Castell",
+          16
+        ],
+        [
+          "Jill Fjeld",
+          16
+        ],
+        [
+          "Jeremy Pistek",
+          16
+        ],
+        [
+          "Jennifer Braxton",
+          16
+        ],
+        [
+          "Jay Fein",
+          16
+        ],
+        [
+          "Giulietta Baptist",
+          16
+        ],
+        [
+          "Elizabeth Moffitt",
+          16
+        ],
+        [
+          "Beth Paige",
+          16
+        ],
+        [
+          "Berenike Kampe",
+          16
+        ],
+        [
+          "Becky Martin",
+          16
+        ],
+        [
+          "Arthur Wiediger",
+          16
+        ],
+        [
+          "Art Ferguson",
+          16
+        ],
+        [
+          "Annie Thurman",
+          16
+        ],
+        [
+          "Adrian Hane",
+          16
+        ],
+        [
+          "Trudy Brown",
+          15
+        ],
+        [
+          "Todd Sumrall",
+          15
+        ],
+        [
+          "Thomas Thornton",
+          15
+        ],
+        [
+          "Sung Shariari",
+          15
+        ],
+        [
+          "Stephanie Phelps",
+          15
+        ],
+        [
+          "Skye Norling",
+          15
+        ],
+        [
+          "Shahid Hopkins",
+          15
+        ],
+        [
+          "Sean O'Donnell",
+          15
+        ],
+        [
+          "Sean Miller",
+          15
+        ],
+        [
+          "Sarah Foster",
+          15
+        ],
+        [
+          "Sample Company A",
+          15
+        ],
+        [
+          "Ruben Ausman",
+          15
+        ],
+        [
+          "Roy Phan",
+          15
+        ],
+        [
+          "Robert Waldorf",
+          15
+        ],
+        [
+          "Rick Duston",
+          15
+        ],
+        [
+          "Odella Nelson",
+          15
+        ],
+        [
+          "Nick Crebassa",
+          15
+        ],
+        [
+          "Neoma Murray",
+          15
+        ],
+        [
+          "Neola Schneider",
+          15
+        ],
+        [
+          "Max Jones",
+          15
+        ],
+        [
+          "Maurice Satty",
+          15
+        ],
+        [
+          "Mark Van Huff",
+          15
+        ],
+        [
+          "Maris LaWare",
+          15
+        ],
+        [
+          "Luke Weiss",
+          15
+        ],
+        [
+          "Liz Preis",
+          15
+        ],
+        [
+          "Lena Hernandez",
+          15
+        ],
+        [
+          "Laurel Workman",
+          15
+        ],
+        [
+          "Kristina Nunn",
+          15
+        ],
+        [
+          "Kristen Hastings",
+          15
+        ],
+        [
+          "Katrina Edelman",
+          15
+        ],
+        [
+          "Jeremy Farry",
+          15
+        ],
+        [
+          "Jennifer Patt",
+          15
+        ],
+        [
+          "Heather Kirkland",
+          15
+        ],
+        [
+          "Frank Olsen",
+          15
+        ],
+        [
+          "Filia McAdams",
+          15
+        ],
+        [
+          "Dianna Vittorini",
+          15
+        ],
+        [
+          "Dana Kaydos",
+          15
+        ],
+        [
+          "Cynthia Delaney",
+          15
+        ],
+        [
+          "Christine Phan",
+          15
+        ],
+        [
+          "Anthony Jacobs",
+          15
+        ],
+        [
+          "Anna Gayman",
+          15
+        ],
+        [
+          "Allen Armold",
+          15
+        ],
+        [
+          "Victoria Pisteka",
+          14
+        ],
+        [
+          "Trudy Schmidt",
+          14
+        ],
+        [
+          "Tony Sayre",
+          14
+        ],
+        [
+          "Tonja Turnell",
+          14
+        ],
+        [
+          "Ted Trevino",
+          14
+        ],
+        [
+          "Susan Pistek",
+          14
+        ],
+        [
+          "Steve Chapman",
+          14
+        ],
+        [
+          "Sheri Gordon",
+          14
+        ],
+        [
+          "Roland Schwarz",
+          14
+        ],
+        [
+          "Roland Fjeld",
+          14
+        ],
+        [
+          "Nathan Mautz",
+          14
+        ],
+        [
+          "Nathan Cano",
+          14
+        ],
+        [
+          "Natalie Fritzler",
+          14
+        ],
+        [
+          "Mitch Webber",
+          14
+        ],
+        [
+          "Michael Chen",
+          14
+        ],
+        [
+          "Matthew Grinstein",
+          14
+        ],
+        [
+          "Mark Packer",
+          14
+        ],
+        [
+          "Luke Schmidt",
+          14
+        ],
+        [
+          "Liz Thompson",
+          14
+        ],
+        [
+          "Linda Southworth",
+          14
+        ],
+        [
+          "Linda Cazamias",
+          14
+        ],
+        [
+          "Kean Takahito",
+          14
+        ],
+        [
+          "Katherine Hughes",
+          14
+        ],
+        [
+          "Joseph Holt",
+          14
+        ],
+        [
+          "Jennifer Ferguson",
+          14
+        ],
+        [
+          "Jason Fortune-",
+          14
+        ],
+        [
+          "Jane Waco",
+          14
+        ],
+        [
+          "Ivan Liston",
+          14
+        ],
+        [
+          "Harold Ryan",
+          14
+        ],
+        [
+          "Grace Kelly",
+          14
+        ],
+        [
+          "George Ashbrook",
+          14
+        ],
+        [
+          "Gary Zandusky",
+          14
+        ],
+        [
+          "Fred McMath",
+          14
+        ],
+        [
+          "Fred Harton",
+          14
+        ],
+        [
+          "Frank Preis",
+          14
+        ],
+        [
+          "Frank Carlisle",
+          14
+        ],
+        [
+          "Emily Ducich",
+          14
+        ],
+        [
+          "Dorothy Badders",
+          14
+        ],
+        [
+          "Denny Blanton",
+          14
+        ],
+        [
+          "Dennis Pardue",
+          14
+        ],
+        [
+          "David Bremer",
+          14
+        ],
+        [
+          "Dave Poirier",
+          14
+        ],
+        [
+          "Darren Budd",
+          14
+        ],
+        [
+          "Daniel Lacy",
+          14
+        ],
+        [
+          "Dan Lawera",
+          14
+        ],
+        [
+          "Cyma Kinney",
+          14
+        ],
+        [
+          "Craig Carreira",
+          14
+        ],
+        [
+          "Christopher Schild",
+          14
+        ],
+        [
+          "Cathy Prescott",
+          14
+        ],
+        [
+          "Bryan Mills",
+          14
+        ],
+        [
+          "Bruce Stewart",
+          14
+        ],
+        [
+          "Benjamin Venier",
+          14
+        ],
+        [
+          "Alejandro Grove",
+          14
+        ],
+        [
+          "Alejandro Ballentine",
+          14
+        ],
+        [
+          "Alan Barnes",
+          14
+        ],
+        [
+          "Tracy Hopkins",
+          13
+        ],
+        [
+          "Todd Boyes",
+          13
+        ],
+        [
+          "Tiffany House",
+          13
+        ],
+        [
+          "Susan Vittorini",
+          13
+        ],
+        [
+          "Speros Goranitis",
+          13
+        ],
+        [
+          "Quincy Jones",
+          13
+        ],
+        [
+          "Penelope Sewall",
+          13
+        ],
+        [
+          "Pauline Webber",
+          13
+        ],
+        [
+          "Paul Van Hugh",
+          13
+        ],
+        [
+          "Paul Stevenson",
+          13
+        ],
+        [
+          "Patrick O'Donnell",
+          13
+        ],
+        [
+          "Patrick Jones",
+          13
+        ],
+        [
+          "Parhena Norris",
+          13
+        ],
+        [
+          "Nora Preis",
+          13
+        ],
+        [
+          "Nick Radford",
+          13
+        ],
+        [
+          "Michael Granlund",
+          13
+        ],
+        [
+          "Max Ludwig",
+          13
+        ],
+        [
+          "Max Engle",
+          13
+        ],
+        [
+          "Maribeth Yedwab",
+          13
+        ],
+        [
+          "Marc Harrigan",
+          13
+        ],
+        [
+          "Marc Crier",
+          13
+        ],
+        [
+          "Ken Dana",
+          13
+        ],
+        [
+          "Kean Thornton",
+          13
+        ],
+        [
+          "Julie Prescott",
+          13
+        ],
+        [
+          "John Murray",
+          13
+        ],
+        [
+          "Jeremy Ellison",
+          13
+        ],
+        [
+          "Janet Molinari",
+          13
+        ],
+        [
+          "Jamie Kunitz",
+          13
+        ],
+        [
+          "Jack O'Briant",
+          13
+        ],
+        [
+          "Hallie Redmond",
+          13
+        ],
+        [
+          "Gene McClure",
+          13
+        ],
+        [
+          "Fred Hopkins",
+          13
+        ],
+        [
+          "Don Jones",
+          13
+        ],
+        [
+          "Denny Ordway",
+          13
+        ],
+        [
+          "Denise Monton",
+          13
+        ],
+        [
+          "Deborah Brumfield",
+          13
+        ],
+        [
+          "Dave Kipp",
+          13
+        ],
+        [
+          "Dave Brooks",
+          13
+        ],
+        [
+          "Daniel Raglin",
+          13
+        ],
+        [
+          "Craig Molinari",
+          13
+        ],
+        [
+          "Cindy Chapman",
+          13
+        ],
+        [
+          "Christina VanderZanden",
+          13
+        ],
+        [
+          "Christina DeMoss",
+          13
+        ],
+        [
+          "Chad Cunningham",
+          13
+        ],
+        [
+          "Brad Eason",
+          13
+        ],
+        [
+          "Bill Stewart",
+          13
+        ],
+        [
+          "Barbara Fisher",
+          13
+        ],
+        [
+          "Anthony Rawles",
+          13
+        ],
+        [
+          "Alan Shonely",
+          13
+        ],
+        [
+          "Alan Schoenberger",
+          13
+        ],
+        [
+          "Alan Hwang",
+          13
+        ],
+        [
+          "Yana Sorensen",
+          12
+        ],
+        [
+          "Valerie Mitchum",
+          12
+        ],
+        [
+          "Toby Swindell",
+          12
+        ],
+        [
+          "Tanja Norvell",
+          12
+        ],
+        [
+          "Tamara Willingham",
+          12
+        ],
+        [
+          "Tamara Chand",
+          12
+        ],
+        [
+          "Steven Roelle",
+          12
+        ],
+        [
+          "Shui Tom",
+          12
+        ],
+        [
+          "Shahid Shariari",
+          12
+        ],
+        [
+          "Sean Christensen",
+          12
+        ],
+        [
+          "Sarah Brown",
+          12
+        ],
+        [
+          "Rose O'Brian",
+          12
+        ],
+        [
+          "Rick Huthwaite",
+          12
+        ],
+        [
+          "Rachel Payne",
+          12
+        ],
+        [
+          "Pierre Wener",
+          12
+        ],
+        [
+          "Patrick Ryan",
+          12
+        ],
+        [
+          "Nicole Fjeld",
+          12
+        ],
+        [
+          "Muhammed MacIntyre",
+          12
+        ],
+        [
+          "Monica Federle",
+          12
+        ],
+        [
+          "Michelle Arnett",
+          12
+        ],
+        [
+          "Lynn Smith",
+          12
+        ],
+        [
+          "Lisa Ryan",
+          12
+        ],
+        [
+          "Lauren Leatherbury",
+          12
+        ],
+        [
+          "Jim Mitchum",
+          12
+        ],
+        [
+          "Jim Kriz",
+          12
+        ],
+        [
+          "Jim Karlsson",
+          12
+        ],
+        [
+          "Jack Lebron",
+          12
+        ],
+        [
+          "Gary Mitchum",
+          12
+        ],
+        [
+          "Ed Braxton",
+          12
+        ],
+        [
+          "Dionis Lloyd",
+          12
+        ],
+        [
+          "Daniel Byrd",
+          12
+        ],
+        [
+          "Craig Carroll",
+          12
+        ],
+        [
+          "Corey Catlett",
+          12
+        ],
+        [
+          "Christy Brittain",
+          12
+        ],
+        [
+          "Christine Kargatis",
+          12
+        ],
+        [
+          "Bill Overfelt",
+          12
+        ],
+        [
+          "Barry Gonzalez",
+          12
+        ],
+        [
+          "Annie Zypern",
+          12
+        ],
+        [
+          "Ann Steele",
+          12
+        ],
+        [
+          "Andrew Allen",
+          12
+        ],
+        [
+          "Alice McCarthy",
+          12
+        ],
+        [
+          "Alan Dominguez",
+          12
+        ],
+        [
+          "Aimee Bixby",
+          12
+        ],
+        [
+          "Vicky Freymann",
+          11
+        ],
+        [
+          "Troy Staebel",
+          11
+        ],
+        [
+          "Tony Chapman",
+          11
+        ],
+        [
+          "Toby Braunhardt",
+          11
+        ],
+        [
+          "Thomas Boland",
+          11
+        ],
+        [
+          "Scot Coram",
+          11
+        ],
+        [
+          "Sandra Glassco",
+          11
+        ],
+        [
+          "Ryan Crowe",
+          11
+        ],
+        [
+          "Roy Franz�sisch",
+          11
+        ],
+        [
+          "Robert Marley",
+          11
+        ],
+        [
+          "Rob Haberlin",
+          11
+        ],
+        [
+          "Philip Brown",
+          11
+        ],
+        [
+          "Nicole Hansen",
+          11
+        ],
+        [
+          "Neil Knudson",
+          11
+        ],
+        [
+          "Mike Vittorini",
+          11
+        ],
+        [
+          "Mike Kennedy",
+          11
+        ],
+        [
+          "Mike Caudle",
+          11
+        ],
+        [
+          "Michelle Tran",
+          11
+        ],
+        [
+          "Michael Stewart",
+          11
+        ],
+        [
+          "Meg O'Connel",
+          11
+        ],
+        [
+          "Maya Herman",
+          11
+        ],
+        [
+          "Matt Collins",
+          11
+        ],
+        [
+          "Mark Hamilton",
+          11
+        ],
+        [
+          "Lindsay Williams",
+          11
+        ],
+        [
+          "Kelly Andreada",
+          11
+        ],
+        [
+          "Joy Daniels",
+          11
+        ],
+        [
+          "Joni Wasserman",
+          11
+        ],
+        [
+          "John Lucas",
+          11
+        ],
+        [
+          "Jim Sink",
+          11
+        ],
+        [
+          "Jesus Ocampo",
+          11
+        ],
+        [
+          "Jason Gross",
+          11
+        ],
+        [
+          "Jas O'Carroll",
+          11
+        ],
+        [
+          "Hunter Lopez",
+          11
+        ],
+        [
+          "Hunter Glantz",
+          11
+        ],
+        [
+          "Harold Engle",
+          11
+        ],
+        [
+          "Greg Maxwell",
+          11
+        ],
+        [
+          "Greg Matthias",
+          11
+        ],
+        [
+          "Gary McGarr",
+          11
+        ],
+        [
+          "Frank Gastineau",
+          11
+        ],
+        [
+          "Eugene Barchas",
+          11
+        ],
+        [
+          "Erica Hernandez",
+          11
+        ],
+        [
+          "Emily Burns",
+          11
+        ],
+        [
+          "Duane Noonan",
+          11
+        ],
+        [
+          "Duane Huffman",
+          11
+        ],
+        [
+          "Doug O'Connell",
+          11
+        ],
+        [
+          "Doug Bickford",
+          11
+        ],
+        [
+          "Dianna Wilson",
+          11
+        ],
+        [
+          "Craig Yedwab",
+          11
+        ],
+        [
+          "Christopher Conant",
+          11
+        ],
+        [
+          "Christine Abelman",
+          11
+        ],
+        [
+          "Charles Crestani",
+          11
+        ],
+        [
+          "Carl Weiss",
+          11
+        ],
+        [
+          "Brian Stugart",
+          11
+        ],
+        [
+          "Becky Pak",
+          11
+        ],
+        [
+          "Alex Avila",
+          11
+        ],
+        [
+          "Aaron Hawkins",
+          11
+        ],
+        [
+          "Victoria Brennan",
+          10
+        ],
+        [
+          "Trudy Glocke",
+          10
+        ],
+        [
+          "Tracy Poddar",
+          10
+        ],
+        [
+          "Tracy Collins",
+          10
+        ],
+        [
+          "Tom Prescott",
+          10
+        ],
+        [
+          "Tom Ashbrook",
+          10
+        ],
+        [
+          "Sibella Parks",
+          10
+        ],
+        [
+          "Shaun Chance",
+          10
+        ],
+        [
+          "Scot Wooten",
+          10
+        ],
+        [
+          "Sarah Jordon",
+          10
+        ],
+        [
+          "Russell D'Ascenzo",
+          10
+        ],
+        [
+          "Roy Collins",
+          10
+        ],
+        [
+          "Rick Reed",
+          10
+        ],
+        [
+          "Phillip Flathmann",
+          10
+        ],
+        [
+          "Phillina Ober",
+          10
+        ],
+        [
+          "Philip Fox",
+          10
+        ],
+        [
+          "Pauline Johnson",
+          10
+        ],
+        [
+          "Patrick Bzostek",
+          10
+        ],
+        [
+          "Olvera Toch",
+          10
+        ],
+        [
+          "Nora Paige",
+          10
+        ],
+        [
+          "Nancy Lomonaco",
+          10
+        ],
+        [
+          "Mick Brown",
+          10
+        ],
+        [
+          "Michelle Huthwaite",
+          10
+        ],
+        [
+          "Michael Nguyen",
+          10
+        ],
+        [
+          "Meg Tillman",
+          10
+        ],
+        [
+          "Maureen Gastineau",
+          10
+        ],
+        [
+          "Mary Zewe",
+          10
+        ],
+        [
+          "Mark Cousins",
+          10
+        ],
+        [
+          "Katrina Willman",
+          10
+        ],
+        [
+          "Katherine Ducich",
+          10
+        ],
+        [
+          "Karen Carlisle",
+          10
+        ],
+        [
+          "Karen Bern",
+          10
+        ],
+        [
+          "Justin Ritter",
+          10
+        ],
+        [
+          "Jessica Myrick",
+          10
+        ],
+        [
+          "Janet Lee",
+          10
+        ],
+        [
+          "Helen Abelman",
+          10
+        ],
+        [
+          "Harry Greene",
+          10
+        ],
+        [
+          "Harold Pawlan",
+          10
+        ],
+        [
+          "Gary Hwang",
+          10
+        ],
+        [
+          "Fred Chung",
+          10
+        ],
+        [
+          "Eudokia Martin",
+          10
+        ],
+        [
+          "Duane Benoit",
+          10
+        ],
+        [
+          "Dorothy Wardle",
+          10
+        ],
+        [
+          "Don Miller",
+          10
+        ],
+        [
+          "Corinna Mitchell",
+          10
+        ],
+        [
+          "Christopher Martinez",
+          10
+        ],
+        [
+          "Cathy Armstrong",
+          10
+        ],
+        [
+          "Carol Adams",
+          10
+        ],
+        [
+          "Candace McMahon",
+          10
+        ],
+        [
+          "Bryan Davis",
+          10
+        ],
+        [
+          "Bruce Degenhardt",
+          10
+        ],
+        [
+          "Brendan Sweed",
+          10
+        ],
+        [
+          "Brendan Murry",
+          10
+        ],
+        [
+          "Bradley Talbott",
+          10
+        ],
+        [
+          "Bradley Drucker",
+          10
+        ],
+        [
+          "Bill Tyler",
+          10
+        ],
+        [
+          "Ben Wallace",
+          10
+        ],
+        [
+          "Barry Franz",
+          10
+        ],
+        [
+          "Ashley Jarboe",
+          10
+        ],
+        [
+          "Andy Yotov",
+          10
+        ],
+        [
+          "Aaron Smayling",
+          10
+        ],
+        [
+          "Zuschuss Donatelli",
+          9
+        ],
+        [
+          "Valerie Takahito",
+          9
+        ],
+        [
+          "Tracy Zic",
+          9
+        ],
+        [
+          "Toby Gnade",
+          9
+        ],
+        [
+          "Thea Hudgings",
+          9
+        ],
+        [
+          "Sonia Sunley",
+          9
+        ],
+        [
+          "Shaun Weien",
+          9
+        ],
+        [
+          "Sharelle Roach",
+          9
+        ],
+        [
+          "Sara Luxemburg",
+          9
+        ],
+        [
+          "Sandra Flanagan",
+          9
+        ],
+        [
+          "Ryan Akin",
+          9
+        ],
+        [
+          "Rob Beeghly",
+          9
+        ],
+        [
+          "Richard Eichhorn",
+          9
+        ],
+        [
+          "Ricardo Sperren",
+          9
+        ],
+        [
+          "Raymond Messe",
+          9
+        ],
+        [
+          "Noah Childs",
+          9
+        ],
+        [
+          "Nathan Gelder",
+          9
+        ],
+        [
+          "Mark Haberlin",
+          9
+        ],
+        [
+          "Lori Olson",
+          9
+        ],
+        [
+          "Liz Pelletier",
+          9
+        ],
+        [
+          "Liz Carlisle",
+          9
+        ],
+        [
+          "Laurel Elliston",
+          9
+        ],
+        [
+          "Khloe Miller",
+          9
+        ],
+        [
+          "Ken Brennan",
+          9
+        ],
+        [
+          "Katrina Bavinger",
+          9
+        ],
+        [
+          "Julie Creighton",
+          9
+        ],
+        [
+          "Juliana Krohn",
+          9
+        ],
+        [
+          "Julia Barnett",
+          9
+        ],
+        [
+          "Jonathan Howell",
+          9
+        ],
+        [
+          "John Stevenson",
+          9
+        ],
+        [
+          "John Grady",
+          9
+        ],
+        [
+          "Giulietta Weimer",
+          9
+        ],
+        [
+          "Emily Grady",
+          9
+        ],
+        [
+          "Edward Nazzal",
+          9
+        ],
+        [
+          "Dorothy Dickinson",
+          9
+        ],
+        [
+          "Don Weiss",
+          9
+        ],
+        [
+          "Deanra Eno",
+          9
+        ],
+        [
+          "David Wiener",
+          9
+        ],
+        [
+          "Darrin Van Huff",
+          9
+        ],
+        [
+          "Dario Medina",
+          9
+        ],
+        [
+          "Cindy Stewart",
+          9
+        ],
+        [
+          "Cindy Schnelling",
+          9
+        ],
+        [
+          "Chuck Magee",
+          9
+        ],
+        [
+          "Catherine Glotzbach",
+          9
+        ],
+        [
+          "Carlos Daly",
+          9
+        ],
+        [
+          "Bill Shonely",
+          9
+        ],
+        [
+          "Bill Eplett",
+          9
+        ],
+        [
+          "Beth Thompson",
+          9
+        ],
+        [
+          "Andy Reiter",
+          9
+        ],
+        [
+          "Andy Gerbode",
+          9
+        ],
+        [
+          "Amy Cox",
+          9
+        ],
+        [
+          "Alyssa Tate",
+          9
+        ],
+        [
+          "Alex Grayson",
+          9
+        ],
+        [
+          "Yoseph Carroll",
+          8
+        ],
+        [
+          "Vivian Mathis",
+          8
+        ],
+        [
+          "Vivek Sundaresam",
+          8
+        ],
+        [
+          "Vivek Gonzalez",
+          8
+        ],
+        [
+          "Steven Ward",
+          8
+        ],
+        [
+          "Steve Carroll",
+          8
+        ],
+        [
+          "Rick Hansen",
+          8
+        ],
+        [
+          "Ralph Kennedy",
+          8
+        ],
+        [
+          "Paul Lucas",
+          8
+        ],
+        [
+          "Neil Ducich",
+          8
+        ],
+        [
+          "Mike Gockenbach",
+          8
+        ],
+        [
+          "Michael Dominguez",
+          8
+        ],
+        [
+          "Maureen Fritzler",
+          8
+        ],
+        [
+          "Matthew Clasen",
+          8
+        ],
+        [
+          "Kean Nguyen",
+          8
+        ],
+        [
+          "Joni Sundaresam",
+          8
+        ],
+        [
+          "Joni Blumstein",
+          8
+        ],
+        [
+          "John Huston",
+          8
+        ],
+        [
+          "Jill Stevenson",
+          8
+        ],
+        [
+          "Evan Henry",
+          8
+        ],
+        [
+          "Eva Jacobs",
+          8
+        ],
+        [
+          "Erica Smith",
+          8
+        ],
+        [
+          "Erica Hackney",
+          8
+        ],
+        [
+          "Ellis Ballard",
+          8
+        ],
+        [
+          "Ed Jacobs",
+          8
+        ],
+        [
+          "Doug Jacobs",
+          8
+        ],
+        [
+          "Dianna Arnett",
+          8
+        ],
+        [
+          "Denise Leinenbach",
+          8
+        ],
+        [
+          "Deirdre Greer",
+          8
+        ],
+        [
+          "Darren Koutras",
+          8
+        ],
+        [
+          "Craig Leslie",
+          8
+        ],
+        [
+          "Corey-Lock",
+          8
+        ],
+        [
+          "Chris McAfee",
+          8
+        ],
+        [
+          "Charles Sheldon",
+          8
+        ],
+        [
+          "Cari Sayre",
+          8
+        ],
+        [
+          "Bryan Spruell",
+          8
+        ],
+        [
+          "Brooke Gillingham",
+          8
+        ],
+        [
+          "Brian DeCherney",
+          8
+        ],
+        [
+          "Benjamin Farhat",
+          8
+        ],
+        [
+          "Barry Blumstein",
+          8
+        ],
+        [
+          "Anthony Witt",
+          8
+        ],
+        [
+          "Ann Blume",
+          8
+        ],
+        [
+          "Amy Hunt",
+          8
+        ],
+        [
+          "Allen Goldenen",
+          8
+        ],
+        [
+          "Alejandro Savely",
+          8
+        ],
+        [
+          "Alan Haines",
+          8
+        ],
+        [
+          "Troy Blackwell",
+          7
+        ],
+        [
+          "Tom Stivers",
+          7
+        ],
+        [
+          "Toby Ritter",
+          7
+        ],
+        [
+          "Thea Hendricks",
+          7
+        ],
+        [
+          "Sonia Cooley",
+          7
+        ],
+        [
+          "Shirley Jackson",
+          7
+        ],
+        [
+          "Scott Williamson",
+          7
+        ],
+        [
+          "Sarah Bern",
+          7
+        ],
+        [
+          "Roger Barcio",
+          7
+        ],
+        [
+          "Robert Barroso",
+          7
+        ],
+        [
+          "Peter McVee",
+          7
+        ],
+        [
+          "Pete Takahito",
+          7
+        ],
+        [
+          "Pete Armstrong",
+          7
+        ],
+        [
+          "Nora Pelletier",
+          7
+        ],
+        [
+          "Michael Grace",
+          7
+        ],
+        [
+          "Maureen Gnade",
+          7
+        ],
+        [
+          "MaryBeth Skach",
+          7
+        ],
+        [
+          "Liz MacKendrick",
+          7
+        ],
+        [
+          "Lisa DeCherney",
+          7
+        ],
+        [
+          "Lindsay Castell",
+          7
+        ],
+        [
+          "Kimberly Carter",
+          7
+        ],
+        [
+          "Justin Ellison",
+          7
+        ],
+        [
+          "Julia West",
+          7
+        ],
+        [
+          "Joy Bell-",
+          7
+        ],
+        [
+          "John Dryer",
+          7
+        ],
+        [
+          "Jill Matthias",
+          7
+        ],
+        [
+          "Jennifer Halladay",
+          7
+        ],
+        [
+          "James Lanier",
+          7
+        ],
+        [
+          "Jack Garza",
+          7
+        ],
+        [
+          "Ivan Gibson",
+          7
+        ],
+        [
+          "Henry MacAllister",
+          7
+        ],
+        [
+          "Harold Dahlen",
+          7
+        ],
+        [
+          "Guy Thornton",
+          7
+        ],
+        [
+          "Evan Bailliet",
+          7
+        ],
+        [
+          "Erin Creighton",
+          7
+        ],
+        [
+          "Eric Barreto",
+          7
+        ],
+        [
+          "Eleni McCrary",
+          7
+        ],
+        [
+          "Debra Catini",
+          7
+        ],
+        [
+          "Cyra Reiten",
+          7
+        ],
+        [
+          "Charlotte Melton",
+          7
+        ],
+        [
+          "Charles McCrossin",
+          7
+        ],
+        [
+          "Chad Sievert",
+          7
+        ],
+        [
+          "Chad McGuire",
+          7
+        ],
+        [
+          "Carl Ludwig",
+          7
+        ],
+        [
+          "Cari Schnelling",
+          7
+        ],
+        [
+          "Bruce Geld",
+          7
+        ],
+        [
+          "Bobby Trafton",
+          7
+        ],
+        [
+          "Barry Pond",
+          7
+        ],
+        [
+          "Art Foster",
+          7
+        ],
+        [
+          "Andrew Roberts",
+          7
+        ],
+        [
+          "Allen Rosenblatt",
+          7
+        ],
+        [
+          "Vivek Grady",
+          6
+        ],
+        [
+          "Susan MacKendrick",
+          6
+        ],
+        [
+          "Stuart Van",
+          6
+        ],
+        [
+          "Shirley Schmidt",
+          6
+        ],
+        [
+          "Sean Wendt",
+          6
+        ],
+        [
+          "Sally Matthias",
+          6
+        ],
+        [
+          "Randy Bradley",
+          6
+        ],
+        [
+          "Michelle Ellison",
+          6
+        ],
+        [
+          "Matt Hagelstein",
+          6
+        ],
+        [
+          "Mathew Reese",
+          6
+        ],
+        [
+          "Maria Zettner",
+          6
+        ],
+        [
+          "Magdelene Morse",
+          6
+        ],
+        [
+          "Lycoris Saunders",
+          6
+        ],
+        [
+          "Lisa Hazard",
+          6
+        ],
+        [
+          "Julia Dunbar",
+          6
+        ],
+        [
+          "Jennifer Jackson",
+          6
+        ],
+        [
+          "Hilary Holden",
+          6
+        ],
+        [
+          "Henia Zydlo",
+          6
+        ],
+        [
+          "Heather Jas",
+          6
+        ],
+        [
+          "Grant Thornton",
+          6
+        ],
+        [
+          "Giulietta Dortch",
+          6
+        ],
+        [
+          "Erin Mull",
+          6
+        ],
+        [
+          "Erica Bern",
+          6
+        ],
+        [
+          "Eric Murdock",
+          6
+        ],
+        [
+          "Dorris liebe",
+          6
+        ],
+        [
+          "Dennis Bolton",
+          6
+        ],
+        [
+          "David Flashing",
+          6
+        ],
+        [
+          "Craig Reiter",
+          6
+        ],
+        [
+          "Clay Rozendal",
+          6
+        ],
+        [
+          "Chuck Sachs",
+          6
+        ],
+        [
+          "Carol Darley",
+          6
+        ],
+        [
+          "Brad Norvell",
+          6
+        ],
+        [
+          "Benjamin Patterson",
+          6
+        ],
+        [
+          "Bart Folk",
+          6
+        ],
+        [
+          "Anna Chung",
+          6
+        ],
+        [
+          "Aaron Bergman",
+          6
+        ],
+        [
+          "Victor Preis",
+          5
+        ],
+        [
+          "Susan Gilcrest",
+          5
+        ],
+        [
+          "Stuart Calhoun",
+          5
+        ],
+        [
+          "Sally Knutson",
+          5
+        ],
+        [
+          "Robert Dilbeck",
+          5
+        ],
+        [
+          "Peter B�hler",
+          5
+        ],
+        [
+          "Pamela Coakley",
+          5
+        ],
+        [
+          "Melanie Seite",
+          5
+        ],
+        [
+          "Mary O'Rourke",
+          5
+        ],
+        [
+          "Liz Willingham",
+          5
+        ],
+        [
+          "Kelly Williams",
+          5
+        ],
+        [
+          "Kelly Collister",
+          5
+        ],
+        [
+          "Justin Hirsh",
+          5
+        ],
+        [
+          "Guy Phonely",
+          5
+        ],
+        [
+          "Georgia Rosenberg",
+          5
+        ],
+        [
+          "George Zrebassa",
+          5
+        ],
+        [
+          "Elpida Rittenbach",
+          5
+        ],
+        [
+          "Denny Joy",
+          5
+        ],
+        [
+          "David Kendrick",
+          5
+        ],
+        [
+          "Claire Gute",
+          5
+        ],
+        [
+          "Brian Derr",
+          5
+        ],
+        [
+          "Bobby Elias",
+          5
+        ],
+        [
+          "Astrea Jones",
+          5
+        ],
+        [
+          "Anthony Garverick",
+          5
+        ],
+        [
+          "Angele Hood",
+          5
+        ],
+        [
+          "Alyssa Crouse",
+          5
+        ],
+        [
+          "Alex Russell",
+          5
+        ],
+        [
+          "Aleksandra Gannaway",
+          5
+        ],
+        [
+          "Tony Molinari",
+          4
+        ],
+        [
+          "Thomas Brumley",
+          4
+        ],
+        [
+          "Theresa Coyne",
+          4
+        ],
+        [
+          "Sung Chung",
+          4
+        ],
+        [
+          "Ralph Ritter",
+          4
+        ],
+        [
+          "Paul MacIntyre",
+          4
+        ],
+        [
+          "Neil Franz�sisch",
+          4
+        ],
+        [
+          "Michelle Lonsdale",
+          4
+        ],
+        [
+          "Michael Oakman",
+          4
+        ],
+        [
+          "Karen Seio",
+          4
+        ],
+        [
+          "Jenna Caffey",
+          4
+        ],
+        [
+          "Jasper Cacioppo",
+          4
+        ],
+        [
+          "Jason Klamczynski",
+          4
+        ],
+        [
+          "Ionia McGrath",
+          4
+        ],
+        [
+          "Evan Minnotte",
+          4
+        ],
+        [
+          "Eileen Kiefer",
+          4
+        ],
+        [
+          "David Philippe",
+          4
+        ],
+        [
+          "Corey Roper",
+          4
+        ],
+        [
+          "Clay Cheatham",
+          4
+        ],
+        [
+          "Cathy Hwang",
+          4
+        ],
+        [
+          "Carlos Meador",
+          4
+        ],
+        [
+          "Brendan Dodson",
+          4
+        ],
+        [
+          "Beth Fritzler",
+          4
+        ],
+        [
+          "Tim Taslimi",
+          3
+        ],
+        [
+          "Roy Skaria",
+          3
+        ],
+        [
+          "Ritsa Hightower",
+          3
+        ],
+        [
+          "Pauline Chand",
+          3
+        ],
+        [
+          "Paul Knutson",
+          3
+        ],
+        [
+          "Muhammed Lee",
+          3
+        ],
+        [
+          "Mitch Willingham",
+          3
+        ],
+        [
+          "Larry Tron",
+          3
+        ],
+        [
+          "Larry Hughes",
+          3
+        ],
+        [
+          "Larry Blacks",
+          3
+        ],
+        [
+          "Joel Jenkins",
+          3
+        ],
+        [
+          "Jim Radford",
+          3
+        ],
+        [
+          "Greg Hansen",
+          3
+        ],
+        [
+          "Gene Hale",
+          3
+        ],
+        [
+          "Fred Wasserman",
+          3
+        ],
+        [
+          "Brad Thomas",
+          3
+        ],
+        [
+          "Barry Weirich",
+          3
+        ],
+        [
+          "Adrian Shami",
+          3
+        ],
+        [
+          "Thais Sissman",
+          2
+        ],
+        [
+          "Stefanie Holloman",
+          2
+        ],
+        [
+          "Roland Murray",
+          2
+        ],
+        [
+          "Phillip Breyer",
+          2
+        ],
+        [
+          "Patricia Hirasaki",
+          2
+        ],
+        [
+          "Nicole Brennan",
+          2
+        ],
+        [
+          "Mitch Gastineau",
+          2
+        ],
+        [
+          "Ed Ludwig",
+          2
+        ],
+        [
+          "Bobby Odegard",
+          2
+        ],
+        [
+          "Anemone Ratner",
+          2
+        ],
+        [
+          "Ricardo Emerson",
+          1
+        ],
+        [
+          "Lela Donovan",
+          1
+        ],
+        [
+          "Jocasta Rupert",
+          1
+        ],
+        [
+          "Carl Jackson",
+          1
+        ],
+        [
+          "Anthony O'Donnell",
+          1
+        ]
+      ],
+      "sql": "SELECT customer_name, COUNT(*)\nFROM orders\nGROUP BY customer_name\nORDER BY COUNT(*) DESC",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 23,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "Quina regió va generar el benefici total més alt?",
+    "question_en": "Which region generated the highest total profit?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 6.3074,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "region",
+        "total_profit"
+      ],
+      "rows": [
+        [
+          "West",
+          108418.4489
+        ],
+        [
+          "East",
+          91522.78
+        ],
+        [
+          "South",
+          46749.4303
+        ],
+        [
+          "Central",
+          39706.3625
+        ]
+      ],
+      "sql": "SELECT region, SUM(profit) AS total_profit\nFROM orders\nGROUP BY region\nORDER BY total_profit DESC",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 24,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "Quin producte ha generat els majors ingressos en total?",
+    "question_en": "Which product has generated the greatest revenue overall?",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 8.4936,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "product_name",
+        "SUM(sales)"
+      ],
+      "rows": [
+        [
+          "Canon imageCLASS 2200 Advanced Copier",
+          61599.824
+        ]
+      ],
+      "sql": "SELECT product_name, SUM(sales)\nFROM orders\nGROUP BY product_name\nORDER BY SUM(sales) DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 25,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "Quina opció d'enviament prefereixen més els clients?",
+    "question_en": "Which shipping option do customers prefer the most?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 8.8623,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "ship_mode"
+      ],
+      "rows": [
+        [
+          "Second Class"
+        ]
+      ],
+      "sql": "SELECT ship_mode\nFROM orders\nWHERE order_date = '2016-11-08'\nORDER BY ship_mode DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 26,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "Quin segment de mercat sembla que domina les vendes?",
+    "question_en": "Which market segment seems to dominate sales?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 5.8941,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "segment"
+      ],
+      "rows": [
+        [
+          "Home Office"
+        ]
+      ],
+      "sql": "SELECT segment\nFROM orders\nWHERE sales > 0\nORDER BY sales DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 27,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "Quin estat va acumular el benefici total més alt?",
+    "question_en": "Which state accumulated the highest total profit?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 5.5159,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "state"
+      ],
+      "rows": [
+        [
+          "Indiana"
+        ]
+      ],
+      "sql": "SELECT state\nFROM orders\nWHERE profit = (\n  SELECT MAX(profit)\n  FROM orders\n)",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 28,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "Quin producte va vendre el nombre més gran d'unitats?",
+    "question_en": "Which product sold the greatest number of units?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 7.1341,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "product_name",
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          "Staple envelope",
+          48
+        ]
+      ],
+      "sql": "SELECT product_name, COUNT(*)\nFROM orders\nGROUP BY product_name\nORDER BY COUNT(*) DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 29,
+    "category": "data_query",
+    "task_type": "count",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "Quantes compres s'han registrat en total?",
+    "question_en": "How many purchases have been registered in total?",
+    "expected_agent": "data_query",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 2.9117,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "SUM(quantity)"
+      ],
+      "rows": [
+        [
+          37873
+        ]
+      ],
+      "sql": "SELECT SUM(quantity) FROM orders",
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 30,
+    "category": "data_query",
+    "task_type": "ranking",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "Identifica la regió amb més èxit segons les vendes.",
+    "question_en": "Identify the most successful region according to sales.",
+    "expected_agent": "data_query",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 7.7375,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "columns": [
+        "region",
+        "total_sales"
+      ],
+      "rows": [
+        [
+          "West",
+          725457.8245
+        ]
+      ],
+      "sql": "SELECT region, SUM(sales) AS total_sales\nFROM orders\nGROUP BY region\nORDER BY total_sales DESC\nLIMIT 1",
+      "error": null
+    },
+    "error": null
+  }
+]

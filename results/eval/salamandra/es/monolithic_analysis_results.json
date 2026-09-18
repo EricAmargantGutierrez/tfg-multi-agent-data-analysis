@@ -1,0 +1,7736 @@
+[
+  {
+    "id": 1,
+    "category": "analysis",
+    "task_type": "mean",
+    "difficulty": "easy",
+    "language": "es",
+    "question": "¿Cuál es el descuento medio concedido a los clientes?",
+    "question_en": "What is the average discount given to customers?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 36.3969,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/0c90531d521947f89e5ec16a75a6fe1b.png",
+      "rows": [
+        {
+          "total_discount": 0.4,
+          "total_sales": 886.156
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 1744.7
+        },
+        {
+          "total_discount": 3.55,
+          "total_sales": 3050.692
+        },
+        {
+          "total_discount": 0.8,
+          "total_sales": 7755.62
+        },
+        {
+          "total_discount": 2.7,
+          "total_sales": 3250.337
+        },
+        {
+          "total_discount": 4.5,
+          "total_sales": 3255.31
+        },
+        {
+          "total_discount": 4.8,
+          "total_sales": 14473.571
+        },
+        {
+          "total_discount": 3.8000000000000003,
+          "total_sales": 1735.5140000000001
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 58.82
+        },
+        {
+          "total_discount": 1.6,
+          "total_sales": 966.71
+        },
+        {
+          "total_discount": 1.9000000000000001,
+          "total_sales": 1113.838
+        },
+        {
+          "total_discount": 0.7,
+          "total_sales": 6106.88
+        },
+        {
+          "total_discount": 2.8,
+          "total_sales": 1587.452
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 4805.344
+        },
+        {
+          "total_discount": 0.8,
+          "total_sales": 4260.784000000001
+        },
+        {
+          "total_discount": 3.5,
+          "total_sales": 584.6080000000001
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_sales": 914.5319999999999
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 2582.898
+        },
+        {
+          "total_discount": 1.8,
+          "total_sales": 3214.236
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 367.548
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 5563.56
+        },
+        {
+          "total_discount": 2.1,
+          "total_sales": 660.972
+        },
+        {
+          "total_discount": 1.3,
+          "total_sales": 1055.694
+        },
+        {
+          "total_discount": 1.5,
+          "total_sales": 814.012
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 1056.39
+        },
+        {
+          "total_discount": 1.7999999999999998,
+          "total_sales": 200.945
+        },
+        {
+          "total_discount": 0.7,
+          "total_sales": 2236.128
+        },
+        {
+          "total_discount": 1.6,
+          "total_sales": 925.8
+        },
+        {
+          "total_discount": 1.7999999999999998,
+          "total_sales": 1171.814
+        },
+        {
+          "total_discount": 1.7,
+          "total_sales": 5527.846
+        },
+        {
+          "total_discount": 1.12,
+          "total_sales": 2495.3916
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 1790.512
+        },
+        {
+          "total_discount": 4.3,
+          "total_sales": 2356.855
+        },
+        {
+          "total_discount": 1.5,
+          "total_sales": 264.864
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_sales": 1455.038
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 6608.448
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 497.014
+        },
+        {
+          "total_discount": 0.0,
+          "total_sales": 88.15
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 738.504
+        },
+        {
+          "total_discount": 3.0,
+          "total_sales": 1515.862
+        },
+        {
+          "total_discount": 2.0,
+          "total_sales": 2537.686
+        },
+        {
+          "total_discount": 2.2,
+          "total_sales": 833.398
+        },
+        {
+          "total_discount": 1.15,
+          "total_sales": 5086.935
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 657.316
+        },
+        {
+          "total_discount": 2.42,
+          "total_sales": 3489.0396
+        },
+        {
+          "total_discount": 5.0,
+          "total_sales": 7888.294
+        },
+        {
+          "total_discount": 1.4,
+          "total_sales": 5664.022
+        },
+        {
+          "total_discount": 3.1,
+          "total_sales": 1638.5539999999999
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_sales": 3831.864
+        },
+        {
+          "total_discount": 1.5,
+          "total_sales": 1622.018
+        },
+        {
+          "total_discount": 2.3,
+          "total_sales": 170.584
+        },
+        {
+          "total_discount": 1.3,
+          "total_sales": 4867.344
+        },
+        {
+          "total_discount": 1.75,
+          "total_sales": 4501.391
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 161.28
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 4523.336
+        },
+        {
+          "total_discount": 1.6,
+          "total_sales": 649.376
+        },
+        {
+          "total_discount": 1.3,
+          "total_sales": 4375.786
+        },
+        {
+          "total_discount": 3.2,
+          "total_sales": 2052.908
+        },
+        {
+          "total_discount": 1.8,
+          "total_sales": 861.5649999999999
+        },
+        {
+          "total_discount": 3.5,
+          "total_sales": 4510.7970000000005
+        },
+        {
+          "total_discount": 2.9,
+          "total_sales": 3323.556
+        },
+        {
+          "total_discount": 4.9,
+          "total_sales": 2852.9680000000003
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 1839.24
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 629.2479999999999
+        },
+        {
+          "total_discount": 1.9,
+          "total_sales": 599.798
+        },
+        {
+          "total_discount": 1.6,
+          "total_sales": 744.34
+        },
+        {
+          "total_discount": 1.8,
+          "total_sales": 1333.88
+        },
+        {
+          "total_discount": 5.4,
+          "total_sales": 2888.506
+        },
+        {
+          "total_discount": 2.3,
+          "total_sales": 2798.948
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 983.42
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 385.516
+        },
+        {
+          "total_discount": 0.0,
+          "total_sales": 272.95
+        },
+        {
+          "total_discount": 3.3000000000000003,
+          "total_sales": 2442.044
+        },
+        {
+          "total_discount": 2.4,
+          "total_sales": 4750.358
+        },
+        {
+          "total_discount": 2.0,
+          "total_sales": 2933.676
+        },
+        {
+          "total_discount": 2.7,
+          "total_sales": 11789.630000000001
+        },
+        {
+          "total_discount": 0.8999999999999999,
+          "total_sales": 1697.861
+        },
+        {
+          "total_discount": 3.3000000000000003,
+          "total_sales": 5907.972
+        },
+        {
+          "total_discount": 3.5,
+          "total_sales": 3675.861
+        },
+        {
+          "total_discount": 1.5,
+          "total_sales": 1738.406
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 1585.162
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 1181.49
+        },
+        {
+          "total_discount": 1.3,
+          "total_sales": 1523.273
+        },
+        {
+          "total_discount": 3.3000000000000003,
+          "total_sales": 659.138
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 791.99
+        },
+        {
+          "total_discount": 4.8,
+          "total_sales": 2475.157
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 2567.656
+        },
+        {
+          "total_discount": 1.5,
+          "total_sales": 5718.521
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 4204.676
+        },
+        {
+          "total_discount": 2.8,
+          "total_sales": 2682.728
+        },
+        {
+          "total_discount": 0.1,
+          "total_sales": 10501.653
+        },
+        {
+          "total_discount": 3.6,
+          "total_sales": 3887.834
+        },
+        {
+          "total_discount": 1.5,
+          "total_sales": 2186.6130000000003
+        },
+        {
+          "total_discount": 0.8,
+          "total_sales": 2261.438
+        },
+        {
+          "total_discount": 0.0,
+          "total_sales": 130.83
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 603.876
+        },
+        {
+          "total_discount": 1.9,
+          "total_sales": 1727.652
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 265.296
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 415.19599999999997
+        },
+        {
+          "total_discount": 1.35,
+          "total_sales": 4411.2429999999995
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 1459.344
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 2684.492
+        },
+        {
+          "total_discount": 3.9000000000000004,
+          "total_sales": 6765.728
+        },
+        {
+          "total_discount": 0.0,
+          "total_sales": 320.54
+        },
+        {
+          "total_discount": 1.8,
+          "total_sales": 808.162
+        },
+        {
+          "total_discount": 3.0,
+          "total_sales": 2454.928
+        },
+        {
+          "total_discount": 1.45,
+          "total_sales": 3288.471
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_sales": 1538.11
+        },
+        {
+          "total_discount": 0.5,
+          "total_sales": 582.646
+        },
+        {
+          "total_discount": 2.45,
+          "total_sales": 7294.185
+        },
+        {
+          "total_discount": 2.0,
+          "total_sales": 3288.11
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_sales": 3196.752
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 1874.172
+        },
+        {
+          "total_discount": 4.4,
+          "total_sales": 6255.351
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 1526.5
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 1006.356
+        },
+        {
+          "total_discount": 1.85,
+          "total_sales": 2562.382
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 658.466
+        },
+        {
+          "total_discount": 3.5,
+          "total_sales": 1338.842
+        },
+        {
+          "total_discount": 0.0,
+          "total_sales": 949.43
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 1673.8880000000001
+        },
+        {
+          "total_discount": 2.2,
+          "total_sales": 1278.954
+        },
+        {
+          "total_discount": 1.6,
+          "total_sales": 537.632
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 16.52
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 1262.0140000000001
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 1136.592
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 2033.968
+        },
+        {
+          "total_discount": 0.8,
+          "total_sales": 565.392
+        },
+        {
+          "total_discount": 5.8,
+          "total_sales": 3036.547
+        },
+        {
+          "total_discount": 1.12,
+          "total_sales": 3789.7228
+        },
+        {
+          "total_discount": 2.6,
+          "total_sales": 639.766
+        },
+        {
+          "total_discount": 2.9000000000000004,
+          "total_sales": 3241.898
+        },
+        {
+          "total_discount": 3.77,
+          "total_sales": 11164.974
+        },
+        {
+          "total_discount": 4.25,
+          "total_sales": 6076.139
+        },
+        {
+          "total_discount": 1.7,
+          "total_sales": 904.4680000000001
+        },
+        {
+          "total_discount": 3.0,
+          "total_sales": 1679.7240000000002
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 1537.236
+        },
+        {
+          "total_discount": 2.0,
+          "total_sales": 5402.254
+        },
+        {
+          "total_discount": 2.8,
+          "total_sales": 1770.945
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 1661.6100000000001
+        },
+        {
+          "total_discount": 0.8,
+          "total_sales": 884.64
+        },
+        {
+          "total_discount": 0.9,
+          "total_sales": 2471.65
+        },
+        {
+          "total_discount": 1.7,
+          "total_sales": 2533.314
+        },
+        {
+          "total_discount": 1.3,
+          "total_sales": 844.4580000000001
+        },
+        {
+          "total_discount": 0.5,
+          "total_sales": 1475.144
+        },
+        {
+          "total_discount": 7.5,
+          "total_sales": 3154.855
+        },
+        {
+          "total_discount": 2.6,
+          "total_sales": 3913.418
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 2305.712
+        },
+        {
+          "total_discount": 1.6,
+          "total_sales": 2754.216
+        },
+        {
+          "total_discount": 3.22,
+          "total_sales": 2648.2872
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 1205.584
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 2830.628
+        },
+        {
+          "total_discount": 1.3,
+          "total_sales": 1421.954
+        },
+        {
+          "total_discount": 2.2,
+          "total_sales": 2945.321
+        },
+        {
+          "total_discount": 3.2,
+          "total_sales": 5888.275
+        },
+        {
+          "total_discount": 1.8,
+          "total_sales": 3202.1620000000003
+        },
+        {
+          "total_discount": 3.1,
+          "total_sales": 12129.072
+        },
+        {
+          "total_discount": 1.2,
+          "total_sales": 8954.02
+        },
+        {
+          "total_discount": 3.0,
+          "total_sales": 3651.8585000000003
+        },
+        {
+          "total_discount": 4.0,
+          "total_sales": 1949.2
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 2870.05
+        },
+        {
+          "total_discount": 0.7,
+          "total_sales": 287.99
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 550.644
+        },
+        {
+          "total_discount": 2.1,
+          "total_sales": 1659.438
+        },
+        {
+          "total_discount": 2.25,
+          "total_sales": 1077.2285
+        },
+        {
+          "total_discount": 1.7999999999999998,
+          "total_sales": 5690.054999999999
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 1148.78
+        },
+        {
+          "total_discount": 0.9500000000000001,
+          "total_sales": 4246.4555
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 113.832
+        },
+        {
+          "total_discount": 3.2,
+          "total_sales": 10880.546
+        },
+        {
+          "total_discount": 0.8,
+          "total_sales": 2148.852
+        },
+        {
+          "total_discount": 4.6,
+          "total_sales": 2372.75
+        },
+        {
+          "total_discount": 3.3,
+          "total_sales": 2540.6310000000003
+        },
+        {
+          "total_discount": 0.0,
+          "total_sales": 475.9
+        },
+        {
+          "total_discount": 1.4,
+          "total_sales": 1300.076
+        },
+        {
+          "total_discount": 0.72,
+          "total_sales": 6339.5576
+        },
+        {
+          "total_discount": 2.35,
+          "total_sales": 2269.7015
+        },
+        {
+          "total_discount": 3.0,
+          "total_sales": 2854.1150000000002
+        },
+        {
+          "total_discount": 1.5,
+          "total_sales": 2353.586
+        },
+        {
+          "total_discount": 4.0200000000000005,
+          "total_sales": 3984.4524
+        },
+        {
+          "total_discount": 1.6,
+          "total_sales": 1600.55
+        },
+        {
+          "total_discount": 2.2,
+          "total_sales": 2900.026
+        },
+        {
+          "total_discount": 2.1,
+          "total_sales": 1582.109
+        },
+        {
+          "total_discount": 3.2,
+          "total_sales": 3041.566
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 1860.732
+        },
+        {
+          "total_discount": 4.62,
+          "total_sales": 2370.3136
+        },
+        {
+          "total_discount": 0.92,
+          "total_sales": 1397.8724
+        },
+        {
+          "total_discount": 4.8,
+          "total_sales": 3256.48
+        },
+        {
+          "total_discount": 3.8000000000000003,
+          "total_sales": 3336.168
+        },
+        {
+          "total_discount": 2.1,
+          "total_sales": 1503.112
+        },
+        {
+          "total_discount": 3.2,
+          "total_sales": 6528.034
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 4282.176
+        },
+        {
+          "total_discount": 1.8499999999999999,
+          "total_sales": 2171.5989999999997
+        },
+        {
+          "total_discount": 0.5,
+          "total_sales": 3272.2000000000003
+        },
+        {
+          "total_discount": 2.0,
+          "total_sales": 8350.868
+        },
+        {
+          "total_discount": 1.5,
+          "total_sales": 1322.034
+        },
+        {
+          "total_discount": 2.3200000000000003,
+          "total_sales": 2839.2272
+        },
+        {
+          "total_discount": 1.3,
+          "total_sales": 1687.04
+        },
+        {
+          "total_discount": 3.6,
+          "total_sales": 1050.636
+        },
+        {
+          "total_discount": 4.6,
+          "total_sales": 6345.103
+        },
+        {
+          "total_discount": 2.65,
+          "total_sales": 1762.213
+        },
+        {
+          "total_discount": 1.55,
+          "total_sales": 1119.483
+        },
+        {
+          "total_discount": 2.4,
+          "total_sales": 4531.646
+        },
+        {
+          "total_discount": 1.8,
+          "total_sales": 4932.872
+        },
+        {
+          "total_discount": 1.8,
+          "total_sales": 2650.5570000000002
+        },
+        {
+          "total_discount": 1.6,
+          "total_sales": 2215.002
+        },
+        {
+          "total_discount": 2.0,
+          "total_sales": 2973.094
+        },
+        {
+          "total_discount": 1.7000000000000002,
+          "total_sales": 2390.534
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 797.832
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 1058.616
+        },
+        {
+          "total_discount": 3.07,
+          "total_sales": 2881.8128
+        },
+        {
+          "total_discount": 2.2,
+          "total_sales": 1080.751
+        },
+        {
+          "total_discount": 3.9,
+          "total_sales": 2332.5769999999998
+        },
+        {
+          "total_discount": 3.7,
+          "total_sales": 4802.394
+        },
+        {
+          "total_discount": 5.4,
+          "total_sales": 7198.761
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 2550.874
+        },
+        {
+          "total_discount": 2.7,
+          "total_sales": 4655.897
+        },
+        {
+          "total_discount": 0.55,
+          "total_sales": 1174.618
+        },
+        {
+          "total_discount": 0.8,
+          "total_sales": 3195.818
+        },
+        {
+          "total_discount": 3.1,
+          "total_sales": 1458.258
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 585.02
+        },
+        {
+          "total_discount": 1.3,
+          "total_sales": 4074.4719999999998
+        },
+        {
+          "total_discount": 0.5,
+          "total_sales": 1081.466
+        },
+        {
+          "total_discount": 2.5,
+          "total_sales": 3318.486
+        },
+        {
+          "total_discount": 2.6,
+          "total_sales": 5480.723999999999
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 1711.692
+        },
+        {
+          "total_discount": 0.0,
+          "total_sales": 2012.52
+        },
+        {
+          "total_discount": 2.0500000000000003,
+          "total_sales": 1300.0315
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 156.76
+        },
+        {
+          "total_discount": 1.7,
+          "total_sales": 3341.587
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 5271.628
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 3539.322
+        },
+        {
+          "total_discount": 0.9,
+          "total_sales": 2501.688
+        },
+        {
+          "total_discount": 1.7,
+          "total_sales": 1376.792
+        },
+        {
+          "total_discount": 1.6,
+          "total_sales": 344.08
+        },
+        {
+          "total_discount": 2.12,
+          "total_sales": 3908.8028
+        },
+        {
+          "total_discount": 2.2,
+          "total_sales": 269.542
+        },
+        {
+          "total_discount": 1.7000000000000002,
+          "total_sales": 1204.854
+        },
+        {
+          "total_discount": 1.3,
+          "total_sales": 755.602
+        },
+        {
+          "total_discount": 1.6,
+          "total_sales": 1989.05
+        },
+        {
+          "total_discount": 0.5,
+          "total_sales": 3356.398
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 1267.316
+        },
+        {
+          "total_discount": 1.6,
+          "total_sales": 1155.202
+        },
+        {
+          "total_discount": 1.35,
+          "total_sales": 1043.096
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 2139.79
+        },
+        {
+          "total_discount": 3.1,
+          "total_sales": 3644.978
+        },
+        {
+          "total_discount": 1.4,
+          "total_sales": 2162.174
+        },
+        {
+          "total_discount": 0.0,
+          "total_sales": 124.28
+        },
+        {
+          "total_discount": 2.9,
+          "total_sales": 3236.314
+        },
+        {
+          "total_discount": 2.3000000000000003,
+          "total_sales": 10310.880000000001
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 2199.366
+        },
+        {
+          "total_discount": 0.35,
+          "total_sales": 1303.4779999999998
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 2567.0099999999998
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 2339.598
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 4358.128
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 1245.788
+        },
+        {
+          "total_discount": 3.2,
+          "total_sales": 2767.219
+        },
+        {
+          "total_discount": 3.0,
+          "total_sales": 3484.92
+        },
+        {
+          "total_discount": 1.8,
+          "total_sales": 1832.02
+        },
+        {
+          "total_discount": 6.12,
+          "total_sales": 5478.0608
+        },
+        {
+          "total_discount": 1.2,
+          "total_sales": 944.6
+        },
+        {
+          "total_discount": 5.0,
+          "total_sales": 684.1709999999999
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_sales": 933.704
+        },
+        {
+          "total_discount": 1.7,
+          "total_sales": 1643.255
+        },
+        {
+          "total_discount": 0.5,
+          "total_sales": 825.9499999999999
+        },
+        {
+          "total_discount": 1.9,
+          "total_sales": 1219.53
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 3510.4579999999996
+        },
+        {
+          "total_discount": 7.5,
+          "total_sales": 2846.705
+        },
+        {
+          "total_discount": 0.7,
+          "total_sales": 461.914
+        },
+        {
+          "total_discount": 1.5,
+          "total_sales": 228.98999999999998
+        },
+        {
+          "total_discount": 5.2,
+          "total_sales": 4657.924
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 1041.0420000000001
+        },
+        {
+          "total_discount": 2.3000000000000003,
+          "total_sales": 3071.126
+        },
+        {
+          "total_discount": 3.7,
+          "total_sales": 3082.653
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_sales": 4588.436
+        },
+        {
+          "total_discount": 0.5,
+          "total_sales": 2656.6910000000003
+        },
+        {
+          "total_discount": 1.6,
+          "total_sales": 1186.326
+        },
+        {
+          "total_discount": 2.3,
+          "total_sales": 923.884
+        },
+        {
+          "total_discount": 0.5,
+          "total_sales": 366.822
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_sales": 2456.638
+        },
+        {
+          "total_discount": 4.4,
+          "total_sales": 2984.054
+        },
+        {
+          "total_discount": 1.9,
+          "total_sales": 3418.7419999999997
+        },
+        {
+          "total_discount": 1.3,
+          "total_sales": 1383.144
+        },
+        {
+          "total_discount": 2.7,
+          "total_sales": 4256.272
+        },
+        {
+          "total_discount": 3.6,
+          "total_sales": 3736.198
+        },
+        {
+          "total_discount": 3.3000000000000003,
+          "total_sales": 2678.438
+        },
+        {
+          "total_discount": 1.9000000000000001,
+          "total_sales": 4046.746
+        },
+        {
+          "total_discount": 1.6,
+          "total_sales": 3889.366
+        },
+        {
+          "total_discount": 1.5,
+          "total_sales": 2271.284
+        },
+        {
+          "total_discount": 1.8,
+          "total_sales": 6987.196
+        },
+        {
+          "total_discount": 2.2,
+          "total_sales": 2523.266
+        },
+        {
+          "total_discount": 0.0,
+          "total_sales": 79.75
+        },
+        {
+          "total_discount": 4.6,
+          "total_sales": 2819.467
+        },
+        {
+          "total_discount": 1.9,
+          "total_sales": 4172.8460000000005
+        },
+        {
+          "total_discount": 1.3,
+          "total_sales": 3582.8199999999997
+        },
+        {
+          "total_discount": 2.0,
+          "total_sales": 3078.624
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 4355.150000000001
+        },
+        {
+          "total_discount": 1.4,
+          "total_sales": 1361.2440000000001
+        },
+        {
+          "total_discount": 1.5,
+          "total_sales": 1255.682
+        },
+        {
+          "total_discount": 0.9,
+          "total_sales": 3919.7760000000003
+        },
+        {
+          "total_discount": 3.4,
+          "total_sales": 1568.44
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 2454.622
+        },
+        {
+          "total_discount": 0.0,
+          "total_sales": 1284.38
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 4716.288
+        },
+        {
+          "total_discount": 0.8,
+          "total_sales": 1888.07
+        },
+        {
+          "total_discount": 1.4,
+          "total_sales": 2189.0190000000002
+        },
+        {
+          "total_discount": 2.2,
+          "total_sales": 6497.27
+        },
+        {
+          "total_discount": 1.5,
+          "total_sales": 9351.212
+        },
+        {
+          "total_discount": 3.6,
+          "total_sales": 2224.0
+        },
+        {
+          "total_discount": 0.72,
+          "total_sales": 146.9408
+        },
+        {
+          "total_discount": 1.6,
+          "total_sales": 3163.628
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 6049.966
+        },
+        {
+          "total_discount": 2.9000000000000004,
+          "total_sales": 11820.12
+        },
+        {
+          "total_discount": 3.95,
+          "total_sales": 1398.382
+        },
+        {
+          "total_discount": 0.7,
+          "total_sales": 236.53
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_sales": 226.436
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 1299.288
+        },
+        {
+          "total_discount": 2.1,
+          "total_sales": 251.36
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 883.532
+        },
+        {
+          "total_discount": 3.0,
+          "total_sales": 1990.314
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_sales": 5248.787
+        },
+        {
+          "total_discount": 1.9,
+          "total_sales": 785.628
+        },
+        {
+          "total_discount": 4.62,
+          "total_sales": 8236.7648
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 358.1
+        },
+        {
+          "total_discount": 3.2,
+          "total_sales": 4877.784
+        },
+        {
+          "total_discount": 2.3,
+          "total_sales": 2163.2999999999997
+        },
+        {
+          "total_discount": 3.6,
+          "total_sales": 2584.158
+        },
+        {
+          "total_discount": 0.9,
+          "total_sales": 9300.254
+        },
+        {
+          "total_discount": 1.2,
+          "total_sales": 886.52
+        },
+        {
+          "total_discount": 2.9,
+          "total_sales": 3247.642
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 736.276
+        },
+        {
+          "total_discount": 2.5,
+          "total_sales": 2533.164
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 218.668
+        },
+        {
+          "total_discount": 1.9000000000000001,
+          "total_sales": 3690.284
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 12873.297999999999
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 2872.63
+        },
+        {
+          "total_discount": 3.5,
+          "total_sales": 4930.474
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 744.574
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 5040.736
+        },
+        {
+          "total_discount": 1.7,
+          "total_sales": 2358.676
+        },
+        {
+          "total_discount": 3.2,
+          "total_sales": 1214.956
+        },
+        {
+          "total_discount": 0.9500000000000001,
+          "total_sales": 3254.949
+        },
+        {
+          "total_discount": 2.0,
+          "total_sales": 6366.392
+        },
+        {
+          "total_discount": 1.5,
+          "total_sales": 1571.523
+        },
+        {
+          "total_discount": 2.3,
+          "total_sales": 2279.586
+        },
+        {
+          "total_discount": 1.7,
+          "total_sales": 4427.142
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 7721.714
+        },
+        {
+          "total_discount": 2.2,
+          "total_sales": 2203.7
+        },
+        {
+          "total_discount": 5.5,
+          "total_sales": 3159.122
+        },
+        {
+          "total_discount": 1.8,
+          "total_sales": 1804.146
+        },
+        {
+          "total_discount": 1.9,
+          "total_sales": 1934.272
+        },
+        {
+          "total_discount": 1.6,
+          "total_sales": 955.124
+        },
+        {
+          "total_discount": 2.8,
+          "total_sales": 2240.58
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 383.81199999999995
+        },
+        {
+          "total_discount": 0.8999999999999999,
+          "total_sales": 71.26299999999999
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 1911.844
+        },
+        {
+          "total_discount": 2.1,
+          "total_sales": 2709.632
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 1058.108
+        },
+        {
+          "total_discount": 3.3000000000000003,
+          "total_sales": 1791.605
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 2371.448
+        },
+        {
+          "total_discount": 2.2,
+          "total_sales": 309.281
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 709.178
+        },
+        {
+          "total_discount": 2.1,
+          "total_sales": 1669.135
+        },
+        {
+          "total_discount": 2.4000000000000004,
+          "total_sales": 1388.682
+        },
+        {
+          "total_discount": 2.2,
+          "total_sales": 1082.918
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 3173.874
+        },
+        {
+          "total_discount": 0.9500000000000001,
+          "total_sales": 3635.594
+        },
+        {
+          "total_discount": 0.9,
+          "total_sales": 1733.443
+        },
+        {
+          "total_discount": 2.6,
+          "total_sales": 1090.838
+        },
+        {
+          "total_discount": 2.8000000000000003,
+          "total_sales": 4198.332
+        },
+        {
+          "total_discount": 0.8,
+          "total_sales": 303.948
+        },
+        {
+          "total_discount": 2.5,
+          "total_sales": 1417.654
+        },
+        {
+          "total_discount": 3.2,
+          "total_sales": 7754.976
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_sales": 3760.028
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 4760.434
+        },
+        {
+          "total_discount": 1.9,
+          "total_sales": 864.947
+        },
+        {
+          "total_discount": 0.8999999999999999,
+          "total_sales": 1156.658
+        },
+        {
+          "total_discount": 2.3,
+          "total_sales": 1131.064
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 863.88
+        },
+        {
+          "total_discount": 7.1,
+          "total_sales": 8697.843
+        },
+        {
+          "total_discount": 6.65,
+          "total_sales": 4867.2
+        },
+        {
+          "total_discount": 3.35,
+          "total_sales": 6760.815
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 195.0
+        },
+        {
+          "total_discount": 1.9500000000000002,
+          "total_sales": 2772.055
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 2152.352
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 1507.018
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 528.91
+        },
+        {
+          "total_discount": 3.0,
+          "total_sales": 9799.923
+        },
+        {
+          "total_discount": 2.6,
+          "total_sales": 2725.256
+        },
+        {
+          "total_discount": 2.4,
+          "total_sales": 7625.076
+        },
+        {
+          "total_discount": 1.32,
+          "total_sales": 3868.02
+        },
+        {
+          "total_discount": 2.4,
+          "total_sales": 7610.8640000000005
+        },
+        {
+          "total_discount": 1.3,
+          "total_sales": 959.477
+        },
+        {
+          "total_discount": 2.4,
+          "total_sales": 900.552
+        },
+        {
+          "total_discount": 2.7,
+          "total_sales": 469.169
+        },
+        {
+          "total_discount": 0.9,
+          "total_sales": 1244.086
+        },
+        {
+          "total_discount": 5.1,
+          "total_sales": 6491.026
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 7954.9980000000005
+        },
+        {
+          "total_discount": 0.52,
+          "total_sales": 644.1188
+        },
+        {
+          "total_discount": 3.4,
+          "total_sales": 385.43
+        },
+        {
+          "total_discount": 3.3,
+          "total_sales": 2516.494
+        },
+        {
+          "total_discount": 1.7,
+          "total_sales": 2518.1150000000002
+        },
+        {
+          "total_discount": 0.3,
+          "total_sales": 695.442
+        },
+        {
+          "total_discount": 2.3,
+          "total_sales": 1428.731
+        },
+        {
+          "total_discount": 1.7999999999999998,
+          "total_sales": 3747.668
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 858.576
+        },
+        {
+          "total_discount": 3.5,
+          "total_sales": 2932.484
+        },
+        {
+          "total_discount": 2.0,
+          "total_sales": 1707.71
+        },
+        {
+          "total_discount": 0.9500000000000001,
+          "total_sales": 8828.0305
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 2697.248
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 2256.394
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 2833.926
+        },
+        {
+          "total_discount": 2.2,
+          "total_sales": 2201.686
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 2260.958
+        },
+        {
+          "total_discount": 1.5,
+          "total_sales": 3152.615
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 2120.954
+        },
+        {
+          "total_discount": 3.0,
+          "total_sales": 8282.358
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 10604.266
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 88.472
+        },
+        {
+          "total_discount": 4.3,
+          "total_sales": 1569.464
+        },
+        {
+          "total_discount": 2.5,
+          "total_sales": 3312.864
+        },
+        {
+          "total_discount": 1.3,
+          "total_sales": 1888.964
+        },
+        {
+          "total_discount": 2.1,
+          "total_sales": 3100.612
+        },
+        {
+          "total_discount": 2.8,
+          "total_sales": 5620.186
+        },
+        {
+          "total_discount": 3.7,
+          "total_sales": 2617.272
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 908.821
+        },
+        {
+          "total_discount": 3.22,
+          "total_sales": 1686.7312
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 4416.52
+        },
+        {
+          "total_discount": 2.25,
+          "total_sales": 2171.962
+        },
+        {
+          "total_discount": 3.2,
+          "total_sales": 3057.1
+        },
+        {
+          "total_discount": 1.92,
+          "total_sales": 4642.088400000001
+        },
+        {
+          "total_discount": 2.45,
+          "total_sales": 8181.256
+        },
+        {
+          "total_discount": 2.5,
+          "total_sales": 5952.859
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 1519.506
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 3908.2619999999997
+        },
+        {
+          "total_discount": 6.5,
+          "total_sales": 5016.488
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 449.096
+        },
+        {
+          "total_discount": 2.5,
+          "total_sales": 2744.742
+        },
+        {
+          "total_discount": 2.4,
+          "total_sales": 983.922
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_sales": 2243.5099999999998
+        },
+        {
+          "total_discount": 1.8,
+          "total_sales": 3918.966
+        },
+        {
+          "total_discount": 5.8,
+          "total_sales": 14175.229
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 453.538
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 1146.05
+        },
+        {
+          "total_discount": 1.9,
+          "total_sales": 5990.799
+        },
+        {
+          "total_discount": 1.8,
+          "total_sales": 2280.58
+        },
+        {
+          "total_discount": 2.5,
+          "total_sales": 4909.472
+        },
+        {
+          "total_discount": 0.8,
+          "total_sales": 50.188
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 287.426
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 329.876
+        },
+        {
+          "total_discount": 3.0,
+          "total_sales": 8673.222
+        },
+        {
+          "total_discount": 5.7,
+          "total_sales": 4985.676
+        },
+        {
+          "total_discount": 2.3000000000000003,
+          "total_sales": 1469.45
+        },
+        {
+          "total_discount": 3.1,
+          "total_sales": 2238.061
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 2741.2039999999997
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 5.304
+        },
+        {
+          "total_discount": 7.2,
+          "total_sales": 2580.704
+        },
+        {
+          "total_discount": 3.6,
+          "total_sales": 7663.126
+        },
+        {
+          "total_discount": 1.9,
+          "total_sales": 2295.332
+        },
+        {
+          "total_discount": 2.8,
+          "total_sales": 5142.892
+        },
+        {
+          "total_discount": 2.4,
+          "total_sales": 4492.946
+        },
+        {
+          "total_discount": 4.3,
+          "total_sales": 2845.27
+        },
+        {
+          "total_discount": 2.0,
+          "total_sales": 3246.626
+        },
+        {
+          "total_discount": 6.2,
+          "total_sales": 2988.674
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 3230.308
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 1961.934
+        },
+        {
+          "total_discount": 2.8,
+          "total_sales": 318.239
+        },
+        {
+          "total_discount": 3.3,
+          "total_sales": 1879.306
+        },
+        {
+          "total_discount": 2.45,
+          "total_sales": 2095.064
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 1346.774
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 756.606
+        },
+        {
+          "total_discount": 2.8,
+          "total_sales": 3653.399
+        },
+        {
+          "total_discount": 3.45,
+          "total_sales": 2936.252
+        },
+        {
+          "total_discount": 0.0,
+          "total_sales": 1259.04
+        },
+        {
+          "total_discount": 3.5,
+          "total_sales": 2633.582
+        },
+        {
+          "total_discount": 1.5,
+          "total_sales": 1739.689
+        },
+        {
+          "total_discount": 2.3,
+          "total_sales": 644.35
+        },
+        {
+          "total_discount": 5.1000000000000005,
+          "total_sales": 3930.509
+        },
+        {
+          "total_discount": 2.8000000000000003,
+          "total_sales": 1010.256
+        },
+        {
+          "total_discount": 2.5,
+          "total_sales": 5420.514
+        },
+        {
+          "total_discount": 0.7,
+          "total_sales": 368.88
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 1008.136
+        },
+        {
+          "total_discount": 0.8,
+          "total_sales": 1314.0230000000001
+        },
+        {
+          "total_discount": 1.7,
+          "total_sales": 2725.982
+        },
+        {
+          "total_discount": 2.45,
+          "total_sales": 2394.025
+        },
+        {
+          "total_discount": 3.3000000000000003,
+          "total_sales": 1548.702
+        },
+        {
+          "total_discount": 2.9000000000000004,
+          "total_sales": 10663.728000000001
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 593.606
+        },
+        {
+          "total_discount": 5.6,
+          "total_sales": 3766.382
+        },
+        {
+          "total_discount": 3.85,
+          "total_sales": 7443.6900000000005
+        },
+        {
+          "total_discount": 4.0,
+          "total_sales": 2254.285
+        },
+        {
+          "total_discount": 3.4499999999999997,
+          "total_sales": 2722.843
+        },
+        {
+          "total_discount": 2.5,
+          "total_sales": 2921.5
+        },
+        {
+          "total_discount": 1.2,
+          "total_sales": 4432.138
+        },
+        {
+          "total_discount": 0.7,
+          "total_sales": 400.016
+        },
+        {
+          "total_discount": 1.8,
+          "total_sales": 2456.1820000000002
+        },
+        {
+          "total_discount": 1.7000000000000002,
+          "total_sales": 3206.132
+        },
+        {
+          "total_discount": 3.6,
+          "total_sales": 1560.05
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 922.487
+        },
+        {
+          "total_discount": 2.8000000000000003,
+          "total_sales": 2564.906
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 475.656
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 639.178
+        },
+        {
+          "total_discount": 3.2,
+          "total_sales": 4299.161
+        },
+        {
+          "total_discount": 3.2,
+          "total_sales": 1303.893
+        },
+        {
+          "total_discount": 2.9,
+          "total_sales": 2426.067
+        },
+        {
+          "total_discount": 4.0,
+          "total_sales": 2258.192
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_sales": 1252.8
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_sales": 795.154
+        },
+        {
+          "total_discount": 1.8,
+          "total_sales": 3785.276
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 937.039
+        },
+        {
+          "total_discount": 2.25,
+          "total_sales": 2350.188
+        },
+        {
+          "total_discount": 1.8,
+          "total_sales": 1342.282
+        },
+        {
+          "total_discount": 3.3,
+          "total_sales": 1613.402
+        },
+        {
+          "total_discount": 2.92,
+          "total_sales": 1908.4532
+        },
+        {
+          "total_discount": 3.2,
+          "total_sales": 6320.746
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_sales": 2071.914
+        },
+        {
+          "total_discount": 1.9,
+          "total_sales": 3144.678
+        },
+        {
+          "total_discount": 0.8,
+          "total_sales": 2203.7780000000002
+        },
+        {
+          "total_discount": 1.8,
+          "total_sales": 1687.027
+        },
+        {
+          "total_discount": 1.3,
+          "total_sales": 2890.139
+        },
+        {
+          "total_discount": 0.9,
+          "total_sales": 370.348
+        },
+        {
+          "total_discount": 1.4,
+          "total_sales": 3805.714
+        },
+        {
+          "total_discount": 2.3,
+          "total_sales": 1204.91
+        },
+        {
+          "total_discount": 1.7000000000000002,
+          "total_sales": 1242.8329999999999
+        },
+        {
+          "total_discount": 1.55,
+          "total_sales": 776.384
+        },
+        {
+          "total_discount": 5.1,
+          "total_sales": 2302.368
+        },
+        {
+          "total_discount": 2.9,
+          "total_sales": 3794.0800000000004
+        },
+        {
+          "total_discount": 2.6,
+          "total_sales": 2477.946
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_sales": 154.288
+        },
+        {
+          "total_discount": 5.1,
+          "total_sales": 3983.6420000000003
+        },
+        {
+          "total_discount": 1.9000000000000001,
+          "total_sales": 855.116
+        },
+        {
+          "total_discount": 0.5,
+          "total_sales": 2453.284
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 1256.944
+        },
+        {
+          "total_discount": 1.3,
+          "total_sales": 2984.948
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 742.082
+        },
+        {
+          "total_discount": 4.0,
+          "total_sales": 2749.881
+        },
+        {
+          "total_discount": 2.67,
+          "total_sales": 1319.4497999999999
+        },
+        {
+          "total_discount": 2.0,
+          "total_sales": 1428.231
+        },
+        {
+          "total_discount": 5.1,
+          "total_sales": 2218.98
+        },
+        {
+          "total_discount": 3.7,
+          "total_sales": 5503.093
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 1581.998
+        },
+        {
+          "total_discount": 1.5,
+          "total_sales": 3061.543
+        },
+        {
+          "total_discount": 0.8999999999999999,
+          "total_sales": 1031.602
+        },
+        {
+          "total_discount": 2.95,
+          "total_sales": 5087.92
+        },
+        {
+          "total_discount": 0.9500000000000001,
+          "total_sales": 1734.574
+        },
+        {
+          "total_discount": 0.8999999999999999,
+          "total_sales": 16.739
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 5341.900000000001
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 5253.876
+        },
+        {
+          "total_discount": 0.8,
+          "total_sales": 1758.3
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 162.232
+        },
+        {
+          "total_discount": 1.7,
+          "total_sales": 775.414
+        },
+        {
+          "total_discount": 5.12,
+          "total_sales": 4152.696
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 1418.09
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 5529.62
+        },
+        {
+          "total_discount": 0.7000000000000001,
+          "total_sales": 2461.404
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_sales": 1869.58
+        },
+        {
+          "total_discount": 3.8000000000000003,
+          "total_sales": 4326.139
+        },
+        {
+          "total_discount": 3.5,
+          "total_sales": 8322.826
+        },
+        {
+          "total_discount": 4.7,
+          "total_sales": 7234.014
+        },
+        {
+          "total_discount": 3.7,
+          "total_sales": 2218.9900000000002
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 1395.938
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 6459.344
+        },
+        {
+          "total_discount": 0.7,
+          "total_sales": 2893.455
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 377.16200000000003
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_sales": 572.048
+        },
+        {
+          "total_discount": 3.1,
+          "total_sales": 2575.863
+        },
+        {
+          "total_discount": 3.9,
+          "total_sales": 2161.9790000000003
+        },
+        {
+          "total_discount": 2.05,
+          "total_sales": 8241.739
+        },
+        {
+          "total_discount": 2.9,
+          "total_sales": 2367.277
+        },
+        {
+          "total_discount": 3.5,
+          "total_sales": 2488.31
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 273.87199999999996
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_sales": 2031.472
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 2673.29
+        },
+        {
+          "total_discount": 2.2,
+          "total_sales": 1821.742
+        },
+        {
+          "total_discount": 5.6000000000000005,
+          "total_sales": 2964.823
+        },
+        {
+          "total_discount": 2.95,
+          "total_sales": 1972.599
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 3908.402
+        },
+        {
+          "total_discount": 1.3,
+          "total_sales": 1228.698
+        },
+        {
+          "total_discount": 2.5500000000000003,
+          "total_sales": 7903.1825
+        },
+        {
+          "total_discount": 2.4000000000000004,
+          "total_sales": 1567.52
+        },
+        {
+          "total_discount": 1.6,
+          "total_sales": 3818.624
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 1832.064
+        },
+        {
+          "total_discount": 4.7,
+          "total_sales": 2181.479
+        },
+        {
+          "total_discount": 1.6,
+          "total_sales": 1467.152
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 729.648
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 740.356
+        },
+        {
+          "total_discount": 4.4,
+          "total_sales": 3086.907
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 1220.09
+        },
+        {
+          "total_discount": 4.62,
+          "total_sales": 7473.8282
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 2493.214
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_sales": 1840.1779999999999
+        },
+        {
+          "total_discount": 1.6,
+          "total_sales": 1987.164
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 1441.152
+        },
+        {
+          "total_discount": 2.0,
+          "total_sales": 239.481
+        },
+        {
+          "total_discount": 0.6,
+          "total_sales": 1405.4019999999998
+        },
+        {
+          "total_discount": 3.7,
+          "total_sales": 7252.608
+        },
+        {
+          "total_discount": 0.7,
+          "total_sales": 1278.639
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 2876.046
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 1061.488
+        },
+        {
+          "total_discount": 0.8,
+          "total_sales": 1824.2340000000002
+        },
+        {
+          "total_discount": 0.5,
+          "total_sales": 3454.916
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 6843.634
+        },
+        {
+          "total_discount": 1.3,
+          "total_sales": 729.408
+        },
+        {
+          "total_discount": 1.9000000000000001,
+          "total_sales": 8646.934
+        },
+        {
+          "total_discount": 2.6,
+          "total_sales": 160.572
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 688.324
+        },
+        {
+          "total_discount": 2.3000000000000003,
+          "total_sales": 9062.864
+        },
+        {
+          "total_discount": 0.9,
+          "total_sales": 4115.662
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_sales": 1456.95
+        },
+        {
+          "total_discount": 0.5,
+          "total_sales": 2770.0
+        },
+        {
+          "total_discount": 1.9000000000000001,
+          "total_sales": 4893.043
+        },
+        {
+          "total_discount": 1.9000000000000001,
+          "total_sales": 1056.858
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 132.738
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 2206.128
+        },
+        {
+          "total_discount": 2.05,
+          "total_sales": 3922.415
+        },
+        {
+          "total_discount": 1.6,
+          "total_sales": 6108.338
+        },
+        {
+          "total_discount": 2.3200000000000003,
+          "total_sales": 954.6452
+        },
+        {
+          "total_discount": 2.8000000000000003,
+          "total_sales": 2617.906
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 1460.192
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 615.932
+        },
+        {
+          "total_discount": 1.9000000000000001,
+          "total_sales": 1008.196
+        },
+        {
+          "total_discount": 2.2,
+          "total_sales": 3309.15
+        },
+        {
+          "total_discount": 1.7,
+          "total_sales": 15117.339
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 1453.474
+        },
+        {
+          "total_discount": 3.7,
+          "total_sales": 5153.084
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 48.36
+        },
+        {
+          "total_discount": 0.0,
+          "total_sales": 3221.29
+        },
+        {
+          "total_discount": 2.6,
+          "total_sales": 2663.0860000000002
+        },
+        {
+          "total_discount": 1.2,
+          "total_sales": 876.696
+        },
+        {
+          "total_discount": 3.1,
+          "total_sales": 4715.466
+        },
+        {
+          "total_discount": 1.6,
+          "total_sales": 4272.93
+        },
+        {
+          "total_discount": 0.8,
+          "total_sales": 3621.376
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 6979.18
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 3302.2619999999997
+        },
+        {
+          "total_discount": 3.1,
+          "total_sales": 7397.401
+        },
+        {
+          "total_discount": 1.5999999999999999,
+          "total_sales": 740.382
+        },
+        {
+          "total_discount": 1.5,
+          "total_sales": 528.546
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 2912.894
+        },
+        {
+          "total_discount": 1.2,
+          "total_sales": 2085.7400000000002
+        },
+        {
+          "total_discount": 5.25,
+          "total_sales": 6234.91
+        },
+        {
+          "total_discount": 2.2,
+          "total_sales": 3279.746
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 221.084
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 2786.632
+        },
+        {
+          "total_discount": 0.5,
+          "total_sales": 5979.0960000000005
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 3495.646
+        },
+        {
+          "total_discount": 1.0999999999999999,
+          "total_sales": 2067.45
+        },
+        {
+          "total_discount": 3.15,
+          "total_sales": 1419.737
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 2341.2960000000003
+        },
+        {
+          "total_discount": 0.0,
+          "total_sales": 98.35
+        },
+        {
+          "total_discount": 1.6,
+          "total_sales": 4159.7699999999995
+        },
+        {
+          "total_discount": 3.5,
+          "total_sales": 3815.478
+        },
+        {
+          "total_discount": 4.5,
+          "total_sales": 5633.316
+        },
+        {
+          "total_discount": 3.0,
+          "total_sales": 1137.616
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 966.409
+        },
+        {
+          "total_discount": 0.8999999999999999,
+          "total_sales": 945.222
+        },
+        {
+          "total_discount": 2.0,
+          "total_sales": 2170.716
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 22.328
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 3832.3140000000003
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 3133.924
+        },
+        {
+          "total_discount": 6.15,
+          "total_sales": 4793.543
+        },
+        {
+          "total_discount": 3.1,
+          "total_sales": 970.942
+        },
+        {
+          "total_discount": 2.85,
+          "total_sales": 1686.9225
+        },
+        {
+          "total_discount": 1.9000000000000001,
+          "total_sales": 885.752
+        },
+        {
+          "total_discount": 3.95,
+          "total_sales": 3406.8395
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 883.409
+        },
+        {
+          "total_discount": 1.6,
+          "total_sales": 244.494
+        },
+        {
+          "total_discount": 3.72,
+          "total_sales": 3362.9636
+        },
+        {
+          "total_discount": 4.4,
+          "total_sales": 3625.329
+        },
+        {
+          "total_discount": 2.8000000000000003,
+          "total_sales": 4624.572
+        },
+        {
+          "total_discount": 0.9,
+          "total_sales": 763.546
+        },
+        {
+          "total_discount": 0.75,
+          "total_sales": 3406.5809999999997
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_sales": 14142.334
+        },
+        {
+          "total_discount": 2.1,
+          "total_sales": 12209.438
+        },
+        {
+          "total_discount": 5.6000000000000005,
+          "total_sales": 3949.656
+        },
+        {
+          "total_discount": 2.4,
+          "total_sales": 1324.028
+        },
+        {
+          "total_discount": 1.6,
+          "total_sales": 3053.012
+        },
+        {
+          "total_discount": 1.3,
+          "total_sales": 1348.02
+        },
+        {
+          "total_discount": 1.7000000000000002,
+          "total_sales": 6410.996
+        },
+        {
+          "total_discount": 1.9,
+          "total_sales": 3422.786
+        },
+        {
+          "total_discount": 3.7,
+          "total_sales": 1341.036
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 4371.958
+        },
+        {
+          "total_discount": 2.6,
+          "total_sales": 1085.078
+        },
+        {
+          "total_discount": 3.5500000000000003,
+          "total_sales": 3729.7929999999997
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 1966.6499999999999
+        },
+        {
+          "total_discount": 4.1,
+          "total_sales": 8057.891
+        },
+        {
+          "total_discount": 2.6,
+          "total_sales": 3979.065
+        },
+        {
+          "total_discount": 3.7,
+          "total_sales": 25043.05
+        },
+        {
+          "total_discount": 2.0500000000000003,
+          "total_sales": 2602.5755
+        },
+        {
+          "total_discount": 1.3,
+          "total_sales": 1019.044
+        },
+        {
+          "total_discount": 5.0,
+          "total_sales": 11470.95
+        },
+        {
+          "total_discount": 3.8,
+          "total_sales": 5992.536
+        },
+        {
+          "total_discount": 3.5,
+          "total_sales": 2180.718
+        },
+        {
+          "total_discount": 3.1,
+          "total_sales": 3056.807
+        },
+        {
+          "total_discount": 3.3,
+          "total_sales": 3233.481
+        },
+        {
+          "total_discount": 2.8,
+          "total_sales": 1874.9979999999998
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 2921.544
+        },
+        {
+          "total_discount": 2.1,
+          "total_sales": 1884.798
+        },
+        {
+          "total_discount": 2.2,
+          "total_sales": 6121.114
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 1318.7759999999998
+        },
+        {
+          "total_discount": 0.0,
+          "total_sales": 613.4
+        },
+        {
+          "total_discount": 2.4000000000000004,
+          "total_sales": 433.34
+        },
+        {
+          "total_discount": 2.6,
+          "total_sales": 1306.086
+        },
+        {
+          "total_discount": 2.6,
+          "total_sales": 1860.4180000000001
+        },
+        {
+          "total_discount": 2.4,
+          "total_sales": 902.7280000000001
+        },
+        {
+          "total_discount": 0.0,
+          "total_sales": 418.49
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 3124.8320000000003
+        },
+        {
+          "total_discount": 6.0,
+          "total_sales": 5440.319
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 2096.392
+        },
+        {
+          "total_discount": 2.3000000000000003,
+          "total_sales": 1872.436
+        },
+        {
+          "total_discount": 2.4,
+          "total_sales": 2595.364
+        },
+        {
+          "total_discount": 0.0,
+          "total_sales": 1254.64
+        },
+        {
+          "total_discount": 2.2,
+          "total_sales": 2576.408
+        },
+        {
+          "total_discount": 2.22,
+          "total_sales": 3127.9592
+        },
+        {
+          "total_discount": 3.9000000000000004,
+          "total_sales": 5226.21
+        },
+        {
+          "total_discount": 0.4,
+          "total_sales": 4345.886
+        },
+        {
+          "total_discount": 0.8,
+          "total_sales": 758.6959999999999
+        },
+        {
+          "total_discount": 6.4,
+          "total_sales": 4492.657
+        },
+        {
+          "total_discount": 4.6,
+          "total_sales": 4105.305
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 279.25600000000003
+        },
+        {
+          "total_discount": 1.2,
+          "total_sales": 1271.0900000000001
+        },
+        {
+          "total_discount": 4.05,
+          "total_sales": 4767.3415
+        },
+        {
+          "total_discount": 0.8,
+          "total_sales": 280.632
+        },
+        {
+          "total_discount": 5.0,
+          "total_sales": 4282.94
+        },
+        {
+          "total_discount": 3.6,
+          "total_sales": 964.636
+        },
+        {
+          "total_discount": 2.0,
+          "total_sales": 47.946
+        },
+        {
+          "total_discount": 1.7,
+          "total_sales": 1043.041
+        },
+        {
+          "total_discount": 3.8,
+          "total_sales": 3990.689
+        },
+        {
+          "total_discount": 3.0,
+          "total_sales": 1903.491
+        },
+        {
+          "total_discount": 2.8000000000000003,
+          "total_sales": 5563.392
+        },
+        {
+          "total_discount": 4.6000000000000005,
+          "total_sales": 3336.5350000000003
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_sales": 19052.218
+        },
+        {
+          "total_discount": 3.9000000000000004,
+          "total_sales": 1434.548
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 2955.226
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 5278.826
+        },
+        {
+          "total_discount": 2.4,
+          "total_sales": 3130.221
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 1467.881
+        },
+        {
+          "total_discount": 1.6,
+          "total_sales": 4915.602
+        },
+        {
+          "total_discount": 1.4,
+          "total_sales": 4.833
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 2422.824
+        },
+        {
+          "total_discount": 2.1,
+          "total_sales": 2942.772
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_sales": 4454.0560000000005
+        },
+        {
+          "total_discount": 0.0,
+          "total_sales": 1038.26
+        },
+        {
+          "total_discount": 3.8,
+          "total_sales": 2163.6240000000003
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 3589.296
+        },
+        {
+          "total_discount": 0.1,
+          "total_sales": 816.1740000000001
+        },
+        {
+          "total_discount": 3.0,
+          "total_sales": 5371.09
+        },
+        {
+          "total_discount": 3.2,
+          "total_sales": 1427.0439999999999
+        },
+        {
+          "total_discount": 2.7,
+          "total_sales": 1022.201
+        },
+        {
+          "total_discount": 4.7,
+          "total_sales": 1602.376
+        },
+        {
+          "total_discount": 0.0,
+          "total_sales": 439.5
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 2198.4500000000003
+        },
+        {
+          "total_discount": 2.1,
+          "total_sales": 4266.812
+        },
+        {
+          "total_discount": 1.9,
+          "total_sales": 3058.372
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 675.942
+        },
+        {
+          "total_discount": 3.4,
+          "total_sales": 974.782
+        },
+        {
+          "total_discount": 0.8,
+          "total_sales": 834.328
+        },
+        {
+          "total_discount": 1.75,
+          "total_sales": 11891.751
+        },
+        {
+          "total_discount": 0.8,
+          "total_sales": 14595.62
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 9133.99
+        },
+        {
+          "total_discount": 4.62,
+          "total_sales": 5329.0048
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 2054.14
+        },
+        {
+          "total_discount": 1.8,
+          "total_sales": 5364.808
+        },
+        {
+          "total_discount": 2.9,
+          "total_sales": 1244.976
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 1094.6779999999999
+        },
+        {
+          "total_discount": 2.7,
+          "total_sales": 2243.274
+        },
+        {
+          "total_discount": 5.3,
+          "total_sales": 4737.486
+        },
+        {
+          "total_discount": 1.1,
+          "total_sales": 742.558
+        },
+        {
+          "total_discount": 0.8999999999999999,
+          "total_sales": 4234.0960000000005
+        },
+        {
+          "total_discount": 2.4,
+          "total_sales": 1936.6399999999999
+        },
+        {
+          "total_discount": 0.8,
+          "total_sales": 1707.286
+        },
+        {
+          "total_discount": 1.9,
+          "total_sales": 1387.559
+        },
+        {
+          "total_discount": 4.1,
+          "total_sales": 2820.424
+        },
+        {
+          "total_discount": 2.1,
+          "total_sales": 2797.668
+        },
+        {
+          "total_discount": 1.3,
+          "total_sales": 2074.661
+        },
+        {
+          "total_discount": 2.7,
+          "total_sales": 3368.094
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 6442.254
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_sales": 2454.866
+        },
+        {
+          "total_discount": 3.0,
+          "total_sales": 1736.596
+        },
+        {
+          "total_discount": 0.7,
+          "total_sales": 847.944
+        },
+        {
+          "total_discount": 0.2,
+          "total_sales": 993.9019999999999
+        },
+        {
+          "total_discount": 1.7000000000000002,
+          "total_sales": 2005.596
+        },
+        {
+          "total_discount": 2.4,
+          "total_sales": 3360.526
+        },
+        {
+          "total_discount": 2.9,
+          "total_sales": 6134.0380000000005
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 846.01
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 427.372
+        },
+        {
+          "total_discount": 3.8,
+          "total_sales": 1055.981
+        },
+        {
+          "total_discount": 0.8999999999999999,
+          "total_sales": 380.69
+        },
+        {
+          "total_discount": 7.6000000000000005,
+          "total_sales": 6160.102
+        },
+        {
+          "total_discount": 1.3,
+          "total_sales": 2374.658
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 6720.4439999999995
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_sales": 5454.35
+        },
+        {
+          "total_discount": 7.9,
+          "total_sales": 8025.707
+        },
+        {
+          "total_discount": 1.0,
+          "total_sales": 1493.944
+        }
+      ],
+      "spec": {
+        "chart_type": "bar",
+        "sql": "SELECT SUM(discount) AS total_discount, SUM(sales) AS total_sales FROM orders GROUP BY customer_name",
+        "title": "Descuento medio por cliente",
+        "xlabel": "Descuento medio",
+        "ylabel": "Total de ventas"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 2,
+    "category": "analysis",
+    "task_type": "median",
+    "difficulty": "easy",
+    "language": "es",
+    "question": "¿Cuál es la mediana del beneficio?",
+    "question_en": "What is the median profit?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 70.4843,
+    "attempts": 2,
+    "retried": true,
+    "answer": {
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/d0f2fd751ba34914aa04694c538774a2.png",
+      "rows": [
+        {
+          "region": "Central",
+          "total_profit": 39706.3625
+        },
+        {
+          "region": "East",
+          "total_profit": 91522.78
+        },
+        {
+          "region": "South",
+          "total_profit": 46749.4303
+        },
+        {
+          "region": "West",
+          "total_profit": 108418.4489
+        }
+      ],
+      "spec": {
+        "chart_type": "bar",
+        "sql": "SELECT region, SUM(profit) AS total_profit FROM orders GROUP BY region",
+        "title": "Median Profit by Region",
+        "xlabel": "Region",
+        "ylabel": "Total Profit"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 3,
+    "category": "analysis",
+    "task_type": "std",
+    "difficulty": "easy",
+    "language": "es",
+    "question": "¿Cuál es la desviación estándar de las ventas?",
+    "question_en": "What is the standard deviation of sales?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 55.5507,
+    "attempts": 2,
+    "retried": true,
+    "answer": {
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/fa7fcb1ca0904311b35ec5a7e9b5af1c.png",
+      "rows": [
+        {
+          "sales": 0.444,
+          "n": 1
+        },
+        {
+          "sales": 0.556,
+          "n": 1
+        },
+        {
+          "sales": 0.836,
+          "n": 1
+        },
+        {
+          "sales": 0.852,
+          "n": 1
+        },
+        {
+          "sales": 0.876,
+          "n": 1
+        },
+        {
+          "sales": 0.898,
+          "n": 1
+        },
+        {
+          "sales": 0.984,
+          "n": 1
+        },
+        {
+          "sales": 0.99,
+          "n": 1
+        },
+        {
+          "sales": 1.044,
+          "n": 1
+        },
+        {
+          "sales": 1.08,
+          "n": 3
+        },
+        {
+          "sales": 1.112,
+          "n": 1
+        },
+        {
+          "sales": 1.167,
+          "n": 1
+        },
+        {
+          "sales": 1.188,
+          "n": 3
+        },
+        {
+          "sales": 1.192,
+          "n": 1
+        },
+        {
+          "sales": 1.234,
+          "n": 1
+        },
+        {
+          "sales": 1.24,
+          "n": 1
+        },
+        {
+          "sales": 1.248,
+          "n": 2
+        },
+        {
+          "sales": 1.272,
+          "n": 1
+        },
+        {
+          "sales": 1.344,
+          "n": 4
+        },
+        {
+          "sales": 1.362,
+          "n": 1
+        },
+        {
+          "sales": 1.365,
+          "n": 1
+        },
+        {
+          "sales": 1.392,
+          "n": 1
+        },
+        {
+          "sales": 1.408,
+          "n": 2
+        },
+        {
+          "sales": 1.44,
+          "n": 1
+        },
+        {
+          "sales": 1.448,
+          "n": 1
+        },
+        {
+          "sales": 1.476,
+          "n": 2
+        },
+        {
+          "sales": 1.504,
+          "n": 1
+        },
+        {
+          "sales": 1.524,
+          "n": 1
+        },
+        {
+          "sales": 1.556,
+          "n": 1
+        },
+        {
+          "sales": 1.584,
+          "n": 1
+        },
+        {
+          "sales": 1.592,
+          "n": 1
+        },
+        {
+          "sales": 1.624,
+          "n": 1
+        },
+        {
+          "sales": 1.632,
+          "n": 1
+        },
+        {
+          "sales": 1.64,
+          "n": 1
+        },
+        {
+          "sales": 1.641,
+          "n": 1
+        },
+        {
+          "sales": 1.68,
+          "n": 2
+        },
+        {
+          "sales": 1.696,
+          "n": 1
+        },
+        {
+          "sales": 1.72,
+          "n": 1
+        },
+        {
+          "sales": 1.728,
+          "n": 3
+        },
+        {
+          "sales": 1.744,
+          "n": 1
+        },
+        {
+          "sales": 1.752,
+          "n": 1
+        },
+        {
+          "sales": 1.78,
+          "n": 1
+        },
+        {
+          "sales": 1.788,
+          "n": 3
+        },
+        {
+          "sales": 1.8,
+          "n": 1
+        },
+        {
+          "sales": 1.81,
+          "n": 2
+        },
+        {
+          "sales": 1.824,
+          "n": 2
+        },
+        {
+          "sales": 1.869,
+          "n": 1
+        },
+        {
+          "sales": 1.872,
+          "n": 2
+        },
+        {
+          "sales": 1.892,
+          "n": 1
+        },
+        {
+          "sales": 1.908,
+          "n": 2
+        },
+        {
+          "sales": 1.928,
+          "n": 1
+        },
+        {
+          "sales": 1.938,
+          "n": 1
+        },
+        {
+          "sales": 1.941,
+          "n": 1
+        },
+        {
+          "sales": 1.944,
+          "n": 1
+        },
+        {
+          "sales": 1.964,
+          "n": 2
+        },
+        {
+          "sales": 1.98,
+          "n": 2
+        },
+        {
+          "sales": 1.984,
+          "n": 1
+        },
+        {
+          "sales": 1.988,
+          "n": 1
+        },
+        {
+          "sales": 1.996,
+          "n": 1
+        },
+        {
+          "sales": 2.025,
+          "n": 1
+        },
+        {
+          "sales": 2.032,
+          "n": 1
+        },
+        {
+          "sales": 2.04,
+          "n": 1
+        },
+        {
+          "sales": 2.043,
+          "n": 1
+        },
+        {
+          "sales": 2.064,
+          "n": 1
+        },
+        {
+          "sales": 2.068,
+          "n": 1
+        },
+        {
+          "sales": 2.072,
+          "n": 1
+        },
+        {
+          "sales": 2.08,
+          "n": 1
+        },
+        {
+          "sales": 2.088,
+          "n": 1
+        },
+        {
+          "sales": 2.112,
+          "n": 1
+        },
+        {
+          "sales": 2.182,
+          "n": 1
+        },
+        {
+          "sales": 2.2,
+          "n": 1
+        },
+        {
+          "sales": 2.202,
+          "n": 1
+        },
+        {
+          "sales": 2.21,
+          "n": 1
+        },
+        {
+          "sales": 2.214,
+          "n": 2
+        },
+        {
+          "sales": 2.22,
+          "n": 1
+        },
+        {
+          "sales": 2.224,
+          "n": 1
+        },
+        {
+          "sales": 2.264,
+          "n": 1
+        },
+        {
+          "sales": 2.286,
+          "n": 2
+        },
+        {
+          "sales": 2.296,
+          "n": 2
+        },
+        {
+          "sales": 2.304,
+          "n": 3
+        },
+        {
+          "sales": 2.308,
+          "n": 1
+        },
+        {
+          "sales": 2.313,
+          "n": 1
+        },
+        {
+          "sales": 2.328,
+          "n": 2
+        },
+        {
+          "sales": 2.334,
+          "n": 1
+        },
+        {
+          "sales": 2.368,
+          "n": 2
+        },
+        {
+          "sales": 2.376,
+          "n": 3
+        },
+        {
+          "sales": 2.388,
+          "n": 1
+        },
+        {
+          "sales": 2.394,
+          "n": 1
+        },
+        {
+          "sales": 2.412,
+          "n": 1
+        },
+        {
+          "sales": 2.464,
+          "n": 1
+        },
+        {
+          "sales": 2.469,
+          "n": 1
+        },
+        {
+          "sales": 2.48,
+          "n": 2
+        },
+        {
+          "sales": 2.496,
+          "n": 1
+        },
+        {
+          "sales": 2.502,
+          "n": 3
+        },
+        {
+          "sales": 2.508,
+          "n": 1
+        },
+        {
+          "sales": 2.512,
+          "n": 1
+        },
+        {
+          "sales": 2.52,
+          "n": 2
+        },
+        {
+          "sales": 2.544,
+          "n": 1
+        },
+        {
+          "sales": 2.556,
+          "n": 1
+        },
+        {
+          "sales": 2.6,
+          "n": 1
+        },
+        {
+          "sales": 2.61,
+          "n": 3
+        },
+        {
+          "sales": 2.624,
+          "n": 4
+        },
+        {
+          "sales": 2.628,
+          "n": 1
+        },
+        {
+          "sales": 2.632,
+          "n": 1
+        },
+        {
+          "sales": 2.655,
+          "n": 1
+        },
+        {
+          "sales": 2.672,
+          "n": 2
+        },
+        {
+          "sales": 2.688,
+          "n": 4
+        },
+        {
+          "sales": 2.694,
+          "n": 2
+        },
+        {
+          "sales": 2.696,
+          "n": 1
+        },
+        {
+          "sales": 2.724,
+          "n": 3
+        },
+        {
+          "sales": 2.74,
+          "n": 1
+        },
+        {
+          "sales": 2.742,
+          "n": 1
+        },
+        {
+          "sales": 2.772,
+          "n": 1
+        },
+        {
+          "sales": 2.78,
+          "n": 4
+        },
+        {
+          "sales": 2.784,
+          "n": 1
+        },
+        {
+          "sales": 2.808,
+          "n": 3
+        },
+        {
+          "sales": 2.816,
+          "n": 2
+        },
+        {
+          "sales": 2.84,
+          "n": 1
+        },
+        {
+          "sales": 2.862,
+          "n": 1
+        },
+        {
+          "sales": 2.864,
+          "n": 1
+        },
+        {
+          "sales": 2.88,
+          "n": 6
+        },
+        {
+          "sales": 2.89,
+          "n": 2
+        },
+        {
+          "sales": 2.892,
+          "n": 2
+        },
+        {
+          "sales": 2.896,
+          "n": 4
+        },
+        {
+          "sales": 2.907,
+          "n": 1
+        },
+        {
+          "sales": 2.91,
+          "n": 1
+        },
+        {
+          "sales": 2.912,
+          "n": 2
+        },
+        {
+          "sales": 2.92,
+          "n": 2
+        },
+        {
+          "sales": 2.934,
+          "n": 2
+        },
+        {
+          "sales": 2.94,
+          "n": 1
+        },
+        {
+          "sales": 2.944,
+          "n": 1
+        },
+        {
+          "sales": 2.946,
+          "n": 5
+        },
+        {
+          "sales": 2.952,
+          "n": 2
+        },
+        {
+          "sales": 2.96,
+          "n": 3
+        },
+        {
+          "sales": 2.97,
+          "n": 3
+        },
+        {
+          "sales": 2.992,
+          "n": 2
+        },
+        {
+          "sales": 3.0,
+          "n": 2
+        },
+        {
+          "sales": 3.008,
+          "n": 2
+        },
+        {
+          "sales": 3.024,
+          "n": 1
+        },
+        {
+          "sales": 3.036,
+          "n": 2
+        },
+        {
+          "sales": 3.04,
+          "n": 1
+        },
+        {
+          "sales": 3.048,
+          "n": 2
+        },
+        {
+          "sales": 3.08,
+          "n": 1
+        },
+        {
+          "sales": 3.104,
+          "n": 1
+        },
+        {
+          "sales": 3.108,
+          "n": 1
+        },
+        {
+          "sales": 3.132,
+          "n": 2
+        },
+        {
+          "sales": 3.136,
+          "n": 1
+        },
+        {
+          "sales": 3.15,
+          "n": 5
+        },
+        {
+          "sales": 3.152,
+          "n": 1
+        },
+        {
+          "sales": 3.16,
+          "n": 1
+        },
+        {
+          "sales": 3.168,
+          "n": 6
+        },
+        {
+          "sales": 3.2,
+          "n": 1
+        },
+        {
+          "sales": 3.204,
+          "n": 2
+        },
+        {
+          "sales": 3.208,
+          "n": 1
+        },
+        {
+          "sales": 3.24,
+          "n": 1
+        },
+        {
+          "sales": 3.264,
+          "n": 3
+        },
+        {
+          "sales": 3.273,
+          "n": 1
+        },
+        {
+          "sales": 3.28,
+          "n": 3
+        },
+        {
+          "sales": 3.282,
+          "n": 2
+        },
+        {
+          "sales": 3.29,
+          "n": 1
+        },
+        {
+          "sales": 3.304,
+          "n": 3
+        },
+        {
+          "sales": 3.312,
+          "n": 1
+        },
+        {
+          "sales": 3.318,
+          "n": 2
+        },
+        {
+          "sales": 3.328,
+          "n": 2
+        },
+        {
+          "sales": 3.36,
+          "n": 2
+        },
+        {
+          "sales": 3.366,
+          "n": 1
+        },
+        {
+          "sales": 3.38,
+          "n": 2
+        },
+        {
+          "sales": 3.392,
+          "n": 2
+        },
+        {
+          "sales": 3.408,
+          "n": 1
+        },
+        {
+          "sales": 3.424,
+          "n": 3
+        },
+        {
+          "sales": 3.438,
+          "n": 1
+        },
+        {
+          "sales": 3.44,
+          "n": 1
+        },
+        {
+          "sales": 3.444,
+          "n": 2
+        },
+        {
+          "sales": 3.48,
+          "n": 1
+        },
+        {
+          "sales": 3.486,
+          "n": 1
+        },
+        {
+          "sales": 3.488,
+          "n": 4
+        },
+        {
+          "sales": 3.52,
+          "n": 6
+        },
+        {
+          "sales": 3.528,
+          "n": 1
+        },
+        {
+          "sales": 3.536,
+          "n": 1
+        },
+        {
+          "sales": 3.54,
+          "n": 1
+        },
+        {
+          "sales": 3.552,
+          "n": 3
+        },
+        {
+          "sales": 3.564,
+          "n": 5
+        },
+        {
+          "sales": 3.576,
+          "n": 1
+        },
+        {
+          "sales": 3.592,
+          "n": 3
+        },
+        {
+          "sales": 3.6,
+          "n": 1
+        },
+        {
+          "sales": 3.62,
+          "n": 2
+        },
+        {
+          "sales": 3.64,
+          "n": 4
+        },
+        {
+          "sales": 3.648,
+          "n": 2
+        },
+        {
+          "sales": 3.656,
+          "n": 1
+        },
+        {
+          "sales": 3.68,
+          "n": 1
+        },
+        {
+          "sales": 3.69,
+          "n": 2
+        },
+        {
+          "sales": 3.744,
+          "n": 2
+        },
+        {
+          "sales": 3.75,
+          "n": 2
+        },
+        {
+          "sales": 3.76,
+          "n": 6
+        },
+        {
+          "sales": 3.762,
+          "n": 2
+        },
+        {
+          "sales": 3.768,
+          "n": 1
+        },
+        {
+          "sales": 3.798,
+          "n": 3
+        },
+        {
+          "sales": 3.808,
+          "n": 1
+        },
+        {
+          "sales": 3.81,
+          "n": 1
+        },
+        {
+          "sales": 3.816,
+          "n": 1
+        },
+        {
+          "sales": 3.828,
+          "n": 1
+        },
+        {
+          "sales": 3.856,
+          "n": 1
+        },
+        {
+          "sales": 3.882,
+          "n": 3
+        },
+        {
+          "sales": 3.89,
+          "n": 2
+        },
+        {
+          "sales": 3.9,
+          "n": 2
+        },
+        {
+          "sales": 3.912,
+          "n": 3
+        },
+        {
+          "sales": 3.928,
+          "n": 1
+        },
+        {
+          "sales": 3.96,
+          "n": 4
+        },
+        {
+          "sales": 3.98,
+          "n": 1
+        },
+        {
+          "sales": 3.984,
+          "n": 6
+        },
+        {
+          "sales": 4.02,
+          "n": 2
+        },
+        {
+          "sales": 4.032,
+          "n": 1
+        },
+        {
+          "sales": 4.044,
+          "n": 1
+        },
+        {
+          "sales": 4.064,
+          "n": 1
+        },
+        {
+          "sales": 4.08,
+          "n": 1
+        },
+        {
+          "sales": 4.086,
+          "n": 1
+        },
+        {
+          "sales": 4.095,
+          "n": 1
+        },
+        {
+          "sales": 4.13,
+          "n": 2
+        },
+        {
+          "sales": 4.144,
+          "n": 1
+        },
+        {
+          "sales": 4.158,
+          "n": 2
+        },
+        {
+          "sales": 4.16,
+          "n": 2
+        },
+        {
+          "sales": 4.17,
+          "n": 1
+        },
+        {
+          "sales": 4.176,
+          "n": 1
+        },
+        {
+          "sales": 4.18,
+          "n": 1
+        },
+        {
+          "sales": 4.2,
+          "n": 1
+        },
+        {
+          "sales": 4.224,
+          "n": 4
+        },
+        {
+          "sales": 4.24,
+          "n": 1
+        },
+        {
+          "sales": 4.26,
+          "n": 1
+        },
+        {
+          "sales": 4.272,
+          "n": 1
+        },
+        {
+          "sales": 4.276,
+          "n": 1
+        },
+        {
+          "sales": 4.28,
+          "n": 2
+        },
+        {
+          "sales": 4.3,
+          "n": 1
+        },
+        {
+          "sales": 4.304,
+          "n": 1
+        },
+        {
+          "sales": 4.312,
+          "n": 2
+        },
+        {
+          "sales": 4.32,
+          "n": 1
+        },
+        {
+          "sales": 4.338,
+          "n": 1
+        },
+        {
+          "sales": 4.344,
+          "n": 2
+        },
+        {
+          "sales": 4.356,
+          "n": 1
+        },
+        {
+          "sales": 4.36,
+          "n": 5
+        },
+        {
+          "sales": 4.368,
+          "n": 4
+        },
+        {
+          "sales": 4.401,
+          "n": 1
+        },
+        {
+          "sales": 4.41,
+          "n": 1
+        },
+        {
+          "sales": 4.416,
+          "n": 1
+        },
+        {
+          "sales": 4.419,
+          "n": 2
+        },
+        {
+          "sales": 4.428,
+          "n": 1
+        },
+        {
+          "sales": 4.448,
+          "n": 6
+        },
+        {
+          "sales": 4.464,
+          "n": 3
+        },
+        {
+          "sales": 4.47,
+          "n": 1
+        },
+        {
+          "sales": 4.488,
+          "n": 1
+        },
+        {
+          "sales": 4.503,
+          "n": 1
+        },
+        {
+          "sales": 4.512,
+          "n": 1
+        },
+        {
+          "sales": 4.536,
+          "n": 1
+        },
+        {
+          "sales": 4.54,
+          "n": 1
+        },
+        {
+          "sales": 4.544,
+          "n": 1
+        },
+        {
+          "sales": 4.554,
+          "n": 1
+        },
+        {
+          "sales": 4.56,
+          "n": 1
+        },
+        {
+          "sales": 4.572,
+          "n": 1
+        },
+        {
+          "sales": 4.6,
+          "n": 1
+        },
+        {
+          "sales": 4.608,
+          "n": 7
+        },
+        {
+          "sales": 4.616,
+          "n": 1
+        },
+        {
+          "sales": 4.624,
+          "n": 3
+        },
+        {
+          "sales": 4.626,
+          "n": 1
+        },
+        {
+          "sales": 4.656,
+          "n": 1
+        },
+        {
+          "sales": 4.66,
+          "n": 1
+        },
+        {
+          "sales": 4.662,
+          "n": 1
+        },
+        {
+          "sales": 4.672,
+          "n": 3
+        },
+        {
+          "sales": 4.704,
+          "n": 1
+        },
+        {
+          "sales": 4.71,
+          "n": 1
+        },
+        {
+          "sales": 4.712,
+          "n": 2
+        },
+        {
+          "sales": 4.72,
+          "n": 1
+        },
+        {
+          "sales": 4.728,
+          "n": 1
+        },
+        {
+          "sales": 4.73,
+          "n": 1
+        },
+        {
+          "sales": 4.752,
+          "n": 3
+        },
+        {
+          "sales": 4.768,
+          "n": 4
+        },
+        {
+          "sales": 4.77,
+          "n": 1
+        },
+        {
+          "sales": 4.784,
+          "n": 1
+        },
+        {
+          "sales": 4.788,
+          "n": 1
+        },
+        {
+          "sales": 4.812,
+          "n": 1
+        },
+        {
+          "sales": 4.824,
+          "n": 1
+        },
+        {
+          "sales": 4.832,
+          "n": 1
+        },
+        {
+          "sales": 4.836,
+          "n": 1
+        },
+        {
+          "sales": 4.842,
+          "n": 2
+        },
+        {
+          "sales": 4.86,
+          "n": 1
+        },
+        {
+          "sales": 4.89,
+          "n": 1
+        },
+        {
+          "sales": 4.896,
+          "n": 4
+        },
+        {
+          "sales": 4.91,
+          "n": 2
+        },
+        {
+          "sales": 4.912,
+          "n": 1
+        },
+        {
+          "sales": 4.92,
+          "n": 1
+        },
+        {
+          "sales": 4.923,
+          "n": 1
+        },
+        {
+          "sales": 4.928,
+          "n": 7
+        },
+        {
+          "sales": 4.938,
+          "n": 1
+        },
+        {
+          "sales": 4.95,
+          "n": 2
+        },
+        {
+          "sales": 4.956,
+          "n": 1
+        },
+        {
+          "sales": 4.96,
+          "n": 2
+        },
+        {
+          "sales": 4.98,
+          "n": 4
+        },
+        {
+          "sales": 4.984,
+          "n": 1
+        },
+        {
+          "sales": 4.992,
+          "n": 3
+        },
+        {
+          "sales": 5.0,
+          "n": 1
+        },
+        {
+          "sales": 5.022,
+          "n": 1
+        },
+        {
+          "sales": 5.04,
+          "n": 11
+        },
+        {
+          "sales": 5.08,
+          "n": 1
+        },
+        {
+          "sales": 5.104,
+          "n": 2
+        },
+        {
+          "sales": 5.16,
+          "n": 3
+        },
+        {
+          "sales": 5.176,
+          "n": 1
+        },
+        {
+          "sales": 5.18,
+          "n": 1
+        },
+        {
+          "sales": 5.184,
+          "n": 11
+        },
+        {
+          "sales": 5.193,
+          "n": 1
+        },
+        {
+          "sales": 5.2,
+          "n": 1
+        },
+        {
+          "sales": 5.214,
+          "n": 2
+        },
+        {
+          "sales": 5.22,
+          "n": 2
+        },
+        {
+          "sales": 5.229,
+          "n": 1
+        },
+        {
+          "sales": 5.232,
+          "n": 2
+        },
+        {
+          "sales": 5.238,
+          "n": 1
+        },
+        {
+          "sales": 5.248,
+          "n": 8
+        },
+        {
+          "sales": 5.28,
+          "n": 6
+        },
+        {
+          "sales": 5.304,
+          "n": 1
+        },
+        {
+          "sales": 5.312,
+          "n": 1
+        },
+        {
+          "sales": 5.32,
+          "n": 1
+        },
+        {
+          "sales": 5.328,
+          "n": 1
+        },
+        {
+          "sales": 5.34,
+          "n": 1
+        },
+        {
+          "sales": 5.344,
+          "n": 7
+        },
+        {
+          "sales": 5.346,
+          "n": 1
+        },
+        {
+          "sales": 5.352,
+          "n": 1
+        },
+        {
+          "sales": 5.388,
+          "n": 1
+        },
+        {
+          "sales": 5.4,
+          "n": 2
+        },
+        {
+          "sales": 5.43,
+          "n": 1
+        },
+        {
+          "sales": 5.432,
+          "n": 1
+        },
+        {
+          "sales": 5.46,
+          "n": 3
+        },
+        {
+          "sales": 5.47,
+          "n": 1
+        },
+        {
+          "sales": 5.472,
+          "n": 2
+        },
+        {
+          "sales": 5.48,
+          "n": 1
+        },
+        {
+          "sales": 5.484,
+          "n": 1
+        },
+        {
+          "sales": 5.5,
+          "n": 1
+        },
+        {
+          "sales": 5.544,
+          "n": 1
+        },
+        {
+          "sales": 5.552,
+          "n": 2
+        },
+        {
+          "sales": 5.553,
+          "n": 1
+        },
+        {
+          "sales": 5.56,
+          "n": 10
+        },
+        {
+          "sales": 5.58,
+          "n": 3
+        },
+        {
+          "sales": 5.584,
+          "n": 2
+        },
+        {
+          "sales": 5.588,
+          "n": 1
+        },
+        {
+          "sales": 5.607,
+          "n": 2
+        },
+        {
+          "sales": 5.64,
+          "n": 3
+        },
+        {
+          "sales": 5.67,
+          "n": 2
+        },
+        {
+          "sales": 5.68,
+          "n": 3
+        },
+        {
+          "sales": 5.682,
+          "n": 1
+        },
+        {
+          "sales": 5.7,
+          "n": 1
+        },
+        {
+          "sales": 5.715,
+          "n": 3
+        },
+        {
+          "sales": 5.728,
+          "n": 2
+        },
+        {
+          "sales": 5.742,
+          "n": 1
+        },
+        {
+          "sales": 5.76,
+          "n": 12
+        },
+        {
+          "sales": 5.768,
+          "n": 1
+        },
+        {
+          "sales": 5.78,
+          "n": 4
+        },
+        {
+          "sales": 5.792,
+          "n": 1
+        },
+        {
+          "sales": 5.8,
+          "n": 2
+        },
+        {
+          "sales": 5.81,
+          "n": 1
+        },
+        {
+          "sales": 5.82,
+          "n": 1
+        },
+        {
+          "sales": 5.84,
+          "n": 4
+        },
+        {
+          "sales": 5.872,
+          "n": 1
+        },
+        {
+          "sales": 5.88,
+          "n": 5
+        },
+        {
+          "sales": 5.888,
+          "n": 1
+        },
+        {
+          "sales": 5.892,
+          "n": 1
+        },
+        {
+          "sales": 5.904,
+          "n": 6
+        },
+        {
+          "sales": 5.92,
+          "n": 1
+        },
+        {
+          "sales": 5.936,
+          "n": 1
+        },
+        {
+          "sales": 5.94,
+          "n": 4
+        },
+        {
+          "sales": 5.95,
+          "n": 1
+        },
+        {
+          "sales": 5.952,
+          "n": 1
+        },
+        {
+          "sales": 5.96,
+          "n": 2
+        },
+        {
+          "sales": 5.97,
+          "n": 2
+        },
+        {
+          "sales": 5.98,
+          "n": 5
+        },
+        {
+          "sales": 5.984,
+          "n": 3
+        },
+        {
+          "sales": 6.0,
+          "n": 3
+        },
+        {
+          "sales": 6.03,
+          "n": 1
+        },
+        {
+          "sales": 6.048,
+          "n": 3
+        },
+        {
+          "sales": 6.08,
+          "n": 4
+        },
+        {
+          "sales": 6.096,
+          "n": 6
+        },
+        {
+          "sales": 6.104,
+          "n": 1
+        },
+        {
+          "sales": 6.12,
+          "n": 2
+        },
+        {
+          "sales": 6.129,
+          "n": 1
+        },
+        {
+          "sales": 6.16,
+          "n": 9
+        },
+        {
+          "sales": 6.192,
+          "n": 1
+        },
+        {
+          "sales": 6.208,
+          "n": 2
+        },
+        {
+          "sales": 6.216,
+          "n": 2
+        },
+        {
+          "sales": 6.23,
+          "n": 1
+        },
+        {
+          "sales": 6.24,
+          "n": 7
+        },
+        {
+          "sales": 6.258,
+          "n": 1
+        },
+        {
+          "sales": 6.264,
+          "n": 4
+        },
+        {
+          "sales": 6.27,
+          "n": 1
+        },
+        {
+          "sales": 6.28,
+          "n": 2
+        },
+        {
+          "sales": 6.286,
+          "n": 1
+        },
+        {
+          "sales": 6.294,
+          "n": 1
+        },
+        {
+          "sales": 6.3,
+          "n": 2
+        },
+        {
+          "sales": 6.316,
+          "n": 1
+        },
+        {
+          "sales": 6.33,
+          "n": 1
+        },
+        {
+          "sales": 6.336,
+          "n": 1
+        },
+        {
+          "sales": 6.36,
+          "n": 1
+        },
+        {
+          "sales": 6.368,
+          "n": 5
+        },
+        {
+          "sales": 6.37,
+          "n": 1
+        },
+        {
+          "sales": 6.38,
+          "n": 1
+        },
+        {
+          "sales": 6.384,
+          "n": 1
+        },
+        {
+          "sales": 6.408,
+          "n": 3
+        },
+        {
+          "sales": 6.456,
+          "n": 1
+        },
+        {
+          "sales": 6.46,
+          "n": 1
+        },
+        {
+          "sales": 6.464,
+          "n": 1
+        },
+        {
+          "sales": 6.47,
+          "n": 1
+        },
+        {
+          "sales": 6.48,
+          "n": 21
+        },
+        {
+          "sales": 6.528,
+          "n": 1
+        },
+        {
+          "sales": 6.54,
+          "n": 3
+        },
+        {
+          "sales": 6.56,
+          "n": 5
+        },
+        {
+          "sales": 6.57,
+          "n": 2
+        },
+        {
+          "sales": 6.576,
+          "n": 1
+        },
+        {
+          "sales": 6.58,
+          "n": 2
+        },
+        {
+          "sales": 6.588,
+          "n": 1
+        },
+        {
+          "sales": 6.6,
+          "n": 1
+        },
+        {
+          "sales": 6.608,
+          "n": 2
+        },
+        {
+          "sales": 6.63,
+          "n": 6
+        },
+        {
+          "sales": 6.642,
+          "n": 1
+        },
+        {
+          "sales": 6.672,
+          "n": 6
+        },
+        {
+          "sales": 6.68,
+          "n": 3
+        },
+        {
+          "sales": 6.688,
+          "n": 2
+        },
+        {
+          "sales": 6.69,
+          "n": 1
+        },
+        {
+          "sales": 6.696,
+          "n": 1
+        },
+        {
+          "sales": 6.7,
+          "n": 1
+        },
+        {
+          "sales": 6.72,
+          "n": 4
+        },
+        {
+          "sales": 6.732,
+          "n": 1
+        },
+        {
+          "sales": 6.744,
+          "n": 1
+        },
+        {
+          "sales": 6.783,
+          "n": 1
+        },
+        {
+          "sales": 6.79,
+          "n": 1
+        },
+        {
+          "sales": 6.8,
+          "n": 1
+        },
+        {
+          "sales": 6.816,
+          "n": 1
+        },
+        {
+          "sales": 6.84,
+          "n": 1
+        },
+        {
+          "sales": 6.848,
+          "n": 7
+        },
+        {
+          "sales": 6.858,
+          "n": 1
+        },
+        {
+          "sales": 6.874,
+          "n": 1
+        },
+        {
+          "sales": 6.88,
+          "n": 1
+        },
+        {
+          "sales": 6.888,
+          "n": 2
+        },
+        {
+          "sales": 6.9,
+          "n": 2
+        },
+        {
+          "sales": 6.912,
+          "n": 6
+        },
+        {
+          "sales": 6.924,
+          "n": 1
+        },
+        {
+          "sales": 6.928,
+          "n": 1
+        },
+        {
+          "sales": 6.936,
+          "n": 1
+        },
+        {
+          "sales": 6.96,
+          "n": 1
+        },
+        {
+          "sales": 6.976,
+          "n": 2
+        },
+        {
+          "sales": 6.98,
+          "n": 1
+        },
+        {
+          "sales": 6.984,
+          "n": 2
+        },
+        {
+          "sales": 6.99,
+          "n": 2
+        },
+        {
+          "sales": 6.992,
+          "n": 1
+        },
+        {
+          "sales": 7.04,
+          "n": 4
+        },
+        {
+          "sales": 7.056,
+          "n": 3
+        },
+        {
+          "sales": 7.068,
+          "n": 1
+        },
+        {
+          "sales": 7.072,
+          "n": 1
+        },
+        {
+          "sales": 7.08,
+          "n": 2
+        },
+        {
+          "sales": 7.104,
+          "n": 2
+        },
+        {
+          "sales": 7.12,
+          "n": 1
+        },
+        {
+          "sales": 7.152,
+          "n": 3
+        },
+        {
+          "sales": 7.16,
+          "n": 6
+        },
+        {
+          "sales": 7.168,
+          "n": 1
+        },
+        {
+          "sales": 7.184,
+          "n": 3
+        },
+        {
+          "sales": 7.216,
+          "n": 1
+        },
+        {
+          "sales": 7.218,
+          "n": 2
+        },
+        {
+          "sales": 7.23,
+          "n": 2
+        },
+        {
+          "sales": 7.236,
+          "n": 1
+        },
+        {
+          "sales": 7.24,
+          "n": 2
+        },
+        {
+          "sales": 7.27,
+          "n": 1
+        },
+        {
+          "sales": 7.28,
+          "n": 3
+        },
+        {
+          "sales": 7.3,
+          "n": 5
+        },
+        {
+          "sales": 7.31,
+          "n": 3
+        },
+        {
+          "sales": 7.312,
+          "n": 3
+        },
+        {
+          "sales": 7.36,
+          "n": 3
+        },
+        {
+          "sales": 7.38,
+          "n": 9
+        },
+        {
+          "sales": 7.4,
+          "n": 1
+        },
+        {
+          "sales": 7.408,
+          "n": 2
+        },
+        {
+          "sales": 7.41,
+          "n": 1
+        },
+        {
+          "sales": 7.42,
+          "n": 1
+        },
+        {
+          "sales": 7.434,
+          "n": 1
+        },
+        {
+          "sales": 7.44,
+          "n": 1
+        },
+        {
+          "sales": 7.476,
+          "n": 1
+        },
+        {
+          "sales": 7.488,
+          "n": 1
+        },
+        {
+          "sales": 7.5,
+          "n": 1
+        },
+        {
+          "sales": 7.506,
+          "n": 1
+        },
+        {
+          "sales": 7.518,
+          "n": 1
+        },
+        {
+          "sales": 7.52,
+          "n": 2
+        },
+        {
+          "sales": 7.536,
+          "n": 1
+        },
+        {
+          "sales": 7.56,
+          "n": 4
+        },
+        {
+          "sales": 7.58,
+          "n": 1
+        },
+        {
+          "sales": 7.584,
+          "n": 1
+        },
+        {
+          "sales": 7.61,
+          "n": 2
+        },
+        {
+          "sales": 7.632,
+          "n": 1
+        },
+        {
+          "sales": 7.64,
+          "n": 2
+        },
+        {
+          "sales": 7.644,
+          "n": 1
+        },
+        {
+          "sales": 7.656,
+          "n": 3
+        },
+        {
+          "sales": 7.68,
+          "n": 1
+        },
+        {
+          "sales": 7.692,
+          "n": 1
+        },
+        {
+          "sales": 7.7,
+          "n": 1
+        },
+        {
+          "sales": 7.71,
+          "n": 1
+        },
+        {
+          "sales": 7.712,
+          "n": 5
+        },
+        {
+          "sales": 7.752,
+          "n": 2
+        },
+        {
+          "sales": 7.76,
+          "n": 2
+        },
+        {
+          "sales": 7.764,
+          "n": 1
+        },
+        {
+          "sales": 7.77,
+          "n": 1
+        },
+        {
+          "sales": 7.78,
+          "n": 4
+        },
+        {
+          "sales": 7.8,
+          "n": 1
+        },
+        {
+          "sales": 7.824,
+          "n": 2
+        },
+        {
+          "sales": 7.83,
+          "n": 4
+        },
+        {
+          "sales": 7.856,
+          "n": 1
+        },
+        {
+          "sales": 7.857,
+          "n": 1
+        },
+        {
+          "sales": 7.86,
+          "n": 2
+        },
+        {
+          "sales": 7.872,
+          "n": 6
+        },
+        {
+          "sales": 7.88,
+          "n": 3
+        },
+        {
+          "sales": 7.89,
+          "n": 2
+        },
+        {
+          "sales": 7.896,
+          "n": 1
+        },
+        {
+          "sales": 7.9,
+          "n": 3
+        },
+        {
+          "sales": 7.904,
+          "n": 1
+        },
+        {
+          "sales": 7.92,
+          "n": 6
+        },
+        {
+          "sales": 7.96,
+          "n": 3
+        },
+        {
+          "sales": 7.968,
+          "n": 9
+        },
+        {
+          "sales": 7.98,
+          "n": 6
+        },
+        {
+          "sales": 7.992,
+          "n": 5
+        },
+        {
+          "sales": 7.996,
+          "n": 1
+        },
+        {
+          "sales": 8.0,
+          "n": 3
+        },
+        {
+          "sales": 8.001,
+          "n": 1
+        },
+        {
+          "sales": 8.01,
+          "n": 1
+        },
+        {
+          "sales": 8.016,
+          "n": 5
+        },
+        {
+          "sales": 8.02,
+          "n": 1
+        },
+        {
+          "sales": 8.04,
+          "n": 3
+        },
+        {
+          "sales": 8.096,
+          "n": 1
+        },
+        {
+          "sales": 8.1,
+          "n": 1
+        },
+        {
+          "sales": 8.128,
+          "n": 1
+        },
+        {
+          "sales": 8.134,
+          "n": 1
+        },
+        {
+          "sales": 8.16,
+          "n": 1
+        },
+        {
+          "sales": 8.22,
+          "n": 1
+        },
+        {
+          "sales": 8.226,
+          "n": 2
+        },
+        {
+          "sales": 8.256,
+          "n": 1
+        },
+        {
+          "sales": 8.26,
+          "n": 8
+        },
+        {
+          "sales": 8.272,
+          "n": 1
+        },
+        {
+          "sales": 8.28,
+          "n": 2
+        },
+        {
+          "sales": 8.288,
+          "n": 3
+        },
+        {
+          "sales": 8.32,
+          "n": 3
+        },
+        {
+          "sales": 8.34,
+          "n": 4
+        },
+        {
+          "sales": 8.352,
+          "n": 1
+        },
+        {
+          "sales": 8.36,
+          "n": 1
+        },
+        {
+          "sales": 8.376,
+          "n": 2
+        },
+        {
+          "sales": 8.384,
+          "n": 1
+        },
+        {
+          "sales": 8.39,
+          "n": 1
+        },
+        {
+          "sales": 8.4,
+          "n": 4
+        },
+        {
+          "sales": 8.448,
+          "n": 8
+        },
+        {
+          "sales": 8.52,
+          "n": 1
+        },
+        {
+          "sales": 8.544,
+          "n": 6
+        },
+        {
+          "sales": 8.552,
+          "n": 1
+        },
+        {
+          "sales": 8.559,
+          "n": 1
+        },
+        {
+          "sales": 8.56,
+          "n": 9
+        },
+        {
+          "sales": 8.568,
+          "n": 2
+        },
+        {
+          "sales": 8.57,
+          "n": 1
+        },
+        {
+          "sales": 8.595,
+          "n": 1
+        },
+        {
+          "sales": 8.6,
+          "n": 1
+        },
+        {
+          "sales": 8.608,
+          "n": 2
+        },
+        {
+          "sales": 8.62,
+          "n": 1
+        },
+        {
+          "sales": 8.624,
+          "n": 1
+        },
+        {
+          "sales": 8.64,
+          "n": 12
+        },
+        {
+          "sales": 8.652,
+          "n": 1
+        },
+        {
+          "sales": 8.67,
+          "n": 3
+        },
+        {
+          "sales": 8.682,
+          "n": 1
+        },
+        {
+          "sales": 8.688,
+          "n": 1
+        },
+        {
+          "sales": 8.69,
+          "n": 1
+        },
+        {
+          "sales": 8.7,
+          "n": 1
+        },
+        {
+          "sales": 8.704,
+          "n": 1
+        },
+        {
+          "sales": 8.712,
+          "n": 1
+        },
+        {
+          "sales": 8.72,
+          "n": 6
+        },
+        {
+          "sales": 8.73,
+          "n": 2
+        },
+        {
+          "sales": 8.736,
+          "n": 2
+        },
+        {
+          "sales": 8.74,
+          "n": 2
+        },
+        {
+          "sales": 8.75,
+          "n": 1
+        },
+        {
+          "sales": 8.752,
+          "n": 1
+        },
+        {
+          "sales": 8.76,
+          "n": 2
+        },
+        {
+          "sales": 8.78,
+          "n": 1
+        },
+        {
+          "sales": 8.784,
+          "n": 2
+        },
+        {
+          "sales": 8.792,
+          "n": 1
+        },
+        {
+          "sales": 8.8,
+          "n": 3
+        },
+        {
+          "sales": 8.808,
+          "n": 1
+        },
+        {
+          "sales": 8.82,
+          "n": 6
+        },
+        {
+          "sales": 8.832,
+          "n": 1
+        },
+        {
+          "sales": 8.84,
+          "n": 1
+        },
+        {
+          "sales": 8.85,
+          "n": 1
+        },
+        {
+          "sales": 8.856,
+          "n": 6
+        },
+        {
+          "sales": 8.872,
+          "n": 1
+        },
+        {
+          "sales": 8.88,
+          "n": 1
+        },
+        {
+          "sales": 8.896,
+          "n": 1
+        },
+        {
+          "sales": 8.904,
+          "n": 3
+        },
+        {
+          "sales": 8.92,
+          "n": 2
+        },
+        {
+          "sales": 8.928,
+          "n": 5
+        },
+        {
+          "sales": 8.94,
+          "n": 3
+        },
+        {
+          "sales": 8.952,
+          "n": 2
+        },
+        {
+          "sales": 8.96,
+          "n": 4
+        },
+        {
+          "sales": 8.964,
+          "n": 1
+        },
+        {
+          "sales": 9.0,
+          "n": 1
+        },
+        {
+          "sales": 9.006,
+          "n": 1
+        },
+        {
+          "sales": 9.02,
+          "n": 1
+        },
+        {
+          "sales": 9.024,
+          "n": 1
+        },
+        {
+          "sales": 9.08,
+          "n": 1
+        },
+        {
+          "sales": 9.088,
+          "n": 1
+        },
+        {
+          "sales": 9.09,
+          "n": 1
+        },
+        {
+          "sales": 9.096,
+          "n": 1
+        },
+        {
+          "sales": 9.11,
+          "n": 1
+        },
+        {
+          "sales": 9.12,
+          "n": 1
+        },
+        {
+          "sales": 9.14,
+          "n": 1
+        },
+        {
+          "sales": 9.144,
+          "n": 3
+        },
+        {
+          "sales": 9.156,
+          "n": 2
+        },
+        {
+          "sales": 9.184,
+          "n": 3
+        },
+        {
+          "sales": 9.21,
+          "n": 2
+        },
+        {
+          "sales": 9.216,
+          "n": 4
+        },
+        {
+          "sales": 9.24,
+          "n": 5
+        },
+        {
+          "sales": 9.248,
+          "n": 5
+        },
+        {
+          "sales": 9.26,
+          "n": 2
+        },
+        {
+          "sales": 9.264,
+          "n": 2
+        },
+        {
+          "sales": 9.28,
+          "n": 1
+        },
+        {
+          "sales": 9.296,
+          "n": 2
+        },
+        {
+          "sales": 9.32,
+          "n": 2
+        },
+        {
+          "sales": 9.324,
+          "n": 1
+        },
+        {
+          "sales": 9.328,
+          "n": 2
+        },
+        {
+          "sales": 9.336,
+          "n": 1
+        },
+        {
+          "sales": 9.344,
+          "n": 5
+        },
+        {
+          "sales": 9.345,
+          "n": 1
+        },
+        {
+          "sales": 9.36,
+          "n": 1
+        },
+        {
+          "sales": 9.392,
+          "n": 2
+        },
+        {
+          "sales": 9.396,
+          "n": 1
+        },
+        {
+          "sales": 9.4,
+          "n": 1
+        },
+        {
+          "sales": 9.408,
+          "n": 2
+        },
+        {
+          "sales": 9.42,
+          "n": 3
+        },
+        {
+          "sales": 9.432,
+          "n": 1
+        },
+        {
+          "sales": 9.45,
+          "n": 4
+        },
+        {
+          "sales": 9.46,
+          "n": 1
+        },
+        {
+          "sales": 9.48,
+          "n": 2
+        },
+        {
+          "sales": 9.522,
+          "n": 1
+        },
+        {
+          "sales": 9.54,
+          "n": 2
+        },
+        {
+          "sales": 9.552,
+          "n": 4
+        },
+        {
+          "sales": 9.555,
+          "n": 1
+        },
+        {
+          "sales": 9.568,
+          "n": 3
+        },
+        {
+          "sales": 9.584,
+          "n": 2
+        },
+        {
+          "sales": 9.588,
+          "n": 1
+        },
+        {
+          "sales": 9.612,
+          "n": 1
+        },
+        {
+          "sales": 9.618,
+          "n": 1
+        },
+        {
+          "sales": 9.64,
+          "n": 5
+        },
+        {
+          "sales": 9.648,
+          "n": 2
+        },
+        {
+          "sales": 9.656,
+          "n": 1
+        },
+        {
+          "sales": 9.664,
+          "n": 2
+        },
+        {
+          "sales": 9.68,
+          "n": 2
+        },
+        {
+          "sales": 9.702,
+          "n": 1
+        },
+        {
+          "sales": 9.708,
+          "n": 1
+        },
+        {
+          "sales": 9.728,
+          "n": 3
+        },
+        {
+          "sales": 9.762,
+          "n": 2
+        },
+        {
+          "sales": 9.78,
+          "n": 2
+        },
+        {
+          "sales": 9.81,
+          "n": 1
+        },
+        {
+          "sales": 9.82,
+          "n": 7
+        },
+        {
+          "sales": 9.84,
+          "n": 9
+        },
+        {
+          "sales": 9.856,
+          "n": 1
+        },
+        {
+          "sales": 9.87,
+          "n": 1
+        },
+        {
+          "sales": 9.872,
+          "n": 1
+        },
+        {
+          "sales": 9.888,
+          "n": 1
+        },
+        {
+          "sales": 9.912,
+          "n": 5
+        },
+        {
+          "sales": 9.936,
+          "n": 1
+        },
+        {
+          "sales": 9.94,
+          "n": 3
+        },
+        {
+          "sales": 9.952,
+          "n": 1
+        },
+        {
+          "sales": 9.96,
+          "n": 10
+        },
+        {
+          "sales": 9.98,
+          "n": 2
+        },
+        {
+          "sales": 9.984,
+          "n": 1
+        },
+        {
+          "sales": 9.99,
+          "n": 2
+        },
+        {
+          "sales": 10.02,
+          "n": 2
+        },
+        {
+          "sales": 10.024,
+          "n": 1
+        },
+        {
+          "sales": 10.048,
+          "n": 2
+        },
+        {
+          "sales": 10.08,
+          "n": 4
+        },
+        {
+          "sales": 10.11,
+          "n": 2
+        },
+        {
+          "sales": 10.128,
+          "n": 1
+        },
+        {
+          "sales": 10.16,
+          "n": 3
+        },
+        {
+          "sales": 10.192,
+          "n": 2
+        },
+        {
+          "sales": 10.2,
+          "n": 1
+        },
+        {
+          "sales": 10.23,
+          "n": 1
+        },
+        {
+          "sales": 10.272,
+          "n": 13
+        },
+        {
+          "sales": 10.304,
+          "n": 1
+        },
+        {
+          "sales": 10.312,
+          "n": 1
+        },
+        {
+          "sales": 10.32,
+          "n": 1
+        },
+        {
+          "sales": 10.332,
+          "n": 3
+        },
+        {
+          "sales": 10.36,
+          "n": 1
+        },
+        {
+          "sales": 10.368,
+          "n": 36
+        },
+        {
+          "sales": 10.38,
+          "n": 1
+        },
+        {
+          "sales": 10.384,
+          "n": 1
+        },
+        {
+          "sales": 10.4,
+          "n": 1
+        },
+        {
+          "sales": 10.416,
+          "n": 1
+        },
+        {
+          "sales": 10.428,
+          "n": 1
+        },
+        {
+          "sales": 10.43,
+          "n": 2
+        },
+        {
+          "sales": 10.44,
+          "n": 3
+        },
+        {
+          "sales": 10.464,
+          "n": 1
+        },
+        {
+          "sales": 10.47,
+          "n": 1
+        },
+        {
+          "sales": 10.476,
+          "n": 2
+        },
+        {
+          "sales": 10.48,
+          "n": 2
+        },
+        {
+          "sales": 10.496,
+          "n": 1
+        },
+        {
+          "sales": 10.5,
+          "n": 1
+        },
+        {
+          "sales": 10.512,
+          "n": 1
+        },
+        {
+          "sales": 10.528,
+          "n": 3
+        },
+        {
+          "sales": 10.56,
+          "n": 8
+        },
+        {
+          "sales": 10.584,
+          "n": 3
+        },
+        {
+          "sales": 10.608,
+          "n": 1
+        },
+        {
+          "sales": 10.64,
+          "n": 2
+        },
+        {
+          "sales": 10.65,
+          "n": 2
+        },
+        {
+          "sales": 10.67,
+          "n": 1
+        },
+        {
+          "sales": 10.68,
+          "n": 3
+        },
+        {
+          "sales": 10.688,
+          "n": 7
+        },
+        {
+          "sales": 10.71,
+          "n": 2
+        },
+        {
+          "sales": 10.72,
+          "n": 1
+        },
+        {
+          "sales": 10.74,
+          "n": 2
+        },
+        {
+          "sales": 10.744,
+          "n": 2
+        },
+        {
+          "sales": 10.75,
+          "n": 1
+        },
+        {
+          "sales": 10.752,
+          "n": 1
+        },
+        {
+          "sales": 10.76,
+          "n": 1
+        },
+        {
+          "sales": 10.776,
+          "n": 4
+        },
+        {
+          "sales": 10.78,
+          "n": 2
+        },
+        {
+          "sales": 10.782,
+          "n": 1
+        },
+        {
+          "sales": 10.784,
+          "n": 1
+        },
+        {
+          "sales": 10.8,
+          "n": 1
+        },
+        {
+          "sales": 10.816,
+          "n": 1
+        },
+        {
+          "sales": 10.824,
+          "n": 1
+        },
+        {
+          "sales": 10.848,
+          "n": 1
+        },
+        {
+          "sales": 10.86,
+          "n": 5
+        },
+        {
+          "sales": 10.89,
+          "n": 1
+        },
+        {
+          "sales": 10.896,
+          "n": 4
+        },
+        {
+          "sales": 10.9,
+          "n": 5
+        },
+        {
+          "sales": 10.92,
+          "n": 2
+        },
+        {
+          "sales": 10.944,
+          "n": 1
+        },
+        {
+          "sales": 10.95,
+          "n": 5
+        },
+        {
+          "sales": 10.96,
+          "n": 1
+        },
+        {
+          "sales": 10.98,
+          "n": 1
+        },
+        {
+          "sales": 10.984,
+          "n": 1
+        },
+        {
+          "sales": 10.99,
+          "n": 1
+        },
+        {
+          "sales": 11.01,
+          "n": 1
+        },
+        {
+          "sales": 11.032,
+          "n": 1
+        },
+        {
+          "sales": 11.05,
+          "n": 1
+        },
+        {
+          "sales": 11.06,
+          "n": 1
+        },
+        {
+          "sales": 11.07,
+          "n": 4
+        },
+        {
+          "sales": 11.088,
+          "n": 3
+        },
+        {
+          "sales": 11.09,
+          "n": 1
+        },
+        {
+          "sales": 11.12,
+          "n": 6
+        },
+        {
+          "sales": 11.16,
+          "n": 5
+        },
+        {
+          "sales": 11.168,
+          "n": 3
+        },
+        {
+          "sales": 11.176,
+          "n": 1
+        },
+        {
+          "sales": 11.184,
+          "n": 1
+        },
+        {
+          "sales": 11.2,
+          "n": 1
+        },
+        {
+          "sales": 11.21,
+          "n": 3
+        },
+        {
+          "sales": 11.212,
+          "n": 1
+        },
+        {
+          "sales": 11.214,
+          "n": 1
+        },
+        {
+          "sales": 11.22,
+          "n": 2
+        },
+        {
+          "sales": 11.228,
+          "n": 1
+        },
+        {
+          "sales": 11.232,
+          "n": 3
+        },
+        {
+          "sales": 11.264,
+          "n": 3
+        },
+        {
+          "sales": 11.277,
+          "n": 1
+        },
+        {
+          "sales": 11.304,
+          "n": 1
+        },
+        {
+          "sales": 11.328,
+          "n": 1
+        },
+        {
+          "sales": 11.34,
+          "n": 4
+        },
+        {
+          "sales": 11.352,
+          "n": 3
+        },
+        {
+          "sales": 11.36,
+          "n": 7
+        },
+        {
+          "sales": 11.364,
+          "n": 2
+        },
+        {
+          "sales": 11.376,
+          "n": 1
+        },
+        {
+          "sales": 11.394,
+          "n": 1
+        },
+        {
+          "sales": 11.416,
+          "n": 2
+        },
+        {
+          "sales": 11.424,
+          "n": 2
+        },
+        {
+          "sales": 11.43,
+          "n": 1
+        },
+        {
+          "sales": 11.52,
+          "n": 14
+        },
+        {
+          "sales": 11.54,
+          "n": 4
+        },
+        {
+          "sales": 11.56,
+          "n": 10
+        },
+        {
+          "sales": 11.568,
+          "n": 2
+        },
+        {
+          "sales": 11.61,
+          "n": 1
+        },
+        {
+          "sales": 11.62,
+          "n": 1
+        },
+        {
+          "sales": 11.632,
+          "n": 1
+        },
+        {
+          "sales": 11.64,
+          "n": 1
+        },
+        {
+          "sales": 11.646,
+          "n": 1
+        },
+        {
+          "sales": 11.648,
+          "n": 6
+        },
+        {
+          "sales": 11.65,
+          "n": 1
+        },
+        {
+          "sales": 11.664,
+          "n": 1
+        },
+        {
+          "sales": 11.67,
+          "n": 2
+        },
+        {
+          "sales": 11.672,
+          "n": 1
+        },
+        {
+          "sales": 11.673,
+          "n": 2
+        },
+        {
+          "sales": 11.68,
+          "n": 9
+        },
+        {
+          "sales": 11.688,
+          "n": 1
+        },
+        {
+          "sales": 11.696,
+          "n": 3
+        },
+        {
+          "sales": 11.736,
+          "n": 1
+        },
+        {
+          "sales": 11.744,
+          "n": 1
+        },
+        {
+          "sales": 11.76,
+          "n": 10
+        },
+        {
+          "sales": 11.784,
+          "n": 5
+        },
+        {
+          "sales": 11.8,
+          "n": 1
+        },
+        {
+          "sales": 11.808,
+          "n": 7
+        },
+        {
+          "sales": 11.82,
+          "n": 1
+        },
+        {
+          "sales": 11.824,
+          "n": 1
+        },
+        {
+          "sales": 11.84,
+          "n": 3
+        },
+        {
+          "sales": 11.85,
+          "n": 1
+        },
+        {
+          "sales": 11.88,
+          "n": 3
+        },
+        {
+          "sales": 11.91,
+          "n": 1
+        },
+        {
+          "sales": 11.94,
+          "n": 1
+        },
+        {
+          "sales": 11.952,
+          "n": 9
+        },
+        {
+          "sales": 11.96,
+          "n": 9
+        },
+        {
+          "sales": 11.976,
+          "n": 1
+        },
+        {
+          "sales": 11.98,
+          "n": 1
+        },
+        {
+          "sales": 11.992,
+          "n": 1
+        },
+        {
+          "sales": 12.0,
+          "n": 1
+        },
+        {
+          "sales": 12.03,
+          "n": 1
+        },
+        {
+          "sales": 12.032,
+          "n": 1
+        },
+        {
+          "sales": 12.06,
+          "n": 1
+        },
+        {
+          "sales": 12.07,
+          "n": 1
+        },
+        {
+          "sales": 12.096,
+          "n": 1
+        },
+        {
+          "sales": 12.12,
+          "n": 1
+        },
+        {
+          "sales": 12.128,
+          "n": 1
+        },
+        {
+          "sales": 12.132,
+          "n": 1
+        },
+        {
+          "sales": 12.144,
+          "n": 1
+        },
+        {
+          "sales": 12.16,
+          "n": 1
+        },
+        {
+          "sales": 12.176,
+          "n": 3
+        },
+        {
+          "sales": 12.18,
+          "n": 1
+        },
+        {
+          "sales": 12.192,
+          "n": 3
+        },
+        {
+          "sales": 12.201,
+          "n": 1
+        },
+        {
+          "sales": 12.22,
+          "n": 1
+        },
+        {
+          "sales": 12.222,
+          "n": 1
+        },
+        {
+          "sales": 12.224,
+          "n": 4
+        },
+        {
+          "sales": 12.24,
+          "n": 1
+        },
+        {
+          "sales": 12.264,
+          "n": 1
+        },
+        {
+          "sales": 12.28,
+          "n": 1
+        },
+        {
+          "sales": 12.294,
+          "n": 2
+        },
+        {
+          "sales": 12.3,
+          "n": 1
+        },
+        {
+          "sales": 12.32,
+          "n": 2
+        },
+        {
+          "sales": 12.35,
+          "n": 2
+        },
+        {
+          "sales": 12.384,
+          "n": 1
+        },
+        {
+          "sales": 12.39,
+          "n": 9
+        },
+        {
+          "sales": 12.42,
+          "n": 5
+        },
+        {
+          "sales": 12.448,
+          "n": 1
+        },
+        {
+          "sales": 12.462,
+          "n": 1
+        },
+        {
+          "sales": 12.48,
+          "n": 2
+        },
+        {
+          "sales": 12.53,
+          "n": 1
+        },
+        {
+          "sales": 12.536,
+          "n": 1
+        },
+        {
+          "sales": 12.54,
+          "n": 1
+        },
+        {
+          "sales": 12.544,
+          "n": 2
+        },
+        {
+          "sales": 12.56,
+          "n": 3
+        },
+        {
+          "sales": 12.576,
+          "n": 1
+        },
+        {
+          "sales": 12.585,
+          "n": 1
+        },
+        {
+          "sales": 12.588,
+          "n": 1
+        },
+        {
+          "sales": 12.6,
+          "n": 5
+        },
+        {
+          "sales": 12.624,
+          "n": 3
+        },
+        {
+          "sales": 12.645,
+          "n": 1
+        },
+        {
+          "sales": 12.67,
+          "n": 1
+        },
+        {
+          "sales": 12.672,
+          "n": 7
+        },
+        {
+          "sales": 12.7,
+          "n": 2
+        },
+        {
+          "sales": 12.72,
+          "n": 2
+        },
+        {
+          "sales": 12.736,
+          "n": 1
+        },
+        {
+          "sales": 12.74,
+          "n": 1
+        },
+        {
+          "sales": 12.76,
+          "n": 2
+        },
+        {
+          "sales": 12.768,
+          "n": 3
+        },
+        {
+          "sales": 12.78,
+          "n": 2
+        },
+        {
+          "sales": 12.816,
+          "n": 2
+        },
+        {
+          "sales": 12.828,
+          "n": 2
+        },
+        {
+          "sales": 12.832,
+          "n": 1
+        },
+        {
+          "sales": 12.84,
+          "n": 6
+        },
+        {
+          "sales": 12.843,
+          "n": 1
+        },
+        {
+          "sales": 12.864,
+          "n": 1
+        },
+        {
+          "sales": 12.88,
+          "n": 1
+        },
+        {
+          "sales": 12.9,
+          "n": 1
+        },
+        {
+          "sales": 12.912,
+          "n": 1
+        },
+        {
+          "sales": 12.94,
+          "n": 1
+        },
+        {
+          "sales": 12.957,
+          "n": 1
+        },
+        {
+          "sales": 12.96,
+          "n": 56
+        },
+        {
+          "sales": 12.98,
+          "n": 1
+        },
+        {
+          "sales": 12.984,
+          "n": 1
+        },
+        {
+          "sales": 12.99,
+          "n": 3
+        },
+        {
+          "sales": 12.992,
+          "n": 2
+        },
+        {
+          "sales": 13.0,
+          "n": 1
+        },
+        {
+          "sales": 13.005,
+          "n": 1
+        },
+        {
+          "sales": 13.02,
+          "n": 1
+        },
+        {
+          "sales": 13.023,
+          "n": 1
+        },
+        {
+          "sales": 13.04,
+          "n": 2
+        },
+        {
+          "sales": 13.05,
+          "n": 2
+        },
+        {
+          "sales": 13.08,
+          "n": 2
+        },
+        {
+          "sales": 13.092,
+          "n": 2
+        },
+        {
+          "sales": 13.11,
+          "n": 2
+        },
+        {
+          "sales": 13.12,
+          "n": 11
+        },
+        {
+          "sales": 13.128,
+          "n": 3
+        },
+        {
+          "sales": 13.14,
+          "n": 1
+        },
+        {
+          "sales": 13.16,
+          "n": 1
+        },
+        {
+          "sales": 13.168,
+          "n": 1
+        },
+        {
+          "sales": 13.184,
+          "n": 2
+        },
+        {
+          "sales": 13.194,
+          "n": 1
+        },
+        {
+          "sales": 13.208,
+          "n": 1
+        },
+        {
+          "sales": 13.216,
+          "n": 3
+        },
+        {
+          "sales": 13.23,
+          "n": 1
+        },
+        {
+          "sales": 13.248,
+          "n": 2
+        },
+        {
+          "sales": 13.272,
+          "n": 2
+        },
+        {
+          "sales": 13.28,
+          "n": 2
+        },
+        {
+          "sales": 13.344,
+          "n": 3
+        },
+        {
+          "sales": 13.36,
+          "n": 11
+        },
+        {
+          "sales": 13.376,
+          "n": 1
+        },
+        {
+          "sales": 13.38,
+          "n": 1
+        },
+        {
+          "sales": 13.392,
+          "n": 6
+        },
+        {
+          "sales": 13.4,
+          "n": 1
+        },
+        {
+          "sales": 13.428,
+          "n": 1
+        },
+        {
+          "sales": 13.44,
+          "n": 1
+        },
+        {
+          "sales": 13.456,
+          "n": 1
+        },
+        {
+          "sales": 13.468,
+          "n": 1
+        },
+        {
+          "sales": 13.48,
+          "n": 4
+        },
+        {
+          "sales": 13.488,
+          "n": 1
+        },
+        {
+          "sales": 13.494,
+          "n": 1
+        },
+        {
+          "sales": 13.52,
+          "n": 2
+        },
+        {
+          "sales": 13.56,
+          "n": 1
+        },
+        {
+          "sales": 13.568,
+          "n": 1
+        },
+        {
+          "sales": 13.584,
+          "n": 1
+        },
+        {
+          "sales": 13.592,
+          "n": 2
+        },
+        {
+          "sales": 13.616,
+          "n": 1
+        },
+        {
+          "sales": 13.62,
+          "n": 1
+        },
+        {
+          "sales": 13.632,
+          "n": 1
+        },
+        {
+          "sales": 13.68,
+          "n": 1
+        },
+        {
+          "sales": 13.698,
+          "n": 1
+        },
+        {
+          "sales": 13.71,
+          "n": 2
+        },
+        {
+          "sales": 13.712,
+          "n": 1
+        },
+        {
+          "sales": 13.72,
+          "n": 1
+        },
+        {
+          "sales": 13.748,
+          "n": 1
+        },
+        {
+          "sales": 13.76,
+          "n": 4
+        },
+        {
+          "sales": 13.762,
+          "n": 1
+        },
+        {
+          "sales": 13.776,
+          "n": 2
+        },
+        {
+          "sales": 13.84,
+          "n": 1
+        },
+        {
+          "sales": 13.848,
+          "n": 1
+        },
+        {
+          "sales": 13.86,
+          "n": 1
+        },
+        {
+          "sales": 13.872,
+          "n": 3
+        },
+        {
+          "sales": 13.88,
+          "n": 1
+        },
+        {
+          "sales": 13.89,
+          "n": 2
+        },
+        {
+          "sales": 13.896,
+          "n": 1
+        },
+        {
+          "sales": 13.9,
+          "n": 5
+        },
+        {
+          "sales": 13.904,
+          "n": 5
+        },
+        {
+          "sales": 13.92,
+          "n": 3
+        },
+        {
+          "sales": 13.944,
+          "n": 1
+        },
+        {
+          "sales": 13.96,
+          "n": 4
+        },
+        {
+          "sales": 13.97,
+          "n": 1
+        },
+        {
+          "sales": 13.98,
+          "n": 6
+        },
+        {
+          "sales": 13.984,
+          "n": 1
+        },
+        {
+          "sales": 14.0,
+          "n": 1
+        },
+        {
+          "sales": 14.016,
+          "n": 4
+        },
+        {
+          "sales": 14.03,
+          "n": 2
+        },
+        {
+          "sales": 14.04,
+          "n": 3
+        },
+        {
+          "sales": 14.07,
+          "n": 1
+        },
+        {
+          "sales": 14.088,
+          "n": 1
+        },
+        {
+          "sales": 14.112,
+          "n": 2
+        },
+        {
+          "sales": 14.13,
+          "n": 1
+        },
+        {
+          "sales": 14.136,
+          "n": 2
+        },
+        {
+          "sales": 14.16,
+          "n": 2
+        },
+        {
+          "sales": 14.19,
+          "n": 1
+        },
+        {
+          "sales": 14.2,
+          "n": 3
+        },
+        {
+          "sales": 14.224,
+          "n": 1
+        },
+        {
+          "sales": 14.256,
+          "n": 1
+        },
+        {
+          "sales": 14.272,
+          "n": 1
+        },
+        {
+          "sales": 14.28,
+          "n": 3
+        },
+        {
+          "sales": 14.301,
+          "n": 2
+        },
+        {
+          "sales": 14.304,
+          "n": 2
+        },
+        {
+          "sales": 14.32,
+          "n": 1
+        },
+        {
+          "sales": 14.336,
+          "n": 1
+        },
+        {
+          "sales": 14.352,
+          "n": 11
+        },
+        {
+          "sales": 14.368,
+          "n": 4
+        },
+        {
+          "sales": 14.376,
+          "n": 1
+        },
+        {
+          "sales": 14.4,
+          "n": 6
+        },
+        {
+          "sales": 14.427,
+          "n": 1
+        },
+        {
+          "sales": 14.432,
+          "n": 1
+        },
+        {
+          "sales": 14.45,
+          "n": 1
+        },
+        {
+          "sales": 14.46,
+          "n": 1
+        },
+        {
+          "sales": 14.48,
+          "n": 2
+        },
+        {
+          "sales": 14.496,
+          "n": 1
+        },
+        {
+          "sales": 14.52,
+          "n": 2
+        },
+        {
+          "sales": 14.56,
+          "n": 5
+        },
+        {
+          "sales": 14.576,
+          "n": 2
+        },
+        {
+          "sales": 14.592,
+          "n": 2
+        },
+        {
+          "sales": 14.6,
+          "n": 1
+        },
+        {
+          "sales": 14.62,
+          "n": 12
+        },
+        {
+          "sales": 14.624,
+          "n": 3
+        },
+        {
+          "sales": 14.67,
+          "n": 3
+        },
+        {
+          "sales": 14.7,
+          "n": 6
+        },
+        {
+          "sales": 14.72,
+          "n": 1
+        },
+        {
+          "sales": 14.73,
+          "n": 6
+        },
+        {
+          "sales": 14.75,
+          "n": 1
+        },
+        {
+          "sales": 14.76,
+          "n": 9
+        },
+        {
+          "sales": 14.78,
+          "n": 1
+        },
+        {
+          "sales": 14.8,
+          "n": 1
+        },
+        {
+          "sales": 14.82,
+          "n": 3
+        },
+        {
+          "sales": 14.832,
+          "n": 1
+        },
+        {
+          "sales": 14.85,
+          "n": 2
+        },
+        {
+          "sales": 14.88,
+          "n": 3
+        },
+        {
+          "sales": 14.89,
+          "n": 1
+        },
+        {
+          "sales": 14.9,
+          "n": 5
+        },
+        {
+          "sales": 14.91,
+          "n": 3
+        },
+        {
+          "sales": 14.94,
+          "n": 17
+        },
+        {
+          "sales": 14.952,
+          "n": 4
+        },
+        {
+          "sales": 14.96,
+          "n": 1
+        },
+        {
+          "sales": 14.97,
+          "n": 2
+        },
+        {
+          "sales": 14.976,
+          "n": 2
+        },
+        {
+          "sales": 14.98,
+          "n": 3
+        },
+        {
+          "sales": 14.99,
+          "n": 1
+        },
+        {
+          "sales": 15.0,
+          "n": 2
+        },
+        {
+          "sales": 15.008,
+          "n": 3
+        },
+        {
+          "sales": 15.02,
+          "n": 1
+        },
+        {
+          "sales": 15.072,
+          "n": 2
+        },
+        {
+          "sales": 15.08,
+          "n": 1
+        },
+        {
+          "sales": 15.12,
+          "n": 3
+        },
+        {
+          "sales": 15.136,
+          "n": 1
+        }
+      ],
+      "spec": {
+        "chart_type": "histogram",
+        "sql": "SELECT sales, COUNT(*) AS n FROM orders GROUP BY sales",
+        "title": "Histogram of Sales",
+        "xlabel": "Sales",
+        "ylabel": "Frequency"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 4,
+    "category": "analysis",
+    "task_type": "mean",
+    "difficulty": "medium",
+    "language": "es",
+    "question": "¿Cuál es el beneficio medio en la región West?",
+    "question_en": "What is the average profit in the West region?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 20.1243,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "mean",
+      "columns": [
+        "profit"
+      ],
+      "target": null,
+      "filters": [
+        {
+          "column": "region",
+          "op": "=",
+          "value": "West"
+        }
+      ],
+      "sql": "SELECT profit FROM orders WHERE region = ?",
+      "result": {
+        "analysis": "mean",
+        "result": 33.84903181392445
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 5,
+    "category": "analysis",
+    "task_type": "correlation",
+    "difficulty": "medium",
+    "language": "es",
+    "question": "¿Cuál es la correlación entre el descuento y el beneficio?",
+    "question_en": "What is the correlation between discount and profit?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 33.6688,
+    "attempts": 2,
+    "retried": true,
+    "answer": {
+      "action": "analysis",
+      "analysis": "correlation",
+      "columns": [
+        "discount",
+        "profit"
+      ],
+      "target": null,
+      "filters": [],
+      "sql": "SELECT discount, profit FROM orders",
+      "result": {
+        "analysis": "correlation",
+        "result": {
+          "correlation": -0.21948745637176847,
+          "p_value": 2.702294436198141e-109
+        }
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 6,
+    "category": "analysis",
+    "task_type": "variance",
+    "difficulty": "medium",
+    "language": "es",
+    "question": "¿Cuál es la varianza de la cantidad vendida en la categoría Technology?",
+    "question_en": "What is the variance of quantity sold in the Technology category?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 38.5705,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/2fd03a318cf24264a741dad3f0fdc99d.png",
+      "rows": [
+        {
+          "category": "Technology",
+          "total_quantity": 6939,
+          "total_sales": 1847
+        }
+      ],
+      "spec": {
+        "chart_type": "histogram",
+        "sql": "SELECT category, SUM(quantity) AS total_quantity, COUNT(*) AS total_sales FROM orders WHERE category = 'Technology' GROUP BY category",
+        "title": "Cantidad vendida por categoría",
+        "xlabel": "Cantidad",
+        "ylabel": "Total de ventas"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 7,
+    "category": "analysis",
+    "task_type": "ttest",
+    "difficulty": "medium",
+    "language": "es",
+    "question": "¿Hay una diferencia significativa en el beneficio entre los segmentos Consumer y Corporate?",
+    "question_en": "Is there a significant difference in profit between the Consumer and Corporate segments?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": false,
+    "latency_seconds": 111.3778,
+    "attempts": 3,
+    "retried": true,
+    "answer": {
+      "action": null,
+      "columns": null,
+      "rows": null,
+      "result": null,
+      "sql": null,
+      "error": "ValueError: Invalid chart spec: 1 validation error for ChartSpec\nchart_type\n  Input should be 'bar', 'line', 'scatter', 'pie', 'histogram' or 'boxplot' [type=literal_error, input_value='ttest', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error"
+    },
+    "error": "ValueError: Invalid chart spec: 1 validation error for ChartSpec\nchart_type\n  Input should be 'bar', 'line', 'scatter', 'pie', 'histogram' or 'boxplot' [type=literal_error, input_value='ttest', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error"
+  },
+  {
+    "id": 8,
+    "category": "analysis",
+    "task_type": "covariance",
+    "difficulty": "medium",
+    "language": "es",
+    "question": "¿Cuál es la covarianza entre la cantidad y el descuento?",
+    "question_en": "What is the covariance between quantity and discount?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 36.6489,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/1fc8ad42368e485995a6132c3a11fa15.png",
+      "rows": [
+        {
+          "category": "Furniture",
+          "total_sales": 741999.7953,
+          "total_discount": 368.89
+        },
+        {
+          "category": "Office Supplies",
+          "total_sales": 719047.032,
+          "total_discount": 947.8000000000001
+        },
+        {
+          "category": "Technology",
+          "total_sales": 836154.033,
+          "total_discount": 244.4
+        }
+      ],
+      "spec": {
+        "chart_type": "scatter",
+        "sql": "SELECT category, SUM(sales) AS total_sales, SUM(discount) AS total_discount FROM orders GROUP BY category",
+        "title": "Covarianza entre cantidad y descuento",
+        "xlabel": "Cantidad",
+        "ylabel": "Descuento"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 9,
+    "category": "analysis",
+    "task_type": "mean",
+    "difficulty": "medium",
+    "language": "es",
+    "question": "¿Cuál es la venta media en la región East para la categoría Furniture?",
+    "question_en": "What is the average sales in the East region for the Furniture category?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 37.7975,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/aae53b27b7e74583856640e814b8c914.png",
+      "rows": [
+        {
+          "region": "East",
+          "category": "Furniture",
+          "total_sales": 208291.204
+        }
+      ],
+      "spec": {
+        "chart_type": "bar",
+        "sql": "SELECT region, category, SUM(sales) AS total_sales FROM orders WHERE region = 'East' AND category = 'Furniture' GROUP BY region, category",
+        "title": "Ventas promedio por región y categoría",
+        "xlabel": "Región",
+        "ylabel": "Ventas promedio"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 10,
+    "category": "analysis",
+    "task_type": "regression",
+    "difficulty": "hard",
+    "language": "es",
+    "question": "Ejecuta una regresión lineal que prediga el beneficio a partir de las ventas, el descuento y la cantidad.",
+    "question_en": "Run a linear regression predicting profit from sales, discount, and quantity.",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 22.675,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "regression",
+      "columns": [
+        "sales",
+        "discount",
+        "quantity",
+        "profit"
+      ],
+      "target": "profit",
+      "filters": [],
+      "sql": "SELECT sales, discount, quantity, profit FROM orders",
+      "result": {
+        "analysis": "regression",
+        "result": {
+          "coefficients": [
+            0.18001014387230668,
+            -233.45700112679995,
+            -2.962176486653817
+          ],
+          "intercept": 34.97212970801346,
+          "r2": 0.272724776926177,
+          "target": "profit",
+          "predictors": [
+            "sales",
+            "discount",
+            "quantity"
+          ]
+        }
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 11,
+    "category": "analysis",
+    "task_type": "pca",
+    "difficulty": "hard",
+    "language": "es",
+    "question": "Ejecuta un PCA sobre las ventas, la cantidad, el descuento y el beneficio.",
+    "question_en": "Run a PCA on sales, quantity, discount, and profit.",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 26.9554,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "pca",
+      "columns": [
+        "sales",
+        "quantity",
+        "discount",
+        "profit"
+      ],
+      "target": null,
+      "filters": [
+        {
+          "column": "category",
+          "op": "=",
+          "value": "Furniture"
+        }
+      ],
+      "sql": "SELECT sales, quantity, discount, profit FROM orders WHERE category = ?",
+      "result": {
+        "analysis": "pca",
+        "result": {
+          "explained_variance_ratio": [
+            0.9340683498235498,
+            0.06591647349058122,
+            1.5084168910392312e-05,
+            9.251695846185892e-08
+          ]
+        }
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 12,
+    "category": "analysis",
+    "task_type": "kmeans",
+    "difficulty": "hard",
+    "language": "es",
+    "question": "Agrupa los pedidos en 3 grupos según las ventas, la cantidad, el descuento y el beneficio.",
+    "question_en": "Cluster orders into 3 groups based on sales, quantity, discount, and profit.",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": false,
+    "latency_seconds": 2255.6384,
+    "attempts": 3,
+    "retried": true,
+    "answer": {
+      "action": null,
+      "columns": null,
+      "rows": null,
+      "result": null,
+      "sql": null,
+      "error": "ValueError: LLM did not return valid JSON: Unterminated string starting at: line 4 column 10 (char 55). Raw: '{\\n  \"action\": \"chart\",\\n  \"chart_type\": \"bar\",\\n  \"sql\": \"SELECT SUM(profit) AS total_profit, SUM(sales) AS total_sales, SUM(quantity) AS total_quantity, SUM(discount) AS total_discount, SUM(profit) / SUM(sales) AS profit_ratio, SUM(profit) / SUM(discount) AS profit_discount, SUM(profit) / SUM(quantit'"
+    },
+    "error": "ValueError: LLM did not return valid JSON: Unterminated string starting at: line 4 column 10 (char 55). Raw: '{\\n  \"action\": \"chart\",\\n  \"chart_type\": \"bar\",\\n  \"sql\": \"SELECT SUM(profit) AS total_profit, SUM(sales) AS total_sales, SUM(quantity) AS total_quantity, SUM(discount) AS total_discount, SUM(profit) / SUM(sales) AS profit_ratio, SUM(profit) / SUM(discount) AS profit_discount, SUM(profit) / SUM(quantit'"
+  },
+  {
+    "id": 13,
+    "category": "analysis",
+    "task_type": "correlation",
+    "difficulty": "hard",
+    "language": "es",
+    "question": "¿Cuál es la correlación entre el descuento y el beneficio para los pedidos realizados en 2017?",
+    "question_en": "What is the correlation between discount and profit for orders placed in 2017?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 18.1857,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "correlation",
+      "columns": [
+        "discount",
+        "profit"
+      ],
+      "target": null,
+      "filters": [],
+      "sql": "SELECT discount, profit FROM orders",
+      "result": {
+        "analysis": "correlation",
+        "result": {
+          "correlation": -0.21948745637176847,
+          "p_value": 2.702294436198141e-109
+        }
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 14,
+    "category": "analysis",
+    "task_type": "std",
+    "difficulty": "hard",
+    "language": "es",
+    "question": "¿Cuál es la desviación estándar del beneficio para la categoría Technology?",
+    "question_en": "What is the standard deviation of profit for the Technology category?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 37.0808,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/d51c19a26fc445efb700e9ff499204d6.png",
+      "rows": [
+        {
+          "category": "Furniture",
+          "total_profit": 18451.2728,
+          "total_sales": 2121
+        },
+        {
+          "category": "Office Supplies",
+          "total_profit": 122490.8008,
+          "total_sales": 6026
+        },
+        {
+          "category": "Technology",
+          "total_profit": 145454.9481,
+          "total_sales": 1847
+        }
+      ],
+      "spec": {
+        "chart_type": "histogram",
+        "sql": "SELECT category, SUM(profit) AS total_profit, COUNT(*) AS total_sales FROM orders GROUP BY category",
+        "title": "Desviación estándar del beneficio por categoría",
+        "xlabel": "Categoría",
+        "ylabel": "Desviación estándar del beneficio"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 15,
+    "category": "analysis",
+    "task_type": "median",
+    "difficulty": "hard",
+    "language": "es",
+    "question": "¿Cuál es el valor mediano de las ventas en la región South?",
+    "question_en": "What is the median sales value in the South region?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 69.7095,
+    "attempts": 2,
+    "retried": true,
+    "answer": {
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/6144ac52f2184b5fad6eccb930141c77.png",
+      "rows": [
+        {
+          "region": "Central",
+          "total_sales": 501239.8908
+        },
+        {
+          "region": "East",
+          "total_sales": 678781.24
+        },
+        {
+          "region": "South",
+          "total_sales": 391721.905
+        },
+        {
+          "region": "West",
+          "total_sales": 725457.8245
+        }
+      ],
+      "spec": {
+        "chart_type": "bar",
+        "sql": "SELECT region, SUM(sales) AS total_sales FROM orders GROUP BY region",
+        "title": "Total Sales by Region",
+        "xlabel": "Region",
+        "ylabel": "Total Sales"
+      },
+      "error": null
+    },
+    "error": null
+  }
+]

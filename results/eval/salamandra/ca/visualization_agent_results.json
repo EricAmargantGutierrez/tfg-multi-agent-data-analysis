@@ -1,0 +1,6478 @@
+[
+  {
+    "id": 1,
+    "category": "visualization",
+    "task_type": "bar",
+    "difficulty": "easy",
+    "language": "ca",
+    "question": "Mostra un gràfic de barres de les vendes totals per categoria.",
+    "question_en": "Show a bar chart of total sales by category.",
+    "expected_agent": "viz",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 22.2205,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/a2a762ab4c0e406b958b78b26a7ba061.png",
+      "rows": [
+        {
+          "category": "Furniture",
+          "total_sales": 741999.7953
+        },
+        {
+          "category": "Office Supplies",
+          "total_sales": 719047.032
+        },
+        {
+          "category": "Technology",
+          "total_sales": 836154.033
+        }
+      ],
+      "spec": {
+        "chart_type": "bar",
+        "sql": "SELECT category, SUM(sales) AS total_sales FROM orders GROUP BY category",
+        "title": "Vendes totals per categoria",
+        "xlabel": "Categoria",
+        "ylabel": "Vendes totals"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 2,
+    "category": "visualization",
+    "task_type": "bar",
+    "difficulty": "easy",
+    "language": "ca",
+    "question": "Mostra un gràfic de barres del benefici total per regió.",
+    "question_en": "Show a bar chart of total profit by region.",
+    "expected_agent": "viz",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 19.5405,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/83cdf0ed7b7347c79cffd105a90c98ce.png",
+      "rows": [
+        {
+          "region": "Central",
+          "total_profit": 39706.3625
+        },
+        {
+          "region": "East",
+          "total_profit": 91522.78
+        },
+        {
+          "region": "South",
+          "total_profit": 46749.4303
+        },
+        {
+          "region": "West",
+          "total_profit": 108418.4489
+        }
+      ],
+      "spec": {
+        "chart_type": "bar",
+        "sql": "SELECT region, SUM(profit) AS total_profit FROM orders GROUP BY region",
+        "title": "Total Profit by Region",
+        "xlabel": "Region",
+        "ylabel": "Total Profit"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 3,
+    "category": "visualization",
+    "task_type": "pie",
+    "difficulty": "easy",
+    "language": "ca",
+    "question": "Mostra un gràfic de sectors del nombre de comandes per segment.",
+    "question_en": "Show a pie chart of order count by segment.",
+    "expected_agent": "viz",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 20.0205,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/2977e47418ff4016a182a54f3a08ea24.png",
+      "rows": [
+        {
+          "segment": "Consumer",
+          "total_orders": 5191
+        },
+        {
+          "segment": "Corporate",
+          "total_orders": 3020
+        },
+        {
+          "segment": "Home Office",
+          "total_orders": 1783
+        }
+      ],
+      "spec": {
+        "chart_type": "pie",
+        "sql": "SELECT segment, COUNT(*) AS total_orders FROM orders GROUP BY segment",
+        "title": "Orders by Segment",
+        "xlabel": "Segment",
+        "ylabel": "Total Orders"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 4,
+    "category": "visualization",
+    "task_type": "bar",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Mostra un gràfic de barres del descompte mitjà per mode d'enviament.",
+    "question_en": "Show a bar chart of average discount by ship mode.",
+    "expected_agent": "viz",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 25.0909,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/6226ea6147d644e882ad06ef128cc772.png",
+      "rows": [
+        {
+          "ship_mode": "First Class",
+          "average_discount": 0.1646098829648895
+        },
+        {
+          "ship_mode": "Same Day",
+          "average_discount": 0.15239410681399632
+        },
+        {
+          "ship_mode": "Second Class",
+          "average_discount": 0.13889460154241648
+        },
+        {
+          "ship_mode": "Standard Class",
+          "average_discount": 0.1600234584450402
+        }
+      ],
+      "spec": {
+        "chart_type": "bar",
+        "sql": "SELECT ship_mode, AVG(discount) AS average_discount FROM orders GROUP BY ship_mode",
+        "title": "Descomptes mitjans per mode d'enviament",
+        "xlabel": "Mode d'enviament",
+        "ylabel": "Descompte mitjà"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 5,
+    "category": "visualization",
+    "task_type": "line",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Mostra un gràfic de línies de les vendes mensuals el 2017.",
+    "question_en": "Show a line chart of monthly sales in 2017.",
+    "expected_agent": "viz",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 33.5859,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/16ed056e89f34a8eb9caf053d35fc13d.png",
+      "rows": [
+        {
+          "order_date": "2017-01-01",
+          "total_sales": 1481.828
+        },
+        {
+          "order_date": "2017-01-02",
+          "total_sales": 2079.554
+        },
+        {
+          "order_date": "2017-01-03",
+          "total_sales": 2070.272
+        },
+        {
+          "order_date": "2017-01-06",
+          "total_sales": 33.74
+        },
+        {
+          "order_date": "2017-01-07",
+          "total_sales": 3395.59
+        },
+        {
+          "order_date": "2017-01-08",
+          "total_sales": 892.98
+        },
+        {
+          "order_date": "2017-01-09",
+          "total_sales": 274.491
+        },
+        {
+          "order_date": "2017-01-12",
+          "total_sales": 848.52
+        },
+        {
+          "order_date": "2017-01-13",
+          "total_sales": 4619.33
+        },
+        {
+          "order_date": "2017-01-14",
+          "total_sales": 1056.038
+        },
+        {
+          "order_date": "2017-01-15",
+          "total_sales": 2140.28
+        },
+        {
+          "order_date": "2017-01-16",
+          "total_sales": 6230.292
+        },
+        {
+          "order_date": "2017-01-19",
+          "total_sales": 2013.7150000000001
+        },
+        {
+          "order_date": "2017-01-20",
+          "total_sales": 767.838
+        },
+        {
+          "order_date": "2017-01-21",
+          "total_sales": 2546.643
+        },
+        {
+          "order_date": "2017-01-22",
+          "total_sales": 4212.371999999999
+        },
+        {
+          "order_date": "2017-01-23",
+          "total_sales": 450.334
+        },
+        {
+          "order_date": "2017-01-24",
+          "total_sales": 418.666
+        },
+        {
+          "order_date": "2017-01-26",
+          "total_sales": 3055.2799999999997
+        },
+        {
+          "order_date": "2017-01-27",
+          "total_sales": 331.914
+        },
+        {
+          "order_date": "2017-01-28",
+          "total_sales": 1007.52
+        },
+        {
+          "order_date": "2017-01-29",
+          "total_sales": 294.842
+        },
+        {
+          "order_date": "2017-01-30",
+          "total_sales": 3749.335
+        }
+      ],
+      "spec": {
+        "chart_type": "line",
+        "sql": "SELECT order_date, SUM(sales) AS total_sales FROM orders WHERE order_date >= '2017-01-01' AND order_date < '2017-02-01' GROUP BY order_date",
+        "title": "Vendes mensuals el 2017",
+        "xlabel": "Mes",
+        "ylabel": "Vendes"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 6,
+    "category": "visualization",
+    "task_type": "bar",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Mostra un gràfic de barres de la quantitat total venuda per subcategoria.",
+    "question_en": "Show a bar chart of total quantity sold by sub-category.",
+    "expected_agent": "viz",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 20.6001,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/affbd5f3b1f8492685bfaefc8b0e1762.png",
+      "rows": [
+        {
+          "category": "Furniture",
+          "total_sales": 741999.7953
+        },
+        {
+          "category": "Office Supplies",
+          "total_sales": 719047.032
+        },
+        {
+          "category": "Technology",
+          "total_sales": 836154.033
+        }
+      ],
+      "spec": {
+        "chart_type": "bar",
+        "sql": "SELECT category, SUM(sales) AS total_sales FROM orders GROUP BY category",
+        "title": "Total Sales by Category",
+        "xlabel": "Category",
+        "ylabel": "Total Sales"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 7,
+    "category": "visualization",
+    "task_type": "boxplot",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Mostra un diagrama de caixa del benefici per a les comandes del segment Consumer.",
+    "question_en": "Show a boxplot of profit for orders in the Consumer segment.",
+    "expected_agent": "viz",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 39.2205,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/592b633ff44942a8b8c18bded39d84c7.png",
+      "rows": [
+        {
+          "total_profit": 6991.0786,
+          "total_quantity": 4166,
+          "total_sales": 391049.312,
+          "total_discount": 196.71,
+          "profit_rate": 35.54002643485334
+        },
+        {
+          "total_profit": 56330.320999999996,
+          "total_quantity": 11758,
+          "total_sales": 363952.136,
+          "total_discount": 496.40000000000003,
+          "profit_rate": 113.47768130539886
+        },
+        {
+          "total_profit": 70797.8096,
+          "total_quantity": 3597,
+          "total_sales": 406399.897,
+          "total_discount": 127.80000000000001,
+          "profit_rate": 553.9734710485131
+        }
+      ],
+      "spec": {
+        "chart_type": "boxplot",
+        "sql": "SELECT SUM(profit) AS total_profit, SUM(quantity) AS total_quantity, SUM(sales) AS total_sales, SUM(discount) AS total_discount, SUM(profit) / SUM(discount) AS profit_rate FROM orders WHERE segment = 'Consumer' GROUP BY category",
+        "title": "Benefici per comanda del segment Consumer",
+        "xlabel": "Categoria",
+        "ylabel": "Benefici"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 8,
+    "category": "visualization",
+    "task_type": "histogram",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "Mostra un histograma dels valors de venda inferiors a 500 $.",
+    "question_en": "Show a histogram of sales values under $500.",
+    "expected_agent": "viz",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 26.4191,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/4338230ae50f47f5b69cabccb8690201.png",
+      "rows": [
+        {
+          "total_sales": 247877.6984,
+          "category": "Furniture"
+        },
+        {
+          "total_sales": 343924.588,
+          "category": "Office Supplies"
+        },
+        {
+          "total_sales": 230414.441,
+          "category": "Technology"
+        }
+      ],
+      "spec": {
+        "chart_type": "histogram",
+        "sql": "SELECT SUM(sales) AS total_sales, category FROM orders WHERE sales < 500 GROUP BY category",
+        "title": "Histograma de vendes inferiors a 500 $",
+        "xlabel": "Categoria",
+        "ylabel": "Total de vendes"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 9,
+    "category": "visualization",
+    "task_type": "scatter",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "Mostra un diagrama de dispersió del descompte respecte al benefici per a les comandes de la categoria Technology.",
+    "question_en": "Show a scatter plot of discount versus profit for orders in the Technology category.",
+    "expected_agent": "viz",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 33.6424,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/922529b0db1543c98c3cebb5978f7e89.png",
+      "rows": [
+        {
+          "order_date": "2014-01-06",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 113.6742
+        },
+        {
+          "order_date": "2014-01-06",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 204.1092
+        },
+        {
+          "order_date": "2014-01-09",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 9.75
+        },
+        {
+          "order_date": "2014-01-13",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 258.696
+        },
+        {
+          "order_date": "2014-01-15",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 65.978
+        },
+        {
+          "order_date": "2014-01-16",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -31.05
+        },
+        {
+          "order_date": "2014-01-20",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 181.9818
+        },
+        {
+          "order_date": "2014-01-26",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 0.0
+        },
+        {
+          "order_date": "2014-01-26",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 52.6344
+        },
+        {
+          "order_date": "2014-02-01",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 206.316
+        },
+        {
+          "order_date": "2014-02-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 13.572
+        },
+        {
+          "order_date": "2014-02-06",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 42.0186
+        },
+        {
+          "order_date": "2014-02-06",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 42.0355
+        },
+        {
+          "order_date": "2014-02-07",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 49.6048
+        },
+        {
+          "order_date": "2014-02-11",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 103.158
+        },
+        {
+          "order_date": "2014-02-14",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 86.3892
+        },
+        {
+          "order_date": "2014-02-20",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 22.4316
+        },
+        {
+          "order_date": "2014-03-01",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 1.6038
+        },
+        {
+          "order_date": "2014-03-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 32.13
+        },
+        {
+          "order_date": "2014-03-03",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 4.5954
+        },
+        {
+          "order_date": "2014-03-05",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 177.5889
+        },
+        {
+          "order_date": "2014-03-11",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 14.1728
+        },
+        {
+          "order_date": "2014-03-11",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 164.6316
+        },
+        {
+          "order_date": "2014-03-14",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 6.624
+        },
+        {
+          "order_date": "2014-03-14",
+          "category": "Technology",
+          "discount": 0.3,
+          "profit": 156.047
+        },
+        {
+          "order_date": "2014-03-16",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 29.495
+        },
+        {
+          "order_date": "2014-03-18",
+          "category": "Technology",
+          "discount": 0.5,
+          "profit": -16.426
+        },
+        {
+          "order_date": "2014-03-18",
+          "category": "Technology",
+          "discount": 0.5,
+          "profit": -1811.0784
+        },
+        {
+          "order_date": "2014-03-18",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 415.9896
+        },
+        {
+          "order_date": "2014-03-19",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 28.3479
+        },
+        {
+          "order_date": "2014-03-19",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 53.2
+        },
+        {
+          "order_date": "2014-03-21",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 909.9818
+        },
+        {
+          "order_date": "2014-03-23",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 37.797
+        },
+        {
+          "order_date": "2014-03-25",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 15.918
+        },
+        {
+          "order_date": "2014-03-26",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 8.619
+        },
+        {
+          "order_date": "2014-03-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 2.8784
+        },
+        {
+          "order_date": "2014-03-28",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 22.6782
+        },
+        {
+          "order_date": "2014-03-30",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 88.1804
+        },
+        {
+          "order_date": "2014-03-31",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 13.9972
+        },
+        {
+          "order_date": "2014-04-02",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 293.9804
+        },
+        {
+          "order_date": "2014-04-03",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 22.4316
+        },
+        {
+          "order_date": "2014-04-03",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 57.5928
+        },
+        {
+          "order_date": "2014-04-04",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 42.9914
+        },
+        {
+          "order_date": "2014-04-05",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 8.4071
+        },
+        {
+          "order_date": "2014-04-06",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 21.897
+        },
+        {
+          "order_date": "2014-04-06",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 2.034
+        },
+        {
+          "order_date": "2014-04-06",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 131.9868
+        },
+        {
+          "order_date": "2014-04-07",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 163.787
+        },
+        {
+          "order_date": "2014-04-07",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 50.2425
+        },
+        {
+          "order_date": "2014-04-08",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 139.986
+        },
+        {
+          "order_date": "2014-04-11",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 81.5949
+        },
+        {
+          "order_date": "2014-04-11",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 41.993
+        },
+        {
+          "order_date": "2014-04-11",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 265.4232
+        },
+        {
+          "order_date": "2014-04-11",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 9.2386
+        },
+        {
+          "order_date": "2014-04-11",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 91.3248
+        },
+        {
+          "order_date": "2014-04-12",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 94.0702
+        },
+        {
+          "order_date": "2014-04-12",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 38.3572
+        },
+        {
+          "order_date": "2014-04-13",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": 8.3916
+        },
+        {
+          "order_date": "2014-04-18",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 97.1892
+        },
+        {
+          "order_date": "2014-04-18",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 28.497
+        },
+        {
+          "order_date": "2014-04-25",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 37.797
+        },
+        {
+          "order_date": "2014-04-28",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 125.997
+        },
+        {
+          "order_date": "2014-04-28",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 57.5928
+        },
+        {
+          "order_date": "2014-04-29",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 5.1948
+        },
+        {
+          "order_date": "2014-04-30",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 16.2486
+        },
+        {
+          "order_date": "2014-05-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 89.997
+        },
+        {
+          "order_date": "2014-05-08",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": 239.996
+        },
+        {
+          "order_date": "2014-05-09",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 4.068
+        },
+        {
+          "order_date": "2014-05-09",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 40.3128
+        },
+        {
+          "order_date": "2014-05-10",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 4.36
+        },
+        {
+          "order_date": "2014-05-10",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 125.3
+        },
+        {
+          "order_date": "2014-05-11",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 7.264
+        },
+        {
+          "order_date": "2014-05-11",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 6.2995
+        },
+        {
+          "order_date": "2014-05-11",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 7.6154
+        },
+        {
+          "order_date": "2014-05-13",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 52.4895
+        },
+        {
+          "order_date": "2014-05-16",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 3.384
+        },
+        {
+          "order_date": "2014-05-18",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -168.9558
+        },
+        {
+          "order_date": "2014-05-20",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -3.6372
+        },
+        {
+          "order_date": "2014-05-21",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 173.0316
+        },
+        {
+          "order_date": "2014-05-22",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 33.995
+        },
+        {
+          "order_date": "2014-05-22",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 12.586
+        },
+        {
+          "order_date": "2014-05-23",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -10.1178
+        },
+        {
+          "order_date": "2014-05-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 20.1584
+        },
+        {
+          "order_date": "2014-05-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 31.494
+        },
+        {
+          "order_date": "2014-05-27",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 125.2692
+        },
+        {
+          "order_date": "2014-05-27",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 37.9962
+        },
+        {
+          "order_date": "2014-05-28",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 5.7408
+        },
+        {
+          "order_date": "2014-05-28",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 2.208
+        },
+        {
+          "order_date": "2014-05-30",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 134.56
+        },
+        {
+          "order_date": "2014-05-30",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 134.9955
+        },
+        {
+          "order_date": "2014-05-31",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 197.991
+        },
+        {
+          "order_date": "2014-05-31",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 32.9817
+        },
+        {
+          "order_date": "2014-06-01",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 229.3018
+        },
+        {
+          "order_date": "2014-06-02",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 67.1916
+        },
+        {
+          "order_date": "2014-06-09",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 90.7152
+        },
+        {
+          "order_date": "2014-06-09",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 68.3568
+        },
+        {
+          "order_date": "2014-06-09",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 0.5994
+        },
+        {
+          "order_date": "2014-06-09",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 10.3974
+        },
+        {
+          "order_date": "2014-06-17",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 31.0059
+        },
+        {
+          "order_date": "2014-06-18",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 12.2325
+        },
+        {
+          "order_date": "2014-06-20",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 20.1584
+        },
+        {
+          "order_date": "2014-06-20",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -97.72
+        },
+        {
+          "order_date": "2014-06-21",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 74.0532
+        },
+        {
+          "order_date": "2014-06-21",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 357.1911
+        },
+        {
+          "order_date": "2014-06-21",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 28.7904
+        },
+        {
+          "order_date": "2014-06-21",
+          "category": "Technology",
+          "discount": 0.7,
+          "profit": -172.4925
+        },
+        {
+          "order_date": "2014-06-21",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 160.6722
+        },
+        {
+          "order_date": "2014-06-21",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 352.3065
+        },
+        {
+          "order_date": "2014-06-22",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 56.5662
+        },
+        {
+          "order_date": "2014-06-22",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -15.1767
+        },
+        {
+          "order_date": "2014-06-23",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 1.0797
+        },
+        {
+          "order_date": "2014-06-25",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 19.797
+        },
+        {
+          "order_date": "2014-06-27",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 53.7504
+        },
+        {
+          "order_date": "2014-07-01",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 71.99
+        },
+        {
+          "order_date": "2014-07-02",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 19.9746
+        },
+        {
+          "order_date": "2014-07-05",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 163.1898
+        },
+        {
+          "order_date": "2014-07-06",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 174.9975
+        },
+        {
+          "order_date": "2014-07-11",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 57.4113
+        },
+        {
+          "order_date": "2014-07-11",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 43.1976
+        },
+        {
+          "order_date": "2014-07-11",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 47.8065
+        },
+        {
+          "order_date": "2014-07-12",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 28.7928
+        },
+        {
+          "order_date": "2014-07-12",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 3.278
+        },
+        {
+          "order_date": "2014-07-14",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 3.8272
+        },
+        {
+          "order_date": "2014-07-14",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -2.249
+        },
+        {
+          "order_date": "2014-07-14",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -13.993
+        },
+        {
+          "order_date": "2014-07-15",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 1.3068
+        },
+        {
+          "order_date": "2014-07-19",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 93.5948
+        },
+        {
+          "order_date": "2014-07-20",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 15.0984
+        },
+        {
+          "order_date": "2014-07-21",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 10.0744
+        },
+        {
+          "order_date": "2014-07-22",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 57.5928
+        },
+        {
+          "order_date": "2014-07-23",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 179.1888
+        },
+        {
+          "order_date": "2014-07-23",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -29.94
+        },
+        {
+          "order_date": "2014-07-23",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 7.9984
+        },
+        {
+          "order_date": "2014-07-23",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 60.4752
+        },
+        {
+          "order_date": "2014-07-23",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 37.797
+        },
+        {
+          "order_date": "2014-07-23",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 4.95
+        },
+        {
+          "order_date": "2014-07-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 113.998
+        },
+        {
+          "order_date": "2014-07-26",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 70.0977
+        },
+        {
+          "order_date": "2014-07-26",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 34.6983
+        },
+        {
+          "order_date": "2014-07-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -26.946
+        },
+        {
+          "order_date": "2014-07-27",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 38.08
+        },
+        {
+          "order_date": "2014-08-02",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 9.116
+        },
+        {
+          "order_date": "2014-08-04",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 34.9965
+        },
+        {
+          "order_date": "2014-08-04",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 104.7222
+        },
+        {
+          "order_date": "2014-08-05",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 1.636
+        },
+        {
+          "order_date": "2014-08-05",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 36.7173
+        },
+        {
+          "order_date": "2014-08-06",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 22.6476
+        },
+        {
+          "order_date": "2014-08-06",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 83.9916
+        },
+        {
+          "order_date": "2014-08-08",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 434.9913
+        },
+        {
+          "order_date": "2014-08-08",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 55.745
+        },
+        {
+          "order_date": "2014-08-08",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -10.7973
+        },
+        {
+          "order_date": "2014-08-08",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 274.995
+        },
+        {
+          "order_date": "2014-08-08",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 83.9944
+        },
+        {
+          "order_date": "2014-08-09",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 22.298
+        },
+        {
+          "order_date": "2014-08-09",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 68.198
+        },
+        {
+          "order_date": "2014-08-09",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -43.8336
+        },
+        {
+          "order_date": "2014-08-12",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 50.396
+        },
+        {
+          "order_date": "2014-08-12",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 41.7186
+        },
+        {
+          "order_date": "2014-08-12",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 98.1396
+        },
+        {
+          "order_date": "2014-08-17",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 122.3856
+        },
+        {
+          "order_date": "2014-08-23",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 10.773
+        },
+        {
+          "order_date": "2014-08-25",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 30.432
+        },
+        {
+          "order_date": "2014-08-25",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 75.5958
+        },
+        {
+          "order_date": "2014-08-26",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 22.984
+        },
+        {
+          "order_date": "2014-08-26",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 52.4895
+        },
+        {
+          "order_date": "2014-08-27",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 16.011
+        },
+        {
+          "order_date": "2014-08-27",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 168.1855
+        },
+        {
+          "order_date": "2014-08-31",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 18.504
+        },
+        {
+          "order_date": "2014-09-01",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 57.12
+        },
+        {
+          "order_date": "2014-09-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 53.9946
+        },
+        {
+          "order_date": "2014-09-02",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -121.2705
+        },
+        {
+          "order_date": "2014-09-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 95.1888
+        },
+        {
+          "order_date": "2014-09-07",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": 4.3176
+        },
+        {
+          "order_date": "2014-09-07",
+          "category": "Technology",
+          "discount": 0.7,
+          "profit": -559.356
+        },
+        {
+          "order_date": "2014-09-07",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 28.3095
+        },
+        {
+          "order_date": "2014-09-07",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 109.6113
+        },
+        {
+          "order_date": "2014-09-07",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 14.7582
+        },
+        {
+          "order_date": "2014-09-07",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -2.918
+        },
+        {
+          "order_date": "2014-09-08",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -1359.992
+        },
+        {
+          "order_date": "2014-09-08",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 8.9985
+        },
+        {
+          "order_date": "2014-09-08",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 8.4966
+        },
+        {
+          "order_date": "2014-09-08",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 12.8583
+        },
+        {
+          "order_date": "2014-09-08",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 30.1968
+        },
+        {
+          "order_date": "2014-09-08",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 90.2871
+        },
+        {
+          "order_date": "2014-09-09",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -4.8528
+        },
+        {
+          "order_date": "2014-09-09",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -31.6204
+        },
+        {
+          "order_date": "2014-09-09",
+          "category": "Technology",
+          "discount": 0.5,
+          "profit": -571.9956
+        },
+        {
+          "order_date": "2014-09-12",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 30.0957
+        },
+        {
+          "order_date": "2014-09-12",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 2.2824
+        },
+        {
+          "order_date": "2014-09-12",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 10.906
+        },
+        {
+          "order_date": "2014-09-13",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 53.55
+        },
+        {
+          "order_date": "2014-09-13",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 75.9924
+        },
+        {
+          "order_date": "2014-09-13",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 60.8832
+        },
+        {
+          "order_date": "2014-09-13",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 20.06
+        },
+        {
+          "order_date": "2014-09-14",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 1371.9804
+        },
+        {
+          "order_date": "2014-09-14",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 4.4174
+        },
+        {
+          "order_date": "2014-09-14",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 80.6316
+        },
+        {
+          "order_date": "2014-09-17",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 13.1956
+        },
+        {
+          "order_date": "2014-09-17",
+          "category": "Technology",
+          "discount": 0.7,
+          "profit": -21.945
+        },
+        {
+          "order_date": "2014-09-17",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 16.776
+        },
+        {
+          "order_date": "2014-09-19",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -509.997
+        },
+        {
+          "order_date": "2014-09-19",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -251.9958
+        },
+        {
+          "order_date": "2014-09-19",
+          "category": "Technology",
+          "discount": 0.5,
+          "profit": -944.9946
+        },
+        {
+          "order_date": "2014-09-20",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 26.3912
+        },
+        {
+          "order_date": "2014-09-20",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 3.475
+        },
+        {
+          "order_date": "2014-09-20",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 157.4875
+        },
+        {
+          "order_date": "2014-09-20",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 661.4559
+        },
+        {
+          "order_date": "2014-09-21",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 27.7182
+        },
+        {
+          "order_date": "2014-09-21",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 701.9883
+        },
+        {
+          "order_date": "2014-09-21",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 23.9984
+        },
+        {
+          "order_date": "2014-09-23",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 31.494
+        },
+        {
+          "order_date": "2014-09-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 0.4728
+        },
+        {
+          "order_date": "2014-09-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 38.456
+        },
+        {
+          "order_date": "2014-09-29",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 223.054
+        },
+        {
+          "order_date": "2014-10-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 107.46
+        },
+        {
+          "order_date": "2014-10-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 20.1579
+        },
+        {
+          "order_date": "2014-10-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -0.0895
+        },
+        {
+          "order_date": "2014-10-03",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -3.5622
+        },
+        {
+          "order_date": "2014-10-05",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 34.993
+        },
+        {
+          "order_date": "2014-10-06",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 1.9089
+        },
+        {
+          "order_date": "2014-10-08",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 4.9878
+        },
+        {
+          "order_date": "2014-10-09",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -2.9985
+        },
+        {
+          "order_date": "2014-10-10",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 71.9952
+        },
+        {
+          "order_date": "2014-10-10",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 66.1451
+        },
+        {
+          "order_date": "2014-10-10",
+          "category": "Technology",
+          "discount": 0.7,
+          "profit": -71.3958
+        },
+        {
+          "order_date": "2014-10-11",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 58.65
+        },
+        {
+          "order_date": "2014-10-13",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 2.578
+        },
+        {
+          "order_date": "2014-10-13",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 4.3624
+        },
+        {
+          "order_date": "2014-10-14",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 624.9875
+        },
+        {
+          "order_date": "2014-10-14",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 30.09
+        },
+        {
+          "order_date": "2014-10-16",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 86.3856
+        },
+        {
+          "order_date": "2014-10-17",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -17.9964
+        },
+        {
+          "order_date": "2014-10-18",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 362.687
+        },
+        {
+          "order_date": "2014-10-19",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 11.7576
+        },
+        {
+          "order_date": "2014-10-19",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 20.097
+        },
+        {
+          "order_date": "2014-10-20",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 71.9928
+        },
+        {
+          "order_date": "2014-10-25",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 0.5097
+        },
+        {
+          "order_date": "2014-10-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 38.396
+        },
+        {
+          "order_date": "2014-10-28",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 74.8142
+        },
+        {
+          "order_date": "2014-10-29",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 341.994
+        },
+        {
+          "order_date": "2014-10-29",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 0.891
+        },
+        {
+          "order_date": "2014-10-31",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 47.8629
+        },
+        {
+          "order_date": "2014-10-31",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 83.5128
+        },
+        {
+          "order_date": "2014-10-31",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 8.2782
+        },
+        {
+          "order_date": "2014-11-01",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 247.996
+        },
+        {
+          "order_date": "2014-11-01",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 54.5916
+        },
+        {
+          "order_date": "2014-11-01",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 110.1195
+        },
+        {
+          "order_date": "2014-11-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 7.7679
+        },
+        {
+          "order_date": "2014-11-02",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -107.9928
+        },
+        {
+          "order_date": "2014-11-02",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -10.0464
+        },
+        {
+          "order_date": "2014-11-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 239.976
+        },
+        {
+          "order_date": "2014-11-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 5.2182
+        },
+        {
+          "order_date": "2014-11-02",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 15.0984
+        },
+        {
+          "order_date": "2014-11-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 4.6193
+        },
+        {
+          "order_date": "2014-11-03",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 219.5088
+        },
+        {
+          "order_date": "2014-11-03",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 18.8937
+        },
+        {
+          "order_date": "2014-11-04",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 1995.99
+        },
+        {
+          "order_date": "2014-11-04",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 80.0226
+        },
+        {
+          "order_date": "2014-11-04",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 129.6
+        },
+        {
+          "order_date": "2014-11-04",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 66.6344
+        },
+        {
+          "order_date": "2014-11-04",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 139.99
+        },
+        {
+          "order_date": "2014-11-05",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 16.2486
+        },
+        {
+          "order_date": "2014-11-05",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -6.445
+        },
+        {
+          "order_date": "2014-11-05",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 16.7946
+        },
+        {
+          "order_date": "2014-11-08",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 25.0182
+        },
+        {
+          "order_date": "2014-11-09",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 87.996
+        },
+        {
+          "order_date": "2014-11-10",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 60.1536
+        },
+        {
+          "order_date": "2014-11-10",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 4.2861
+        },
+        {
+          "order_date": "2014-11-11",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 55.9984
+        },
+        {
+          "order_date": "2014-11-11",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 16.704
+        },
+        {
+          "order_date": "2014-11-11",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 15.0735
+        },
+        {
+          "order_date": "2014-11-11",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 57.5928
+        },
+        {
+          "order_date": "2014-11-11",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 15.3195
+        },
+        {
+          "order_date": "2014-11-12",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 20.8719
+        },
+        {
+          "order_date": "2014-11-12",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 25.5968
+        },
+        {
+          "order_date": "2014-11-14",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 233.2204
+        },
+        {
+          "order_date": "2014-11-15",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 146.7693
+        },
+        {
+          "order_date": "2014-11-16",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 10.9584
+        },
+        {
+          "order_date": "2014-11-16",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -17.9928
+        },
+        {
+          "order_date": "2014-11-17",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 7.9984
+        },
+        {
+          "order_date": "2014-11-18",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -107.9928
+        },
+        {
+          "order_date": "2014-11-18",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -2.0774
+        },
+        {
+          "order_date": "2014-11-19",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 131.0296
+        },
+        {
+          "order_date": "2014-11-19",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 41.986
+        },
+        {
+          "order_date": "2014-11-19",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 7.25
+        },
+        {
+          "order_date": "2014-11-19",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 1228.1787
+        },
+        {
+          "order_date": "2014-11-19",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -1.1874
+        },
+        {
+          "order_date": "2014-11-19",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 78.9516
+        },
+        {
+          "order_date": "2014-11-20",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 216.8244
+        },
+        {
+          "order_date": "2014-11-21",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 9.9873
+        },
+        {
+          "order_date": "2014-11-21",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 16.7475
+        },
+        {
+          "order_date": "2014-11-21",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 28.497
+        },
+        {
+          "order_date": "2014-11-23",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 6.2979
+        },
+        {
+          "order_date": "2014-11-23",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 1.6632
+        },
+        {
+          "order_date": "2014-11-24",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 43.5981
+        },
+        {
+          "order_date": "2014-11-24",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -209.994
+        },
+        {
+          "order_date": "2014-11-24",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -250.396
+        },
+        {
+          "order_date": "2014-11-25",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 0.0
+        },
+        {
+          "order_date": "2014-11-25",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 47.243
+        },
+        {
+          "order_date": "2014-11-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -87.6672
+        },
+        {
+          "order_date": "2014-11-26",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 78.3888
+        },
+        {
+          "order_date": "2014-11-28",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 34.9825
+        },
+        {
+          "order_date": "2014-11-28",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -199.77
+        },
+        {
+          "order_date": "2014-11-29",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 71.99
+        },
+        {
+          "order_date": "2014-11-30",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -16.614
+        },
+        {
+          "order_date": "2014-12-01",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 9.5968
+        },
+        {
+          "order_date": "2014-12-01",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": 109.998
+        },
+        {
+          "order_date": "2014-12-01",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 78.851
+        },
+        {
+          "order_date": "2014-12-02",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 52.7824
+        },
+        {
+          "order_date": "2014-12-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 29.95
+        },
+        {
+          "order_date": "2014-12-02",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 0.833
+        },
+        {
+          "order_date": "2014-12-03",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 134.3888
+        },
+        {
+          "order_date": "2014-12-04",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 62.3904
+        },
+        {
+          "order_date": "2014-12-05",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 62.988
+        },
+        {
+          "order_date": "2014-12-05",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 76.6395
+        },
+        {
+          "order_date": "2014-12-05",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -9.1845
+        },
+        {
+          "order_date": "2014-12-05",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -44.985
+        },
+        {
+          "order_date": "2014-12-06",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -7.008
+        },
+        {
+          "order_date": "2014-12-08",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 19.755
+        },
+        {
+          "order_date": "2014-12-08",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -18.186
+        },
+        {
+          "order_date": "2014-12-09",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": 125.9972
+        },
+        {
+          "order_date": "2014-12-14",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -2.1885
+        },
+        {
+          "order_date": "2014-12-14",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 42.8935
+        },
+        {
+          "order_date": "2014-12-14",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 2239.9872
+        },
+        {
+          "order_date": "2014-12-15",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -9.153
+        },
+        {
+          "order_date": "2014-12-16",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 39.5
+        },
+        {
+          "order_date": "2014-12-16",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 70.5564
+        },
+        {
+          "order_date": "2014-12-16",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 7.9984
+        },
+        {
+          "order_date": "2014-12-16",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 95.9904
+        },
+        {
+          "order_date": "2014-12-19",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -18.585
+        },
+        {
+          "order_date": "2014-12-19",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 72.975
+        },
+        {
+          "order_date": "2014-12-19",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 15.8376
+        },
+        {
+          "order_date": "2014-12-19",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 36.4473
+        },
+        {
+          "order_date": "2014-12-20",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 89.5888
+        },
+        {
+          "order_date": "2014-12-20",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 21.5928
+        },
+        {
+          "order_date": "2014-12-20",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -8.18
+        },
+        {
+          "order_date": "2014-12-24",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 17.3656
+        },
+        {
+          "order_date": "2014-12-24",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 13.1985
+        },
+        {
+          "order_date": "2014-12-24",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 51.1485
+        },
+        {
+          "order_date": "2014-12-27",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 184.26
+        },
+        {
+          "order_date": "2014-12-29",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 47.92
+        },
+        {
+          "order_date": "2014-12-29",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 287.982
+        },
+        {
+          "order_date": "2014-12-29",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 19.1976
+        },
+        {
+          "order_date": "2014-12-29",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -5.6943
+        },
+        {
+          "order_date": "2014-12-29",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 35.9964
+        },
+        {
+          "order_date": "2014-12-30",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 19.0386
+        },
+        {
+          "order_date": "2014-12-30",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 28.7679
+        },
+        {
+          "order_date": "2014-12-30",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 14.3952
+        },
+        {
+          "order_date": "2014-12-30",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 6.992
+        },
+        {
+          "order_date": "2014-12-30",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -50.3928
+        },
+        {
+          "order_date": "2014-12-31",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 16.1602
+        },
+        {
+          "order_date": "2014-12-31",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 27.3528
+        },
+        {
+          "order_date": "2014-12-31",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 742.632
+        },
+        {
+          "order_date": "2014-12-31",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 59.493
+        },
+        {
+          "order_date": "2014-12-31",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 11.4741
+        },
+        {
+          "order_date": "2015-01-02",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -14.6958
+        },
+        {
+          "order_date": "2015-01-02",
+          "category": "Technology",
+          "discount": 0.7,
+          "profit": -950.4
+        },
+        {
+          "order_date": "2015-01-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 4.4792
+        },
+        {
+          "order_date": "2015-01-03",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 84.66
+        },
+        {
+          "order_date": "2015-01-12",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -43.1178
+        },
+        {
+          "order_date": "2015-01-12",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": 2.6376
+        },
+        {
+          "order_date": "2015-01-12",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 2.2066
+        },
+        {
+          "order_date": "2015-01-12",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -21.4236
+        },
+        {
+          "order_date": "2015-01-27",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -100.7944
+        },
+        {
+          "order_date": "2015-01-27",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -36.253
+        },
+        {
+          "order_date": "2015-01-30",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 215.9973
+        },
+        {
+          "order_date": "2015-02-03",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 50.9898
+        },
+        {
+          "order_date": "2015-02-06",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 4.4004
+        },
+        {
+          "order_date": "2015-02-08",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -26.9955
+        },
+        {
+          "order_date": "2015-02-09",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 6.5
+        },
+        {
+          "order_date": "2015-02-09",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 89.991
+        },
+        {
+          "order_date": "2015-02-14",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -80.9955
+        },
+        {
+          "order_date": "2015-02-14",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 0.8997
+        },
+        {
+          "order_date": "2015-02-14",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 187.797
+        },
+        {
+          "order_date": "2015-02-15",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 64.7856
+        },
+        {
+          "order_date": "2015-02-15",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 195.9944
+        },
+        {
+          "order_date": "2015-02-15",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 26.5905
+        },
+        {
+          "order_date": "2015-02-20",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 2.999
+        },
+        {
+          "order_date": "2015-02-27",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 1.0598
+        },
+        {
+          "order_date": "2015-02-27",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 80.838
+        },
+        {
+          "order_date": "2015-03-01",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 1.1988
+        },
+        {
+          "order_date": "2015-03-01",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 34.742
+        },
+        {
+          "order_date": "2015-03-05",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 6.6976
+        },
+        {
+          "order_date": "2015-03-05",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -93.2316
+        },
+        {
+          "order_date": "2015-03-05",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -1.289
+        },
+        {
+          "order_date": "2015-03-05",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 2.394
+        },
+        {
+          "order_date": "2015-03-06",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 377.9946
+        },
+        {
+          "order_date": "2015-03-07",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 52.734
+        },
+        {
+          "order_date": "2015-03-07",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 170.5113
+        },
+        {
+          "order_date": "2015-03-08",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 223.2855
+        },
+        {
+          "order_date": "2015-03-09",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 29.799
+        },
+        {
+          "order_date": "2015-03-09",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 22.4925
+        },
+        {
+          "order_date": "2015-03-15",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 1.6776
+        },
+        {
+          "order_date": "2015-03-16",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 2.577
+        },
+        {
+          "order_date": "2015-03-17",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 2.7036
+        },
+        {
+          "order_date": "2015-03-19",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 39.6879
+        },
+        {
+          "order_date": "2015-03-19",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 1480.4671
+        },
+        {
+          "order_date": "2015-03-20",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 53.9946
+        },
+        {
+          "order_date": "2015-03-22",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 5.2877
+        },
+        {
+          "order_date": "2015-03-22",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 1.1988
+        },
+        {
+          "order_date": "2015-03-22",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 185.997
+        },
+        {
+          "order_date": "2015-03-22",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 89.5888
+        },
+        {
+          "order_date": "2015-03-23",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 86.3892
+        },
+        {
+          "order_date": "2015-03-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 5.0328
+        },
+        {
+          "order_date": "2015-03-28",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 24.936
+        },
+        {
+          "order_date": "2015-03-29",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 20.7675
+        },
+        {
+          "order_date": "2015-03-30",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 13.572
+        },
+        {
+          "order_date": "2015-03-31",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 27.986
+        },
+        {
+          "order_date": "2015-04-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -0.6265
+        },
+        {
+          "order_date": "2015-04-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 1.7991
+        },
+        {
+          "order_date": "2015-04-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 24.2919
+        },
+        {
+          "order_date": "2015-04-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 32.925
+        },
+        {
+          "order_date": "2015-04-04",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 0.438
+        },
+        {
+          "order_date": "2015-04-04",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 209.993
+        },
+        {
+          "order_date": "2015-04-05",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -3.2175
+        },
+        {
+          "order_date": "2015-04-05",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -9.7972
+        },
+        {
+          "order_date": "2015-04-05",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 26.3934
+        },
+        {
+          "order_date": "2015-04-06",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 4.4604
+        },
+        {
+          "order_date": "2015-04-07",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 47.994
+        },
+        {
+          "order_date": "2015-04-11",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 34.9074
+        },
+        {
+          "order_date": "2015-04-11",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 10.5552
+        },
+        {
+          "order_date": "2015-04-11",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 215.9892
+        },
+        {
+          "order_date": "2015-04-13",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 69.986
+        },
+        {
+          "order_date": "2015-04-13",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 19.3932
+        },
+        {
+          "order_date": "2015-04-13",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 41.993
+        },
+        {
+          "order_date": "2015-04-13",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 17.9982
+        },
+        {
+          "order_date": "2015-04-16",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -27.7158
+        },
+        {
+          "order_date": "2015-04-16",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 485.9892
+        },
+        {
+          "order_date": "2015-04-16",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -4.9005
+        },
+        {
+          "order_date": "2015-04-16",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 148.1064
+        },
+        {
+          "order_date": "2015-04-17",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 129.348
+        },
+        {
+          "order_date": "2015-04-17",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 68.5965
+        },
+        {
+          "order_date": "2015-04-17",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 36.852
+        },
+        {
+          "order_date": "2015-04-18",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 41.535
+        },
+        {
+          "order_date": "2015-04-18",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 8.2848
+        },
+        {
+          "order_date": "2015-04-18",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 24.4768
+        },
+        {
+          "order_date": "2015-04-18",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 6.123
+        },
+        {
+          "order_date": "2015-04-20",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 77.7519
+        },
+        {
+          "order_date": "2015-04-21",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 131.586
+        },
+        {
+          "order_date": "2015-04-22",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 7.7679
+        },
+        {
+          "order_date": "2015-04-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 38.997
+        },
+        {
+          "order_date": "2015-04-27",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 648.5624
+        },
+        {
+          "order_date": "2015-04-30",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -255.7425
+        },
+        {
+          "order_date": "2015-04-30",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 1.7325
+        },
+        {
+          "order_date": "2015-04-30",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 58.66
+        },
+        {
+          "order_date": "2015-05-01",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 11.094
+        },
+        {
+          "order_date": "2015-05-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 13.8579
+        },
+        {
+          "order_date": "2015-05-03",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -0.3444
+        },
+        {
+          "order_date": "2015-05-03",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 122.3856
+        },
+        {
+          "order_date": "2015-05-04",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 118.293
+        },
+        {
+          "order_date": "2015-05-08",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 105.8316
+        },
+        {
+          "order_date": "2015-05-08",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 1014.9797
+        },
+        {
+          "order_date": "2015-05-10",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -2.918
+        },
+        {
+          "order_date": "2015-05-12",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 20.1584
+        },
+        {
+          "order_date": "2015-05-12",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 69.6546
+        },
+        {
+          "order_date": "2015-05-13",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 16.6788
+        },
+        {
+          "order_date": "2015-05-16",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 31.996
+        },
+        {
+          "order_date": "2015-05-22",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 334.4985
+        },
+        {
+          "order_date": "2015-05-22",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 58.1796
+        },
+        {
+          "order_date": "2015-05-25",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 58.38
+        },
+        {
+          "order_date": "2015-05-25",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 36.3972
+        },
+        {
+          "order_date": "2015-05-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 50.3832
+        },
+        {
+          "order_date": "2015-05-26",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -79.908
+        },
+        {
+          "order_date": "2015-05-28",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 13.3371
+        },
+        {
+          "order_date": "2015-05-30",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 2.3997
+        },
+        {
+          "order_date": "2015-05-30",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 3.8655
+        },
+        {
+          "order_date": "2015-05-30",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 36.4704
+        },
+        {
+          "order_date": "2015-06-01",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 83.9944
+        },
+        {
+          "order_date": "2015-06-01",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 11.732
+        },
+        {
+          "order_date": "2015-06-04",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 35.994
+        },
+        {
+          "order_date": "2015-06-04",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 395.988
+        },
+        {
+          "order_date": "2015-06-08",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 0.7425
+        },
+        {
+          "order_date": "2015-06-09",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 8.7735
+        },
+        {
+          "order_date": "2015-06-09",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -8.1675
+        },
+        {
+          "order_date": "2015-06-11",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 10.203
+        },
+        {
+          "order_date": "2015-06-11",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 31.198
+        },
+        {
+          "order_date": "2015-06-12",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 4.1988
+        },
+        {
+          "order_date": "2015-06-13",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 314.9895
+        },
+        {
+          "order_date": "2015-06-13",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 14.9556
+        },
+        {
+          "order_date": "2015-06-15",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -0.7295
+        },
+        {
+          "order_date": "2015-06-15",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 22.5576
+        },
+        {
+          "order_date": "2015-06-16",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 33.495
+        },
+        {
+          "order_date": "2015-06-18",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 140.391
+        },
+        {
+          "order_date": "2015-06-20",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 47.241
+        },
+        {
+          "order_date": "2015-06-20",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 15.743
+        },
+        {
+          "order_date": "2015-06-20",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 91.9954
+        },
+        {
+          "order_date": "2015-06-21",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 37.7916
+        },
+        {
+          "order_date": "2015-06-23",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 22.6764
+        },
+        {
+          "order_date": "2015-06-23",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 19.0386
+        },
+        {
+          "order_date": "2015-06-23",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 8.9985
+        },
+        {
+          "order_date": "2015-06-23",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 18.0
+        },
+        {
+          "order_date": "2015-06-26",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 8.799
+        },
+        {
+          "order_date": "2015-06-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 109.3365
+        },
+        {
+          "order_date": "2015-06-29",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 72.8946
+        },
+        {
+          "order_date": "2015-07-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 8.352
+        },
+        {
+          "order_date": "2015-07-04",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 285.9896
+        },
+        {
+          "order_date": "2015-07-05",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 2.175
+        },
+        {
+          "order_date": "2015-07-06",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 2.499
+        },
+        {
+          "order_date": "2015-07-09",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 209.2365
+        },
+        {
+          "order_date": "2015-07-09",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": 40.4973
+        },
+        {
+          "order_date": "2015-07-11",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 193.32
+        },
+        {
+          "order_date": "2015-07-12",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 16.704
+        },
+        {
+          "order_date": "2015-07-12",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 53.7544
+        },
+        {
+          "order_date": "2015-07-12",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 49.4376
+        },
+        {
+          "order_date": "2015-07-12",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 30.7168
+        },
+        {
+          "order_date": "2015-07-16",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 191.968
+        },
+        {
+          "order_date": "2015-07-18",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 176.7864
+        },
+        {
+          "order_date": "2015-07-18",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 36.7173
+        },
+        {
+          "order_date": "2015-07-20",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 124.68
+        },
+        {
+          "order_date": "2015-07-20",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 13.4386
+        },
+        {
+          "order_date": "2015-07-24",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 64.3678
+        },
+        {
+          "order_date": "2015-07-25",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 38.9975
+        },
+        {
+          "order_date": "2015-07-27",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 0.2997
+        },
+        {
+          "order_date": "2015-07-30",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 92.3692
+        },
+        {
+          "order_date": "2015-07-31",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 762.1845
+        },
+        {
+          "order_date": "2015-07-31",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 105.468
+        },
+        {
+          "order_date": "2015-08-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 41.88
+        },
+        {
+          "order_date": "2015-08-02",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 3.8655
+        },
+        {
+          "order_date": "2015-08-02",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 83.9916
+        },
+        {
+          "order_date": "2015-08-07",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 148.491
+        },
+        {
+          "order_date": "2015-08-08",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 28.7964
+        },
+        {
+          "order_date": "2015-08-09",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 89.3142
+        },
+        {
+          "order_date": "2015-08-09",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 274.386
+        },
+        {
+          "order_date": "2015-08-09",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 34.692
+        },
+        {
+          "order_date": "2015-08-10",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 38.3572
+        },
+        {
+          "order_date": "2015-08-10",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -31.4874
+        },
+        {
+          "order_date": "2015-08-11",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 34.5
+        },
+        {
+          "order_date": "2015-08-16",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 211.4955
+        },
+        {
+          "order_date": "2015-08-16",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -112.6216
+        },
+        {
+          "order_date": "2015-08-16",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -5.4558
+        },
+        {
+          "order_date": "2015-08-17",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -5.264
+        },
+        {
+          "order_date": "2015-08-17",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -31.6
+        },
+        {
+          "order_date": "2015-08-21",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 3.8024
+        },
+        {
+          "order_date": "2015-08-23",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 47.8629
+        },
+        {
+          "order_date": "2015-08-24",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 11.7
+        },
+        {
+          "order_date": "2015-08-24",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 1416.8
+        },
+        {
+          "order_date": "2015-08-24",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 18.3908
+        },
+        {
+          "order_date": "2015-08-24",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 170.5113
+        },
+        {
+          "order_date": "2015-08-24",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": 4.0473
+        },
+        {
+          "order_date": "2015-08-28",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 874.9875
+        },
+        {
+          "order_date": "2015-08-28",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 15.1116
+        },
+        {
+          "order_date": "2015-08-28",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 82.497
+        },
+        {
+          "order_date": "2015-08-29",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 35.6346
+        },
+        {
+          "order_date": "2015-08-29",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 11.452
+        },
+        {
+          "order_date": "2015-08-31",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 15.6993
+        },
+        {
+          "order_date": "2015-08-31",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 80.9919
+        },
+        {
+          "order_date": "2015-08-31",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 41.697
+        },
+        {
+          "order_date": "2015-09-01",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 335.9944
+        },
+        {
+          "order_date": "2015-09-03",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 3.401
+        },
+        {
+          "order_date": "2015-09-03",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 46.602
+        },
+        {
+          "order_date": "2015-09-03",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 25.1225
+        },
+        {
+          "order_date": "2015-09-04",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 111.591
+        },
+        {
+          "order_date": "2015-09-04",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 6.7188
+        },
+        {
+          "order_date": "2015-09-06",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 18.0648
+        },
+        {
+          "order_date": "2015-09-06",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 101.394
+        },
+        {
+          "order_date": "2015-09-07",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -131.994
+        },
+        {
+          "order_date": "2015-09-07",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 167.979
+        },
+        {
+          "order_date": "2015-09-07",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 16.2
+        },
+        {
+          "order_date": "2015-09-11",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 6.7966
+        },
+        {
+          "order_date": "2015-09-12",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 59.998
+        },
+        {
+          "order_date": "2015-09-12",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 8.5722
+        },
+        {
+          "order_date": "2015-09-13",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 15.9968
+        },
+        {
+          "order_date": "2015-09-14",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 329.994
+        },
+        {
+          "order_date": "2015-09-15",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 0.0
+        },
+        {
+          "order_date": "2015-09-17",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 10.896
+        },
+        {
+          "order_date": "2015-09-17",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 58.7916
+        },
+        {
+          "order_date": "2015-09-17",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 217.767
+        },
+        {
+          "order_date": "2015-09-17",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 1.356
+        },
+        {
+          "order_date": "2015-09-18",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 129.9974
+        },
+        {
+          "order_date": "2015-09-18",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 327.5818
+        },
+        {
+          "order_date": "2015-09-18",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 152.388
+        },
+        {
+          "order_date": "2015-09-19",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 23.226
+        },
+        {
+          "order_date": "2015-09-19",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 134.3328
+        },
+        {
+          "order_date": "2015-09-21",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 118.293
+        },
+        {
+          "order_date": "2015-09-21",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 32.13
+        },
+        {
+          "order_date": "2015-09-21",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 147.475
+        },
+        {
+          "order_date": "2015-09-21",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 176.386
+        },
+        {
+          "order_date": "2015-09-21",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 32.9817
+        },
+        {
+          "order_date": "2015-09-22",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -7.7247
+        },
+        {
+          "order_date": "2015-09-24",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 213.7044
+        },
+        {
+          "order_date": "2015-09-24",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 13.17
+        },
+        {
+          "order_date": "2015-09-24",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 1.45
+        },
+        {
+          "order_date": "2015-09-25",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 19.8276
+        },
+        {
+          "order_date": "2015-09-25",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 52.49
+        },
+        {
+          "order_date": "2015-09-25",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 395.9604
+        },
+        {
+          "order_date": "2015-09-25",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 57.5928
+        },
+        {
+          "order_date": "2015-09-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 376.11
+        },
+        {
+          "order_date": "2015-09-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 47.96
+        },
+        {
+          "order_date": "2015-09-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 23.0965
+        },
+        {
+          "order_date": "2015-09-26",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -9.1788
+        },
+        {
+          "order_date": "2015-09-26",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 12.0
+        },
+        {
+          "order_date": "2015-09-26",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 296.0671
+        },
+        {
+          "order_date": "2015-09-27",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 561.564
+        },
+        {
+          "order_date": "2015-09-28",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 89.3142
+        },
+        {
+          "order_date": "2015-09-28",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -8.2764
+        },
+        {
+          "order_date": "2015-10-01",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 93.594
+        },
+        {
+          "order_date": "2015-10-01",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 2.7192
+        },
+        {
+          "order_date": "2015-10-01",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 50.12
+        },
+        {
+          "order_date": "2015-10-02",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 32.4
+        },
+        {
+          "order_date": "2015-10-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 50.396
+        },
+        {
+          "order_date": "2015-10-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -4.641
+        },
+        {
+          "order_date": "2015-10-03",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -2.7
+        },
+        {
+          "order_date": "2015-10-03",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 0.5998
+        },
+        {
+          "order_date": "2015-10-05",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -4.641
+        },
+        {
+          "order_date": "2015-10-05",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 57.6
+        },
+        {
+          "order_date": "2015-10-09",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 303.3408
+        },
+        {
+          "order_date": "2015-10-09",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 111.591
+        },
+        {
+          "order_date": "2015-10-09",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 8.4564
+        },
+        {
+          "order_date": "2015-10-11",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 2.2365
+        },
+        {
+          "order_date": "2015-10-12",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 20.0928
+        },
+        {
+          "order_date": "2015-10-12",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 35.2872
+        },
+        {
+          "order_date": "2015-10-12",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 71.2692
+        },
+        {
+          "order_date": "2015-10-12",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 3.401
+        },
+        {
+          "order_date": "2015-10-13",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 23.4416
+        },
+        {
+          "order_date": "2015-10-15",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 67.992
+        },
+        {
+          "order_date": "2015-10-15",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 42.8805
+        },
+        {
+          "order_date": "2015-10-16",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 214.4922
+        },
+        {
+          "order_date": "2015-10-18",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 3.462
+        },
+        {
+          "order_date": "2015-10-18",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 15.599
+        },
+        {
+          "order_date": "2015-10-19",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 44.985
+        },
+        {
+          "order_date": "2015-10-19",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 97.2
+        },
+        {
+          "order_date": "2015-10-20",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 86.3892
+        },
+        {
+          "order_date": "2015-10-23",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 63.7776
+        },
+        {
+          "order_date": "2015-10-23",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -13.2867
+        },
+        {
+          "order_date": "2015-10-23",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 1.0346
+        },
+        {
+          "order_date": "2015-10-23",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 15.0384
+        },
+        {
+          "order_date": "2015-10-23",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 161.9919
+        },
+        {
+          "order_date": "2015-10-25",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 41.3374
+        },
+        {
+          "order_date": "2015-10-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 9.2386
+        },
+        {
+          "order_date": "2015-10-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -14.603
+        },
+        {
+          "order_date": "2015-10-30",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 74.975
+        },
+        {
+          "order_date": "2015-10-30",
+          "category": "Technology",
+          "discount": 0.7,
+          "profit": -45.9954
+        },
+        {
+          "order_date": "2015-10-30",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 164.997
+        },
+        {
+          "order_date": "2015-10-30",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 30.786
+        },
+        {
+          "order_date": "2015-10-30",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 269.308
+        },
+        {
+          "order_date": "2015-10-31",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 145.782
+        },
+        {
+          "order_date": "2015-11-01",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -3.094
+        },
+        {
+          "order_date": "2015-11-01",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 1.3365
+        },
+        {
+          "order_date": "2015-11-01",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 1.2885
+        },
+        {
+          "order_date": "2015-11-01",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 601.9699
+        },
+        {
+          "order_date": "2015-11-01",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 125.99
+        },
+        {
+          "order_date": "2015-11-02",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 49.2723
+        },
+        {
+          "order_date": "2015-11-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 38.7792
+        },
+        {
+          "order_date": "2015-11-03",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 106.1242
+        },
+        {
+          "order_date": "2015-11-03",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 37.7874
+        },
+        {
+          "order_date": "2015-11-07",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": 33.5895
+        },
+        {
+          "order_date": "2015-11-08",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 66.9546
+        },
+        {
+          "order_date": "2015-11-08",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 43.164
+        },
+        {
+          "order_date": "2015-11-08",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 58.812
+        },
+        {
+          "order_date": "2015-11-08",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 76.5484
+        },
+        {
+          "order_date": "2015-11-08",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 142.9948
+        },
+        {
+          "order_date": "2015-11-08",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 2229.024
+        },
+        {
+          "order_date": "2015-11-09",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 1114.512
+        },
+        {
+          "order_date": "2015-11-09",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 6.0114
+        },
+        {
+          "order_date": "2015-11-09",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 53.997
+        },
+        {
+          "order_date": "2015-11-10",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 35.156
+        },
+        {
+          "order_date": "2015-11-10",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 274.995
+        },
+        {
+          "order_date": "2015-11-12",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 10.0792
+        },
+        {
+          "order_date": "2015-11-13",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -26.8758
+        },
+        {
+          "order_date": "2015-11-13",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 94.4925
+        },
+        {
+          "order_date": "2015-11-13",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 43.1904
+        },
+        {
+          "order_date": "2015-11-13",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 13.2522
+        },
+        {
+          "order_date": "2015-11-13",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 42.495
+        },
+        {
+          "order_date": "2015-11-13",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -1.3995
+        },
+        {
+          "order_date": "2015-11-14",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 2.256
+        },
+        {
+          "order_date": "2015-11-14",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 23.96
+        },
+        {
+          "order_date": "2015-11-14",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -1.1996
+        },
+        {
+          "order_date": "2015-11-14",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 4.5588
+        },
+        {
+          "order_date": "2015-11-14",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 29.994
+        },
+        {
+          "order_date": "2015-11-16",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 229.9908
+        },
+        {
+          "order_date": "2015-11-16",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 22.8582
+        },
+        {
+          "order_date": "2015-11-16",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 26.9973
+        },
+        {
+          "order_date": "2015-11-17",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 51.996
+        },
+        {
+          "order_date": "2015-11-19",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 249.9104
+        },
+        {
+          "order_date": "2015-11-20",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -15.4581
+        },
+        {
+          "order_date": "2015-11-20",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 6.0114
+        },
+        {
+          "order_date": "2015-11-20",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": 55.9986
+        },
+        {
+          "order_date": "2015-11-21",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 164.997
+        },
+        {
+          "order_date": "2015-11-21",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 22.653
+        },
+        {
+          "order_date": "2015-11-21",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 165.2868
+        },
+        {
+          "order_date": "2015-11-21",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -1.459
+        },
+        {
+          "order_date": "2015-11-21",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -24.0435
+        },
+        {
+          "order_date": "2015-11-22",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -1.3584
+        },
+        {
+          "order_date": "2015-11-22",
+          "category": "Technology",
+          "discount": 0.5,
+          "profit": -1.9791
+        },
+        {
+          "order_date": "2015-11-23",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 89.3142
+        },
+        {
+          "order_date": "2015-11-24",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 6.1512
+        },
+        {
+          "order_date": "2015-11-26",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 233.9961
+        },
+        {
+          "order_date": "2015-11-27",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -1.0497
+        },
+        {
+          "order_date": "2015-11-27",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 23.5116
+        },
+        {
+          "order_date": "2015-11-27",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 7.3479
+        },
+        {
+          "order_date": "2015-11-27",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 22.6737
+        },
+        {
+          "order_date": "2015-11-27",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -162.2296
+        },
+        {
+          "order_date": "2015-11-27",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 88.3932
+        },
+        {
+          "order_date": "2015-11-28",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 56.6916
+        },
+        {
+          "order_date": "2015-11-29",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -0.2685
+        },
+        {
+          "order_date": "2015-11-30",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": 15.82
+        },
+        {
+          "order_date": "2015-11-30",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 19.9665
+        },
+        {
+          "order_date": "2015-12-03",
+          "category": "Technology",
+          "discount": 0.7,
+          "profit": -337.638
+        },
+        {
+          "order_date": "2015-12-03",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 10.5754
+        },
+        {
+          "order_date": "2015-12-03",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 9.2386
+        },
+        {
+          "order_date": "2015-12-04",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 10.3896
+        },
+        {
+          "order_date": "2015-12-04",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 539.925
+        },
+        {
+          "order_date": "2015-12-04",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 8.2764
+        },
+        {
+          "order_date": "2015-12-05",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 0.5998
+        },
+        {
+          "order_date": "2015-12-05",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 17.55
+        },
+        {
+          "order_date": "2015-12-06",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 19.1786
+        },
+        {
+          "order_date": "2015-12-06",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -89.089
+        },
+        {
+          "order_date": "2015-12-06",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 97.1946
+        },
+        {
+          "order_date": "2015-12-06",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 449.991
+        },
+        {
+          "order_date": "2015-12-06",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 50.4426
+        },
+        {
+          "order_date": "2015-12-07",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 224.4426
+        },
+        {
+          "order_date": "2015-12-08",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 150.36
+        },
+        {
+          "order_date": "2015-12-08",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 11.996
+        },
+        {
+          "order_date": "2015-12-08",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 40.12
+        },
+        {
+          "order_date": "2015-12-10",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 21.4074
+        },
+        {
+          "order_date": "2015-12-10",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 249.995
+        },
+        {
+          "order_date": "2015-12-10",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 36.4473
+        },
+        {
+          "order_date": "2015-12-10",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 4.4604
+        },
+        {
+          "order_date": "2015-12-11",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 35.9964
+        },
+        {
+          "order_date": "2015-12-11",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -6.534
+        },
+        {
+          "order_date": "2015-12-11",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 61.3305
+        },
+        {
+          "order_date": "2015-12-11",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 31.4975
+        },
+        {
+          "order_date": "2015-12-12",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 6.4308
+        },
+        {
+          "order_date": "2015-12-12",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 128.9742
+        },
+        {
+          "order_date": "2015-12-13",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 49.4376
+        },
+        {
+          "order_date": "2015-12-13",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 27.3735
+        },
+        {
+          "order_date": "2015-12-13",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 15.2208
+        },
+        {
+          "order_date": "2015-12-14",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 35.9964
+        },
+        {
+          "order_date": "2015-12-14",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 10.5
+        },
+        {
+          "order_date": "2015-12-15",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 377.9622
+        },
+        {
+          "order_date": "2015-12-15",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 607.608
+        },
+        {
+          "order_date": "2015-12-15",
+          "category": "Technology",
+          "discount": 0.7,
+          "profit": -2639.9912
+        },
+        {
+          "order_date": "2015-12-15",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -16.998
+        },
+        {
+          "order_date": "2015-12-15",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 21.5397
+        },
+        {
+          "order_date": "2015-12-17",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 16.998
+        },
+        {
+          "order_date": "2015-12-18",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 24.936
+        },
+        {
+          "order_date": "2015-12-19",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 84.495
+        },
+        {
+          "order_date": "2015-12-19",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 556.974
+        },
+        {
+          "order_date": "2015-12-19",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 13.8579
+        },
+        {
+          "order_date": "2015-12-19",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 517.4793
+        },
+        {
+          "order_date": "2015-12-19",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 4.779
+        },
+        {
+          "order_date": "2015-12-20",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 11.9988
+        },
+        {
+          "order_date": "2015-12-20",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 51.1936
+        },
+        {
+          "order_date": "2015-12-20",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 21.42
+        },
+        {
+          "order_date": "2015-12-21",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 36.852
+        },
+        {
+          "order_date": "2015-12-21",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 4.7976
+        },
+        {
+          "order_date": "2015-12-21",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 14.628
+        },
+        {
+          "order_date": "2015-12-21",
+          "category": "Technology",
+          "discount": 0.3,
+          "profit": 137.264
+        },
+        {
+          "order_date": "2015-12-21",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 135.456
+        },
+        {
+          "order_date": "2015-12-24",
+          "category": "Technology",
+          "discount": 0.7,
+          "profit": -383.9904
+        },
+        {
+          "order_date": "2015-12-24",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 11.1984
+        },
+        {
+          "order_date": "2015-12-24",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 2302.9671
+        },
+        {
+          "order_date": "2015-12-25",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 19.9746
+        },
+        {
+          "order_date": "2015-12-25",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 224.9925
+        },
+        {
+          "order_date": "2015-12-25",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 371.316
+        },
+        {
+          "order_date": "2015-12-27",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 41.7564
+        },
+        {
+          "order_date": "2015-12-27",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 3.4848
+        },
+        {
+          "order_date": "2015-12-27",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 71.97
+        },
+        {
+          "order_date": "2015-12-27",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 0.7092
+        },
+        {
+          "order_date": "2015-12-27",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -12.7302
+        },
+        {
+          "order_date": "2015-12-27",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 75.168
+        },
+        {
+          "order_date": "2015-12-28",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 1.3596
+        },
+        {
+          "order_date": "2015-12-30",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 286.713
+        },
+        {
+          "order_date": "2015-12-30",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 35.985
+        },
+        {
+          "order_date": "2016-01-02",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 67.2742
+        },
+        {
+          "order_date": "2016-01-03",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -5.264
+        },
+        {
+          "order_date": "2016-01-03",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -6.21
+        },
+        {
+          "order_date": "2016-01-03",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 13.572
+        },
+        {
+          "order_date": "2016-01-04",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 119.996
+        },
+        {
+          "order_date": "2016-01-05",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 40.6878
+        },
+        {
+          "order_date": "2016-01-05",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 5.1786
+        },
+        {
+          "order_date": "2016-01-08",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 10.8784
+        },
+        {
+          "order_date": "2016-01-09",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 118.983
+        },
+        {
+          "order_date": "2016-01-09",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 141.723
+        },
+        {
+          "order_date": "2016-01-10",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 13.2962
+        },
+        {
+          "order_date": "2016-01-11",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -9.8724
+        },
+        {
+          "order_date": "2016-01-15",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 91.7892
+        },
+        {
+          "order_date": "2016-01-16",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 11.7741
+        },
+        {
+          "order_date": "2016-01-17",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 13.1956
+        },
+        {
+          "order_date": "2016-01-17",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 66.9546
+        },
+        {
+          "order_date": "2016-01-17",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 31.6
+        },
+        {
+          "order_date": "2016-01-22",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -20.2356
+        },
+        {
+          "order_date": "2016-01-22",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 15.8631
+        },
+        {
+          "order_date": "2016-01-23",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 42.9914
+        },
+        {
+          "order_date": "2016-01-30",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 143.9968
+        },
+        {
+          "order_date": "2016-01-31",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 8.2194
+        },
+        {
+          "order_date": "2016-02-02",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 2799.984
+        },
+        {
+          "order_date": "2016-02-04",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 23.5248
+        },
+        {
+          "order_date": "2016-02-05",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 28.3095
+        },
+        {
+          "order_date": "2016-02-05",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 126.0558
+        },
+        {
+          "order_date": "2016-02-05",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -31.9936
+        },
+        {
+          "order_date": "2016-02-07",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 21.0
+        },
+        {
+          "order_date": "2016-02-07",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 38.9975
+        },
+        {
+          "order_date": "2016-02-08",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 126.8973
+        },
+        {
+          "order_date": "2016-02-09",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 39.5868
+        },
+        {
+          "order_date": "2016-02-09",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 11.151
+        },
+        {
+          "order_date": "2016-02-11",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 0.6993
+        },
+        {
+          "order_date": "2016-02-16",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 39.5868
+        },
+        {
+          "order_date": "2016-02-21",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 0.7794
+        },
+        {
+          "order_date": "2016-02-21",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 1.999
+        },
+        {
+          "order_date": "2016-02-22",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 55.745
+        },
+        {
+          "order_date": "2016-02-22",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 15.2208
+        },
+        {
+          "order_date": "2016-03-01",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 2400.9657
+        },
+        {
+          "order_date": "2016-03-01",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 13.9986
+        },
+        {
+          "order_date": "2016-03-03",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 129.5865
+        },
+        {
+          "order_date": "2016-03-03",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 37.758
+        },
+        {
+          "order_date": "2016-03-03",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": 33.5895
+        },
+        {
+          "order_date": "2016-03-03",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 32.3982
+        },
+        {
+          "order_date": "2016-03-03",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 5.7365
+        },
+        {
+          "order_date": "2016-03-04",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 57.5928
+        },
+        {
+          "order_date": "2016-03-06",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -71.99
+        },
+        {
+          "order_date": "2016-03-06",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -12.5103
+        },
+        {
+          "order_date": "2016-03-07",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 1.5804
+        },
+        {
+          "order_date": "2016-03-08",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 85.2475
+        },
+        {
+          "order_date": "2016-03-08",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -25.3344
+        },
+        {
+          "order_date": "2016-03-08",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 8.388
+        },
+        {
+          "order_date": "2016-03-09",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 87.89
+        },
+        {
+          "order_date": "2016-03-10",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 7.4985
+        },
+        {
+          "order_date": "2016-03-10",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 363.9048
+        },
+        {
+          "order_date": "2016-03-10",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 5.1015
+        },
+        {
+          "order_date": "2016-03-10",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 377.73
+        },
+        {
+          "order_date": "2016-03-11",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 19.7714
+        },
+        {
+          "order_date": "2016-03-13",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 15.2388
+        },
+        {
+          "order_date": "2016-03-13",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 47.495
+        },
+        {
+          "order_date": "2016-03-13",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -116.9805
+        },
+        {
+          "order_date": "2016-03-13",
+          "category": "Technology",
+          "discount": 0.7,
+          "profit": -643.71
+        },
+        {
+          "order_date": "2016-03-15",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -13.6461
+        },
+        {
+          "order_date": "2016-03-17",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 62.3904
+        },
+        {
+          "order_date": "2016-03-17",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -20.1362
+        },
+        {
+          "order_date": "2016-03-20",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -20.1362
+        },
+        {
+          "order_date": "2016-03-20",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 0.8994
+        },
+        {
+          "order_date": "2016-03-22",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 19.3314
+        },
+        {
+          "order_date": "2016-03-24",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 25.198
+        },
+        {
+          "order_date": "2016-03-25",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 244.6155
+        },
+        {
+          "order_date": "2016-03-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -17.9964
+        },
+        {
+          "order_date": "2016-03-29",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 60.9552
+        },
+        {
+          "order_date": "2016-03-29",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -36.9544
+        },
+        {
+          "order_date": "2016-03-31",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -60.8361
+        },
+        {
+          "order_date": "2016-03-31",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 1.1994
+        },
+        {
+          "order_date": "2016-04-01",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 9.1312
+        },
+        {
+          "order_date": "2016-04-01",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 0.2598
+        },
+        {
+          "order_date": "2016-04-03",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 124.7808
+        },
+        {
+          "order_date": "2016-04-04",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 5.9988
+        },
+        {
+          "order_date": "2016-04-04",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 37.7874
+        },
+        {
+          "order_date": "2016-04-05",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -27.7158
+        },
+        {
+          "order_date": "2016-04-06",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 336.635
+        },
+        {
+          "order_date": "2016-04-07",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 374.9925
+        },
+        {
+          "order_date": "2016-04-08",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 64.7892
+        },
+        {
+          "order_date": "2016-04-09",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 134.654
+        },
+        {
+          "order_date": "2016-04-15",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 76.6395
+        },
+        {
+          "order_date": "2016-04-15",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 54.7425
+        },
+        {
+          "order_date": "2016-04-16",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 2365.9818
+        },
+        {
+          "order_date": "2016-04-16",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 8.3524
+        },
+        {
+          "order_date": "2016-04-17",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 4.1391
+        },
+        {
+          "order_date": "2016-04-18",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 7.9812
+        },
+        {
+          "order_date": "2016-04-19",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 12.987
+        },
+        {
+          "order_date": "2016-04-19",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 0.7794
+        },
+        {
+          "order_date": "2016-04-23",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 34.9965
+        },
+        {
+          "order_date": "2016-04-24",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 64.674
+        },
+        {
+          "order_date": "2016-04-25",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -20.7
+        },
+        {
+          "order_date": "2016-04-28",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 41.5773
+        },
+        {
+          "order_date": "2016-05-03",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 34.7865
+        },
+        {
+          "order_date": "2016-05-03",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -75.5958
+        },
+        {
+          "order_date": "2016-05-03",
+          "category": "Technology",
+          "discount": 0.7,
+          "profit": -164.9538
+        },
+        {
+          "order_date": "2016-05-05",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 21.5397
+        },
+        {
+          "order_date": "2016-05-05",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 19.9665
+        },
+        {
+          "order_date": "2016-05-06",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -3.272
+        },
+        {
+          "order_date": "2016-05-07",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 1159.9855
+        },
+        {
+          "order_date": "2016-05-07",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 21.9945
+        },
+        {
+          "order_date": "2016-05-08",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 7.264
+        },
+        {
+          "order_date": "2016-05-09",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 13.1572
+        },
+        {
+          "order_date": "2016-05-09",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 1.9136
+        },
+        {
+          "order_date": "2016-05-10",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -123.998
+        },
+        {
+          "order_date": "2016-05-12",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 303.3408
+        },
+        {
+          "order_date": "2016-05-12",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 46.8
+        },
+        {
+          "order_date": "2016-05-14",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 4.36
+        },
+        {
+          "order_date": "2016-05-14",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 48.7011
+        },
+        {
+          "order_date": "2016-05-20",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 85.2475
+        },
+        {
+          "order_date": "2016-05-21",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -12.4146
+        },
+        {
+          "order_date": "2016-05-21",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 27.1666
+        },
+        {
+          "order_date": "2016-05-21",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 179.73
+        },
+        {
+          "order_date": "2016-05-22",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 86.25
+        },
+        {
+          "order_date": "2016-05-22",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 30.432
+        },
+        {
+          "order_date": "2016-05-22",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 74.8142
+        },
+        {
+          "order_date": "2016-05-22",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 22.2384
+        },
+        {
+          "order_date": "2016-05-23",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 148.4946
+        },
+        {
+          "order_date": "2016-05-23",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": 1119.9968
+        },
+        {
+          "order_date": "2016-05-23",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -24.4764
+        },
+        {
+          "order_date": "2016-05-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -7.1991
+        },
+        {
+          "order_date": "2016-05-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 23.7564
+        },
+        {
+          "order_date": "2016-05-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 116.2425
+        },
+        {
+          "order_date": "2016-05-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 11.98
+        },
+        {
+          "order_date": "2016-05-28",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 7.896
+        },
+        {
+          "order_date": "2016-05-28",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 41.88
+        },
+        {
+          "order_date": "2016-05-28",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 25.06
+        },
+        {
+          "order_date": "2016-05-29",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 274.386
+        },
+        {
+          "order_date": "2016-05-30",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": 69.999
+        },
+        {
+          "order_date": "2016-05-30",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 653.301
+        },
+        {
+          "order_date": "2016-05-30",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 35.2772
+        },
+        {
+          "order_date": "2016-05-30",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 26.8752
+        },
+        {
+          "order_date": "2016-05-30",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 7.996
+        },
+        {
+          "order_date": "2016-05-30",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 11.198
+        },
+        {
+          "order_date": "2016-05-31",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 88.053
+        },
+        {
+          "order_date": "2016-06-04",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 11.1944
+        },
+        {
+          "order_date": "2016-06-04",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 364.4595
+        },
+        {
+          "order_date": "2016-06-06",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 28.7196
+        },
+        {
+          "order_date": "2016-06-06",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 75.5748
+        },
+        {
+          "order_date": "2016-06-06",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 5.1015
+        },
+        {
+          "order_date": "2016-06-06",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 129.348
+        },
+        {
+          "order_date": "2016-06-06",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 226.7946
+        },
+        {
+          "order_date": "2016-06-06",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 3.7744
+        },
+        {
+          "order_date": "2016-06-06",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 161.19
+        },
+        {
+          "order_date": "2016-06-09",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 19.9665
+        },
+        {
+          "order_date": "2016-06-09",
+          "category": "Technology",
+          "discount": 0.5,
+          "profit": -27.828
+        },
+        {
+          "order_date": "2016-06-11",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 71.991
+        },
+        {
+          "order_date": "2016-06-11",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 132.5898
+        },
+        {
+          "order_date": "2016-06-12",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 19.7316
+        },
+        {
+          "order_date": "2016-06-12",
+          "category": "Technology",
+          "discount": 0.3,
+          "profit": 43.1991
+        },
+        {
+          "order_date": "2016-06-13",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 94.4925
+        },
+        {
+          "order_date": "2016-06-14",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 9.6657
+        },
+        {
+          "order_date": "2016-06-14",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 2.308
+        },
+        {
+          "order_date": "2016-06-16",
+          "category": "Technology",
+          "discount": 0.5,
+          "profit": -1.8295
+        },
+        {
+          "order_date": "2016-06-17",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 3.3
+        },
+        {
+          "order_date": "2016-06-17",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 153.0819
+        },
+        {
+          "order_date": "2016-06-20",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 4.95
+        },
+        {
+          "order_date": "2016-06-20",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 6.104
+        },
+        {
+          "order_date": "2016-06-20",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 26.3912
+        },
+        {
+          "order_date": "2016-06-20",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 0.552
+        },
+        {
+          "order_date": "2016-06-23",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 97.0137
+        },
+        {
+          "order_date": "2016-06-24",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -9.56
+        },
+        {
+          "order_date": "2016-06-24",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 123.4548
+        },
+        {
+          "order_date": "2016-06-24",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 503.64
+        },
+        {
+          "order_date": "2016-06-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 3.5742
+        },
+        {
+          "order_date": "2016-06-26",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 9.0171
+        },
+        {
+          "order_date": "2016-06-26",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 9.7972
+        },
+        {
+          "order_date": "2016-06-26",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 39.4255
+        },
+        {
+          "order_date": "2016-06-27",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 12.599
+        },
+        {
+          "order_date": "2016-06-28",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 35.9976
+        },
+        {
+          "order_date": "2016-06-30",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -0.6265
+        },
+        {
+          "order_date": "2016-07-01",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 449.985
+        },
+        {
+          "order_date": "2016-07-01",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 6.168
+        },
+        {
+          "order_date": "2016-07-04",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 19.9665
+        },
+        {
+          "order_date": "2016-07-04",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 8.997
+        },
+        {
+          "order_date": "2016-07-07",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 944.9865
+        },
+        {
+          "order_date": "2016-07-07",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -12.9987
+        },
+        {
+          "order_date": "2016-07-08",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 107.955
+        },
+        {
+          "order_date": "2016-07-08",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 9.4486
+        },
+        {
+          "order_date": "2016-07-08",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 51.4975
+        },
+        {
+          "order_date": "2016-07-10",
+          "category": "Technology",
+          "discount": 0.7,
+          "profit": -319.1916
+        },
+        {
+          "order_date": "2016-07-12",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 7.182
+        },
+        {
+          "order_date": "2016-07-14",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 38.0864
+        },
+        {
+          "order_date": "2016-07-14",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 52.493
+        },
+        {
+          "order_date": "2016-07-14",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 7.25
+        },
+        {
+          "order_date": "2016-07-14",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 12.4173
+        },
+        {
+          "order_date": "2016-07-16",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -28.7964
+        },
+        {
+          "order_date": "2016-07-16",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -115.3544
+        },
+        {
+          "order_date": "2016-07-16",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 18.2352
+        },
+        {
+          "order_date": "2016-07-17",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 280.59
+        },
+        {
+          "order_date": "2016-07-17",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 89.964
+        },
+        {
+          "order_date": "2016-07-17",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -4.6764
+        },
+        {
+          "order_date": "2016-07-18",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 3.3099
+        },
+        {
+          "order_date": "2016-07-18",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 3.4995
+        },
+        {
+          "order_date": "2016-07-19",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 4.498
+        },
+        {
+          "order_date": "2016-07-19",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 132.5898
+        },
+        {
+          "order_date": "2016-07-20",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 43.176
+        },
+        {
+          "order_date": "2016-07-22",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 36.2835
+        },
+        {
+          "order_date": "2016-07-23",
+          "category": "Technology",
+          "discount": 0.5,
+          "profit": -111.4995
+        },
+        {
+          "order_date": "2016-07-23",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 11.5136
+        },
+        {
+          "order_date": "2016-07-25",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": 191.9968
+        },
+        {
+          "order_date": "2016-07-25",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 48.4575
+        },
+        {
+          "order_date": "2016-07-25",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 83.314
+        },
+        {
+          "order_date": "2016-07-31",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 165.3496
+        },
+        {
+          "order_date": "2016-07-31",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 33.3172
+        },
+        {
+          "order_date": "2016-08-01",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 90.9762
+        },
+        {
+          "order_date": "2016-08-02",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 33.3576
+        },
+        {
+          "order_date": "2016-08-03",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 23.4192
+        },
+        {
+          "order_date": "2016-08-04",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 30.2384
+        },
+        {
+          "order_date": "2016-08-06",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 18.4772
+        },
+        {
+          "order_date": "2016-08-07",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 86.3856
+        },
+        {
+          "order_date": "2016-08-09",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 4.4784
+        },
+        {
+          "order_date": "2016-08-12",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 52.4979
+        },
+        {
+          "order_date": "2016-08-13",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 15.1158
+        },
+        {
+          "order_date": "2016-08-14",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 35.6238
+        },
+        {
+          "order_date": "2016-08-14",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -56.3108
+        },
+        {
+          "order_date": "2016-08-14",
+          "category": "Technology",
+          "discount": 0.4,
+          "profit": -49.4376
+        },
+        {
+          "order_date": "2016-08-14",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 48.993
+        },
+        {
+          "order_date": "2016-08-15",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 7.1976
+        },
+        {
+          "order_date": "2016-08-15",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 70.5544
+        },
+        {
+          "order_date": "2016-08-15",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 10.35
+        },
+        {
+          "order_date": "2016-08-18",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 11.5971
+        },
+        {
+          "order_date": "2016-08-20",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 3.9906
+        },
+        {
+          "order_date": "2016-08-21",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -20.691
+        },
+        {
+          "order_date": "2016-08-21",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 91.7892
+        },
+        {
+          "order_date": "2016-08-21",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -7.996
+        },
+        {
+          "order_date": "2016-08-23",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": -33.32
+        },
+        {
+          "order_date": "2016-08-23",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 62.82
+        },
+        {
+          "order_date": "2016-08-23",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 0.891
+        },
+        {
+          "order_date": "2016-08-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 43.9956
+        },
+        {
+          "order_date": "2016-08-26",
+          "category": "Technology",
+          "discount": 0.2,
+          "profit": 13.1956
+        },
+        {
+          "order_date": "2016-08-26",
+          "category": "Technology",
+          "discount": 0.0,
+          "profit": 8.25
+        }
+      ],
+      "spec": {
+        "chart_type": "scatter",
+        "sql": "SELECT order_date, category, discount, profit FROM orders WHERE category LIKE 'Technology' ORDER BY order_date",
+        "title": "Discount vs Profit for Technology Orders",
+        "xlabel": "Discount",
+        "ylabel": "Profit"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 10,
+    "category": "visualization",
+    "task_type": "line",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "Mostra un gràfic de línies del benefici al llarg del temps per a la regió East el 2017.",
+    "question_en": "Show a line chart of profit over time for the East region in 2017.",
+    "expected_agent": "viz",
+    "correct": false,
+    "ok": false,
+    "latency_seconds": 77.2348,
+    "attempts": 3,
+    "retried": true,
+    "answer": {
+      "path": null,
+      "rows": null,
+      "spec": null,
+      "error": "OperationalError: no such column: year"
+    },
+    "error": "OperationalError: no such column: year"
+  }
+]

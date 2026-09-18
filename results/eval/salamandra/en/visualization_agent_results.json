@@ -1,0 +1,4506 @@
+[
+  {
+    "id": 1,
+    "category": "visualization",
+    "task_type": "bar",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "Show a bar chart of total sales by category.",
+    "question_en": "Show a bar chart of total sales by category.",
+    "expected_agent": "viz",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 14.8833,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/638d6cedea624a5d9680f9d4a27526c3.png",
+      "rows": [
+        {
+          "category": "Furniture",
+          "total_sales": 741999.7953
+        },
+        {
+          "category": "Office Supplies",
+          "total_sales": 719047.032
+        },
+        {
+          "category": "Technology",
+          "total_sales": 836154.033
+        }
+      ],
+      "spec": {
+        "chart_type": "bar",
+        "sql": "SELECT category, SUM(sales) AS total_sales FROM orders GROUP BY category",
+        "title": "Total Sales by Category",
+        "xlabel": "Category",
+        "ylabel": "Total Sales"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 2,
+    "category": "visualization",
+    "task_type": "bar",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "Show a bar chart of total profit by region.",
+    "question_en": "Show a bar chart of total profit by region.",
+    "expected_agent": "viz",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 18.3469,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/74ac5fbe739e47818295acc84456a338.png",
+      "rows": [
+        {
+          "region": "Central",
+          "total_profit": 39706.3625
+        },
+        {
+          "region": "East",
+          "total_profit": 91522.78
+        },
+        {
+          "region": "South",
+          "total_profit": 46749.4303
+        },
+        {
+          "region": "West",
+          "total_profit": 108418.4489
+        }
+      ],
+      "spec": {
+        "chart_type": "bar",
+        "sql": "SELECT region, SUM(profit) AS total_profit FROM orders GROUP BY region",
+        "title": "Total Profit by Region",
+        "xlabel": "Region",
+        "ylabel": "Total Profit"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 3,
+    "category": "visualization",
+    "task_type": "pie",
+    "difficulty": "easy",
+    "language": "en",
+    "question": "Show a pie chart of order count by segment.",
+    "question_en": "Show a pie chart of order count by segment.",
+    "expected_agent": "viz",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 16.8388,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/30ac34b78b004f47a1343b21eb2df69e.png",
+      "rows": [
+        {
+          "segment": "Consumer",
+          "order_count": 5191
+        },
+        {
+          "segment": "Corporate",
+          "order_count": 3020
+        },
+        {
+          "segment": "Home Office",
+          "order_count": 1783
+        }
+      ],
+      "spec": {
+        "chart_type": "pie",
+        "sql": "SELECT segment, COUNT(*) AS order_count FROM orders GROUP BY segment",
+        "title": "Order Count by Segment",
+        "xlabel": "Segment",
+        "ylabel": "Order Count"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 4,
+    "category": "visualization",
+    "task_type": "bar",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "Show a bar chart of average discount by ship mode.",
+    "question_en": "Show a bar chart of average discount by ship mode.",
+    "expected_agent": "viz",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 20.6445,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/4ce5fb7799f64b64928e4e067278a745.png",
+      "rows": [
+        {
+          "ship_mode": "First Class",
+          "avg_discount": 0.1646098829648895
+        },
+        {
+          "ship_mode": "Same Day",
+          "avg_discount": 0.15239410681399632
+        },
+        {
+          "ship_mode": "Second Class",
+          "avg_discount": 0.13889460154241648
+        },
+        {
+          "ship_mode": "Standard Class",
+          "avg_discount": 0.1600234584450402
+        }
+      ],
+      "spec": {
+        "chart_type": "bar",
+        "sql": "SELECT ship_mode, AVG(discount) AS avg_discount FROM orders GROUP BY ship_mode",
+        "title": "Average Discount by Ship Mode",
+        "xlabel": "Ship Mode",
+        "ylabel": "Average Discount"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 5,
+    "category": "visualization",
+    "task_type": "line",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "Show a line chart of monthly sales in 2017.",
+    "question_en": "Show a line chart of monthly sales in 2017.",
+    "expected_agent": "viz",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 28.5948,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/9fc6ca9ba91e46fe9d856d1e658e6e40.png",
+      "rows": [
+        {
+          "order_date": "2017-01-01",
+          "total_sales": 1481.828
+        },
+        {
+          "order_date": "2017-01-02",
+          "total_sales": 2079.554
+        },
+        {
+          "order_date": "2017-01-03",
+          "total_sales": 2070.272
+        },
+        {
+          "order_date": "2017-01-06",
+          "total_sales": 33.74
+        },
+        {
+          "order_date": "2017-01-07",
+          "total_sales": 3395.59
+        },
+        {
+          "order_date": "2017-01-08",
+          "total_sales": 892.98
+        },
+        {
+          "order_date": "2017-01-09",
+          "total_sales": 274.491
+        },
+        {
+          "order_date": "2017-01-12",
+          "total_sales": 848.52
+        },
+        {
+          "order_date": "2017-01-13",
+          "total_sales": 4619.33
+        },
+        {
+          "order_date": "2017-01-14",
+          "total_sales": 1056.038
+        },
+        {
+          "order_date": "2017-01-15",
+          "total_sales": 2140.28
+        },
+        {
+          "order_date": "2017-01-16",
+          "total_sales": 6230.292
+        },
+        {
+          "order_date": "2017-01-19",
+          "total_sales": 2013.7150000000001
+        },
+        {
+          "order_date": "2017-01-20",
+          "total_sales": 767.838
+        },
+        {
+          "order_date": "2017-01-21",
+          "total_sales": 2546.643
+        },
+        {
+          "order_date": "2017-01-22",
+          "total_sales": 4212.371999999999
+        },
+        {
+          "order_date": "2017-01-23",
+          "total_sales": 450.334
+        },
+        {
+          "order_date": "2017-01-24",
+          "total_sales": 418.666
+        },
+        {
+          "order_date": "2017-01-26",
+          "total_sales": 3055.2799999999997
+        },
+        {
+          "order_date": "2017-01-27",
+          "total_sales": 331.914
+        },
+        {
+          "order_date": "2017-01-28",
+          "total_sales": 1007.52
+        },
+        {
+          "order_date": "2017-01-29",
+          "total_sales": 294.842
+        },
+        {
+          "order_date": "2017-01-30",
+          "total_sales": 3749.335
+        }
+      ],
+      "spec": {
+        "chart_type": "line",
+        "sql": "SELECT order_date, SUM(sales) AS total_sales FROM orders WHERE order_date >= '2017-01-01' AND order_date < '2017-02-01' GROUP BY order_date",
+        "title": "Monthly Sales in 2017",
+        "xlabel": "Month",
+        "ylabel": "Sales"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 6,
+    "category": "visualization",
+    "task_type": "bar",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "Show a bar chart of total quantity sold by sub-category.",
+    "question_en": "Show a bar chart of total quantity sold by sub-category.",
+    "expected_agent": "viz",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 18.9988,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/e9259b1d9ece4fd39c7203be3853d6f8.png",
+      "rows": [
+        {
+          "sub_category": "Accessories",
+          "total_quantity": 2976
+        },
+        {
+          "sub_category": "Appliances",
+          "total_quantity": 1729
+        },
+        {
+          "sub_category": "Art",
+          "total_quantity": 3000
+        },
+        {
+          "sub_category": "Binders",
+          "total_quantity": 5974
+        },
+        {
+          "sub_category": "Bookcases",
+          "total_quantity": 868
+        },
+        {
+          "sub_category": "Chairs",
+          "total_quantity": 2356
+        },
+        {
+          "sub_category": "Copiers",
+          "total_quantity": 234
+        },
+        {
+          "sub_category": "Envelopes",
+          "total_quantity": 906
+        },
+        {
+          "sub_category": "Fasteners",
+          "total_quantity": 914
+        },
+        {
+          "sub_category": "Furnishings",
+          "total_quantity": 3563
+        },
+        {
+          "sub_category": "Labels",
+          "total_quantity": 1400
+        },
+        {
+          "sub_category": "Machines",
+          "total_quantity": 440
+        },
+        {
+          "sub_category": "Paper",
+          "total_quantity": 5178
+        },
+        {
+          "sub_category": "Phones",
+          "total_quantity": 3289
+        },
+        {
+          "sub_category": "Storage",
+          "total_quantity": 3158
+        },
+        {
+          "sub_category": "Supplies",
+          "total_quantity": 647
+        },
+        {
+          "sub_category": "Tables",
+          "total_quantity": 1241
+        }
+      ],
+      "spec": {
+        "chart_type": "bar",
+        "sql": "SELECT sub_category, SUM(quantity) AS total_quantity FROM orders GROUP BY sub_category",
+        "title": "Total Quantity by Sub-Category",
+        "xlabel": "Sub-Category",
+        "ylabel": "Total Quantity"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 7,
+    "category": "visualization",
+    "task_type": "boxplot",
+    "difficulty": "medium",
+    "language": "en",
+    "question": "Show a boxplot of profit for orders in the Consumer segment.",
+    "question_en": "Show a boxplot of profit for orders in the Consumer segment.",
+    "expected_agent": "viz",
+    "correct": false,
+    "ok": false,
+    "latency_seconds": 50.3071,
+    "attempts": 3,
+    "retried": true,
+    "answer": {
+      "path": null,
+      "rows": null,
+      "spec": null,
+      "error": "ValueError: No rows returned."
+    },
+    "error": "ValueError: No rows returned."
+  },
+  {
+    "id": 8,
+    "category": "visualization",
+    "task_type": "histogram",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "Show a histogram of sales values under $500.",
+    "question_en": "Show a histogram of sales values under $500.",
+    "expected_agent": "viz",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 19.0192,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/05a5a85c47054edcbfec1334cea7c1a0.png",
+      "rows": [
+        {
+          "total_sales": 247877.6984,
+          "category": "Furniture"
+        },
+        {
+          "total_sales": 343924.588,
+          "category": "Office Supplies"
+        },
+        {
+          "total_sales": 230414.441,
+          "category": "Technology"
+        }
+      ],
+      "spec": {
+        "chart_type": "histogram",
+        "sql": "SELECT SUM(sales) AS total_sales, category FROM orders WHERE sales <= 500 GROUP BY category",
+        "title": "Sales Under $500",
+        "xlabel": "Category",
+        "ylabel": "Total Sales"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 9,
+    "category": "visualization",
+    "task_type": "scatter",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "Show a scatter plot of discount versus profit for orders in the Technology category.",
+    "question_en": "Show a scatter plot of discount versus profit for orders in the Technology category.",
+    "expected_agent": "viz",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 18.8399,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/8218dfb11db44d80b7ad6afcf07fb8f3.png",
+      "rows": [
+        {
+          "discount": 0.0,
+          "profit": 11.7741
+        },
+        {
+          "discount": 0.0,
+          "profit": 19.7714
+        },
+        {
+          "discount": 0.0,
+          "profit": 4.95
+        },
+        {
+          "discount": 0.0,
+          "profit": 6.104
+        },
+        {
+          "discount": 0.0,
+          "profit": 298.6855
+        },
+        {
+          "discount": 0.0,
+          "profit": 3.3
+        },
+        {
+          "discount": 0.0,
+          "profit": 6.1512
+        },
+        {
+          "discount": 0.0,
+          "profit": 6.7966
+        },
+        {
+          "discount": 0.0,
+          "profit": 19.7316
+        },
+        {
+          "discount": 0.0,
+          "profit": 103.8015
+        },
+        {
+          "discount": 0.0,
+          "profit": 5.9988
+        },
+        {
+          "discount": 0.0,
+          "profit": 236.2325
+        },
+        {
+          "discount": 0.0,
+          "profit": 131.0296
+        },
+        {
+          "discount": 0.0,
+          "profit": 41.986
+        },
+        {
+          "discount": 0.0,
+          "profit": 7.25
+        },
+        {
+          "discount": 0.0,
+          "profit": 22.984
+        },
+        {
+          "discount": 0.0,
+          "profit": 20.0928
+        },
+        {
+          "discount": 0.0,
+          "profit": 35.6346
+        },
+        {
+          "discount": 0.0,
+          "profit": 636.0003
+        },
+        {
+          "discount": 0.0,
+          "profit": 6.9258
+        },
+        {
+          "discount": 0.0,
+          "profit": 35.156
+        },
+        {
+          "discount": 0.0,
+          "profit": 92.3692
+        },
+        {
+          "discount": 0.0,
+          "profit": 1995.99
+        },
+        {
+          "discount": 0.0,
+          "profit": 80.0226
+        },
+        {
+          "discount": 0.0,
+          "profit": 129.6
+        },
+        {
+          "discount": 0.0,
+          "profit": 34.9965
+        },
+        {
+          "discount": 0.0,
+          "profit": 2.3086
+        },
+        {
+          "discount": 0.0,
+          "profit": 8.799
+        },
+        {
+          "discount": 0.0,
+          "profit": 13.5932
+        },
+        {
+          "discount": 0.0,
+          "profit": 701.9883
+        },
+        {
+          "discount": 0.0,
+          "profit": 37.7895
+        },
+        {
+          "discount": 0.0,
+          "profit": 30.0957
+        },
+        {
+          "discount": 0.0,
+          "profit": 9.1312
+        },
+        {
+          "discount": 0.0,
+          "profit": 24.9132
+        },
+        {
+          "discount": 0.0,
+          "profit": 377.9622
+        },
+        {
+          "discount": 0.0,
+          "profit": 1.9089
+        },
+        {
+          "discount": 0.0,
+          "profit": 57.5928
+        },
+        {
+          "discount": 0.0,
+          "profit": 13.1572
+        },
+        {
+          "discount": 0.0,
+          "profit": 12.1728
+        },
+        {
+          "discount": 0.0,
+          "profit": 1379.977
+        },
+        {
+          "discount": 0.0,
+          "profit": 27.1666
+        },
+        {
+          "discount": 0.0,
+          "profit": 274.386
+        },
+        {
+          "discount": 0.0,
+          "profit": 206.316
+        },
+        {
+          "discount": 0.0,
+          "profit": 4.0095
+        },
+        {
+          "discount": 0.0,
+          "profit": 10.9939
+        },
+        {
+          "discount": 0.0,
+          "profit": 54.3332
+        },
+        {
+          "discount": 0.0,
+          "profit": 31.6
+        },
+        {
+          "discount": 0.0,
+          "profit": 10.312
+        },
+        {
+          "discount": 0.0,
+          "profit": 40.7499
+        },
+        {
+          "discount": 0.0,
+          "profit": 163.1898
+        },
+        {
+          "discount": 0.0,
+          "profit": 74.0532
+        },
+        {
+          "discount": 0.0,
+          "profit": 24.936
+        },
+        {
+          "discount": 0.0,
+          "profit": 52.7824
+        },
+        {
+          "discount": 0.0,
+          "profit": 89.3142
+        },
+        {
+          "discount": 0.0,
+          "profit": 113.9886
+        },
+        {
+          "discount": 0.0,
+          "profit": 86.3856
+        },
+        {
+          "discount": 0.0,
+          "profit": 8.4966
+        },
+        {
+          "discount": 0.0,
+          "profit": 47.92
+        },
+        {
+          "discount": 0.0,
+          "profit": 258.696
+        },
+        {
+          "discount": 0.0,
+          "profit": 51.75
+        },
+        {
+          "discount": 0.0,
+          "profit": 50.9898
+        },
+        {
+          "discount": 0.0,
+          "profit": 2.578
+        },
+        {
+          "discount": 0.0,
+          "profit": 601.9699
+        },
+        {
+          "discount": 0.0,
+          "profit": 71.991
+        },
+        {
+          "discount": 0.0,
+          "profit": 4.068
+        },
+        {
+          "discount": 0.0,
+          "profit": 40.3128
+        },
+        {
+          "discount": 0.0,
+          "profit": 51.8346
+        },
+        {
+          "discount": 0.0,
+          "profit": 17.1574
+        },
+        {
+          "discount": 0.0,
+          "profit": 23.4416
+        },
+        {
+          "discount": 0.0,
+          "profit": 49.6048
+        },
+        {
+          "discount": 0.0,
+          "profit": 13.1956
+        },
+        {
+          "discount": 0.0,
+          "profit": 66.9546
+        },
+        {
+          "discount": 0.0,
+          "profit": 14.995
+        },
+        {
+          "discount": 0.0,
+          "profit": 135.98
+        },
+        {
+          "discount": 0.0,
+          "profit": 2.7279
+        },
+        {
+          "discount": 0.0,
+          "profit": 323.946
+        },
+        {
+          "discount": 0.0,
+          "profit": 829.3754
+        },
+        {
+          "discount": 0.0,
+          "profit": 56.0547
+        },
+        {
+          "discount": 0.0,
+          "profit": 34.9074
+        },
+        {
+          "discount": 0.0,
+          "profit": 10.5552
+        },
+        {
+          "discount": 0.0,
+          "profit": 54.3966
+        },
+        {
+          "discount": 0.0,
+          "profit": 3.2186
+        },
+        {
+          "discount": 0.0,
+          "profit": 173.0316
+        },
+        {
+          "discount": 0.0,
+          "profit": 762.1845
+        },
+        {
+          "discount": 0.0,
+          "profit": 36.852
+        },
+        {
+          "discount": 0.0,
+          "profit": 2.499
+        },
+        {
+          "discount": 0.0,
+          "profit": 648.5624
+        },
+        {
+          "discount": 0.0,
+          "profit": 57.4113
+        },
+        {
+          "discount": 0.0,
+          "profit": 11.151
+        },
+        {
+          "discount": 0.0,
+          "profit": 37.9962
+        },
+        {
+          "discount": 0.0,
+          "profit": 2400.9657
+        },
+        {
+          "discount": 0.0,
+          "profit": 9.6657
+        },
+        {
+          "discount": 0.0,
+          "profit": 57.5904
+        },
+        {
+          "discount": 0.0,
+          "profit": 111.591
+        },
+        {
+          "discount": 0.0,
+          "profit": 181.9818
+        },
+        {
+          "discount": 0.0,
+          "profit": 0.438
+        },
+        {
+          "discount": 0.0,
+          "profit": 209.993
+        },
+        {
+          "discount": 0.0,
+          "profit": 4.5954
+        },
+        {
+          "discount": 0.0,
+          "profit": 49.2723
+        },
+        {
+          "discount": 0.0,
+          "profit": 44.9925
+        },
+        {
+          "discount": 0.0,
+          "profit": 357.1911
+        },
+        {
+          "discount": 0.0,
+          "profit": 34.386
+        },
+        {
+          "discount": 0.0,
+          "profit": 5.5
+        },
+        {
+          "discount": 0.0,
+          "profit": 285.9896
+        },
+        {
+          "discount": 0.0,
+          "profit": 18.873
+        },
+        {
+          "discount": 0.0,
+          "profit": 12.8583
+        },
+        {
+          "discount": 0.0,
+          "profit": 30.1968
+        },
+        {
+          "discount": 0.0,
+          "profit": 80.736
+        },
+        {
+          "discount": 0.0,
+          "profit": 2.299
+        },
+        {
+          "discount": 0.0,
+          "profit": 77.7519
+        },
+        {
+          "discount": 0.0,
+          "profit": 176.1708
+        },
+        {
+          "discount": 0.0,
+          "profit": 4.908
+        },
+        {
+          "discount": 0.0,
+          "profit": 28.3095
+        },
+        {
+          "discount": 0.0,
+          "profit": 126.0558
+        },
+        {
+          "discount": 0.0,
+          "profit": 11.492
+        },
+        {
+          "discount": 0.0,
+          "profit": 6.104
+        },
+        {
+          "discount": 0.0,
+          "profit": 26.3967
+        },
+        {
+          "discount": 0.0,
+          "profit": 1459.2
+        },
+        {
+          "discount": 0.0,
+          "profit": 30.09
+        },
+        {
+          "discount": 0.0,
+          "profit": 37.7874
+        },
+        {
+          "discount": 0.0,
+          "profit": 190.08
+        },
+        {
+          "discount": 0.0,
+          "profit": 11.5971
+        },
+        {
+          "discount": 0.0,
+          "profit": 39.5428
+        },
+        {
+          "discount": 0.0,
+          "profit": 6.2979
+        },
+        {
+          "discount": 0.0,
+          "profit": 89.3142
+        },
+        {
+          "discount": 0.0,
+          "profit": 274.386
+        },
+        {
+          "discount": 0.0,
+          "profit": 34.692
+        },
+        {
+          "discount": 0.0,
+          "profit": 10.5
+        },
+        {
+          "discount": 0.0,
+          "profit": 556.974
+        },
+        {
+          "discount": 0.0,
+          "profit": 1480.4671
+        },
+        {
+          "discount": 0.0,
+          "profit": 54.3332
+        },
+        {
+          "discount": 0.0,
+          "profit": 19.3314
+        },
+        {
+          "discount": 0.0,
+          "profit": 19.8276
+        },
+        {
+          "discount": 0.0,
+          "profit": 52.49
+        },
+        {
+          "discount": 0.0,
+          "profit": 21.0
+        },
+        {
+          "discount": 0.0,
+          "profit": 3.401
+        },
+        {
+          "discount": 0.0,
+          "profit": 46.602
+        },
+        {
+          "discount": 0.0,
+          "profit": 14.9925
+        },
+        {
+          "discount": 0.0,
+          "profit": 9.816
+        },
+        {
+          "discount": 0.0,
+          "profit": 25.2213
+        },
+        {
+          "discount": 0.0,
+          "profit": 64.7856
+        },
+        {
+          "discount": 0.0,
+          "profit": 195.9944
+        },
+        {
+          "discount": 0.0,
+          "profit": 26.5905
+        },
+        {
+          "discount": 0.0,
+          "profit": 100.9113
+        },
+        {
+          "discount": 0.0,
+          "profit": 76.272
+        },
+        {
+          "discount": 0.0,
+          "profit": 0.6993
+        },
+        {
+          "discount": 0.0,
+          "profit": 374.3792
+        },
+        {
+          "discount": 0.0,
+          "profit": 11.7741
+        },
+        {
+          "discount": 0.0,
+          "profit": 124.68
+        },
+        {
+          "discount": 0.0,
+          "profit": 25.1225
+        },
+        {
+          "discount": 0.0,
+          "profit": 33.5888
+        },
+        {
+          "discount": 0.0,
+          "profit": 3.9906
+        },
+        {
+          "discount": 0.0,
+          "profit": 40.7499
+        },
+        {
+          "discount": 0.0,
+          "profit": 65.978
+        },
+        {
+          "discount": 0.0,
+          "profit": 74.975
+        },
+        {
+          "discount": 0.0,
+          "profit": 69.993
+        },
+        {
+          "discount": 0.0,
+          "profit": 59.8176
+        },
+        {
+          "discount": 0.0,
+          "profit": 57.4113
+        },
+        {
+          "discount": 0.0,
+          "profit": 38.08
+        },
+        {
+          "discount": 0.0,
+          "profit": 40.3128
+        },
+        {
+          "discount": 0.0,
+          "profit": 53.433
+        },
+        {
+          "discount": 0.0,
+          "profit": 6.768
+        },
+        {
+          "discount": 0.0,
+          "profit": 78.9516
+        },
+        {
+          "discount": 0.0,
+          "profit": 102.186
+        },
+        {
+          "discount": 0.0,
+          "profit": 362.687
+        },
+        {
+          "discount": 0.0,
+          "profit": 134.3888
+        },
+        {
+          "discount": 0.0,
+          "profit": 42.0186
+        },
+        {
+          "discount": 0.0,
+          "profit": 42.0355
+        },
+        {
+          "discount": 0.0,
+          "profit": 21.9945
+        },
+        {
+          "discount": 0.0,
+          "profit": 16.1602
+        },
+        {
+          "discount": 0.0,
+          "profit": 280.59
+        },
+        {
+          "discount": 0.0,
+          "profit": 63.984
+        },
+        {
+          "discount": 0.0,
+          "profit": 30.5964
+        },
+        {
+          "discount": 0.0,
+          "profit": 47.8629
+        },
+        {
+          "discount": 0.0,
+          "profit": 69.986
+        },
+        {
+          "discount": 0.0,
+          "profit": 13.7931
+        },
+        {
+          "discount": 0.0,
+          "profit": 11.7
+        },
+        {
+          "discount": 0.0,
+          "profit": 22.087
+        },
+        {
+          "discount": 0.0,
+          "profit": 43.5981
+        },
+        {
+          "discount": 0.0,
+          "profit": 1159.9855
+        },
+        {
+          "discount": 0.0,
+          "profit": 21.9945
+        },
+        {
+          "discount": 0.0,
+          "profit": 7.25
+        },
+        {
+          "discount": 0.0,
+          "profit": 378.1674
+        },
+        {
+          "discount": 0.0,
+          "profit": 8.5025
+        },
+        {
+          "discount": 0.0,
+          "profit": 229.3018
+        },
+        {
+          "discount": 0.0,
+          "profit": 233.2204
+        },
+        {
+          "discount": 0.0,
+          "profit": 67.6599
+        },
+        {
+          "discount": 0.0,
+          "profit": 131.355
+        },
+        {
+          "discount": 0.0,
+          "profit": 66.9546
+        },
+        {
+          "discount": 0.0,
+          "profit": 24.936
+        },
+        {
+          "discount": 0.0,
+          "profit": 114.9954
+        },
+        {
+          "discount": 0.0,
+          "profit": 53.7504
+        },
+        {
+          "discount": 0.0,
+          "profit": 6.6976
+        },
+        {
+          "discount": 0.0,
+          "profit": 77.7519
+        },
+        {
+          "discount": 0.0,
+          "profit": 1.3365
+        },
+        {
+          "discount": 0.0,
+          "profit": 1.2885
+        },
+        {
+          "discount": 0.0,
+          "profit": 601.9699
+        },
+        {
+          "discount": 0.0,
+          "profit": 125.99
+        },
+        {
+          "discount": 0.0,
+          "profit": 31.6
+        },
+        {
+          "discount": 0.0,
+          "profit": 171.93
+        },
+        {
+          "discount": 0.0,
+          "profit": 132.5898
+        },
+        {
+          "discount": 0.0,
+          "profit": 63.8232
+        },
+        {
+          "discount": 0.0,
+          "profit": 27.3528
+        },
+        {
+          "discount": 0.0,
+          "profit": 15.6993
+        },
+        {
+          "discount": 0.0,
+          "profit": 93.24
+        },
+        {
+          "discount": 0.0,
+          "profit": 97.1946
+        },
+        {
+          "discount": 0.0,
+          "profit": 2.256
+        },
+        {
+          "discount": 0.0,
+          "profit": 23.96
+        },
+        {
+          "discount": 0.0,
+          "profit": 200.8638
+        },
+        {
+          "discount": 0.0,
+          "profit": 95.2
+        },
+        {
+          "discount": 0.0,
+          "profit": 43.9956
+        },
+        {
+          "discount": 0.0,
+          "profit": 86.25
+        },
+        {
+          "discount": 0.0,
+          "profit": 30.432
+        },
+        {
+          "discount": 0.0,
+          "profit": 74.8142
+        },
+        {
+          "discount": 0.0,
+          "profit": 31.122
+        },
+        {
+          "discount": 0.0,
+          "profit": 18.2592
+        },
+        {
+          "discount": 0.0,
+          "profit": 13.604
+        },
+        {
+          "discount": 0.0,
+          "profit": 36.9873
+        },
+        {
+          "discount": 0.0,
+          "profit": 29.0325
+        },
+        {
+          "discount": 0.0,
+          "profit": 303.3408
+        },
+        {
+          "discount": 0.0,
+          "profit": 1228.1787
+        },
+        {
+          "discount": 0.0,
+          "profit": 52.7934
+        },
+        {
+          "discount": 0.0,
+          "profit": 41.535
+        },
+        {
+          "discount": 0.0,
+          "profit": 1.375
+        },
+        {
+          "discount": 0.0,
+          "profit": 122.3856
+        },
+        {
+          "discount": 0.0,
+          "profit": 18.0648
+        },
+        {
+          "discount": 0.0,
+          "profit": 12.0
+        },
+        {
+          "discount": 0.0,
+          "profit": 2.7036
+        },
+        {
+          "discount": 0.0,
+          "profit": 27.69
+        },
+        {
+          "discount": 0.0,
+          "profit": 0.0
+        },
+        {
+          "discount": 0.0,
+          "profit": 52.6344
+        },
+        {
+          "discount": 0.0,
+          "profit": 39.55
+        },
+        {
+          "discount": 0.0,
+          "profit": 158.7519
+        },
+        {
+          "discount": 0.0,
+          "profit": 364.4595
+        },
+        {
+          "discount": 0.0,
+          "profit": 647.892
+        },
+        {
+          "discount": 0.0,
+          "profit": 0.5299
+        },
+        {
+          "discount": 0.0,
+          "profit": 2.999
+        },
+        {
+          "discount": 0.0,
+          "profit": 28.3095
+        },
+        {
+          "discount": 0.0,
+          "profit": 494.9725
+        },
+        {
+          "discount": 0.0,
+          "profit": 111.591
+        },
+        {
+          "discount": 0.0,
+          "profit": 49.497
+        },
+        {
+          "discount": 0.0,
+          "profit": 17.238
+        },
+        {
+          "discount": 0.0,
+          "profit": 62.3904
+        },
+        {
+          "discount": 0.0,
+          "profit": 15.1158
+        },
+        {
+          "discount": 0.0,
+          "profit": 109.6113
+        },
+        {
+          "discount": 0.0,
+          "profit": 343.9828
+        },
+        {
+          "discount": 0.0,
+          "profit": 19.9746
+        },
+        {
+          "discount": 0.0,
+          "profit": 94.4925
+        },
+        {
+          "discount": 0.0,
+          "profit": 43.1904
+        },
+        {
+          "discount": 0.0,
+          "profit": 1.5588
+        },
+        {
+          "discount": 0.0,
+          "profit": 129.348
+        },
+        {
+          "discount": 0.0,
+          "profit": 71.991
+        },
+        {
+          "discount": 0.0,
+          "profit": 0.4356
+        },
+        {
+          "discount": 0.0,
+          "profit": 74.8142
+        },
+        {
+          "discount": 0.0,
+          "profit": 229.9908
+        },
+        {
+          "discount": 0.0,
+          "profit": 4.068
+        },
+        {
+          "discount": 0.0,
+          "profit": 98.2722
+        },
+        {
+          "discount": 0.0,
+          "profit": 91.7892
+        },
+        {
+          "discount": 0.0,
+          "profit": 10.0464
+        },
+        {
+          "discount": 0.0,
+          "profit": 35.2872
+        },
+        {
+          "discount": 0.0,
+          "profit": 71.2692
+        },
+        {
+          "discount": 0.0,
+          "profit": 11.5971
+        },
+        {
+          "discount": 0.0,
+          "profit": 0.7794
+        },
+        {
+          "discount": 0.0,
+          "profit": 10.203
+        },
+        {
+          "discount": 0.0,
+          "profit": 129.6
+        },
+        {
+          "discount": 0.0,
+          "profit": 134.654
+        },
+        {
+          "discount": 0.0,
+          "profit": 23.5116
+        },
+        {
+          "discount": 0.0,
+          "profit": 7.3479
+        },
+        {
+          "discount": 0.0,
+          "profit": 88.1295
+        },
+        {
+          "discount": 0.0,
+          "profit": 134.9925
+        },
+        {
+          "discount": 0.0,
+          "profit": 188.1404
+        },
+        {
+          "discount": 0.0,
+          "profit": 129.5865
+        },
+        {
+          "discount": 0.0,
+          "profit": 39.5
+        },
+        {
+          "discount": 0.0,
+          "profit": 11.7
+        },
+        {
+          "discount": 0.0,
+          "profit": 355.4466
+        },
+        {
+          "discount": 0.0,
+          "profit": 32.1678
+        },
+        {
+          "discount": 0.0,
+          "profit": 17.1574
+        },
+        {
+          "discount": 0.0,
+          "profit": 14.0859
+        },
+        {
+          "discount": 0.0,
+          "profit": 4.2861
+        },
+        {
+          "discount": 0.0,
+          "profit": 118.983
+        },
+        {
+          "discount": 0.0,
+          "profit": 52.4895
+        },
+        {
+          "discount": 0.0,
+          "profit": 124.9552
+        },
+        {
+          "discount": 0.0,
+          "profit": 32.4
+        },
+        {
+          "discount": 0.0,
+          "profit": 4.908
+        },
+        {
+          "discount": 0.0,
+          "profit": 7.9984
+        },
+        {
+          "discount": 0.0,
+          "profit": 33.995
+        },
+        {
+          "discount": 0.0,
+          "profit": 12.586
+        },
+        {
+          "discount": 0.0,
+          "profit": 1.3068
+        },
+        {
+          "discount": 0.0,
+          "profit": 3.4848
+        },
+        {
+          "discount": 0.0,
+          "profit": 8.4071
+        },
+        {
+          "discount": 0.0,
+          "profit": 27.3735
+        },
+        {
+          "discount": 0.0,
+          "profit": 15.2208
+        },
+        {
+          "discount": 0.0,
+          "profit": 767.2005
+        },
+        {
+          "discount": 0.0,
+          "profit": 28.7856
+        },
+        {
+          "discount": 0.0,
+          "profit": 18.8937
+        },
+        {
+          "discount": 0.0,
+          "profit": 93.5948
+        },
+        {
+          "discount": 0.0,
+          "profit": 244.6155
+        },
+        {
+          "discount": 0.0,
+          "profit": 10.3896
+        },
+        {
+          "discount": 0.0,
+          "profit": 539.925
+        },
+        {
+          "discount": 0.0,
+          "profit": 9.9873
+        },
+        {
+          "discount": 0.0,
+          "profit": 7.896
+        },
+        {
+          "discount": 0.0,
+          "profit": 42.9914
+        },
+        {
+          "discount": 0.0,
+          "profit": 15.378
+        },
+        {
+          "discount": 0.0,
+          "profit": 18.504
+        },
+        {
+          "discount": 0.0,
+          "profit": 168.1855
+        },
+        {
+          "discount": 0.0,
+          "profit": 12.96
+        },
+        {
+          "discount": 0.0,
+          "profit": 275.478
+        },
+        {
+          "discount": 0.0,
+          "profit": 71.3898
+        },
+        {
+          "discount": 0.0,
+          "profit": 8.619
+        },
+        {
+          "discount": 0.0,
+          "profit": 109.3338
+        },
+        {
+          "discount": 0.0,
+          "profit": 29.0
+        },
+        {
+          "discount": 0.0,
+          "profit": 257.9871
+        },
+        {
+          "discount": 0.0,
+          "profit": 0.7794
+        },
+        {
+          "discount": 0.0,
+          "profit": 145.134
+        },
+        {
+          "discount": 0.0,
+          "profit": 26.3912
+        },
+        {
+          "discount": 0.0,
+          "profit": 742.632
+        },
+        {
+          "discount": 0.0,
+          "profit": 10.896
+        },
+        {
+          "discount": 0.0,
+          "profit": 41.952
+        },
+        {
+          "discount": 0.0,
+          "profit": 94.4925
+        },
+        {
+          "discount": 0.0,
+          "profit": 93.204
+        },
+        {
+          "discount": 0.0,
+          "profit": 209.2365
+        },
+        {
+          "discount": 0.0,
+          "profit": 70.5028
+        },
+        {
+          "discount": 0.0,
+          "profit": 314.9895
+        },
+        {
+          "discount": 0.0,
+          "profit": 3.462
+        },
+        {
+          "discount": 0.0,
+          "profit": 107.4785
+        },
+        {
+          "discount": 0.0,
+          "profit": 129.9974
+        },
+        {
+          "discount": 0.0,
+          "profit": 327.5818
+        },
+        {
+          "discount": 0.0,
+          "profit": 62.3904
+        },
+        {
+          "discount": 0.0,
+          "profit": 3.052
+        },
+        {
+          "discount": 0.0,
+          "profit": 25.1916
+        },
+        {
+          "discount": 0.0,
+          "profit": 22.6476
+        },
+        {
+          "discount": 0.0,
+          "profit": 10.9584
+        },
+        {
+          "discount": 0.0,
+          "profit": 0.0
+        },
+        {
+          "discount": 0.0,
+          "profit": 70.0977
+        },
+        {
+          "discount": 0.0,
+          "profit": 15.378
+        },
+        {
+          "discount": 0.0,
+          "profit": 38.08
+        },
+        {
+          "discount": 0.0,
+          "profit": 55.9224
+        },
+        {
+          "discount": 0.0,
+          "profit": 63.7776
+        },
+        {
+          "discount": 0.0,
+          "profit": 37.758
+        },
+        {
+          "discount": 0.0,
+          "profit": 67.1916
+        },
+        {
+          "discount": 0.0,
+          "profit": 217.767
+        },
+        {
+          "discount": 0.0,
+          "profit": 190.3728
+        },
+        {
+          "discount": 0.0,
+          "profit": 18.093
+        },
+        {
+          "discount": 0.0,
+          "profit": 44.985
+        },
+        {
+          "discount": 0.0,
+          "profit": 223.2855
+        },
+        {
+          "discount": 0.0,
+          "profit": 58.65
+        },
+        {
+          "discount": 0.0,
+          "profit": 21.4074
+        },
+        {
+          "discount": 0.0,
+          "profit": 47.8629
+        },
+        {
+          "discount": 0.0,
+          "profit": 239.985
+        },
+        {
+          "discount": 0.0,
+          "profit": 21.0
+        },
+        {
+          "discount": 0.0,
+          "profit": 191.968
+        },
+        {
+          "discount": 0.0,
+          "profit": 449.991
+        },
+        {
+          "discount": 0.0,
+          "profit": 213.7044
+        },
+        {
+          "discount": 0.0,
+          "profit": 1416.8
+        },
+        {
+          "discount": 0.0,
+          "profit": 18.3908
+        },
+        {
+          "discount": 0.0,
+          "profit": 170.5113
+        },
+        {
+          "discount": 0.0,
+          "profit": 19.9746
+        },
+        {
+          "discount": 0.0,
+          "profit": 90.2871
+        },
+        {
+          "discount": 0.0,
+          "profit": 134.9925
+        },
+        {
+          "discount": 0.0,
+          "profit": 163.787
+        },
+        {
+          "discount": 0.0,
+          "profit": 115.1856
+        },
+        {
+          "discount": 0.0,
+          "profit": 9.816
+        },
+        {
+          "discount": 0.0,
+          "profit": 5039.9856
+        },
+        {
+          "discount": 0.0,
+          "profit": 5.9988
+        },
+        {
+          "discount": 0.0,
+          "profit": 8.619
+        },
+        {
+          "discount": 0.0,
+          "profit": 19.8276
+        },
+        {
+          "discount": 0.0,
+          "profit": 2365.9818
+        },
+        {
+          "discount": 0.0,
+          "profit": 6.7966
+        },
+        {
+          "discount": 0.0,
+          "profit": 22.6737
+        },
+        {
+          "discount": 0.0,
+          "profit": 10.9494
+        },
+        {
+          "discount": 0.0,
+          "profit": 85.9828
+        },
+        {
+          "discount": 0.0,
+          "profit": 8.4564
+        },
+        {
+          "discount": 0.0,
+          "profit": 11.1825
+        },
+        {
+          "discount": 0.0,
+          "profit": 327.5922
+        },
+        {
+          "discount": 0.0,
+          "profit": 160.6722
+        },
+        {
+          "discount": 0.0,
+          "profit": 15.6375
+        },
+        {
+          "discount": 0.0,
+          "profit": 15.6744
+        },
+        {
+          "discount": 0.0,
+          "profit": 36.2835
+        },
+        {
+          "discount": 0.0,
+          "profit": 13.1985
+        },
+        {
+          "discount": 0.0,
+          "profit": 22.4316
+        },
+        {
+          "discount": 0.0,
+          "profit": 67.495
+        },
+        {
+          "discount": 0.0,
+          "profit": 1.0598
+        },
+        {
+          "discount": 0.0,
+          "profit": 184.2204
+        },
+        {
+          "discount": 0.0,
+          "profit": 105.468
+        },
+        {
+          "discount": 0.0,
+          "profit": 13.3371
+        },
+        {
+          "discount": 0.0,
+          "profit": 147.475
+        },
+        {
+          "discount": 0.0,
+          "profit": 751.9624
+        },
+        {
+          "discount": 0.0,
+          "profit": 13.2962
+        },
+        {
+          "discount": 0.0,
+          "profit": 165.3496
+        },
+        {
+          "discount": 0.0,
+          "profit": 33.3172
+        },
+        {
+          "discount": 0.0,
+          "profit": 6.624
+        },
+        {
+          "discount": 0.0,
+          "profit": 123.4548
+        },
+        {
+          "discount": 0.0,
+          "profit": 22.4316
+        },
+        {
+          "discount": 0.0,
+          "profit": 20.7675
+        },
+        {
+          "discount": 0.0,
+          "profit": 14.9556
+        },
+        {
+          "discount": 0.0,
+          "profit": 219.5088
+        },
+        {
+          "discount": 0.0,
+          "profit": 71.97
+        },
+        {
+          "discount": 0.0,
+          "profit": 67.1916
+        },
+        {
+          "discount": 0.0,
+          "profit": 517.4793
+        },
+        {
+          "discount": 0.0,
+          "profit": 6.102
+        },
+        {
+          "discount": 0.0,
+          "profit": 67.2742
+        },
+        {
+          "discount": 0.0,
+          "profit": 23.5248
+        },
+        {
+          "discount": 0.0,
+          "profit": 2.577
+        },
+        {
+          "discount": 0.0,
+          "profit": 3.8655
+        },
+        {
+          "discount": 0.0,
+          "profit": 83.9916
+        },
+        {
+          "discount": 0.0,
+          "profit": 224.4426
+        },
+        {
+          "discount": 0.0,
+          "profit": 28.7964
+        },
+        {
+          "discount": 0.0,
+          "profit": 16.2486
+        },
+        {
+          "discount": 0.0,
+          "profit": 1114.512
+        },
+        {
+          "discount": 0.0,
+          "profit": 146.7693
+        },
+        {
+          "discount": 0.0,
+          "profit": 21.792
+        },
+        {
+          "discount": 0.0,
+          "profit": 146.7693
+        },
+        {
+          "discount": 0.0,
+          "profit": 133.9713
+        },
+        {
+          "discount": 0.0,
+          "profit": 2.034
+        },
+        {
+          "discount": 0.0,
+          "profit": 193.32
+        },
+        {
+          "discount": 0.0,
+          "profit": 195.9944
+        },
+        {
+          "discount": 0.0,
+          "profit": 105.8316
+        },
+        {
+          "discount": 0.0,
+          "profit": 113.6742
+        },
+        {
+          "discount": 0.0,
+          "profit": 274.995
+        },
+        {
+          "discount": 0.0,
+          "profit": 83.9944
+        },
+        {
+          "discount": 0.0,
+          "profit": 23.226
+        },
+        {
+          "discount": 0.0,
+          "profit": 296.0671
+        },
+        {
+          "discount": 0.0,
+          "profit": 42.9914
+        },
+        {
+          "discount": 0.0,
+          "profit": 1371.9804
+        },
+        {
+          "discount": 0.0,
+          "profit": 4.4174
+        },
+        {
+          "discount": 0.0,
+          "profit": 80.6316
+        },
+        {
+          "discount": 0.0,
+          "profit": 43.164
+        },
+        {
+          "discount": 0.0,
+          "profit": 352.3065
+        },
+        {
+          "discount": 0.0,
+          "profit": 15.9968
+        },
+        {
+          "discount": 0.0,
+          "profit": 2.299
+        },
+        {
+          "discount": 0.0,
+          "profit": 26.3912
+        },
+        {
+          "discount": 0.0,
+          "profit": 10.875
+        },
+        {
+          "discount": 0.0,
+          "profit": 19.996
+        },
+        {
+          "discount": 0.0,
+          "profit": 24.1224
+        },
+        {
+          "discount": 0.0,
+          "profit": 70.312
+        },
+        {
+          "discount": 0.0,
+          "profit": 8.5025
+        },
+        {
+          "discount": 0.0,
+          "profit": 1.8872
+        },
+        {
+          "discount": 0.0,
+          "profit": 135.98
+        },
+        {
+          "discount": 0.0,
+          "profit": 653.301
+        },
+        {
+          "discount": 0.0,
+          "profit": 1.999
+        },
+        {
+          "discount": 0.0,
+          "profit": 6.0114
+        },
+        {
+          "discount": 0.0,
+          "profit": 53.997
+        },
+        {
+          "discount": 0.0,
+          "profit": 2.2365
+        },
+        {
+          "discount": 0.0,
+          "profit": 1.636
+        },
+        {
+          "discount": 0.0,
+          "profit": 9.816
+        },
+        {
+          "discount": 0.0,
+          "profit": 47.0979
+        },
+        {
+          "discount": 0.0,
+          "profit": 15.1158
+        },
+        {
+          "discount": 0.0,
+          "profit": 26.3934
+        },
+        {
+          "discount": 0.0,
+          "profit": 15.2208
+        },
+        {
+          "discount": 0.0,
+          "profit": 8.1072
+        },
+        {
+          "discount": 0.0,
+          "profit": 62.93
+        },
+        {
+          "discount": 0.0,
+          "profit": 659.98
+        },
+        {
+          "discount": 0.0,
+          "profit": 97.2
+        },
+        {
+          "discount": 0.0,
+          "profit": 36.852
+        },
+        {
+          "discount": 0.0,
+          "profit": 8.25
+        },
+        {
+          "discount": 0.0,
+          "profit": 87.4825
+        },
+        {
+          "discount": 0.0,
+          "profit": 10.906
+        },
+        {
+          "discount": 0.0,
+          "profit": 6.48
+        },
+        {
+          "discount": 0.0,
+          "profit": 115.1808
+        },
+        {
+          "discount": 0.0,
+          "profit": 8.799
+        },
+        {
+          "discount": 0.0,
+          "profit": 2.3997
+        },
+        {
+          "discount": 0.0,
+          "profit": 3.8655
+        },
+        {
+          "discount": 0.0,
+          "profit": 527.984
+        },
+        {
+          "discount": 0.0,
+          "profit": 743.988
+        },
+        {
+          "discount": 0.0,
+          "profit": 75.5748
+        },
+        {
+          "discount": 0.0,
+          "profit": 5.1015
+        },
+        {
+          "discount": 0.0,
+          "profit": 129.348
+        },
+        {
+          "discount": 0.0,
+          "profit": 34.9825
+        },
+        {
+          "discount": 0.0,
+          "profit": 1439.976
+        },
+        {
+          "discount": 0.0,
+          "profit": 163.818
+        },
+        {
+          "discount": 0.0,
+          "profit": 109.7544
+        },
+        {
+          "discount": 0.0,
+          "profit": 131.355
+        },
+        {
+          "discount": 0.0,
+          "profit": 217.767
+        },
+        {
+          "discount": 0.0,
+          "profit": 371.316
+        },
+        {
+          "discount": 0.0,
+          "profit": 224.424
+        },
+        {
+          "discount": 0.0,
+          "profit": 174.9825
+        },
+        {
+          "discount": 0.0,
+          "profit": 21.0
+        },
+        {
+          "discount": 0.0,
+          "profit": 21.5988
+        },
+        {
+          "discount": 0.0,
+          "profit": 103.158
+        },
+        {
+          "discount": 0.0,
+          "profit": 85.491
+        },
+        {
+          "discount": 0.0,
+          "profit": 132.5898
+        },
+        {
+          "discount": 0.0,
+          "profit": 2.208
+        },
+        {
+          "discount": 0.0,
+          "profit": 293.9804
+        },
+        {
+          "discount": 0.0,
+          "profit": 36.4473
+        },
+        {
+          "discount": 0.0,
+          "profit": 1.6038
+        },
+        {
+          "discount": 0.0,
+          "profit": 111.591
+        },
+        {
+          "discount": 0.0,
+          "profit": 8.4564
+        },
+        {
+          "discount": 0.0,
+          "profit": 395.9604
+        },
+        {
+          "discount": 0.0,
+          "profit": 32.0598
+        },
+        {
+          "discount": 0.0,
+          "profit": 36.7255
+        },
+        {
+          "discount": 0.0,
+          "profit": 233.9961
+        },
+        {
+          "discount": 0.0,
+          "profit": 78.3888
+        },
+        {
+          "discount": 0.0,
+          "profit": 176.7864
+        },
+        {
+          "discount": 0.0,
+          "profit": 274.995
+        },
+        {
+          "discount": 0.0,
+          "profit": 86.3856
+        },
+        {
+          "discount": 0.0,
+          "profit": 124.7808
+        },
+        {
+          "discount": 0.0,
+          "profit": 1.017
+        },
+        {
+          "discount": 0.0,
+          "profit": 58.7916
+        },
+        {
+          "discount": 0.0,
+          "profit": 217.767
+        },
+        {
+          "discount": 0.0,
+          "profit": 1.356
+        },
+        {
+          "discount": 0.0,
+          "profit": 362.835
+        },
+        {
+          "discount": 0.0,
+          "profit": 130.752
+        },
+        {
+          "discount": 0.0,
+          "profit": 30.432
+        },
+        {
+          "discount": 0.0,
+          "profit": 125.9874
+        },
+        {
+          "discount": 0.0,
+          "profit": 3.8655
+        },
+        {
+          "discount": 0.0,
+          "profit": 15.1158
+        },
+        {
+          "discount": 0.0,
+          "profit": 4.8986
+        },
+        {
+          "discount": 0.0,
+          "profit": 206.316
+        },
+        {
+          "discount": 0.0,
+          "profit": 30.4416
+        },
+        {
+          "discount": 0.0,
+          "profit": 95.76
+        },
+        {
+          "discount": 0.0,
+          "profit": 21.792
+        },
+        {
+          "discount": 0.0,
+          "profit": 350.9082
+        },
+        {
+          "discount": 0.0,
+          "profit": 28.3095
+        },
+        {
+          "discount": 0.0,
+          "profit": 20.3898
+        },
+        {
+          "discount": 0.0,
+          "profit": 592.7896
+        },
+        {
+          "discount": 0.0,
+          "profit": 8.5025
+        },
+        {
+          "discount": 0.0,
+          "profit": 20.7675
+        },
+        {
+          "discount": 0.0,
+          "profit": 74.8142
+        },
+        {
+          "discount": 0.0,
+          "profit": 23.4192
+        },
+        {
+          "discount": 0.0,
+          "profit": 9.116
+        },
+        {
+          "discount": 0.0,
+          "profit": 176.386
+        },
+        {
+          "discount": 0.0,
+          "profit": 32.9817
+        },
+        {
+          "discount": 0.0,
+          "profit": 13.2522
+        },
+        {
+          "discount": 0.0,
+          "profit": 0.2997
+        },
+        {
+          "discount": 0.0,
+          "profit": 35.196
+        },
+        {
+          "discount": 0.0,
+          "profit": 51.8346
+        },
+        {
+          "discount": 0.0,
+          "profit": 6.0114
+        },
+        {
+          "discount": 0.0,
+          "profit": 50.2425
+        },
+        {
+          "discount": 0.0,
+          "profit": 93.594
+        },
+        {
+          "discount": 0.0,
+          "profit": 89.964
+        },
+        {
+          "discount": 0.0,
+          "profit": 7.3451
+        },
+        {
+          "discount": 0.0,
+          "profit": 31.0059
+        },
+        {
+          "discount": 0.0,
+          "profit": 43.9
+        },
+        {
+          "discount": 0.0,
+          "profit": 1351.9896
+        },
+        {
+          "discount": 0.0,
+          "profit": 52.734
+        },
+        {
+          "discount": 0.0,
+          "profit": 170.5113
+        },
+        {
+          "discount": 0.0,
+          "profit": 101.394
+        },
+        {
+          "discount": 0.0,
+          "profit": 11.1294
+        },
+        {
+          "discount": 0.0,
+          "profit": 33.3256
+        },
+        {
+          "discount": 0.0,
+          "profit": 66.9546
+        },
+        {
+          "discount": 0.0,
+          "profit": 41.9958
+        },
+        {
+          "discount": 0.0,
+          "profit": 247.485
+        },
+        {
+          "discount": 0.0,
+          "profit": 9.816
+        },
+        {
+          "discount": 0.0,
+          "profit": 34.6983
+        },
+        {
+          "discount": 0.0,
+          "profit": 36.7173
+        },
+        {
+          "discount": 0.0,
+          "profit": 18.8937
+        },
+        {
+          "discount": 0.0,
+          "profit": 25.3302
+        },
+        {
+          "discount": 0.0,
+          "profit": 176.386
+        },
+        {
+          "discount": 0.0,
+          "profit": 35.6346
+        },
+        {
+          "discount": 0.0,
+          "profit": 11.452
+        },
+        {
+          "discount": 0.0,
+          "profit": 36.1836
+        },
+        {
+          "discount": 0.0,
+          "profit": 64.3678
+        },
+        {
+          "discount": 0.0,
+          "profit": 899.982
+        },
+        {
+          "discount": 0.0,
+          "profit": 29.988
+        },
+        {
+          "discount": 0.0,
+          "profit": 143.982
+        },
+        {
+          "discount": 0.0,
+          "profit": 41.3374
+        },
+        {
+          "discount": 0.0,
+          "profit": 118.3704
+        },
+        {
+          "discount": 0.0,
+          "profit": 440.7648
+        },
+        {
+          "discount": 0.0,
+          "profit": 50.4426
+        },
+        {
+          "discount": 0.0,
+          "profit": 86.3856
+        },
+        {
+          "discount": 0.0,
+          "profit": 67.99
+        },
+        {
+          "discount": 0.0,
+          "profit": 131.586
+        },
+        {
+          "discount": 0.0,
+          "profit": 2239.9872
+        },
+        {
+          "discount": 0.0,
+          "profit": 134.3328
+        },
+        {
+          "discount": 0.0,
+          "profit": 85.9957
+        },
+        {
+          "discount": 0.0,
+          "profit": 29.5186
+        },
+        {
+          "discount": 0.0,
+          "profit": 34.96
+        },
+        {
+          "discount": 0.0,
+          "profit": 22.653
+        },
+        {
+          "discount": 0.0,
+          "profit": 165.2868
+        },
+        {
+          "discount": 0.0,
+          "profit": 21.2724
+        },
+        {
+          "discount": 0.0,
+          "profit": 14.8707
+        },
+        {
+          "discount": 0.0,
+          "profit": 31.4895
+        },
+        {
+          "discount": 0.0,
+          "profit": 163.787
+        },
+        {
+          "discount": 0.0,
+          "profit": 29.245
+        },
+        {
+          "discount": 0.0,
+          "profit": 102.9444
+        },
+        {
+          "discount": 0.0,
+          "profit": 157.4685
+        },
+        {
+          "discount": 0.0,
+          "profit": 34.993
+        },
+        {
+          "discount": 0.0,
+          "profit": 8399.976
+        },
+        {
+          "discount": 0.0,
+          "profit": 53.4519
+        },
+        {
+          "discount": 0.0,
+          "profit": 3.9032
+        },
+        {
+          "discount": 0.0,
+          "profit": 1.656
+        },
+        {
+          "discount": 0.0,
+          "profit": 148.491
+        },
+        {
+          "discount": 0.0,
+          "profit": 46.7313
+        },
+        {
+          "discount": 0.0,
+          "profit": 91.7892
+        },
+        {
+          "discount": 0.0,
+          "profit": 26.7904
+        },
+        {
+          "discount": 0.0,
+          "profit": 119.4742
+        },
+        {
+          "discount": 0.0,
+          "profit": 167.979
+        },
+        {
+          "discount": 0.0,
+          "profit": 59.0372
+        },
+        {
+          "discount": 0.0,
+          "profit": 52.7692
+        },
+        {
+          "discount": 0.0,
+          "profit": 18.2352
+        },
+        {
+          "discount": 0.0,
+          "profit": 214.4922
+        },
+        {
+          "discount": 0.0,
+          "profit": 17.994
+        },
+        {
+          "discount": 0.0,
+          "profit": 2.2828
+        },
+        {
+          "discount": 0.0,
+          "profit": 58.812
+        },
+        {
+          "discount": 0.0,
+          "profit": 14.1728
+        },
+        {
+          "discount": 0.0,
+          "profit": 164.6316
+        },
+        {
+          "discount": 0.0,
+          "profit": 65.9634
+        },
+        {
+          "discount": 0.0,
+          "profit": 6.48
+        },
+        {
+          "discount": 0.0,
+          "profit": 139.986
+        },
+        {
+          "discount": 0.0,
+          "profit": 25.1916
+        },
+        {
+          "discount": 0.0,
+          "profit": 0.7794
+        },
+        {
+          "discount": 0.0,
+          "profit": 545.1884
+        },
+        {
+          "discount": 0.0,
+          "profit": 43.1904
+        },
+        {
+          "discount": 0.0,
+          "profit": 46.5432
+        },
+        {
+          "discount": 0.0,
+          "profit": 22.6737
+        },
+        {
+          "discount": 0.0,
+          "profit": 25.1916
+        },
+        {
+          "discount": 0.0,
+          "profit": 34.5
+        },
+        {
+          "discount": 0.0,
+          "profit": 122.3856
+        },
+        {
+          "discount": 0.0,
+          "profit": 35.8644
+        },
+        {
+          "discount": 0.0,
+          "profit": 35.994
+        },
+        {
+          "discount": 0.0,
+          "profit": 395.988
+        },
+        {
+          "discount": 0.0,
+          "profit": 35.2772
+        },
+        {
+          "discount": 0.0,
+          "profit": 132.5898
+        },
+        {
+          "discount": 0.0,
+          "profit": 15.2988
+        },
+        {
+          "discount": 0.0,
+          "profit": 0.552
+        },
+        {
+          "discount": 0.0,
+          "profit": 12.96
+        },
+        {
+          "discount": 0.0,
+          "profit": 264.5865
+        },
+        {
+          "discount": 0.0,
+          "profit": 371.316
+        },
+        {
+          "discount": 0.0,
+          "profit": 43.5981
+        },
+        {
+          "discount": 0.0,
+          "profit": 74.8142
+        },
+        {
+          "discount": 0.0,
+          "profit": 41.986
+        },
+        {
+          "discount": 0.0,
+          "profit": 0.2997
+        },
+        {
+          "discount": 0.0,
+          "profit": 7.9984
+        },
+        {
+          "discount": 0.0,
+          "profit": 148.1064
+        },
+        {
+          "discount": 0.0,
+          "profit": 80.838
+        },
+        {
+          "discount": 0.0,
+          "profit": 449.985
+        },
+        {
+          "discount": 0.0,
+          "profit": 113.6742
+        },
+        {
+          "discount": 0.0,
+          "profit": 204.1092
+        },
+        {
+          "discount": 0.0,
+          "profit": 517.4793
+        },
+        {
+          "discount": 0.0,
+          "profit": 5.997
+        },
+        {
+          "discount": 0.0,
+          "profit": 19.7358
+        },
+        {
+          "discount": 0.0,
+          "profit": 48.3285
+        },
+        {
+          "discount": 0.0,
+          "profit": 629.991
+        },
+        {
+          "discount": 0.0,
+          "profit": 216.8244
+        },
+        {
+          "discount": 0.0,
+          "profit": 40.12
+        },
+        {
+          "discount": 0.0,
+          "profit": 15.0984
+        },
+        {
+          "discount": 0.0,
+          "profit": 909.9818
+        },
+        {
+          "discount": 0.0,
+          "profit": 2591.9568
+        },
+        {
+          "discount": 0.0,
+          "profit": 88.3932
+        },
+        {
+          "discount": 0.0,
+          "profit": 742.632
+        },
+        {
+          "discount": 0.0,
+          "profit": 187.797
+        },
+        {
+          "discount": 0.0,
+          "profit": 62.4
+        },
+        {
+          "discount": 0.0,
+          "profit": 467.9922
+        },
+        {
+          "discount": 0.0,
+          "profit": 58.7916
+        },
+        {
+          "discount": 0.0,
+          "profit": 163.1898
+        },
+        {
+          "discount": 0.0,
+          "profit": 51.1872
+        },
+        {
+          "discount": 0.0,
+          "profit": 43.176
+        },
+        {
+          "discount": 0.0,
+          "profit": 28.497
+        },
+        {
+          "discount": 0.0,
+          "profit": 153.0819
+        },
+        {
+          "discount": 0.0,
+          "profit": 140.391
+        },
+        {
+          "discount": 0.0,
+          "profit": 12.208
+        },
+        {
+          "discount": 0.0,
+          "profit": 7.9812
+        },
+        {
+          "discount": 0.0,
+          "profit": 136.2971
+        },
+        {
+          "discount": 0.0,
+          "profit": 52.4895
+        },
+        {
+          "discount": 0.0,
+          "profit": 57.5928
+        },
+        {
+          "discount": 0.0,
+          "profit": 561.564
+        },
+        {
+          "discount": 0.0,
+          "profit": 23.4
+        },
+        {
+          "discount": 0.0,
+          "profit": 134.56
+        },
+        {
+          "discount": 0.0,
+          "profit": 3.401
+        },
+        {
+          "discount": 0.0,
+          "profit": 171.9914
+        },
+        {
+          "discount": 0.0,
+          "profit": 1668.205
+        },
+        {
+          "discount": 0.0,
+          "profit": 8.1072
+        },
+        {
+          "discount": 0.0,
+          "profit": 10.7964
+        },
+        {
+          "discount": 0.0,
+          "profit": 1.3365
+        },
+        {
+          "discount": 0.0,
+          "profit": 170.997
+        },
+        {
+          "discount": 0.0,
+          "profit": 249.9104
+        },
+        {
+          "discount": 0.0,
+          "profit": 197.991
+        },
+        {
+          "discount": 0.0,
+          "profit": 32.9817
+        },
+        {
+          "discount": 0.0,
+          "profit": 43.176
+        },
+        {
+          "discount": 0.0,
+          "profit": 0.891
+        },
+        {
+          "discount": 0.0,
+          "profit": 87.89
+        },
+        {
+          "discount": 0.0,
+          "profit": 76.5484
+        },
+        {
+          "discount": 0.0,
+          "profit": 128.9742
+        },
+        {
+          "discount": 0.0,
+          "profit": 78.851
+        },
+        {
+          "discount": 0.0,
+          "profit": 13.2
+        },
+        {
+          "discount": 0.0,
+          "profit": 6.7966
+        },
+        {
+          "discount": 0.0,
+          "profit": 11.613
+        },
+        {
+          "discount": 0.0,
+          "profit": 24.9132
+        },
+        {
+          "discount": 0.0,
+          "profit": 71.2692
+        },
+        {
+          "discount": 0.0,
+          "profit": 100.7916
+        },
+        {
+          "discount": 0.0,
+          "profit": 86.3892
+        },
+        {
+          "discount": 0.0,
+          "profit": 18.0
+        },
+        {
+          "discount": 0.0,
+          "profit": 32.893
+        },
+        {
+          "discount": 0.0,
+          "profit": 5.1015
+        },
+        {
+          "discount": 0.0,
+          "profit": 15.0984
+        },
+        {
+          "discount": 0.0,
+          "profit": 6719.9808
+        },
+        {
+          "discount": 0.0,
+          "profit": 38.08
+        },
+        {
+          "discount": 0.0,
+          "profit": 95.2
+        },
+        {
+          "discount": 0.0,
+          "profit": 87.89
+        },
+        {
+          "discount": 0.0,
+          "profit": 89.3142
+        },
+        {
+          "discount": 0.0,
+          "profit": 32.688
+        },
+        {
+          "discount": 0.0,
+          "profit": 142.485
+        },
+        {
+          "discount": 0.0,
+          "profit": 449.991
+        },
+        {
+          "discount": 0.0,
+          "profit": 142.9948
+        },
+        {
+          "discount": 0.0,
+          "profit": 2229.024
+        },
+        {
+          "discount": 0.0,
+          "profit": 37.7874
+        },
+        {
+          "discount": 0.0,
+          "profit": 57.12
+        },
+        {
+          "discount": 0.0,
+          "profit": 89.997
+        },
+        {
+          "discount": 0.0,
+          "profit": 12.2465
+        },
+        {
+          "discount": 0.0,
+          "profit": 5.1948
+        },
+        {
+          "discount": 0.0,
+          "profit": 74.975
+        },
+        {
+          "discount": 0.0,
+          "profit": 26.8752
+        },
+        {
+          "discount": 0.0,
+          "profit": 659.98
+        },
+        {
+          "discount": 0.0,
+          "profit": 764.3818
+        },
+        {
+          "discount": 0.0,
+          "profit": 2.5216
+        },
+        {
+          "discount": 0.0,
+          "profit": 184.26
+        },
+        {
+          "discount": 0.0,
+          "profit": 58.66
+        },
+        {
+          "discount": 0.0,
+          "profit": 91.3248
+        },
+        {
+          "discount": 0.0,
+          "profit": 14.9925
+        },
+        {
+          "discount": 0.0,
+          "profit": 35.8644
+        },
+        {
+          "discount": 0.0,
+          "profit": 58.179
+        },
+        {
+          "discount": 0.0,
+          "profit": 87.9912
+        },
+        {
+          "discount": 0.0,
+          "profit": 4.95
+        },
+        {
+          "discount": 0.0,
+          "profit": 269.308
+        },
+        {
+          "discount": 0.0,
+          "profit": 10.0744
+        },
+        {
+          "discount": 0.0,
+          "profit": 2799.984
+        },
+        {
+          "discount": 0.0,
+          "profit": 177.5889
+        },
+        {
+          "discount": 0.0,
+          "profit": 61.3305
+        },
+        {
+          "discount": 0.0,
+          "profit": 31.4975
+        },
+        {
+          "discount": 0.0,
+          "profit": 0.2598
+        },
+        {
+          "discount": 0.0,
+          "profit": 3.384
+        },
+        {
+          "discount": 0.0,
+          "profit": 83.9916
+        },
+        {
+          "discount": 0.0,
+          "profit": 17.55
+        },
+        {
+          "discount": 0.0,
+          "profit": 23.992
+        },
+        {
+          "discount": 0.0,
+          "profit": 244.6155
+        },
+        {
+          "discount": 0.0,
+          "profit": 7.6494
+        },
+        {
+          "discount": 0.0,
+          "profit": 29.0325
+        },
+        {
+          "discount": 0.0,
+          "profit": 177.5889
+        },
+        {
+          "discount": 0.0,
+          "profit": 16.2
+        },
+        {
+          "discount": 0.0,
+          "profit": 143.982
+        },
+        {
+          "discount": 0.0,
+          "profit": 75.9924
+        },
+        {
+          "discount": 0.0,
+          "profit": 60.8832
+        },
+        {
+          "discount": 0.0,
+          "profit": 20.06
+        },
+        {
+          "discount": 0.0,
+          "profit": 16.2486
+        },
+        {
+          "discount": 0.0,
+          "profit": 4.4541
+        },
+        {
+          "discount": 0.0,
+          "profit": 162.0
+        },
+        {
+          "discount": 0.0,
+          "profit": 244.6155
+        },
+        {
+          "discount": 0.0,
+          "profit": 33.495
+        },
+        {
+          "discount": 0.0,
+          "profit": 336.635
+        },
+        {
+          "discount": 0.0,
+          "profit": 62.1544
+        },
+        {
+          "discount": 0.0,
+          "profit": 11.4741
+        },
+        {
+          "discount": 0.0,
+          "profit": 89.3142
+        },
+        {
+          "discount": 0.0,
+          "profit": 25.172
+        },
+        {
+          "discount": 0.0,
+          "profit": 131.9868
+        },
+        {
+          "discount": 0.0,
+          "profit": 39.5868
+        },
+        {
+          "discount": 0.0,
+          "profit": 11.151
+        },
+        {
+          "discount": 0.0,
+          "profit": 39.8886
+        },
+        {
+          "discount": 0.0,
+          "profit": 225.6
+        },
+        {
+          "discount": 0.0,
+          "profit": 86.3892
+        },
+        {
+          "discount": 0.0,
+          "profit": 220.4853
+        },
+        {
+          "discount": 0.0,
+          "profit": 148.491
+        },
+        {
+          "discount": 0.0,
+          "profit": 6.168
+        },
+        {
+          "discount": 0.0,
+          "profit": 57.5928
+        },
+        {
+          "discount": 0.0,
+          "profit": 10.8558
+        },
+        {
+          "discount": 0.0,
+          "profit": 18.8937
+        },
+        {
+          "discount": 0.0,
+          "profit": 2302.9671
+        },
+        {
+          "discount": 0.0,
+          "profit": 21.9975
+        },
+        {
+          "discount": 0.0,
+          "profit": 0.833
+        },
+        {
+          "discount": 0.0,
+          "profit": 26.3934
+        },
+        {
+          "discount": 0.0,
+          "profit": 7.9984
+        },
+        {
+          "discount": 0.0,
+          "profit": 9.0171
+        },
+        {
+          "discount": 0.0,
+          "profit": 9.7972
+        },
+        {
+          "discount": 0.0,
+          "profit": 163.1898
+        },
+        {
+          "discount": 0.0,
+          "profit": 45.588
+        },
+        {
+          "discount": 0.0,
+          "profit": 31.4895
+        },
+        {
+          "discount": 0.0,
+          "profit": 8.5722
+        },
+        {
+          "discount": 0.0,
+          "profit": 6.924
+        },
+        {
+          "discount": 0.0,
+          "profit": 23.5248
+        },
+        {
+          "discount": 0.0,
+          "profit": 67.188
+        },
+        {
+          "discount": 0.0,
+          "profit": 18.8937
+        },
+        {
+          "discount": 0.0,
+          "profit": 83.9944
+        },
+        {
+          "discount": 0.0,
+          "profit": 11.732
+        },
+        {
+          "discount": 0.0,
+          "profit": 4.3624
+        },
+        {
+          "discount": 0.0,
+          "profit": 47.994
+        },
+        {
+          "discount": 0.0,
+          "profit": 12.208
+        },
+        {
+          "discount": 0.0,
+          "profit": 42.9914
+        },
+        {
+          "discount": 0.0,
+          "profit": 104.7222
+        },
+        {
+          "discount": 0.0,
+          "profit": 3.9144
+        },
+        {
+          "discount": 0.0,
+          "profit": 7.8064
+        },
+        {
+          "discount": 0.0,
+          "profit": 220.4825
+        },
+        {
+          "discount": 0.0,
+          "profit": 63.984
+        },
+        {
+          "discount": 0.0,
+          "profit": 303.3408
+        },
+        {
+          "discount": 0.0,
+          "profit": 15.918
+        },
+        {
+          "discount": 0.0,
+          "profit": 10.5
+        },
+        {
+          "discount": 0.0,
+          "profit": 13.674
+        },
+        {
+          "discount": 0.0,
+          "profit": 157.4875
+        },
+        {
+          "discount": 0.0,
+          "profit": 661.4559
+        },
+        {
+          "discount": 0.0,
+          "profit": 171.36
+        },
+        {
+          "discount": 0.0,
+          "profit": 4.95
+        },
+        {
+          "discount": 0.0,
+          "profit": 3.9992
+        },
+        {
+          "discount": 0.0,
+          "profit": 46.8
+        },
+        {
+          "discount": 0.0,
+          "profit": 272.9825
+        },
+        {
+          "discount": 0.0,
+          "profit": 544.4175
+        },
+        {
+          "discount": 0.0,
+          "profit": 0.891
+        },
+        {
+          "discount": 0.0,
+          "profit": 36.4704
+        },
+        {
+          "discount": 0.0,
+          "profit": 22.3888
+        },
+        {
+          "discount": 0.0,
+          "profit": 323.955
+        },
+        {
+          "discount": 0.0,
+          "profit": 15.3195
+        },
+        {
+          "discount": 0.0,
+          "profit": 88.053
+        },
+        {
+          "discount": 0.0,
+          "profit": 30.09
+        },
+        {
+          "discount": 0.0,
+          "profit": 78.9516
+        },
+        {
+          "discount": 0.0,
+          "profit": 3.7744
+        },
+        {
+          "discount": 0.0,
+          "profit": 5.8065
+        },
+        {
+          "discount": 0.0,
+          "profit": 125.99
+        },
+        {
+          "discount": 0.0,
+          "profit": 39.5868
+        },
+        {
+          "discount": 0.0,
+          "profit": 37.7874
+        },
+        {
+          "discount": 0.0,
+          "profit": 284.1855
+        },
+        {
+          "discount": 0.0,
+          "profit": 72.8946
+        },
+        {
+          "discount": 0.0,
+          "profit": 57.5928
+        },
+        {
+          "discount": 0.0,
+          "profit": 55.647
+        },
+        {
+          "discount": 0.0,
+          "profit": 86.3892
+        },
+        {
+          "discount": 0.0,
+          "profit": 39.4255
+        },
+        {
+          "discount": 0.0,
+          "profit": 131.355
+        },
+        {
+          "discount": 0.0,
+          "profit": 36.7173
+        },
+        {
+          "discount": 0.0,
+          "profit": 1.356
+        },
+        {
+          "discount": 0.0,
+          "profit": 2.5452
+        },
+        {
+          "discount": 0.0,
+          "profit": 70.312
+        },
+        {
+          "discount": 0.0,
+          "profit": 98.1396
+        },
+        {
+          "discount": 0.0,
+          "profit": 22.4316
+        },
+        {
+          "discount": 0.0,
+          "profit": 57.5928
+        },
+        {
+          "discount": 0.0,
+          "profit": 28.7964
+        },
+        {
+          "discount": 0.0,
+          "profit": 48.4575
+        },
+        {
+          "discount": 0.0,
+          "profit": 83.314
+        },
+        {
+          "discount": 0.0,
+          "profit": 53.9946
+        },
+        {
+          "discount": 0.0,
+          "profit": 47.8065
+        },
+        {
+          "discount": 0.0,
+          "profit": 87.1962
+        },
+        {
+          "discount": 0.0,
+          "profit": 15.9543
+        },
+        {
+          "discount": 0.0,
+          "profit": 14.7593
+        },
+        {
+          "discount": 0.0,
+          "profit": 3.24
+        },
+        {
+          "discount": 0.0,
+          "profit": 27.4344
+        },
+        {
+          "discount": 0.0,
+          "profit": 15.2208
+        },
+        {
+          "discount": 0.0,
+          "profit": 28.7964
+        },
+        {
+          "discount": 0.0,
+          "profit": 55.647
+        },
+        {
+          "discount": 0.1,
+          "profit": 679.996
+        },
+        {
+          "discount": 0.1,
+          "profit": 152.0883
+        },
+        {
+          "discount": 0.2,
+          "profit": 90.7152
+        },
+        {
+          "discount": 0.2,
+          "profit": 68.3568
+        },
+        {
+          "discount": 0.2,
+          "profit": 16.011
+        },
+        {
+          "discount": 0.2,
+          "profit": 123.4737
+        },
+        {
+          "discount": 0.2,
+          "profit": 41.7564
+        },
+        {
+          "discount": 0.2,
+          "profit": 16.5564
+        },
+        {
+          "discount": 0.2,
+          "profit": 62.988
+        },
+        {
+          "discount": 0.2,
+          "profit": 8.2782
+        },
+        {
+          "discount": 0.2,
+          "profit": -10.7973
+        },
+        {
+          "discount": 0.2,
+          "profit": -26.8758
+        },
+        {
+          "discount": 0.2,
+          "profit": 17.6016
+        },
+        {
+          "discount": 0.2,
+          "profit": 2.0994
+        },
+        {
+          "discount": 0.2,
+          "profit": 67.992
+        },
+        {
+          "discount": 0.2,
+          "profit": 15.2388
+        },
+        {
+          "discount": 0.2,
+          "profit": 1.3596
+        },
+        {
+          "discount": 0.2,
+          "profit": 8.9985
+        },
+        {
+          "discount": 0.2,
+          "profit": 76.6395
+        },
+        {
+          "discount": 0.2,
+          "profit": 44.4768
+        },
+        {
+          "discount": 0.2,
+          "profit": 6.5
+        },
+        {
+          "discount": 0.2,
+          "profit": 4.4792
+        },
+        {
+          "discount": 0.2,
+          "profit": 22.6782
+        },
+        {
+          "discount": 0.2,
+          "profit": -7.7247
+        },
+        {
+          "discount": 0.2,
+          "profit": 11.1944
+        },
+        {
+          "discount": 0.2,
+          "profit": 56.6916
+        },
+        {
+          "discount": 0.2,
+          "profit": 28.7196
+        },
+        {
+          "discount": 0.2,
+          "profit": 376.11
+        },
+        {
+          "discount": 0.2,
+          "profit": 47.96
+        },
+        {
+          "discount": 0.2,
+          "profit": 54.3966
+        },
+        {
+          "discount": 0.2,
+          "profit": 22.298
+        },
+        {
+          "discount": 0.2,
+          "profit": 335.9944
+        },
+        {
+          "discount": 0.2,
+          "profit": 4.7976
+        },
+        {
+          "discount": 0.2,
+          "profit": 179.1888
+        },
+        {
+          "discount": 0.2,
+          "profit": -29.94
+        },
+        {
+          "discount": 0.2,
+          "profit": -1.0497
+        },
+        {
+          "discount": 0.2,
+          "profit": 27.7182
+        },
+        {
+          "discount": 0.2,
+          "profit": 0.7198
+        },
+        {
+          "discount": 0.2,
+          "profit": 434.9913
+        },
+        {
+          "discount": 0.2,
+          "profit": 56.5662
+        },
+        {
+          "discount": 0.2,
+          "profit": 76.6395
+        },
+        {
+          "discount": 0.2,
+          "profit": 54.7425
+        },
+        {
+          "discount": 0.2,
+          "profit": -18.585
+        },
+        {
+          "discount": 0.2,
+          "profit": 87.996
+        },
+        {
+          "discount": 0.2,
+          "profit": 7.182
+        },
+        {
+          "discount": 0.2,
+          "profit": 17.4975
+        },
+        {
+          "discount": 0.2,
+          "profit": 341.994
+        },
+        {
+          "discount": 0.2,
+          "profit": 0.5994
+        },
+        {
+          "discount": 0.2,
+          "profit": 10.3974
+        },
+        {
+          "discount": 0.2,
+          "profit": 5.2877
+        },
+        {
+          "discount": 0.2,
+          "profit": -12.4146
+        },
+        {
+          "discount": 0.2,
+          "profit": 38.0864
+        },
+        {
+          "discount": 0.2,
+          "profit": 7.264
+        },
+        {
+          "discount": 0.2,
+          "profit": 6.2995
+        },
+        {
+          "discount": 0.2,
+          "profit": 46.797
+        },
+        {
+          "discount": 0.2,
+          "profit": 52.9173
+        },
+        {
+          "discount": 0.2,
+          "profit": 9.2386
+        },
+        {
+          "discount": 0.2,
+          "profit": 30.4776
+        },
+        {
+          "discount": 0.2,
+          "profit": -20.1362
+        },
+        {
+          "discount": 0.2,
+          "profit": 9.75
+        },
+        {
+          "discount": 0.2,
+          "profit": 434.9913
+        },
+        {
+          "discount": 0.2,
+          "profit": 55.745
+        },
+        {
+          "discount": 0.2,
+          "profit": 41.5773
+        },
+        {
+          "discount": 0.2,
+          "profit": 29.95
+        },
+        {
+          "discount": 0.2,
+          "profit": 30.0768
+        },
+        {
+          "discount": 0.2,
+          "profit": 2.4585
+        },
+        {
+          "discount": 0.2,
+          "profit": 22.6782
+        },
+        {
+          "discount": 0.2,
+          "profit": 28.6182
+        },
+        {
+          "discount": 0.2,
+          "profit": 4.5201
+        },
+        {
+          "discount": 0.2,
+          "profit": 2.2824
+        },
+        {
+          "discount": 0.2,
+          "profit": 5.5992
+        },
+        {
+          "discount": 0.2,
+          "profit": 0.8994
+        },
+        {
+          "discount": 0.2,
+          "profit": 374.9925
+        },
+        {
+          "discount": 0.2,
+          "profit": -2.7
+        },
+        {
+          "discount": 0.2,
+          "profit": 0.5998
+        },
+        {
+          "discount": 0.2,
+          "profit": 85.2475
+        },
+        {
+          "discount": 0.2,
+          "profit": 18.8972
+        },
+        {
+          "discount": 0.2,
+          "profit": 247.996
+        },
+        {
+          "discount": 0.2,
+          "profit": 1.5804
+        },
+        {
+          "discount": 0.2,
+          "profit": 40.6878
+        },
+        {
+          "discount": 0.2,
+          "profit": 5.1786
+        },
+        {
+          "discount": 0.2,
+          "profit": 20.2485
+        },
+        {
+          "discount": 0.2,
+          "profit": 53.55
+        },
+        {
+          "discount": 0.2,
+          "profit": 2.5893
+        },
+        {
+          "discount": 0.2,
+          "profit": 55.9984
+        },
+        {
+          "discount": 0.2,
+          "profit": 5.999
+        },
+        {
+          "discount": 0.2,
+          "profit": 85.2475
+        },
+        {
+          "discount": 0.2,
+          "profit": 125.2692
+        },
+        {
+          "discount": 0.2,
+          "profit": 1.999
+        },
+        {
+          "discount": 0.2,
+          "profit": 7.1976
+        },
+        {
+          "discount": 0.2,
+          "profit": 25.1944
+        },
+        {
+          "discount": 0.2,
+          "profit": 19.1786
+        },
+        {
+          "discount": 0.2,
+          "profit": 25.186
+        },
+        {
+          "discount": 0.2,
+          "profit": 223.054
+        },
+        {
+          "discount": 0.2,
+          "profit": 64.674
+        },
+        {
+          "discount": 0.2,
+          "profit": 0.693
+        },
+        {
+          "discount": 0.2,
+          "profit": 66.7152
+        },
+        {
+          "discount": 0.2,
+          "profit": 64.7892
+        },
+        {
+          "discount": 0.2,
+          "profit": 16.9975
+        },
+        {
+          "discount": 0.2,
+          "profit": 28.764
+        },
+        {
+          "discount": 0.2,
+          "profit": 64.674
+        },
+        {
+          "discount": 0.2,
+          "profit": 28.7928
+        },
+        {
+          "discount": 0.2,
+          "profit": 76.704
+        },
+        {
+          "discount": 0.2,
+          "profit": 107.985
+        },
+        {
+          "discount": 0.2,
+          "profit": -7.1991
+        },
+        {
+          "discount": 0.2,
+          "profit": 52.493
+        },
+        {
+          "discount": 0.2,
+          "profit": 3.3725
+        },
+        {
+          "discount": 0.2,
+          "profit": 71.99
+        },
+        {
+          "discount": 0.2,
+          "profit": 20.6955
+        },
+        {
+          "discount": 0.2,
+          "profit": -35.9928
+        },
+        {
+          "discount": 0.2,
+          "profit": 15.1188
+        },
+        {
+          "discount": 0.2,
+          "profit": 34.9965
+        },
+        {
+          "discount": 0.2,
+          "profit": 21.897
+        },
+        {
+          "discount": 0.2,
+          "profit": 118.293
+        },
+        {
+          "discount": 0.2,
+          "profit": 32.13
+        },
+        {
+          "discount": 0.2,
+          "profit": 23.0965
+        },
+        {
+          "discount": 0.2,
+          "profit": 42.8805
+        },
+        {
+          "discount": 0.2,
+          "profit": 148.4946
+        },
+        {
+          "discount": 0.2,
+          "profit": 5.998
+        },
+        {
+          "discount": 0.2,
+          "profit": 11.094
+        },
+        {
+          "discount": 0.2,
+          "profit": 43.9956
+        },
+        {
+          "discount": 0.2,
+          "profit": -10.7973
+        },
+        {
+          "discount": 0.2,
+          "profit": 31.996
+        },
+        {
+          "discount": 0.2,
+          "profit": 2.3976
+        },
+        {
+          "discount": 0.2,
+          "profit": 106.1242
+        },
+        {
+          "discount": 0.2,
+          "profit": 3.352
+        },
+        {
+          "discount": 0.2,
+          "profit": 174.9975
+        },
+        {
+          "discount": 0.2,
+          "profit": 39.6879
+        },
+        {
+          "discount": 0.2,
+          "profit": -0.2685
+        },
+        {
+          "discount": 0.2,
+          "profit": -9.153
+        },
+        {
+          "discount": 0.2,
+          "profit": 22.6764
+        },
+        {
+          "discount": 0.2,
+          "profit": 12.987
+        },
+        {
+          "discount": 0.2,
+          "profit": 20.1584
+        },
+        {
+          "discount": 0.2,
+          "profit": 31.494
+        },
+        {
+          "discount": 0.2,
+          "profit": -13.6461
+        },
+        {
+          "discount": 0.2,
+          "profit": 84.495
+        },
+        {
+          "discount": 0.2,
+          "profit": 7.264
+        },
+        {
+          "discount": 0.2,
+          "profit": -87.6672
+        },
+        {
+          "discount": 0.2,
+          "profit": -3.094
+        },
+        {
+          "discount": 0.2,
+          "profit": 10.0485
+        },
+        {
+          "discount": 0.2,
+          "profit": -7.4394
+        },
+        {
+          "discount": 0.2,
+          "profit": -2.3748
+        },
+        {
+          "discount": 0.2,
+          "profit": 5.2125
+        },
+        {
+          "discount": 0.2,
+          "profit": 62.988
+        },
+        {
+          "discount": 0.2,
+          "profit": 3.5742
+        },
+        {
+          "discount": 0.2,
+          "profit": 16.704
+        },
+        {
+          "discount": 0.2,
+          "profit": 11.9988
+        },
+        {
+          "discount": 0.2,
+          "profit": 51.1936
+        },
+        {
+          "discount": 0.2,
+          "profit": 1.375
+        },
+        {
+          "discount": 0.2,
+          "profit": -55.3
+        },
+        {
+          "discount": 0.2,
+          "profit": 150.36
+        },
+        {
+          "discount": 0.2,
+          "profit": 7.6154
+        },
+        {
+          "discount": 0.2,
+          "profit": 19.5
+        },
+        {
+          "discount": 0.2,
+          "profit": 22.9954
+        },
+        {
+          "discount": 0.2,
+          "profit": 257.5944
+        },
+        {
+          "discount": 0.2,
+          "profit": 126.8973
+        },
+        {
+          "discount": 0.2,
+          "profit": 47.0376
+        },
+        {
+          "discount": 0.2,
+          "profit": 22.6782
+        },
+        {
+          "discount": 0.2,
+          "profit": 6.745
+        },
+        {
+          "discount": 0.2,
+          "profit": 107.955
+        },
+        {
+          "discount": 0.2,
+          "profit": 19.9665
+        },
+        {
+          "discount": 0.2,
+          "profit": 49.4982
+        },
+        {
+          "discount": 0.2,
+          "profit": 23.7993
+        },
+        {
+          "discount": 0.2,
+          "profit": 26.3912
+        },
+        {
+          "discount": 0.2,
+          "profit": 76.6395
+        },
+        {
+          "discount": 0.2,
+          "profit": -2.1885
+        },
+        {
+          "discount": 0.2,
+          "profit": 35.9964
+        }
+      ],
+      "spec": {
+        "chart_type": "scatter",
+        "sql": "SELECT discount, profit FROM orders WHERE category = 'Technology' ORDER BY discount",
+        "title": "Discount vs Profit for Technology Orders",
+        "xlabel": "Discount",
+        "ylabel": "Profit"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 10,
+    "category": "visualization",
+    "task_type": "line",
+    "difficulty": "hard",
+    "language": "en",
+    "question": "Show a line chart of profit over time for the East region in 2017.",
+    "question_en": "Show a line chart of profit over time for the East region in 2017.",
+    "expected_agent": "viz",
+    "correct": false,
+    "ok": false,
+    "latency_seconds": 56.649,
+    "attempts": 3,
+    "retried": true,
+    "answer": {
+      "path": null,
+      "rows": null,
+      "spec": null,
+      "error": "OperationalError: no such column: year"
+    },
+    "error": "OperationalError: no such column: year"
+  }
+]

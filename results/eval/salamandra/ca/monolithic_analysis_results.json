@@ -1,0 +1,3745 @@
+[
+  {
+    "id": 1,
+    "category": "analysis",
+    "task_type": "mean",
+    "difficulty": "easy",
+    "language": "ca",
+    "question": "Quin és el descompte mitjà concedit als clients?",
+    "question_en": "What is the average discount given to customers?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 40.6755,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/9402800cf8774aa6bcfe492a82f84fdc.png",
+      "rows": [
+        {
+          "total_discount": 1.0,
+          "total_profit": -362.88250000000005
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": 277.3824
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 435.8274
+        },
+        {
+          "total_discount": 1.15,
+          "total_profit": 857.8033
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 129.3465
+        },
+        {
+          "total_discount": 0.8,
+          "total_profit": 2054.5885
+        },
+        {
+          "total_discount": 4.8,
+          "total_profit": 5444.8054999999995
+        },
+        {
+          "total_discount": 1.6,
+          "total_profit": 313.6597
+        },
+        {
+          "total_discount": 1.9000000000000001,
+          "total_profit": 220.813
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_profit": 264.5675
+        },
+        {
+          "total_discount": 3.0,
+          "total_profit": -274.9604
+        },
+        {
+          "total_discount": 1.6,
+          "total_profit": -62.1342
+        },
+        {
+          "total_discount": 1.7,
+          "total_profit": 1366.0098
+        },
+        {
+          "total_discount": 2.0,
+          "total_profit": 298.82730000000004
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": -28.700399999999995
+        },
+        {
+          "total_discount": 0.7,
+          "total_profit": 1869.9294
+        },
+        {
+          "total_discount": 3.2,
+          "total_profit": 317.9712
+        },
+        {
+          "total_discount": 1.8,
+          "total_profit": -163.1175
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 732.7399
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 59.288399999999996
+        },
+        {
+          "total_discount": 2.1,
+          "total_profit": -5.137099999999995
+        },
+        {
+          "total_discount": 1.7999999999999998,
+          "total_profit": 69.2784
+        },
+        {
+          "total_discount": 4.3,
+          "total_profit": 295.6668
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_profit": -152.7613
+        },
+        {
+          "total_discount": 2.42,
+          "total_profit": -246.4257
+        },
+        {
+          "total_discount": 2.3,
+          "total_profit": -8.431000000000001
+        },
+        {
+          "total_discount": 3.5,
+          "total_profit": 343.68240000000003
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 365.2152
+        },
+        {
+          "total_discount": 2.7,
+          "total_profit": 281.189
+        },
+        {
+          "total_discount": 3.8000000000000003,
+          "total_profit": -2.314599999999977
+        },
+        {
+          "total_discount": 2.8,
+          "total_profit": -378.5509
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": 1308.5546
+        },
+        {
+          "total_discount": 1.12,
+          "total_profit": -196.12009999999998
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 83.963
+        },
+        {
+          "total_discount": 5.0,
+          "total_profit": 1298.0166
+        },
+        {
+          "total_discount": 1.3,
+          "total_profit": 867.7271000000001
+        },
+        {
+          "total_discount": 1.3,
+          "total_profit": 150.71300000000002
+        },
+        {
+          "total_discount": 1.75,
+          "total_profit": 1158.7064
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 521.1351999999999
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 60.4265
+        },
+        {
+          "total_discount": 1.5,
+          "total_profit": 194.9878
+        },
+        {
+          "total_discount": 1.4,
+          "total_profit": 1085.7326
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 12.096
+        },
+        {
+          "total_discount": 3.1,
+          "total_profit": 285.7888
+        },
+        {
+          "total_discount": 2.9,
+          "total_profit": 579.3113
+        },
+        {
+          "total_discount": 1.3,
+          "total_profit": -221.0544
+        },
+        {
+          "total_discount": 0.7,
+          "total_profit": -98.76459999999999
+        },
+        {
+          "total_discount": 1.5,
+          "total_profit": 43.6695
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 2884.6207999999997
+        },
+        {
+          "total_discount": 0.0,
+          "total_profit": 32.633
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 494.8352
+        },
+        {
+          "total_discount": 3.55,
+          "total_profit": -253.57459999999998
+        },
+        {
+          "total_discount": 4.5,
+          "total_profit": 64.53739999999998
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 21.8496
+        },
+        {
+          "total_discount": 0.8,
+          "total_profit": 719.7751000000001
+        },
+        {
+          "total_discount": 3.5,
+          "total_profit": 33.715799999999994
+        },
+        {
+          "total_discount": 1.8,
+          "total_profit": 354.62760000000003
+        },
+        {
+          "total_discount": 2.2,
+          "total_profit": 136.49190000000002
+        },
+        {
+          "total_discount": 1.7999999999999998,
+          "total_profit": 100.8768
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_profit": 974.107
+        },
+        {
+          "total_discount": 1.6,
+          "total_profit": 65.7725
+        },
+        {
+          "total_discount": 4.9,
+          "total_profit": -104.54860000000001
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 103.3499
+        },
+        {
+          "total_discount": 1.5,
+          "total_profit": 154.9503
+        },
+        {
+          "total_discount": 1.6,
+          "total_profit": 11.583900000000007
+        },
+        {
+          "total_discount": 3.9000000000000004,
+          "total_profit": 1015.0749999999999
+        },
+        {
+          "total_discount": 2.0,
+          "total_profit": 251.5974
+        },
+        {
+          "total_discount": 1.5,
+          "total_profit": 1094.5037
+        },
+        {
+          "total_discount": 1.35,
+          "total_profit": 1142.1225
+        },
+        {
+          "total_discount": 0.0,
+          "total_profit": 116.714
+        },
+        {
+          "total_discount": 1.45,
+          "total_profit": 634.8463
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_profit": 206.7569
+        },
+        {
+          "total_discount": 0.5,
+          "total_profit": 141.534
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 333.9791
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": 141.265
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 1487.7739000000001
+        },
+        {
+          "total_discount": 0.8,
+          "total_profit": 755.9151
+        },
+        {
+          "total_discount": 1.9,
+          "total_profit": 139.20080000000002
+        },
+        {
+          "total_discount": 1.9,
+          "total_profit": 227.4384
+        },
+        {
+          "total_discount": 1.8,
+          "total_profit": -291.3811
+        },
+        {
+          "total_discount": 5.4,
+          "total_profit": 302.02
+        },
+        {
+          "total_discount": 0.0,
+          "total_profit": 110.9272
+        },
+        {
+          "total_discount": 3.3000000000000003,
+          "total_profit": 1538.2127
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 523.2133
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 25.870199999999997
+        },
+        {
+          "total_discount": 2.3,
+          "total_profit": -711.4274
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": 107.5715
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 119.3479
+        },
+        {
+          "total_discount": 4.4,
+          "total_profit": 802.7898
+        },
+        {
+          "total_discount": 3.3000000000000003,
+          "total_profit": -63.7644
+        },
+        {
+          "total_discount": 2.7,
+          "total_profit": -1659.9581
+        },
+        {
+          "total_discount": 1.8,
+          "total_profit": 95.5816
+        },
+        {
+          "total_discount": 2.45,
+          "total_profit": 2199.2781
+        },
+        {
+          "total_discount": 3.5,
+          "total_profit": 137.7439
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 36.6131
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 340.7054
+        },
+        {
+          "total_discount": 2.8,
+          "total_profit": 278.77700000000004
+        },
+        {
+          "total_discount": 0.0,
+          "total_profit": 59.4522
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 209.78300000000002
+        },
+        {
+          "total_discount": 3.3000000000000003,
+          "total_profit": 433.9751
+        },
+        {
+          "total_discount": 0.8999999999999999,
+          "total_profit": 647.3847
+        },
+        {
+          "total_discount": 3.5,
+          "total_profit": 363.5991
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": -197.26950000000002
+        },
+        {
+          "total_discount": 4.8,
+          "total_profit": -319.0637
+        },
+        {
+          "total_discount": 0.1,
+          "total_profit": 2616.0644
+        },
+        {
+          "total_discount": 3.6,
+          "total_profit": -17.532200000000014
+        },
+        {
+          "total_discount": 3.0,
+          "total_profit": 381.7807
+        },
+        {
+          "total_discount": 2.0,
+          "total_profit": 238.73680000000002
+        },
+        {
+          "total_discount": 1.85,
+          "total_profit": -113.29840000000002
+        },
+        {
+          "total_discount": 0.0,
+          "total_profit": 194.0516
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 417.5918
+        },
+        {
+          "total_discount": 1.5,
+          "total_profit": 257.9163
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": -77.5256
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 126.8694
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 409.4983
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_profit": 447.7484
+        },
+        {
+          "total_discount": 1.3,
+          "total_profit": 315.2214
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": -58.2866
+        },
+        {
+          "total_discount": 2.4,
+          "total_profit": 921.2574
+        },
+        {
+          "total_discount": 1.5,
+          "total_profit": 246.9973
+        },
+        {
+          "total_discount": 1.12,
+          "total_profit": 1143.3817
+        },
+        {
+          "total_discount": 3.0,
+          "total_profit": 211.25590000000003
+        },
+        {
+          "total_discount": 3.22,
+          "total_profit": 279.6183
+        },
+        {
+          "total_discount": 1.3,
+          "total_profit": 246.02179999999998
+        },
+        {
+          "total_discount": 3.2,
+          "total_profit": 204.48950000000002
+        },
+        {
+          "total_discount": 4.25,
+          "total_profit": 150.2089
+        },
+        {
+          "total_discount": 4.0,
+          "total_profit": 272.3883
+        },
+        {
+          "total_discount": 0.9500000000000001,
+          "total_profit": 1049.5601
+        },
+        {
+          "total_discount": 2.8,
+          "total_profit": 208.5912
+        },
+        {
+          "total_discount": 0.9,
+          "total_profit": 392.28249999999997
+        },
+        {
+          "total_discount": 2.6,
+          "total_profit": 393.9618
+        },
+        {
+          "total_discount": 3.1,
+          "total_profit": 2177.0492999999997
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": 424.6583
+        },
+        {
+          "total_discount": 2.1,
+          "total_profit": 154.851
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 33.8706
+        },
+        {
+          "total_discount": 3.3,
+          "total_profit": 331.43399999999997
+        },
+        {
+          "total_discount": 2.35,
+          "total_profit": 187.8399
+        },
+        {
+          "total_discount": 3.0,
+          "total_profit": 850.1591
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 426.661
+        },
+        {
+          "total_discount": 2.6,
+          "total_profit": -206.71720000000002
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": 233.0274
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 403.8422
+        },
+        {
+          "total_discount": 1.7,
+          "total_profit": 86.5106
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 169.93439999999998
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 195.15109999999999
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 1.652
+        },
+        {
+          "total_discount": 3.77,
+          "total_profit": 858.7414
+        },
+        {
+          "total_discount": 7.5,
+          "total_profit": 141.2831
+        },
+        {
+          "total_discount": 2.2,
+          "total_profit": 261.22090000000003
+        },
+        {
+          "total_discount": 4.6,
+          "total_profit": 497.70980000000003
+        },
+        {
+          "total_discount": 2.1,
+          "total_profit": -338.4311
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 328.0847
+        },
+        {
+          "total_discount": 3.2,
+          "total_profit": 1933.7831
+        },
+        {
+          "total_discount": 1.5,
+          "total_profit": 229.00990000000002
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": 214.463
+        },
+        {
+          "total_discount": 0.8,
+          "total_profit": -43.7324
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 409.0679
+        },
+        {
+          "total_discount": 1.7,
+          "total_profit": -394.3686
+        },
+        {
+          "total_discount": 0.5,
+          "total_profit": 91.2033
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 365.0387
+        },
+        {
+          "total_discount": 1.2,
+          "total_profit": 3899.8903999999998
+        },
+        {
+          "total_discount": 0.7,
+          "total_profit": 64.42960000000001
+        },
+        {
+          "total_discount": 0.72,
+          "total_profit": 1572.4585
+        },
+        {
+          "total_discount": 4.0200000000000005,
+          "total_profit": 176.3108
+        },
+        {
+          "total_discount": 2.0,
+          "total_profit": 427.0258
+        },
+        {
+          "total_discount": 3.2,
+          "total_profit": -1850.3029000000001
+        },
+        {
+          "total_discount": 0.8,
+          "total_profit": 74.40129999999999
+        },
+        {
+          "total_discount": 0.0,
+          "total_profit": 144.7594
+        },
+        {
+          "total_discount": 1.6,
+          "total_profit": 306.9176
+        },
+        {
+          "total_discount": 0.92,
+          "total_profit": 83.27029999999999
+        },
+        {
+          "total_discount": 2.2,
+          "total_profit": 185.3776
+        },
+        {
+          "total_discount": 1.6,
+          "total_profit": 105.8275
+        },
+        {
+          "total_discount": 5.8,
+          "total_profit": -126.4223
+        },
+        {
+          "total_discount": 0.8,
+          "total_profit": 143.8339
+        },
+        {
+          "total_discount": 1.3,
+          "total_profit": 113.1405
+        },
+        {
+          "total_discount": 1.6,
+          "total_profit": 738.3626
+        },
+        {
+          "total_discount": 1.8,
+          "total_profit": 831.9432
+        },
+        {
+          "total_discount": 3.0,
+          "total_profit": -342.8033
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 156.2593
+        },
+        {
+          "total_discount": 2.25,
+          "total_profit": -302.8761
+        },
+        {
+          "total_discount": 1.7999999999999998,
+          "total_profit": -6626.3895
+        },
+        {
+          "total_discount": 2.9000000000000004,
+          "total_profit": 161.22629999999998
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 493.0861
+        },
+        {
+          "total_discount": 4.62,
+          "total_profit": 98.99749999999999
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 370.8298
+        },
+        {
+          "total_discount": 2.2,
+          "total_profit": 60.646699999999996
+        },
+        {
+          "total_discount": 1.4,
+          "total_profit": 205.6282
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 56.7904
+        },
+        {
+          "total_discount": 1.8499999999999999,
+          "total_profit": 431.3748
+        },
+        {
+          "total_discount": 2.3200000000000003,
+          "total_profit": 213.00289999999998
+        },
+        {
+          "total_discount": 2.4,
+          "total_profit": 473.02720000000005
+        },
+        {
+          "total_discount": 2.0,
+          "total_profit": -1421.7692
+        },
+        {
+          "total_discount": 3.9,
+          "total_profit": 169.9679
+        },
+        {
+          "total_discount": 2.7,
+          "total_profit": 841.8263999999999
+        },
+        {
+          "total_discount": 0.5,
+          "total_profit": 291.00849999999997
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 438.9092
+        },
+        {
+          "total_discount": 2.12,
+          "total_profit": 109.327
+        },
+        {
+          "total_discount": 1.6,
+          "total_profit": 438.8012
+        },
+        {
+          "total_discount": 1.6,
+          "total_profit": 177.6735
+        },
+        {
+          "total_discount": 3.8000000000000003,
+          "total_profit": -1441.6313
+        },
+        {
+          "total_discount": 0.55,
+          "total_profit": 132.06820000000002
+        },
+        {
+          "total_discount": 2.2,
+          "total_profit": 36.4344
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 464.47139999999996
+        },
+        {
+          "total_discount": 1.7000000000000002,
+          "total_profit": -259.3097
+        },
+        {
+          "total_discount": 0.8,
+          "total_profit": 562.7761
+        },
+        {
+          "total_discount": 1.8,
+          "total_profit": 1193.7404000000001
+        },
+        {
+          "total_discount": 1.35,
+          "total_profit": 116.667
+        },
+        {
+          "total_discount": 0.0,
+          "total_profit": 483.035
+        },
+        {
+          "total_discount": 0.9,
+          "total_profit": 345.2521
+        },
+        {
+          "total_discount": 0.5,
+          "total_profit": 731.5644
+        },
+        {
+          "total_discount": 4.8,
+          "total_profit": 881.1228
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": 937.6496
+        },
+        {
+          "total_discount": 1.3,
+          "total_profit": -107.35379999999999
+        },
+        {
+          "total_discount": 1.8,
+          "total_profit": 536.3935
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 249.9447
+        },
+        {
+          "total_discount": 3.7,
+          "total_profit": 209.8994
+        },
+        {
+          "total_discount": 2.5,
+          "total_profit": 377.0799
+        },
+        {
+          "total_discount": 2.1,
+          "total_profit": 322.2449
+        },
+        {
+          "total_discount": 0.5,
+          "total_profit": 4.213200000000022
+        },
+        {
+          "total_discount": 3.1,
+          "total_profit": 288.8732
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 222.6812
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": -52.78799999999999
+        },
+        {
+          "total_discount": 1.5,
+          "total_profit": 108.7583
+        },
+        {
+          "total_discount": 4.6,
+          "total_profit": 1677.3931
+        },
+        {
+          "total_discount": 1.3,
+          "total_profit": 1319.0586
+        },
+        {
+          "total_discount": 1.7,
+          "total_profit": 199.7688
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 540.5405000000001
+        },
+        {
+          "total_discount": 2.0500000000000003,
+          "total_profit": -38.90860000000001
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 294.0676
+        },
+        {
+          "total_discount": 3.6,
+          "total_profit": 241.45239999999998
+        },
+        {
+          "total_discount": 1.6,
+          "total_profit": 563.1761
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": -40.93759999999999
+        },
+        {
+          "total_discount": 2.6,
+          "total_profit": 1571.8318000000002
+        },
+        {
+          "total_discount": 3.2,
+          "total_profit": 1641.8613
+        },
+        {
+          "total_discount": 2.0,
+          "total_profit": 2869.076
+        },
+        {
+          "total_discount": 2.65,
+          "total_profit": 193.3319
+        },
+        {
+          "total_discount": 3.07,
+          "total_profit": 163.6993
+        },
+        {
+          "total_discount": 1.55,
+          "total_profit": -427.184
+        },
+        {
+          "total_discount": 1.7,
+          "total_profit": 353.2127
+        },
+        {
+          "total_discount": 2.2,
+          "total_profit": -86.8738
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 1348.7556
+        },
+        {
+          "total_discount": 1.6,
+          "total_profit": 69.6672
+        },
+        {
+          "total_discount": 1.7000000000000002,
+          "total_profit": -266.8966
+        },
+        {
+          "total_discount": 1.3,
+          "total_profit": 175.2388
+        },
+        {
+          "total_discount": 5.4,
+          "total_profit": 333.36479999999995
+        },
+        {
+          "total_discount": 7.5,
+          "total_profit": -52.74059999999999
+        },
+        {
+          "total_discount": 3.1,
+          "total_profit": 13.621500000000012
+        },
+        {
+          "total_discount": 2.9,
+          "total_profit": -80.286
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 656.1988
+        },
+        {
+          "total_discount": 3.2,
+          "total_profit": 261.5315
+        },
+        {
+          "total_discount": 1.2,
+          "total_profit": 0.6042000000000058
+        },
+        {
+          "total_discount": 1.7,
+          "total_profit": 162.8781
+        },
+        {
+          "total_discount": 2.3000000000000003,
+          "total_profit": 184.7656
+        },
+        {
+          "total_discount": 1.6,
+          "total_profit": 282.1701
+        },
+        {
+          "total_discount": 0.7,
+          "total_profit": 96.4256
+        },
+        {
+          "total_discount": 3.0,
+          "total_profit": 670.4435000000001
+        },
+        {
+          "total_discount": 1.8,
+          "total_profit": 104.2656
+        },
+        {
+          "total_discount": 2.3000000000000003,
+          "total_profit": 1393.5154
+        },
+        {
+          "total_discount": 5.0,
+          "total_profit": 53.5398
+        },
+        {
+          "total_discount": 0.5,
+          "total_profit": 150.3759
+        },
+        {
+          "total_discount": 1.9,
+          "total_profit": -94.14079999999997
+        },
+        {
+          "total_discount": 3.7,
+          "total_profit": 96.27019999999999
+        },
+        {
+          "total_discount": 2.3,
+          "total_profit": 242.1107
+        },
+        {
+          "total_discount": 1.4,
+          "total_profit": 387.01759999999996
+        },
+        {
+          "total_discount": 0.5,
+          "total_profit": 451.87550000000005
+        },
+        {
+          "total_discount": 0.35,
+          "total_profit": 97.1066
+        },
+        {
+          "total_discount": 0.0,
+          "total_profit": 27.1154
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": -133.82750000000001
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 682.5541999999999
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_profit": 102.29599999999999
+        },
+        {
+          "total_discount": 1.5,
+          "total_profit": 40.154599999999995
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 240.23620000000003
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_profit": 1319.3655
+        },
+        {
+          "total_discount": 0.5,
+          "total_profit": 21.7721
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 496.1131
+        },
+        {
+          "total_discount": 6.12,
+          "total_profit": 144.95780000000002
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": -295.7398
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 1003.2935
+        },
+        {
+          "total_discount": 5.2,
+          "total_profit": 246.6661
+        },
+        {
+          "total_discount": 4.4,
+          "total_profit": 520.5229
+        },
+        {
+          "total_discount": 1.9,
+          "total_profit": 1217.1662
+        },
+        {
+          "total_discount": 1.6,
+          "total_profit": 714.2926
+        },
+        {
+          "total_discount": 1.3,
+          "total_profit": 394.7397
+        },
+        {
+          "total_discount": 2.7,
+          "total_profit": 1073.2676
+        },
+        {
+          "total_discount": 1.5,
+          "total_profit": 706.289
+        },
+        {
+          "total_discount": 1.8,
+          "total_profit": 2050.2826
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_profit": 249.6808
+        },
+        {
+          "total_discount": 3.6,
+          "total_profit": 198.1095
+        },
+        {
+          "total_discount": 2.2,
+          "total_profit": 191.4898
+        },
+        {
+          "total_discount": 3.3000000000000003,
+          "total_profit": 215.59689999999998
+        },
+        {
+          "total_discount": 1.9000000000000001,
+          "total_profit": 406.44730000000004
+        },
+        {
+          "total_discount": 0.0,
+          "total_profit": 23.4913
+        },
+        {
+          "total_discount": 0.9,
+          "total_profit": 840.899
+        },
+        {
+          "total_discount": 3.95,
+          "total_profit": 136.70790000000002
+        },
+        {
+          "total_discount": 3.4,
+          "total_profit": 7.837100000000008
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 1135.8393
+        },
+        {
+          "total_discount": 0.8,
+          "total_profit": 230.9373
+        },
+        {
+          "total_discount": 3.6,
+          "total_profit": 12.69850000000001
+        },
+        {
+          "total_discount": 4.6,
+          "total_profit": -576.8335
+        },
+        {
+          "total_discount": 1.9,
+          "total_profit": 1176.4181
+        },
+        {
+          "total_discount": 1.4,
+          "total_profit": -95.4498
+        },
+        {
+          "total_discount": 0.72,
+          "total_profit": -5.8102
+        },
+        {
+          "total_discount": 2.2,
+          "total_profit": 1448.5525
+        },
+        {
+          "total_discount": 1.3,
+          "total_profit": 347.266
+        },
+        {
+          "total_discount": 2.0,
+          "total_profit": 793.2814
+        },
+        {
+          "total_discount": 1.5,
+          "total_profit": 441.3185
+        },
+        {
+          "total_discount": 1.6,
+          "total_profit": 35.4865
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 188.7235
+        },
+        {
+          "total_discount": 0.7,
+          "total_profit": 31.837600000000002
+        },
+        {
+          "total_discount": 0.0,
+          "total_profit": 359.83320000000003
+        },
+        {
+          "total_discount": 1.5,
+          "total_profit": -4108.6589
+        },
+        {
+          "total_discount": 2.9000000000000004,
+          "total_profit": 2163.4269
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_profit": -6.139199999999998
+        },
+        {
+          "total_discount": 1.4,
+          "total_profit": -268.5423
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": 1087.7539
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 828.6610000000001
+        },
+        {
+          "total_discount": 2.3,
+          "total_profit": 270.8574
+        },
+        {
+          "total_discount": 3.6,
+          "total_profit": 99.14450000000002
+        },
+        {
+          "total_discount": 2.1,
+          "total_profit": -135.87599999999998
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 274.4028
+        },
+        {
+          "total_discount": 2.5,
+          "total_profit": -13.87679999999999
+        },
+        {
+          "total_discount": 1.9,
+          "total_profit": 147.0032
+        },
+        {
+          "total_discount": 2.9,
+          "total_profit": -2797.9635
+        },
+        {
+          "total_discount": 1.9000000000000001,
+          "total_profit": 804.6112999999999
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 86.7342
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 98.6548
+        },
+        {
+          "total_discount": 3.2,
+          "total_profit": 956.9451
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 5622.4292
+        },
+        {
+          "total_discount": 4.62,
+          "total_profit": 2437.9836
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": 117.2755
+        },
+        {
+          "total_discount": 3.0,
+          "total_profit": 373.8637
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 185.5794
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_profit": 1196.9504
+        },
+        {
+          "total_discount": 0.9,
+          "total_profit": 2164.1611
+        },
+        {
+          "total_discount": 1.2,
+          "total_profit": -130.3879
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 320.4982
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 1121.937
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 975.7701
+        },
+        {
+          "total_discount": 3.5,
+          "total_profit": 514.6527
+        },
+        {
+          "total_discount": 5.1,
+          "total_profit": -819.4217
+        },
+        {
+          "total_discount": 3.3000000000000003,
+          "total_profit": 156.0532
+        },
+        {
+          "total_discount": 2.4,
+          "total_profit": -286.98080000000004
+        },
+        {
+          "total_discount": 0.52,
+          "total_profit": 126.76490000000001
+        },
+        {
+          "total_discount": 1.7,
+          "total_profit": 201.51850000000002
+        },
+        {
+          "total_discount": 0.8999999999999999,
+          "total_profit": -0.35560000000000014
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 502.9244
+        },
+        {
+          "total_discount": 1.9500000000000002,
+          "total_profit": 279.5692
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 201.5952
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": -266.5525
+        },
+        {
+          "total_discount": 2.4,
+          "total_profit": 1050.2667999999999
+        },
+        {
+          "total_discount": 3.4,
+          "total_profit": 26.7605
+        },
+        {
+          "total_discount": 0.3,
+          "total_profit": 111.11410000000001
+        },
+        {
+          "total_discount": 0.9500000000000001,
+          "total_profit": 1619.5199
+        },
+        {
+          "total_discount": 2.4000000000000004,
+          "total_profit": 276.2197
+        },
+        {
+          "total_discount": 3.2,
+          "total_profit": 1623.4019
+        },
+        {
+          "total_discount": 7.1,
+          "total_profit": 1262.2926
+        },
+        {
+          "total_discount": 3.35,
+          "total_profit": 221.7967
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 789.6476
+        },
+        {
+          "total_discount": 2.3,
+          "total_profit": 575.1259
+        },
+        {
+          "total_discount": 1.6,
+          "total_profit": 97.289
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": 330.199
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 635.6376
+        },
+        {
+          "total_discount": 2.2,
+          "total_profit": -18.067300000000007
+        },
+        {
+          "total_discount": 2.8000000000000003,
+          "total_profit": 1073.2088
+        },
+        {
+          "total_discount": 1.7,
+          "total_profit": 684.1911
+        },
+        {
+          "total_discount": 2.0,
+          "total_profit": 1415.6664
+        },
+        {
+          "total_discount": 2.8,
+          "total_profit": 3.7976000000000014
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 206.1019
+        },
+        {
+          "total_discount": 2.2,
+          "total_profit": -24.0771
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": 26.0822
+        },
+        {
+          "total_discount": 1.3,
+          "total_profit": -13.554499999999994
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": -644.6982
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": -96.95300000000002
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 200.5558
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 34.449200000000005
+        },
+        {
+          "total_discount": 1.7,
+          "total_profit": 1219.983
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 55.3277
+        },
+        {
+          "total_discount": 2.1,
+          "total_profit": 330.2838
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_profit": 750.9485
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": 1172.5303
+        },
+        {
+          "total_discount": 6.65,
+          "total_profit": 55.048300000000005
+        },
+        {
+          "total_discount": 1.7999999999999998,
+          "total_profit": 586.6625
+        },
+        {
+          "total_discount": 3.5,
+          "total_profit": 122.65659999999998
+        },
+        {
+          "total_discount": 3.2,
+          "total_profit": -207.79559999999998
+        },
+        {
+          "total_discount": 1.5,
+          "total_profit": 209.2817
+        },
+        {
+          "total_discount": 2.2,
+          "total_profit": 54.517400000000016
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": 591.7163
+        },
+        {
+          "total_discount": 3.0,
+          "total_profit": 228.90699999999998
+        },
+        {
+          "total_discount": 2.6,
+          "total_profit": 779.9046
+        },
+        {
+          "total_discount": 5.5,
+          "total_profit": 19.82350000000003
+        },
+        {
+          "total_discount": 1.8,
+          "total_profit": 502.6143
+        },
+        {
+          "total_discount": 0.9,
+          "total_profit": 356.5395
+        },
+        {
+          "total_discount": 0.8,
+          "total_profit": 113.1204
+        },
+        {
+          "total_discount": 1.9,
+          "total_profit": 117.20400000000001
+        },
+        {
+          "total_discount": 2.4,
+          "total_profit": 1574.6163999999999
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": 754.1143999999999
+        },
+        {
+          "total_discount": 0.9500000000000001,
+          "total_profit": 581.4045
+        },
+        {
+          "total_discount": 1.9,
+          "total_profit": 202.1362
+        },
+        {
+          "total_discount": 2.6,
+          "total_profit": 167.6709
+        },
+        {
+          "total_discount": 2.1,
+          "total_profit": 429.7465
+        },
+        {
+          "total_discount": 0.9500000000000001,
+          "total_profit": 757.1802
+        },
+        {
+          "total_discount": 2.0,
+          "total_profit": 309.7116
+        },
+        {
+          "total_discount": 0.8999999999999999,
+          "total_profit": -785.1645
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 107.985
+        },
+        {
+          "total_discount": 2.2,
+          "total_profit": 452.373
+        },
+        {
+          "total_discount": 2.5,
+          "total_profit": -175.54899999999998
+        },
+        {
+          "total_discount": 2.3,
+          "total_profit": -54.869200000000006
+        },
+        {
+          "total_discount": 1.32,
+          "total_profit": 564.9798
+        },
+        {
+          "total_discount": 2.7,
+          "total_profit": -327.9336
+        },
+        {
+          "total_discount": 3.3,
+          "total_profit": -311.25749999999994
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 2173.7093999999997
+        },
+        {
+          "total_discount": 0.9,
+          "total_profit": -29.57589999999999
+        },
+        {
+          "total_discount": 2.3,
+          "total_profit": 154.0637
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 234.9194
+        },
+        {
+          "total_discount": 1.5,
+          "total_profit": 763.9076
+        },
+        {
+          "total_discount": 4.3,
+          "total_profit": 49.71929999999999
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 274.297
+        },
+        {
+          "total_discount": 2.5,
+          "total_profit": 579.3551
+        },
+        {
+          "total_discount": 2.4,
+          "total_profit": 293.55240000000003
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 846.1217
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 709.4219
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 156.7797
+        },
+        {
+          "total_discount": 3.0,
+          "total_profit": 1107.6952
+        },
+        {
+          "total_discount": 1.3,
+          "total_profit": 328.5942
+        },
+        {
+          "total_discount": 2.45,
+          "total_profit": 3038.6254
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_profit": 539.7219
+        },
+        {
+          "total_discount": 3.22,
+          "total_profit": 397.87989999999996
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 1660.1386
+        },
+        {
+          "total_discount": 2.5,
+          "total_profit": 454.7871
+        },
+        {
+          "total_discount": 2.1,
+          "total_profit": 528.2051
+        },
+        {
+          "total_discount": 2.5,
+          "total_profit": 656.1162
+        },
+        {
+          "total_discount": 1.8,
+          "total_profit": 727.3786
+        },
+        {
+          "total_discount": 1.9,
+          "total_profit": 1227.5091
+        },
+        {
+          "total_discount": 6.5,
+          "total_profit": -182.78130000000002
+        },
+        {
+          "total_discount": 5.8,
+          "total_profit": 806.8549999999999
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 635.1057
+        },
+        {
+          "total_discount": 2.8,
+          "total_profit": 973.7901999999999
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 91.1391
+        },
+        {
+          "total_discount": 2.5,
+          "total_profit": 745.7685
+        },
+        {
+          "total_discount": 3.7,
+          "total_profit": -151.1518
+        },
+        {
+          "total_discount": 2.25,
+          "total_profit": 114.3083
+        },
+        {
+          "total_discount": 1.8,
+          "total_profit": 329.76250000000005
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": 0.11099999999999932
+        },
+        {
+          "total_discount": 3.2,
+          "total_profit": 254.00320000000002
+        },
+        {
+          "total_discount": 1.92,
+          "total_profit": 194.0671
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": 1756.135
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 107.92699999999999
+        },
+        {
+          "total_discount": 3.0,
+          "total_profit": 2059.1199
+        },
+        {
+          "total_discount": 0.8,
+          "total_profit": 18.6507
+        },
+        {
+          "total_discount": 5.7,
+          "total_profit": -52.190999999999995
+        },
+        {
+          "total_discount": 7.2,
+          "total_profit": -188.2511
+        },
+        {
+          "total_discount": 3.6,
+          "total_profit": 1288.3469
+        },
+        {
+          "total_discount": 2.4,
+          "total_profit": 288.266
+        },
+        {
+          "total_discount": 2.0,
+          "total_profit": 299.48019999999997
+        },
+        {
+          "total_discount": 2.45,
+          "total_profit": 86.778
+        },
+        {
+          "total_discount": 3.5,
+          "total_profit": 231.1252
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 0.4641
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 557.1714
+        },
+        {
+          "total_discount": 2.3000000000000003,
+          "total_profit": 161.76489999999998
+        },
+        {
+          "total_discount": 5.1000000000000005,
+          "total_profit": -3583.977
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": 12.627699999999999
+        },
+        {
+          "total_discount": 1.9,
+          "total_profit": 526.0727
+        },
+        {
+          "total_discount": 2.8,
+          "total_profit": -242.7399
+        },
+        {
+          "total_discount": 1.5,
+          "total_profit": 316.5202
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 560.0078
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": -44.87799999999999
+        },
+        {
+          "total_discount": 2.3,
+          "total_profit": 150.1712
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 110.7813
+        },
+        {
+          "total_discount": 2.8,
+          "total_profit": 338.4454
+        },
+        {
+          "total_discount": 2.8,
+          "total_profit": 535.4764
+        },
+        {
+          "total_discount": 3.3,
+          "total_profit": -382.80789999999996
+        },
+        {
+          "total_discount": 4.3,
+          "total_profit": -318.77369999999996
+        },
+        {
+          "total_discount": 6.2,
+          "total_profit": 262.63669999999996
+        },
+        {
+          "total_discount": 2.8000000000000003,
+          "total_profit": 244.197
+        },
+        {
+          "total_discount": 0.7,
+          "total_profit": 39.1952
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 348.3584
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 59.036
+        },
+        {
+          "total_discount": 3.45,
+          "total_profit": 320.973
+        },
+        {
+          "total_discount": 3.1,
+          "total_profit": 32.5767
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": 662.8339
+        },
+        {
+          "total_discount": 0.0,
+          "total_profit": 192.6312
+        },
+        {
+          "total_discount": 2.5,
+          "total_profit": 837.2411000000001
+        },
+        {
+          "total_discount": 3.2,
+          "total_profit": 1240.2266
+        },
+        {
+          "total_discount": 0.5,
+          "total_profit": 280.7822
+        },
+        {
+          "total_discount": 3.3000000000000003,
+          "total_profit": 212.425
+        },
+        {
+          "total_discount": 2.0,
+          "total_profit": 117.8057
+        },
+        {
+          "total_discount": 1.7,
+          "total_profit": 461.0014
+        },
+        {
+          "total_discount": 1.2,
+          "total_profit": 1802.3903
+        },
+        {
+          "total_discount": 3.2,
+          "total_profit": 210.7493
+        },
+        {
+          "total_discount": 2.9,
+          "total_profit": 288.98409999999996
+        },
+        {
+          "total_discount": 4.0,
+          "total_profit": 195.4486
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_profit": -247.94350000000003
+        },
+        {
+          "total_discount": 1.4,
+          "total_profit": 698.4174
+        },
+        {
+          "total_discount": 5.1,
+          "total_profit": -64.1668
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 121.7565
+        },
+        {
+          "total_discount": 5.6,
+          "total_profit": -241.95
+        },
+        {
+          "total_discount": 2.3,
+          "total_profit": -4.0402999999999984
+        },
+        {
+          "total_discount": 2.9000000000000004,
+          "total_profit": 1859.4695
+        },
+        {
+          "total_discount": 2.92,
+          "total_profit": 77.81280000000001
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 107.3604
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": -341.5265
+        },
+        {
+          "total_discount": 0.8,
+          "total_profit": 456.86080000000004
+        },
+        {
+          "total_discount": 1.8,
+          "total_profit": 341.898
+        },
+        {
+          "total_discount": 2.25,
+          "total_profit": 25.888599999999983
+        },
+        {
+          "total_discount": 1.8,
+          "total_profit": -398.79319999999996
+        },
+        {
+          "total_discount": 1.7000000000000002,
+          "total_profit": -470.7684
+        },
+        {
+          "total_discount": 1.55,
+          "total_profit": 171.7372
+        },
+        {
+          "total_discount": 1.5,
+          "total_profit": -93.603
+        },
+        {
+          "total_discount": 0.8999999999999999,
+          "total_profit": -1.2453
+        },
+        {
+          "total_discount": 2.45,
+          "total_profit": 28.76120000000002
+        },
+        {
+          "total_discount": 0.7,
+          "total_profit": 61.428599999999996
+        },
+        {
+          "total_discount": 1.8,
+          "total_profit": 484.7733
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_profit": 122.3612
+        },
+        {
+          "total_discount": 0.8,
+          "total_profit": 238.5614
+        },
+        {
+          "total_discount": 1.3,
+          "total_profit": 476.9032
+        },
+        {
+          "total_discount": 3.7,
+          "total_profit": 170.97460000000004
+        },
+        {
+          "total_discount": 3.2,
+          "total_profit": 1054.5529
+        },
+        {
+          "total_discount": 5.1,
+          "total_profit": -405.3559000000001
+        },
+        {
+          "total_discount": 0.8999999999999999,
+          "total_profit": 227.8338
+        },
+        {
+          "total_discount": 3.4499999999999997,
+          "total_profit": 684.9162
+        },
+        {
+          "total_discount": 2.5,
+          "total_profit": -76.17550000000001
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_profit": 409.5112
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 138.71620000000001
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 42.6648
+        },
+        {
+          "total_discount": 0.8,
+          "total_profit": 178.402
+        },
+        {
+          "total_discount": 2.9,
+          "total_profit": 82.12500000000001
+        },
+        {
+          "total_discount": 4.0,
+          "total_profit": -520.3443
+        },
+        {
+          "total_discount": 1.7,
+          "total_profit": 58.8916
+        },
+        {
+          "total_discount": 2.6,
+          "total_profit": 290.8227
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": 59.3577
+        },
+        {
+          "total_discount": 1.8,
+          "total_profit": 169.3437
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_profit": -82.0074
+        },
+        {
+          "total_discount": 1.7000000000000002,
+          "total_profit": 600.2873
+        },
+        {
+          "total_discount": 5.1,
+          "total_profit": 638.1563
+        },
+        {
+          "total_discount": 2.95,
+          "total_profit": 226.45290000000003
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": 162.9363
+        },
+        {
+          "total_discount": 3.85,
+          "total_profit": 844.9354999999999
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": 84.0268
+        },
+        {
+          "total_discount": 3.3,
+          "total_profit": 247.4348
+        },
+        {
+          "total_discount": 1.9,
+          "total_profit": 280.85839999999996
+        },
+        {
+          "total_discount": 0.9,
+          "total_profit": 19.4312
+        },
+        {
+          "total_discount": 1.9000000000000001,
+          "total_profit": 55.226
+        },
+        {
+          "total_discount": 1.3,
+          "total_profit": 509.0068
+        },
+        {
+          "total_discount": 2.67,
+          "total_profit": -23.6763
+        },
+        {
+          "total_discount": 3.6,
+          "total_profit": 189.0258
+        },
+        {
+          "total_discount": 0.9500000000000001,
+          "total_profit": 273.8582
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": 1238.422
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 1665.516
+        },
+        {
+          "total_discount": 4.0,
+          "total_profit": 319.1211
+        },
+        {
+          "total_discount": 5.12,
+          "total_profit": -371.7111
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 85.0191
+        },
+        {
+          "total_discount": 2.8000000000000003,
+          "total_profit": 787.7503
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 24.788800000000002
+        },
+        {
+          "total_discount": 2.95,
+          "total_profit": 117.6429
+        },
+        {
+          "total_discount": 0.7000000000000001,
+          "total_profit": 580.3075
+        },
+        {
+          "total_discount": 3.7,
+          "total_profit": -2204.8072
+        },
+        {
+          "total_discount": 2.05,
+          "total_profit": 1314.758
+        },
+        {
+          "total_discount": 2.2,
+          "total_profit": -359.02099999999996
+        },
+        {
+          "total_discount": 3.8000000000000003,
+          "total_profit": 353.64549999999997
+        },
+        {
+          "total_discount": 0.7,
+          "total_profit": 443.3368
+        },
+        {
+          "total_discount": 3.5,
+          "total_profit": -1695.9714
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 85.92779999999999
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_profit": 388.2131
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_profit": 313.6335
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 217.0893
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 760.1666
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_profit": 121.21770000000001
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 343.6381
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 2751.6849
+        },
+        {
+          "total_discount": 3.9,
+          "total_profit": 788.9525
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": 1208.8890000000001
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 514.6002
+        },
+        {
+          "total_discount": 1.3,
+          "total_profit": 514.5017
+        },
+        {
+          "total_discount": 2.5500000000000003,
+          "total_profit": 631.2282
+        },
+        {
+          "total_discount": 2.9,
+          "total_profit": -25.14879999999997
+        },
+        {
+          "total_discount": 3.1,
+          "total_profit": -12.303999999999997
+        },
+        {
+          "total_discount": 5.6000000000000005,
+          "total_profit": -234.7714
+        },
+        {
+          "total_discount": 4.7,
+          "total_profit": 1023.1229999999999
+        },
+        {
+          "total_discount": 3.5,
+          "total_profit": 402.42359999999996
+        },
+        {
+          "total_discount": 2.4000000000000004,
+          "total_profit": -5.889000000000002
+        },
+        {
+          "total_discount": 1.6,
+          "total_profit": -925.1203
+        },
+        {
+          "total_discount": 1.3,
+          "total_profit": 225.8588
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": 229.2257
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 218.15970000000002
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_profit": 280.6606
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 21.897000000000002
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": 272.685
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": -184.3364
+        },
+        {
+          "total_discount": 2.3000000000000003,
+          "total_profit": -614.2943
+        },
+        {
+          "total_discount": 0.5,
+          "total_profit": 196.87389999999996
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 591.3118000000001
+        },
+        {
+          "total_discount": 4.4,
+          "total_profit": 137.46130000000002
+        },
+        {
+          "total_discount": 1.6,
+          "total_profit": 334.5163
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 47.8878
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 442.13550000000004
+        },
+        {
+          "total_discount": 0.8,
+          "total_profit": 682.9979000000001
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": -798.705
+        },
+        {
+          "total_discount": 1.9000000000000001,
+          "total_profit": 2038.2676000000001
+        },
+        {
+          "total_discount": 2.0,
+          "total_profit": -0.7527000000000013
+        },
+        {
+          "total_discount": 0.6,
+          "total_profit": 157.8768
+        },
+        {
+          "total_discount": 0.9,
+          "total_profit": 526.7537
+        },
+        {
+          "total_discount": 1.6,
+          "total_profit": 192.0396
+        },
+        {
+          "total_discount": 4.62,
+          "total_profit": 38.4757
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 437.8533
+        },
+        {
+          "total_discount": 1.9000000000000001,
+          "total_profit": 1155.4331
+        },
+        {
+          "total_discount": 1.9000000000000001,
+          "total_profit": -49.70089999999999
+        },
+        {
+          "total_discount": 3.7,
+          "total_profit": 1495.0854
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_profit": 247.6226
+        },
+        {
+          "total_discount": 4.7,
+          "total_profit": -134.441
+        },
+        {
+          "total_discount": 0.7,
+          "total_profit": 198.5099
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": 1742.7296999999999
+        },
+        {
+          "total_discount": 2.6,
+          "total_profit": -20.0508
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": 434.52840000000003
+        },
+        {
+          "total_discount": 0.5,
+          "total_profit": 803.8169
+        },
+        {
+          "total_discount": 2.05,
+          "total_profit": 1290.354
+        },
+        {
+          "total_discount": 1.6,
+          "total_profit": 1203.6768
+        },
+        {
+          "total_discount": 2.8000000000000003,
+          "total_profit": 546.0882
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 1292.8656
+        },
+        {
+          "total_discount": 6.15,
+          "total_profit": 304.8673
+        },
+        {
+          "total_discount": 2.85,
+          "total_profit": -445.695
+        },
+        {
+          "total_discount": 1.9000000000000001,
+          "total_profit": -164.40619999999998
+        },
+        {
+          "total_discount": 1.7,
+          "total_profit": 6976.0959
+        },
+        {
+          "total_discount": 2.6,
+          "total_profit": 477.2399
+        },
+        {
+          "total_discount": 3.1,
+          "total_profit": 640.5466
+        },
+        {
+          "total_discount": 1.5,
+          "total_profit": 76.88789999999999
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 72.679
+        },
+        {
+          "total_discount": 1.0999999999999999,
+          "total_profit": 243.07549999999998
+        },
+        {
+          "total_discount": 4.5,
+          "total_profit": -461.7332
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": 63.9914
+        },
+        {
+          "total_discount": 1.9000000000000001,
+          "total_profit": 10.563300000000002
+        },
+        {
+          "total_discount": 1.6,
+          "total_profit": 480.594
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 734.5158
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 835.772
+        },
+        {
+          "total_discount": 3.15,
+          "total_profit": 207.3304
+        },
+        {
+          "total_discount": 3.0,
+          "total_profit": 318.4625
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": 455.5292
+        },
+        {
+          "total_discount": 3.1,
+          "total_profit": 35.05740000000001
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 6.045
+        },
+        {
+          "total_discount": 1.2,
+          "total_profit": 209.2294
+        },
+        {
+          "total_discount": 2.2,
+          "total_profit": 633.7072
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 711.6168
+        },
+        {
+          "total_discount": 0.8999999999999999,
+          "total_profit": 280.0261
+        },
+        {
+          "total_discount": 0.8,
+          "total_profit": 563.7877
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 1289.4535
+        },
+        {
+          "total_discount": 1.5999999999999999,
+          "total_profit": 0.30570000000000075
+        },
+        {
+          "total_discount": 1.2,
+          "total_profit": 172.6261
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 269.688
+        },
+        {
+          "total_discount": 5.25,
+          "total_profit": 488.14840000000004
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 392.1499
+        },
+        {
+          "total_discount": 0.5,
+          "total_profit": 1902.5438
+        },
+        {
+          "total_discount": 0.0,
+          "total_profit": 28.6879
+        },
+        {
+          "total_discount": 3.5,
+          "total_profit": -1262.5716
+        },
+        {
+          "total_discount": 2.3200000000000003,
+          "total_profit": 59.5384
+        },
+        {
+          "total_discount": 3.7,
+          "total_profit": 465.2503000000001
+        },
+        {
+          "total_discount": 2.0,
+          "total_profit": 594.5868
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": -73.835
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 721.6826
+        },
+        {
+          "total_discount": 0.0,
+          "total_profit": 633.4514
+        },
+        {
+          "total_discount": 1.6,
+          "total_profit": 1206.3851
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 9.5838
+        },
+        {
+          "total_discount": 3.1,
+          "total_profit": 1586.6273
+        },
+        {
+          "total_discount": 2.2,
+          "total_profit": 698.8325
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": 707.5503
+        },
+        {
+          "total_discount": 4.05,
+          "total_profit": 610.1496000000001
+        },
+        {
+          "total_discount": 1.3,
+          "total_profit": 157.6658
+        },
+        {
+          "total_discount": 1.7000000000000002,
+          "total_profit": 885.4624
+        },
+        {
+          "total_discount": 4.1,
+          "total_profit": -2082.7451
+        },
+        {
+          "total_discount": 3.72,
+          "total_profit": -317.0508
+        },
+        {
+          "total_discount": 2.8000000000000003,
+          "total_profit": 1011.7443
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_profit": 5757.411899999999
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": 440.141
+        },
+        {
+          "total_discount": 3.5500000000000003,
+          "total_profit": 671.0033999999999
+        },
+        {
+          "total_discount": 2.6,
+          "total_profit": 229.1617
+        },
+        {
+          "total_discount": 3.8,
+          "total_profit": 236.66149999999996
+        },
+        {
+          "total_discount": 2.8,
+          "total_profit": 379.5611
+        },
+        {
+          "total_discount": 2.4,
+          "total_profit": 100.2253
+        },
+        {
+          "total_discount": 0.0,
+          "total_profit": 370.1578
+        },
+        {
+          "total_discount": 2.2,
+          "total_profit": 611.8291
+        },
+        {
+          "total_discount": 3.9000000000000004,
+          "total_profit": 1276.6513
+        },
+        {
+          "total_discount": 6.4,
+          "total_profit": -671.1874
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 51.8252
+        },
+        {
+          "total_discount": 0.8,
+          "total_profit": 31.1757
+        },
+        {
+          "total_discount": 2.2,
+          "total_profit": 1985.1671999999999
+        },
+        {
+          "total_discount": 2.1,
+          "total_profit": 2650.6769
+        },
+        {
+          "total_discount": 0.9,
+          "total_profit": 228.1623
+        },
+        {
+          "total_discount": 1.9,
+          "total_profit": 286.9046
+        },
+        {
+          "total_discount": 4.6000000000000005,
+          "total_profit": 539.9352
+        },
+        {
+          "total_discount": 0.75,
+          "total_profit": 570.438
+        },
+        {
+          "total_discount": 2.1,
+          "total_profit": -119.0105
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": 463.269
+        },
+        {
+          "total_discount": 2.0,
+          "total_profit": -3.7073000000000005
+        },
+        {
+          "total_discount": 3.95,
+          "total_profit": 558.4739999999999
+        },
+        {
+          "total_discount": 3.5,
+          "total_profit": -144.5229
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 260.6258
+        },
+        {
+          "total_discount": 5.6000000000000005,
+          "total_profit": 144.1189
+        },
+        {
+          "total_discount": 3.7,
+          "total_profit": -23.5137
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 68.09629999999999
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": 168.79330000000002
+        },
+        {
+          "total_discount": 1.6,
+          "total_profit": 527.9715
+        },
+        {
+          "total_discount": 1.6,
+          "total_profit": -26.5927
+        },
+        {
+          "total_discount": 3.7,
+          "total_profit": -1980.7393000000002
+        },
+        {
+          "total_discount": 1.7,
+          "total_profit": -237.2885
+        },
+        {
+          "total_discount": 2.8000000000000003,
+          "total_profit": 581.5742
+        },
+        {
+          "total_discount": 2.6,
+          "total_profit": -716.8565000000001
+        },
+        {
+          "total_discount": 2.22,
+          "total_profit": 481.74989999999997
+        },
+        {
+          "total_discount": 2.0500000000000003,
+          "total_profit": -81.0858
+        },
+        {
+          "total_discount": 2.6,
+          "total_profit": -118.77570000000001
+        },
+        {
+          "total_discount": 6.0,
+          "total_profit": -270.42819999999995
+        },
+        {
+          "total_discount": 2.3000000000000003,
+          "total_profit": 268.4782
+        },
+        {
+          "total_discount": 5.0,
+          "total_profit": 566.7226
+        },
+        {
+          "total_discount": 3.8,
+          "total_profit": 14.692400000000005
+        },
+        {
+          "total_discount": 3.3,
+          "total_profit": -3333.9144
+        },
+        {
+          "total_discount": 0.4,
+          "total_profit": 1990.4243999999999
+        },
+        {
+          "total_discount": 2.4,
+          "total_profit": 332.3487
+        },
+        {
+          "total_discount": 3.1,
+          "total_profit": -1010.9738
+        },
+        {
+          "total_discount": 0.0,
+          "total_profit": 199.93449999999999
+        },
+        {
+          "total_discount": 0.0,
+          "total_profit": 135.5401
+        },
+        {
+          "total_discount": 3.6,
+          "total_profit": -75.586
+        },
+        {
+          "total_discount": 2.4000000000000004,
+          "total_profit": 84.4419
+        },
+        {
+          "total_discount": 2.4,
+          "total_profit": 763.4719
+        },
+        {
+          "total_discount": 5.0,
+          "total_profit": 1199.4242
+        },
+        {
+          "total_discount": 4.6,
+          "total_profit": 485.0272
+        },
+        {
+          "total_discount": 1.2,
+          "total_profit": 199.6502
+        },
+        {
+          "total_discount": 3.0,
+          "total_profit": 106.8912
+        },
+        {
+          "total_discount": 2.6,
+          "total_profit": -19.60620000000001
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 332.8725
+        },
+        {
+          "total_discount": 1.3,
+          "total_profit": 95.83829999999999
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 793.6548
+        },
+        {
+          "total_discount": 0.8,
+          "total_profit": 68.2416
+        },
+        {
+          "total_discount": 4.4,
+          "total_profit": 366.4303
+        },
+        {
+          "total_discount": 0.8,
+          "total_profit": 4703.7883
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 390.2113
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 829.1635
+        },
+        {
+          "total_discount": 0.1,
+          "total_profit": 179.00379999999998
+        },
+        {
+          "total_discount": 4.7,
+          "total_profit": 260.6155
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": 490.9567
+        },
+        {
+          "total_discount": 0.8,
+          "total_profit": 268.967
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": 2798.3689
+        },
+        {
+          "total_discount": 5.3,
+          "total_profit": -1603.0451
+        },
+        {
+          "total_discount": 1.9,
+          "total_profit": -136.4091
+        },
+        {
+          "total_discount": 2.1,
+          "total_profit": 379.882
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_profit": 8981.323900000001
+        },
+        {
+          "total_discount": 0.0,
+          "total_profit": 265.5332
+        },
+        {
+          "total_discount": 2.1,
+          "total_profit": 606.3727
+        },
+        {
+          "total_discount": 2.9,
+          "total_profit": 119.10399999999998
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": 217.933
+        },
+        {
+          "total_discount": 3.9000000000000004,
+          "total_profit": 88.1897
+        },
+        {
+          "total_discount": 1.9,
+          "total_profit": 682.1704000000001
+        },
+        {
+          "total_discount": 1.3,
+          "total_profit": 365.7205
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": -135.21249999999998
+        },
+        {
+          "total_discount": 2.1,
+          "total_profit": -252.5539
+        },
+        {
+          "total_discount": 2.7,
+          "total_profit": 92.729
+        },
+        {
+          "total_discount": 0.8999999999999999,
+          "total_profit": -571.9678000000001
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 573.3013
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 292.521
+        },
+        {
+          "total_discount": 2.4,
+          "total_profit": -692.0452
+        },
+        {
+          "total_discount": 1.4000000000000001,
+          "total_profit": 1129.1261
+        },
+        {
+          "total_discount": 4.62,
+          "total_profit": -1087.3898
+        },
+        {
+          "total_discount": 2.4,
+          "total_profit": 139.22869999999998
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 220.36440000000002
+        },
+        {
+          "total_discount": 1.4,
+          "total_profit": -3.3156
+        },
+        {
+          "total_discount": 3.8,
+          "total_profit": 260.8744
+        },
+        {
+          "total_discount": 3.0,
+          "total_profit": 862.8877
+        },
+        {
+          "total_discount": 3.4,
+          "total_profit": -184.97889999999998
+        },
+        {
+          "total_discount": 1.75,
+          "total_profit": 2371.7144000000003
+        },
+        {
+          "total_discount": 1.1,
+          "total_profit": 48.70169999999998
+        },
+        {
+          "total_discount": 2.7,
+          "total_profit": 11.37789999999999
+        },
+        {
+          "total_discount": 4.1,
+          "total_profit": -294.6981
+        },
+        {
+          "total_discount": 2.7,
+          "total_profit": 220.91629999999998
+        },
+        {
+          "total_discount": 1.6,
+          "total_profit": 751.9567
+        },
+        {
+          "total_discount": 3.2,
+          "total_profit": 278.7371
+        },
+        {
+          "total_discount": 0.0,
+          "total_profit": 93.9162
+        },
+        {
+          "total_discount": 1.8,
+          "total_profit": 1124.4999
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": 737.3905
+        },
+        {
+          "total_discount": 0.8,
+          "total_profit": 224.8887
+        },
+        {
+          "total_discount": 1.7000000000000002,
+          "total_profit": 371.2398
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": 1617.7874
+        },
+        {
+          "total_discount": 0.7,
+          "total_profit": -96.27799999999999
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 143.6268
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": -52.333
+        },
+        {
+          "total_discount": 1.2000000000000002,
+          "total_profit": 513.5269
+        },
+        {
+          "total_discount": 0.8999999999999999,
+          "total_profit": 116.6373
+        },
+        {
+          "total_discount": 0.2,
+          "total_profit": 205.3888
+        },
+        {
+          "total_discount": 2.4,
+          "total_profit": -1018.7768
+        },
+        {
+          "total_discount": 3.8,
+          "total_profit": -262.8093
+        },
+        {
+          "total_discount": 3.0,
+          "total_profit": -224.0889
+        },
+        {
+          "total_discount": 2.9,
+          "total_profit": -874.6645
+        },
+        {
+          "total_discount": 7.6000000000000005,
+          "total_profit": 714.3311
+        },
+        {
+          "total_discount": 1.3,
+          "total_profit": 621.23
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 1305.629
+        },
+        {
+          "total_discount": 0.6000000000000001,
+          "total_profit": 1778.2923
+        },
+        {
+          "total_discount": 7.9,
+          "total_profit": -1032.1490000000001
+        },
+        {
+          "total_discount": 1.0,
+          "total_profit": 249.1307
+        }
+      ],
+      "spec": {
+        "chart_type": "bar",
+        "sql": "SELECT SUM(discount) AS total_discount, SUM(profit) AS total_profit FROM orders GROUP BY customer_id",
+        "title": "Descomptes i beneficis mitjans per client",
+        "xlabel": "Client",
+        "ylabel": "Descompte (%)"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 2,
+    "category": "analysis",
+    "task_type": "median",
+    "difficulty": "easy",
+    "language": "ca",
+    "question": "Quina és la mediana del benefici?",
+    "question_en": "What is the median profit?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 51.4992,
+    "attempts": 2,
+    "retried": true,
+    "answer": {
+      "action": "analysis",
+      "analysis": "median",
+      "columns": [
+        "profit"
+      ],
+      "target": null,
+      "filters": [],
+      "sql": "SELECT profit FROM orders",
+      "result": {
+        "analysis": "median",
+        "result": 8.6665
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 3,
+    "category": "analysis",
+    "task_type": "std",
+    "difficulty": "easy",
+    "language": "ca",
+    "question": "Quina és la desviació estàndard de les vendes?",
+    "question_en": "What is the standard deviation of sales?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 88.149,
+    "attempts": 3,
+    "retried": true,
+    "answer": {
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/e230c0a5ab3244dcb1bd264f719303ae.png",
+      "rows": [
+        {
+          "total_sales": 501239.8908,
+          "total_rows": 2323
+        },
+        {
+          "total_sales": 678781.24,
+          "total_rows": 2848
+        },
+        {
+          "total_sales": 391721.905,
+          "total_rows": 1620
+        },
+        {
+          "total_sales": 725457.8245,
+          "total_rows": 3203
+        }
+      ],
+      "spec": {
+        "chart_type": "histogram",
+        "sql": "SELECT SUM(sales) AS total_sales, COUNT(*) AS total_rows FROM orders GROUP BY region",
+        "title": "Histogram of Sales by Region",
+        "xlabel": "Region",
+        "ylabel": "Total Sales"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 4,
+    "category": "analysis",
+    "task_type": "mean",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Quin és el benefici mitjà a la regió West?",
+    "question_en": "What is the average profit in the West region?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 40.506,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/78df42878a45416294b80889eae47f25.png",
+      "rows": [
+        {
+          "region": "West",
+          "total_profit": 108418.4489,
+          "total_count": 3203
+        }
+      ],
+      "spec": {
+        "chart_type": "bar",
+        "sql": "SELECT region, SUM(profit) AS total_profit, COUNT(*) AS total_count FROM orders WHERE region = 'West' GROUP BY region",
+        "title": "Benefici mitjà a la regió West",
+        "xlabel": "Regió",
+        "ylabel": "Benefici mitjà"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 5,
+    "category": "analysis",
+    "task_type": "correlation",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Quina és la correlació entre el descompte i el benefici?",
+    "question_en": "What is the correlation between discount and profit?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 32.2785,
+    "attempts": 2,
+    "retried": true,
+    "answer": {
+      "action": "analysis",
+      "analysis": "correlation",
+      "columns": [
+        "discount",
+        "profit"
+      ],
+      "target": null,
+      "filters": [],
+      "sql": "SELECT discount, profit FROM orders",
+      "result": {
+        "analysis": "correlation",
+        "result": {
+          "correlation": -0.21948745637176847,
+          "p_value": 2.702294436198141e-109
+        }
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 6,
+    "category": "analysis",
+    "task_type": "variance",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Quina és la variància de la quantitat venuda a la categoria Technology?",
+    "question_en": "What is the variance of quantity sold in the Technology category?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 70.9151,
+    "attempts": 2,
+    "retried": true,
+    "answer": {
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/67909a5d3f4247deab104b1932cb8872.png",
+      "rows": [
+        {
+          "category": "Furniture",
+          "total_quantity": 8028
+        },
+        {
+          "category": "Office Supplies",
+          "total_quantity": 22906
+        },
+        {
+          "category": "Technology",
+          "total_quantity": 6939
+        }
+      ],
+      "spec": {
+        "chart_type": "bar",
+        "sql": "SELECT category, SUM(quantity) AS total_quantity FROM orders GROUP BY category",
+        "title": "Quantity by Category",
+        "xlabel": "Category",
+        "ylabel": "Quantity"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 7,
+    "category": "analysis",
+    "task_type": "ttest",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Hi ha una diferència significativa en el benefici entre els segments Consumer i Corporate?",
+    "question_en": "Is there a significant difference in profit between the Consumer and Corporate segments?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 21.4713,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "ttest",
+      "columns": [
+        "profit",
+        "segment"
+      ],
+      "target": null,
+      "filters": [],
+      "sql": "SELECT profit, segment FROM orders",
+      "result": {
+        "analysis": "ttest",
+        "result": {
+          "t_statistic": -0.8555511671728538,
+          "p_value": 0.3922774231363087,
+          "value_column": "profit",
+          "group_column": "segment",
+          "group_a": "Consumer",
+          "group_a_mean": 25.8368732806781,
+          "group_a_n": 5191,
+          "group_b": "Corporate",
+          "group_b_mean": 30.456666887417217,
+          "group_b_n": 3020
+        }
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 8,
+    "category": "analysis",
+    "task_type": "covariance",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Quina és la covariància entre la quantitat i el descompte?",
+    "question_en": "What is the covariance between quantity and discount?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 120.5807,
+    "attempts": 3,
+    "retried": true,
+    "answer": {
+      "action": "analysis",
+      "analysis": "covariance",
+      "columns": [
+        "quantity",
+        "discount"
+      ],
+      "target": null,
+      "filters": [],
+      "sql": "SELECT quantity, discount FROM orders",
+      "result": {
+        "analysis": "covariance",
+        "result": {
+          "covariance": 0.0039612052030577995
+        }
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 9,
+    "category": "analysis",
+    "task_type": "mean",
+    "difficulty": "medium",
+    "language": "ca",
+    "question": "Quina és la venda mitjana a la regió East per a la categoria Furniture?",
+    "question_en": "What is the average sales in the East region for the Furniture category?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 46.0444,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/e8f1538594af4f99b3f0853994bcb323.png",
+      "rows": [
+        {
+          "region": "East",
+          "category": "Furniture",
+          "total_sales": 208291.204
+        },
+        {
+          "region": "East",
+          "category": "Office Supplies",
+          "total_sales": 205516.055
+        },
+        {
+          "region": "East",
+          "category": "Technology",
+          "total_sales": 264973.981
+        }
+      ],
+      "spec": {
+        "chart_type": "bar",
+        "sql": "SELECT region, category, SUM(sales) AS total_sales FROM orders WHERE region = 'East' GROUP BY region, category",
+        "title": "Vendes mitjanes per regió i categoria",
+        "xlabel": "Regió",
+        "ylabel": "Vendes mitjanes"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 10,
+    "category": "analysis",
+    "task_type": "regression",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "Executa una regressió lineal que predigui el benefici a partir de les vendes, el descompte i la quantitat.",
+    "question_en": "Run a linear regression predicting profit from sales, discount, and quantity.",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 21.2154,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "regression",
+      "columns": [
+        "sales",
+        "discount",
+        "quantity",
+        "profit"
+      ],
+      "target": "profit",
+      "filters": [],
+      "sql": "SELECT sales, discount, quantity, profit FROM orders",
+      "result": {
+        "analysis": "regression",
+        "result": {
+          "coefficients": [
+            0.18001014387230668,
+            -233.45700112679995,
+            -2.962176486653817
+          ],
+          "intercept": 34.97212970801346,
+          "r2": 0.272724776926177,
+          "target": "profit",
+          "predictors": [
+            "sales",
+            "discount",
+            "quantity"
+          ]
+        }
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 11,
+    "category": "analysis",
+    "task_type": "pca",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "Executa un PCA sobre les vendes, la quantitat, el descompte i el benefici.",
+    "question_en": "Run a PCA on sales, quantity, discount, and profit.",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 17.8129,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "pca",
+      "columns": [
+        "sales",
+        "quantity",
+        "discount",
+        "profit"
+      ],
+      "target": null,
+      "filters": [],
+      "sql": "SELECT sales, quantity, discount, profit FROM orders",
+      "result": {
+        "analysis": "pca",
+        "result": {
+          "explained_variance_ratio": [
+            0.9079448399982131,
+            0.092044364191151,
+            1.0705041116708308e-05,
+            9.076951913022934e-08
+          ]
+        }
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 12,
+    "category": "analysis",
+    "task_type": "kmeans",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "Agrupa les comandes en 3 grups segons les vendes, la quantitat, el descompte i el benefici.",
+    "question_en": "Cluster orders into 3 groups based on sales, quantity, discount, and profit.",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": false,
+    "latency_seconds": 3339.9851,
+    "attempts": 3,
+    "retried": true,
+    "answer": {
+      "action": null,
+      "columns": null,
+      "rows": null,
+      "result": null,
+      "sql": null,
+      "error": "ValueError: LLM did not return valid JSON: Unterminated string starting at: line 1 column 49 (char 48). Raw: '{\"action\": \"chart\", \"chart_type\": \"bar\", \"sql\": \"SELECT SUM(sales) AS total_sales, SUM(profit) AS total_profit, SUM(quantity) AS total_quantity, SUM(discount) AS total_discount, SUM(profit) / SUM(discount) AS profit_margin, SUM(sales) / SUM(discount) AS sales_margin, SUM(profit) / SUM(sales) AS prof'"
+    },
+    "error": "ValueError: LLM did not return valid JSON: Unterminated string starting at: line 1 column 49 (char 48). Raw: '{\"action\": \"chart\", \"chart_type\": \"bar\", \"sql\": \"SELECT SUM(sales) AS total_sales, SUM(profit) AS total_profit, SUM(quantity) AS total_quantity, SUM(discount) AS total_discount, SUM(profit) / SUM(discount) AS profit_margin, SUM(sales) / SUM(discount) AS sales_margin, SUM(profit) / SUM(sales) AS prof'"
+  },
+  {
+    "id": 13,
+    "category": "analysis",
+    "task_type": "correlation",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "Quina és la correlació entre el descompte i el benefici per a les comandes fetes el 2017?",
+    "question_en": "What is the correlation between discount and profit for orders placed in 2017?",
+    "expected_agent": "analysis",
+    "correct": true,
+    "ok": true,
+    "latency_seconds": 23.3171,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "analysis",
+      "analysis": "correlation",
+      "columns": [
+        "discount",
+        "profit"
+      ],
+      "target": null,
+      "filters": [],
+      "sql": "SELECT discount, profit FROM orders",
+      "result": {
+        "analysis": "correlation",
+        "result": {
+          "correlation": -0.21948745637176847,
+          "p_value": 2.702294436198141e-109
+        }
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 14,
+    "category": "analysis",
+    "task_type": "std",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "Quina és la desviació estàndard del benefici per a la categoria Technology?",
+    "question_en": "What is the standard deviation of profit for the Technology category?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 59.497,
+    "attempts": 1,
+    "retried": false,
+    "answer": {
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/a642c5f2f20042bc8f8edaff23fa90b5.png",
+      "rows": [
+        {
+          "category": "Technology",
+          "total_profit": 145454.9481,
+          "avg_profit": 78.75200221981592,
+          "total_rows": 1847
+        }
+      ],
+      "spec": {
+        "chart_type": "histogram",
+        "sql": "SELECT category, SUM(profit) AS total_profit, AVG(profit) AS avg_profit, COUNT(*) AS total_rows FROM orders WHERE category = 'Technology' GROUP BY category",
+        "title": "Histograma de la desviació estàndard del benefici per a la categoria Technology",
+        "xlabel": "Total de vendes",
+        "ylabel": "Desviació estàndard del benefici"
+      },
+      "error": null
+    },
+    "error": null
+  },
+  {
+    "id": 15,
+    "category": "analysis",
+    "task_type": "median",
+    "difficulty": "hard",
+    "language": "ca",
+    "question": "Quin és el valor medià de les vendes a la regió South?",
+    "question_en": "What is the median sales value in the South region?",
+    "expected_agent": "analysis",
+    "correct": false,
+    "ok": true,
+    "latency_seconds": 86.5614,
+    "attempts": 2,
+    "retried": true,
+    "answer": {
+      "action": "chart",
+      "path": "/home/eric/Projects/tfg-multi-agent-data-analysis/results/8bf59f093e4f4ec891b6915152c3dc1c.png",
+      "rows": [
+        {
+          "region": "Central",
+          "total_sales": 501239.8908
+        },
+        {
+          "region": "East",
+          "total_sales": 678781.24
+        },
+        {
+          "region": "South",
+          "total_sales": 391721.905
+        },
+        {
+          "region": "West",
+          "total_sales": 725457.8245
+        }
+      ],
+      "spec": {
+        "chart_type": "bar",
+        "sql": "SELECT region, SUM(sales) AS total_sales FROM orders GROUP BY region",
+        "title": "Vendes per regió",
+        "xlabel": "Regió",
+        "ylabel": "Vendes"
+      },
+      "error": null
+    },
+    "error": null
+  }
+]
