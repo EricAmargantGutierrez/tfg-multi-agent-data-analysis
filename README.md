@@ -89,7 +89,7 @@ src/
 └── repl.py
 
 scripts/manual_check/                    manual live-API smoke scripts (not part of pytest)
-tests/                                   pytest suite, offline, no API keys needed (116 tests)
+tests/                                   pytest suite, offline, no API keys needed (118 tests)
 results/eval/<model>/<language>/         tracked -- evaluation output per model and language (JSONs, summary.csv, report review)
 results/*.png, results/*.md              generated charts/session reports (gitignored, not tracked)
 ```
@@ -186,15 +186,17 @@ t-test bug and a scoring limitation), are in
 [`results_and_failure_analysis.md`](results_and_failure_analysis.md).
 
 All the numbers above are from Anthropic Haiku. I also ran two local
-models (Ollama `llama3.1:8b`, then `Salamandra-7b-instruct`, picked
-specifically for its Spanish/Catalan training focus) on the current
-system, in all three languages - their results are in §5. I also tried
-Groq, but decided not to pursue it after running into real
-infrastructure limits (a model retired mid-project, then a free-tier
-daily token limit too tight to finish a full run in reasonable time) -
-§5.1 explains what happened, but there are no Groq numbers to report.
+models (`llama3.1:8b`, then `Salamandra-7b-instruct`, picked
+specifically for its Spanish/Catalan training focus, both run through
+Ollama) on the current system, in all three languages - their results
+are in §5. I also tried Groq, but decided not to pursue it after
+running into real infrastructure limits (a model retired mid-project,
+then a free-tier daily token limit too tight to finish a full run in
+reasonable time) - §5.1 explains what happened, but there are no Groq
+numbers to report.
 
-I also ran the evaluation in **Spanish and Catalan** (same questions translated, same ground truth). Results are in
+I also ran the evaluation in **Spanish and Catalan on Anthropic Haiku**
+(same questions translated, same ground truth). Results are in
 `results/eval/anthropic/{en,es,ca}/` and §7.
 
 ---
@@ -205,7 +207,7 @@ I also ran the evaluation in **Spanish and Catalan** (same questions translated,
 PYTHONPATH=. pytest tests/ -v
 ```
 
-116 tests, entirely offline.
+118 tests, entirely offline.
 
 ---
 
