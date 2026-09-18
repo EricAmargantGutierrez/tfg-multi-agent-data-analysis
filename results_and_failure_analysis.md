@@ -33,7 +33,7 @@ Every LLM call uses `temperature=0` on every provider (`src/llm/factory.py`), ke
 
 The benchmark has 55 questions: 30 Data Query, 15 Analysis, 10 Visualization, split into easy/medium/hard. With so few per category, one flipped answer moves the percentage a lot: 3.3pp per question in Data Query, 6.7pp in Analysis, 10pp in Visualization. Keep this in mind throughout - a 10pp gap in Visualization can be one question.
 
-**§2 and §3 are Anthropic `claude-haiku-4.5`, in English** - the first run done, before Spanish/Catalan existed, and the main reference dataset throughout. Two bugs found during the evaluation were fixed and the affected runs repeated (§3.2, §3.5 have the before/after). Two other things happened later: the same 55 questions were translated and run in Spanish and Catalan on this same model (§7), and two separate local models (Ollama's `llama3.1:8b`, then Salamandra-7b-instruct) were each evaluated in all three languages (§5).
+**§2 and §3 are Anthropic `claude-haiku-4.5`, in English** - the first run done, before Spanish/Catalan existed, and the main reference dataset throughout. Two bugs found during the evaluation were fixed and the affected runs repeated (§3.2, §3.5 have the before/after). Two other things happened later: the same 55 questions were translated and run in Spanish and Catalan on this same model (§7), and two separate local models (Llama 3.1 8B, then Salamandra-7b-instruct - both run locally via Ollama) were each evaluated in all three languages (§5).
 
 ---
 
@@ -77,7 +77,7 @@ The full pipeline is 3-4x the agent-only time because it makes three LLM calls (
 
 Data Query, Analysis, and Visualization share a self-correcting loop (`src/core/retry.py`): the LLM produces a SQL string or JSON plan, it runs, and if it errors, the error is fed back to the LLM and it tries again, up to 3 attempts. "Retry rate" is the fraction of questions where this fired at least once.
 
-**Retry rate: 0% in every category** (Anthropic English), unchanged by the fixes. The 55-question benchmark never triggered it; the session with impossible questions (§4.2) is the first time it fired, and it didn't recover. It first *succeeded* in the Anthropic Catalan run (§7.3), and fired a few more times in the Ollama runs (§5).
+**Retry rate: 0% in every category** (Anthropic English), unchanged by the fixes. The 55-question benchmark never triggered it; the session with impossible questions (§4.2) is the first time it fired, and it didn't recover. It first *succeeded* in the Anthropic Catalan run (§7.3), and fired a few more times in the local-model runs (§5).
 
 ---
 
@@ -107,7 +107,7 @@ All 5 routing misses (of 55, 90.9% accuracy) are the same pattern: an average/me
 
 **These 5 are not real errors - the Data Query agent answered all of them correctly.** A mean or median is just `AVG(...)` or a percentile query, answerable by either agent. Checked against the ground truth: 0.156 (avg discount), 8.67 (median profit), $33.85 (avg profit West), $346.57 (avg sales East/Furniture), $54.66 (median sales South) - all correct. So the router picking Data Query is a reasonable choice on an unclear question, not a failure. The 90.9% figure counts them as failures only because it compares against a fixed label.
 
-This isn't always harmless, though: in the Ollama run (§5) the router misroutes the *opposite* way, sending ranking questions to the Analysis agent, whose fixed menu can't group-and-rank - producing wrong answers stated with total confidence. Whether a misroute matters depends on direction and whether the receiving agent can actually do the task.
+This isn't always harmless, though: in the Llama run (§5) the router misroutes the *opposite* way, sending ranking questions to the Analysis agent, whose fixed menu can't group-and-rank - producing wrong answers stated with total confidence. Whether a misroute matters depends on direction and whether the receiving agent can actually do the task.
 
 ### 3.5 FIXED: `compute_ttest` now compares two groups, not two arbitrary columns
 
@@ -175,17 +175,17 @@ Things worth knowing:
 
 ---
 
-## 5. Other models (Ollama, Salamandra), and why Groq was dropped
+## 5. Other models (Llama, Salamandra), and why Groq was dropped
 
-Anthropic is the primary dataset (§2). Two local models were also run on the current system, in all three languages - Ollama's real numbers are in §5.3-5.7, Salamandra's follow later in this section.
+Anthropic is the primary dataset (§2). Two local models, both run through Ollama, were also run on the current system, in all three languages - Llama's real numbers are in §5.3-5.7, Salamandra's follow later in this section.
 
 ### 5.1 What happened with each
 
-**Groq.** I tried to run the evaluation on Groq, but ran into real infrastructure problems that made it impractical to finish. The model I originally planned to use (`llama-3.3-70b-versatile`) was retired by Groq mid-project, so I switched to its closest replacement (`openai/gpt-oss-120b`). On the free tier, that replacement's daily token limit turned out to be far too tight for this evaluation: a single benchmark run, in a single language, used almost the entire 200,000-token daily allowance by itself. At that rate, finishing even an English-only run would mean waiting for the quota to reset and resuming several more times; matching the same three-language depth I have for Anthropic and Ollama would realistically take 1.5-3 weeks of repeating that every day. I looked into paying for Groq usage, the same way I already do for Anthropic, to remove the daily limit - but Groq's paid tier signup is currently disabled ("temporarily unavailable due to high demand"), which also appears to be a wider, ongoing issue other users are reporting, not something specific to my account. Given this, I decided not to pursue a Groq run any further. No Groq numbers are reported anywhere in this document.
+**Groq.** I tried to run the evaluation on Groq, but ran into real infrastructure problems that made it impractical to finish. The model I originally planned to use (`llama-3.3-70b-versatile`) was retired by Groq mid-project, so I switched to its closest replacement (`openai/gpt-oss-120b`). On the free tier, that replacement's daily token limit turned out to be far too tight for this evaluation: a single benchmark run, in a single language, used almost the entire 200,000-token daily allowance by itself. At that rate, finishing even an English-only run would mean waiting for the quota to reset and resuming several more times; matching the same three-language depth I have for Anthropic and Llama would realistically take 1.5-3 weeks of repeating that every day. I looked into paying for Groq usage, the same way I already do for Anthropic, to remove the daily limit - but Groq's paid tier signup is currently disabled ("temporarily unavailable due to high demand"), which also appears to be a wider, ongoing issue other users are reporting, not something specific to my account. Given this, I decided not to pursue a Groq run any further. No Groq numbers are reported anywhere in this document.
 
-**Ollama (`llama3.1:8b`, local).** The benchmark ran on the current system, for all three languages - real numbers in §5.3-5.7.
+**Llama 3.1 8B (local, via Ollama).** The benchmark ran on the current system, for all three languages - real numbers in §5.3-5.7.
 
-**What I did instead of Groq: a second, different local model.** My supervisor suggested trying another Ollama model rather than pushing through Groq's free-tier limits or waiting for its paid tier to reopen, picked to be clearly different from `llama3.1:8b` - either a model built for these specific languages, or a much smaller one, to see what changes. I picked **Salamandra-7b-instruct** (Barcelona Supercomputing Center), for a specific reason, not just because it was suggested: it's almost the same size as `llama3.1:8b` (7.77B vs. 8B parameters), so switching to it isolates one thing - what the model was trained on - instead of also changing model size at the same time.
+**What I did instead of Groq: a second, different local model.** My supervisor suggested trying another model to run locally through Ollama rather than pushing through Groq's free-tier limits or waiting for its paid tier to reopen, picked to be clearly different from `llama3.1:8b` - either a model built for these specific languages, or a much smaller one, to see what changes. I picked **Salamandra-7b-instruct** (Barcelona Supercomputing Center), for a specific reason, not just because it was suggested: it's almost the same size as `llama3.1:8b` (7.77B vs. 8B parameters), so switching to it isolates one thing - what the model was trained on - instead of also changing model size at the same time.
 
 Here's why that specific difference matters. Meta's own Llama 3.1 model card lists 8 languages it was specifically fine-tuned and safety-tested for: English, German, French, Italian, Portuguese, Hindi, Spanish, Thai. Catalan isn't one of them. But the model card also says plainly that "Llama 3.1 has been trained on a broader collection of languages than the 8 supported languages" - so this isn't "the model doesn't know Catalan," it's "Catalan didn't get the same dedicated fine-tuning attention as those 8." That matches exactly what this evaluation already found: Llama clearly has real, working Catalan ability (§5.3, 70-100% correctness), just somewhat weaker than English or Spanish. Salamandra was built specifically to close gaps like this one: trained on 35 European languages, with Spanish, Catalan, Galician, and Basque oversampled 2x, by a public research center whose whole purpose is covering languages general models under-serve.
 
@@ -207,7 +207,7 @@ Why each one is in this evaluation: **Anthropic** is the upper-bound reference -
 ### 5.2 Provider trade-offs seen during development
 
 - **Anthropic** - fast, reliable, no rate-limit trouble. Costs money per token (small here, but real).
-- **Ollama (local)** - free and private, but slow on a normal laptop (CPU only): ~12-20s per question once warm, 160-340s to load the model the first time, several hours for a full run, CPU at 100% the whole time.
+- **Local models (Llama, Salamandra), via Ollama** - free and private, but slow on a normal laptop (CPU only): ~12-20s per question once warm, 160-340s to load the model the first time, several hours for a full run, CPU at 100% the whole time.
 
 **What a "warm-up" call is, and why it only matters for Ollama.** Before timing real questions, the benchmark sends one throwaway question through the same code first, uncounted (`src/eval/utils/warmup.py`) - because Ollama has to load the whole model into memory the first time it's used, which takes 160-340 seconds on its own and has nothing to do with actually answering. Without a warm-up, that cost would land inside the first timed question and make it look far slower for no real reason.
 
@@ -217,11 +217,11 @@ This only matters for Ollama, since it loads a model locally. Anthropic is a hos
 
 **A second real Ollama-only bug, found while re-running the Report Agent benchmark after the language fix (§5.7): nothing was limiting how many tokens one answer could generate.** `ChatOllama` was set up with no `num_predict` value, so Ollama used its own default instead - which turned out to be about 40,960 tokens, basically no limit at all. On one adversarial-session report, the model never produced a stop token, and the call kept running on CPU for over 5 hours before I killed it by hand. I checked it wasn't just frozen by asking the local server directly (`llama.cpp`'s `/slots` endpoint): it was still actively generating the whole time, just with nothing telling it when to stop. Fixed by setting a cap of `num_predict=2048` for Ollama in `src/llm/factory.py` (Ollama only - every real answer here, a SQL query, a JSON plan, a report, easily fits under that; Anthropic and Groq don't use this setting and aren't affected). I ran the same session again afterward and it finished normally in a few minutes.
 
-The Ollama run was done in stages, with breaks between them to keep the laptop from overheating during multi-hour runs.
+The Llama run was done in stages, with breaks between them to keep the laptop from overheating during multi-hour runs.
 
-### 5.3 Ollama correctness, by language
+### 5.3 Llama correctness, by language
 
-**Model: Ollama `llama3.1:8b` (local). Languages: English (EN), Spanish (ES), Catalan (CA). "real" = real system, "base" = baseline, "mono" = monolithic agent.**
+**Model: Llama 3.1 8B (local, via Ollama). Languages: English (EN), Spanish (ES), Catalan (CA). "real" = real system, "base" = baseline, "mono" = monolithic agent.**
 
 | | EN real | EN base | EN mono | ES real | ES base | ES mono | CA real | CA base | CA mono |
 |---|---|---|---|---|---|---|---|---|---|
@@ -231,9 +231,9 @@ The Ollama run was done in stages, with breaks between them to keep the laptop f
 
 The real system stays close to Anthropic even on this much smaller local model (70-100% vs. 90-100%), and does better on Visualization in all three languages. The baseline is much weaker on Data Query (27-43% vs. Anthropic's 77%): a small model writing raw SQL with no tools makes real mistakes, not just the counting problem from §5.5. Correctness drops a little from English to Spanish to Catalan, most visibly on Data Query (83 → 77 → 70%) and the monolithic agent (80 → 80 → 60%) - likely just normal noise from a small model, since the actual mistakes are the same kind in all three languages (§5.5).
 
-### 5.4 Ollama routing - the real weak point
+### 5.4 Llama routing - the real weak point
 
-**Model: Ollama `llama3.1:8b` (local). Languages: English (EN), Spanish (ES), Catalan (CA).**
+**Model: Llama 3.1 8B (local, via Ollama). Languages: English (EN), Spanish (ES), Catalan (CA).**
 
 | | EN | ES | CA |
 |---|---|---|---|
@@ -248,7 +248,7 @@ The real system stays close to Anthropic even on this much smaller local model (
 
 The misrouting also causes outright pipeline failures: 10/55 (EN), 8/55 (ES), 11/55 (CA), almost always because a Data Query question reached Analysis and it couldn't handle it (`no such column`, `No numeric columns found`, `Unknown analysis 'sum'` - the model making up an analysis type that isn't in the menu).
 
-### 5.5 Ollama failure analysis - mostly the same mistakes in all three languages
+### 5.5 Llama failure analysis - mostly the same mistakes in all three languages
 
 The Data Query agent repeats the same mistakes across all three languages - real weaknesses of the model, not translation artifacts:
 
@@ -266,9 +266,9 @@ One possible language-sensitive slip: Spanish "¿cuál es el descuento **medio**
 
 The one Visualization miss per language is the familiar §3.3 grouping problem - all three languages (and Anthropic, §7.4) show different granularity guesses on the same chart question, which never says how to group the data. Spanish and Catalan both grouped by *year*, an even coarser guess than daily or monthly.
 
-### 5.6 Ollama latency
+### 5.6 Llama latency
 
-**Model: Ollama `llama3.1:8b` (local). Languages: English (EN), Spanish (ES), Catalan (CA). DQ = Data Query, An = Analysis, Viz = Visualization.**
+**Model: Llama 3.1 8B (local, via Ollama). Languages: English (EN), Spanish (ES), Catalan (CA). DQ = Data Query, An = Analysis, Viz = Visualization.**
 
 | | EN | ES | CA |
 |---|---|---|---|
@@ -280,13 +280,13 @@ The one Visualization miss per language is the familiar §3.3 grouping problem -
 
 Catalan also had the most pipeline failures of the three languages (11/55, vs. 8/55 Spanish and 10/55 English). This doesn't affect correctness, only how many pipeline calls errored.
 
-### 5.7 FIXED (same bug and fix as §7.5): Ollama's Report Agent, re-run after the fix
+### 5.7 FIXED (same bug and fix as §7.5): Llama's Report Agent, re-run after the fix
 
-Same bug as Anthropic's (§7.5 has the full story): the Report Agent's output was always in English no matter the session's language, on both models, since the code had no language setting for it at all. This section shows what the same fix did to Ollama's numbers. One extra problem turned up while re-running this on Ollama: the Spanish Session 6 re-run got stuck for over 5 hours generating a single response, before I killed it and found the real cause - nothing was limiting how many tokens Ollama could generate in one go (§5.2 has that story). Fixed at the same time as the language bug, then re-run cleanly.
+Same bug as Anthropic's (§7.5 has the full story): the Report Agent's output was always in English no matter the session's language, on all three models tested, since the code had no language setting for it at all. This section shows what the same fix did to Llama's numbers (§5.12 has Salamandra's). One extra problem turned up while re-running this on Llama: the Spanish Session 6 re-run got stuck for over 5 hours generating a single response, before I killed it and found the real cause - nothing was limiting how many tokens Ollama could generate in one go (§5.2 has that story). Fixed at the same time as the language bug, then re-run cleanly.
 
 Same 6 sessions and rubric as the Anthropic review (§4, §7.5).
 
-**Model: Ollama `llama3.1:8b` (local). Languages: English (EN, unaffected by the language fix), Spanish (ES), Catalan (CA).**
+**Model: Llama 3.1 8B (local, via Ollama). Languages: English (EN, unaffected by the language fix), Spanish (ES), Catalan (CA).**
 
 | | EN sessions 1-5 mean | ES sessions 1-5 mean | CA sessions 1-5 mean |
 |---|---|---|---|
@@ -298,13 +298,13 @@ Same 6 sessions and rubric as the Anthropic review (§4, §7.5).
 | ES | 1 | 2 | 4 | 4 |
 | CA | 2 | 2 | 5 | 4 |
 
-Accuracy stays low in both languages, for the same reason as before this fix: Ollama's weak routing (§5.4) sends several questions to an agent that can't really answer them, and the report just repeats a wrong or incomplete answer without adding anything made up of its own - that counts against accuracy, not against no-fabrication (§1 explains the difference). One new mistake turned up this time, and it's different from the rest: in Spanish Session 3, the chart turn itself correctly says Technology has the highest category sales ("la categoría de tecnología generó las ventas totales más altas") - but the Report Agent's own summary gets it wrong anyway, crediting Furniture instead. Unlike everything else in this section, that mistake is the Report Agent's own, not something it copied from a bad answer.
+Accuracy stays low in both languages, for the same reason as before this fix: Llama's weak routing (§5.4) sends several questions to an agent that can't really answer them, and the report just repeats a wrong or incomplete answer without adding anything made up of its own - that counts against accuracy, not against no-fabrication (§1 explains the difference). One new mistake turned up this time, and it's different from the rest: in Spanish Session 3, the chart turn itself correctly says Technology has the highest category sales ("la categoría de tecnología generó las ventas totales más altas") - but the Report Agent's own summary gets it wrong anyway, crediting Furniture instead. Unlike everything else in this section, that mistake is the Report Agent's own, not something it copied from a bad answer.
 
 No-fabrication for sessions 1-5 is better than the old English numbers, in both new languages - the wrong-answer cases from §5.4's routing problems don't come with any extra made-up detail added on top this time. Session 6 tells a different story, and shows the worst problem found here isn't about report language at all: asked for the correlation between "marketing spend" and profit (a column that doesn't exist), the Analysis Agent quietly uses `discount` instead and reports a precise, confident correlation as if it were the real answer - `-0.219` in Spanish, `-0.22` in Catalan - in both new languages, exactly like before this fix. Every Anthropic run on this same question either failed with an error or refused to guess (§7.5). Spanish adds a second made-up claim on top: its report also says there is a "negative relationship" between the (made-up) "employee salary" and profit in the Q6 chart - but that chart doesn't show any such relationship either way, since it's really sales vs. profit. Catalan's report describes the same chart without making up a direction for the relationship.
 
 ### 5.8 Insightful findings
 
-The Ollama results are real data for all three languages. Anthropic is treated as the main, most relevant model in this evaluation - the largest one tested, and the one the results show performing most solidly (§2, §7). Translations for all three languages, on both models, are one pass done by me, not independently checked. The routing weakness (§5.4) and the marketing-spend fabrication (§5.7) are two findings on Ollama with no equivalent on Anthropic - real differences in what the models can do, since everything else about the pipeline is identical.
+The Llama results are real data for all three languages, and so are Salamandra's (§5.9-5.12, added later for a specific reason - §5.1). Anthropic is treated as the main, most relevant model in this evaluation - the largest one tested, and the one the results show performing most solidly (§2, §7). Translations for all three languages, on all three models, are one pass done by me, not independently checked. The routing weakness (§5.4) and the marketing-spend fabrication (§5.7) are two findings on Llama with no equivalent on Anthropic - real differences in what the models can do, since everything else about the pipeline is identical. Salamandra adds a third, different set of weaknesses on top of those (§5.11), rather than repeating either one.
 
 ### 5.9 Salamandra correctness and routing, by language
 
@@ -355,11 +355,11 @@ These three examples (and others like them in the full session data) point to so
 
 The other finding worth naming directly: **whenever the underlying turn honestly says it does not know something, the Report Agent's summary is the part most likely to replace that honesty with a confident, invented answer.** In the Session 6 examples above, the turns say "not available," "not clear," or fail outright with a real error - and the report each time supplies a specific number anyway. The reverse also happens at least once: Session 3 in English has three visualization turns that either fail outright or return no usable content, and the report still describes specific chart findings ("the Furniture category had the highest total sales," "sales were relatively stable... with a slight increase in the second quarter") that were never computed. Session 3 in Spanish, facing the same kind of failed turns, instead produces a completely empty report (just the four section headers, no content) - the opposite failure, but still not a useful report.
 
-**On top of the number problem, the language fix (§7.5) does not hold as well here as it did for Anthropic and Ollama's `llama3.1:8b`.** Two of the six Catalan sessions come back as complete reports written entirely in English, despite the language-matching instruction being sent exactly as it was for the other two models. Where the report is in the right language, section headers are often left half-translated or not translated at all ("Preguntas Asked," mixing an English word into a Spanish sentence) - something that did not happen with either of the other two models tested.
+**On top of the number problem, the language fix (§7.5) does not hold as well here as it did for Anthropic and Llama 3.1 8B.** Two of the six Catalan sessions come back as complete reports written entirely in English, despite the language-matching instruction being sent exactly as it was for the other two models. Where the report is in the right language, section headers are often left half-translated or not translated at all ("Preguntas Asked," mixing an English word into a Spanish sentence) - something that did not happen with either of the other two models tested.
 
 ### 5.12 Salamandra Report Agent - ratings
 
-Same 6 sessions and rubric as the Anthropic and Ollama reviews (§4, §7.5, §5.7).
+Same 6 sessions and rubric as the Anthropic and Llama reviews (§4, §7.5, §5.7).
 
 **Model: Salamandra-7b-instruct (local). Languages: English (EN), Spanish (ES), Catalan (CA).**
 
@@ -384,7 +384,7 @@ Accuracy is the lowest of any model tested, in every language, for two different
 - It also beats a monolithic agent with the same tools and prompts (decomposition value: Data Query +3.3pp, Analysis +20.0pp, Visualization -10.0pp - the last one is entirely one unclear question, §3.3). This compares the monolithic agent against **individual agents in isolation** (routing forced correct), so a fairer end-to-end comparison (routing errors included) is future work (§9).
 - **A real correctness bug and a real evaluation scoring limitation were found, fixed, and independently verified at three levels** (unit test, integration test, regenerated report) - a real example of the evaluation process catching and fixing real problems, not just producing a number.
 - Routing errors are concentrated at the Data Query/Analysis overlap (simple aggregates), not random.
-- **The architecture beats the baseline on a second, much weaker model too** (Ollama, all three languages, §5.3): real-system correctness stays within 10-20pp of Anthropic's in English and Spanish, while the baseline is much worse everywhere. But routing quality doesn't transfer - the same small model misroutes ~80% of Data Query questions (§5.4), and unlike Anthropic's routing gaps, these produce actually wrong answers.
+- **The architecture beats the baseline on two much weaker models too** (Llama, all three languages, §5.3; Salamandra, all three languages, §5.9): Llama's real-system correctness stays within 10-20pp of Anthropic's in English and Spanish, while the baseline is much worse everywhere. But routing quality doesn't transfer - Llama misroutes ~80% of Data Query questions (§5.4), and unlike Anthropic's routing gaps, these produce actually wrong answers.
 
 **Scope / design choices (deliberate):**
 - **Closed-world, and no LLM-written code.** No internet access, no agent writes or runs its own code - full detail in `docs/architecture.md`. Two consequences here: questions needing outside context ("why did sales drop in 2017", "is a 12% margin good," industry benchmarks) are out of scope, and the Analysis Agent can only answer what its 15 pre-written functions cover (§3.2 covers what that means for the baseline comparison).
@@ -394,14 +394,14 @@ Accuracy is the lowest of any model tested, in every language, for two different
 - Retry/self-correction effectiveness: first exercised in the impossible-questions session (§4.2), where it fired but couldn't recover from a missing column. First *successful* recovery was in the Catalan run (§7.3). Still only two data points; the English benchmark showed 0% retry rate.
 - Whether decomposition value would hold at a larger question count.
 - **Latency wasn't a focus.** The architecture costs three LLM calls instead of one (§2.3) - a few seconds on a hosted model, much more locally, plus a one-off model-loading cost the first time. All figures are from one modest laptop, not tuned hardware.
-- **Cross-provider results.** Anthropic is the primary, complete dataset - the largest model tested, performing most solidly. Ollama has real results for all three languages (§5.3-5.7). Cost per provider wasn't measured.
+- **Cross-provider results.** Anthropic is the primary, complete dataset - the largest model tested, performing most solidly. Llama and Salamandra both have real results for all three languages (§5.3-5.7, §5.9-5.12). Cost per provider wasn't measured.
 - **The scoring itself has two known simplifications** (`src/eval/checks.py`): numbers are compared with a fixed 2-decimal tolerance, not true floating-point precision - fine for this dataset's currency and count values, but would need adjusting for a dataset with much smaller or bigger numbers. And row comparison checks numbers and text as unordered sets, so it can't tell two different numeric columns apart if they happen to hold the same values in the same shape - not an issue for this benchmark's questions, but a trickier question set would need a check that understands what each column actually means.
 
 ---
 
 ## 7. Multilingual evaluation (Spanish and Catalan)
 
-The 55 questions and 6 Report-Agent sessions were translated and run again, to see if language changes anything. This section is Anthropic only - Ollama has its own three-language results in §5.3-5.7.
+The 55 questions and 6 Report-Agent sessions were translated and run again, to see if language changes anything. This section is Anthropic only - Llama and Salamandra have their own three-language results in §5 (§5.3-5.7, §5.9-5.12).
 
 ### 7.1 Method
 
@@ -491,24 +491,24 @@ Session 6 also does better than English, but for a reason that has nothing to do
 
 The benchmarks tag each question easy/medium/hard, and correctness by that tag was already in the raw output (`summary.csv`) but never pulled together. Doing that, alongside the language and model comparisons above, surfaces a few findings not visible in any single table.
 
-**By difficulty.** Real-system vs. baseline correctness, averaged across the three languages, for each model:
+**By difficulty.** Real-system vs. baseline correctness, averaged across the three languages, for Anthropic and Llama - the two models this breakdown was done for (Salamandra was added later, specifically to test the language question below, and wasn't run back through this particular cut of the data):
 
 | | Easy: real / base | Medium: real / base | Hard: real / base |
 |---|---|---|---|
 | Anthropic - Data Query | 90.0% / 73.3% | 96.7% / 80.0% | 100% / 76.7% |
 | Anthropic - Analysis | 100% / 33.3% | 100% / 66.7% | 100% / 16.7% |
 | Anthropic - Visualization | 77.8% / 66.7% | 100% / 75.0% | 88.9% / 22.2% |
-| Ollama - Data Query | 90.0% / 60.0% | 73.3% / 30.0% | 66.7% / 16.7% |
-| Ollama - Analysis | 88.9% / 44.4% | 100% / 38.9% | 94.4% / 0% |
-| Ollama - Visualization | 100% / 100% | 100% / 75.0% | 77.8% / 33.3% |
+| Llama - Data Query | 90.0% / 60.0% | 73.3% / 30.0% | 66.7% / 16.7% |
+| Llama - Analysis | 88.9% / 44.4% | 100% / 38.9% | 94.4% / 0% |
+| Llama - Visualization | 100% / 100% | 100% / 75.0% | 77.8% / 33.3% |
 
-- **The baseline loses the most ground on hard questions, in both models** - exactly where the architecture earns its keep the most. Anthropic's baseline drops to 16.7-22.2% on hard Analysis/Visualization while the real system stays at 88.9-100%; same shape on Ollama, lower floor (0-33.3% baseline).
-- **But the Analysis "hard" collapse is mostly about labeling, not pure difficulty** - the hard-tier questions are exactly the ones needing regression, PCA, or K-Means, which SQL can't express regardless of how conceptually hard they are. Data Query and Visualization hard questions are a fairer difficulty test (the baseline *can* attempt them in SQL), and there it still drops (Anthropic roughly flat, 73.3% to 76.7%; Ollama 60% to 16.7%, a real decline).
-- **Anthropic's real system is barely affected by difficulty; Ollama's is.** Anthropic stays at 88.9-100% at every tier (the one dip, Visualization easy at 77.8%, is the §3.1 order-counting ambiguity, not a real effect). Ollama visibly drops from easy to hard on Data Query (90.0% to 66.7%) and Visualization (100% to 77.8%) - a real capability gap for a smaller model, matching the mistakes clustering on harder questions in §5.5.
+- **The baseline loses the most ground on hard questions, in both models** - exactly where the architecture earns its keep the most. Anthropic's baseline drops to 16.7-22.2% on hard Analysis/Visualization while the real system stays at 88.9-100%; same shape on Llama, lower floor (0-33.3% baseline).
+- **But the Analysis "hard" collapse is mostly about labeling, not pure difficulty** - the hard-tier questions are exactly the ones needing regression, PCA, or K-Means, which SQL can't express regardless of how conceptually hard they are. Data Query and Visualization hard questions are a fairer difficulty test (the baseline *can* attempt them in SQL), and there it still drops (Anthropic roughly flat, 73.3% to 76.7%; Llama 60% to 16.7%, a real decline).
+- **Anthropic's real system is barely affected by difficulty; Llama's is.** Anthropic stays at 88.9-100% at every tier (the one dip, Visualization easy at 77.8%, is the §3.1 order-counting ambiguity, not a real effect). Llama visibly drops from easy to hard on Data Query (90.0% to 66.7%) and Visualization (100% to 77.8%) - a real capability gap for a smaller model, matching the mistakes clustering on harder questions in §5.5.
 
 **By language.** The point of testing three languages was to see if language matters at all - and there was a real reason to expect it might not be a fair fight: English dominates LLM training text, Spanish has less, Catalan is a minority language with much less available anywhere, so a decline in that order (English, then Spanish, then Catalan) was plausible.
 
-Anthropic is flat across all three (§7.2, §7.3) - correctness, routing, and latency stay within a few points of each other, and every wrong answer traces to the two already-documented scoring ambiguities, not language struggle. So the expected decline doesn't show up on a strong hosted model - it seems to know each language well enough for this closed-world task. Ollama does decline in that order on Data Query and the monolithic baseline (§5.3), and its worst fabrications happened on the Catalan run (§5.7) - matching the expected pattern, for what that's worth. But Catalan also had the highest pipeline failure count of the three (§5.6), so some, but probably not all, of that decline may be hardware rather than language. Honest conclusion: on a strong hosted model, language doesn't matter much for this task; on a small local model, it might, in the direction the relevance of each language would predict, but this single run can't fully separate that from other machine noise.
+Anthropic is flat across all three (§7.2, §7.3) - correctness, routing, and latency stay within a few points of each other, and every wrong answer traces to the two already-documented scoring ambiguities, not language struggle. So the expected decline doesn't show up on a strong hosted model - it seems to know each language well enough for this closed-world task. Llama does decline in that order on Data Query and the monolithic baseline (§5.3), and its worst fabrications happened on the Catalan run (§5.7) - matching the expected pattern, for what that's worth. But Catalan also had the highest pipeline failure count of the three (§5.6), so some, but probably not all, of that decline may be hardware rather than language. Salamandra, picked specifically to test whether that decline was about language training (§5.1), points the other way instead - see the dedicated conclusion on this near the end of this section.
 
 **By model.** The one finding that holds everywhere - every language, every difficulty tier, all three models: **the specialized multi-agent architecture beats a plain single-prompt baseline**, even on the two much smaller, free, local models, both clearly weaker than the hosted one in other ways, and clearly weaker than each other in different categories (§5.9, §5.3).
 
@@ -517,39 +517,41 @@ Anthropic is flat across all three (§7.2, §7.3) - correctness, routing, and la
 | | Data Query EN/ES/CA | Analysis EN/ES/CA | Visualization EN/ES/CA |
 |---|---|---|---|
 | Anthropic | +3.3 / +6.7 / +6.7 | +20.0 / +6.7 / +13.3 | -10.0 / 0 / 0 |
-| Ollama | +3.3 / -3.3 / +10.0 | +20.0 / +53.3 / +60.0 | +10.0 / 0 / 0 |
+| Llama | +3.3 / -3.3 / +10.0 | +20.0 / +53.3 / +60.0 | +10.0 / 0 / 0 |
 
-Splitting the work up helps almost everywhere, but far more on Ollama's Analysis (+20pp in English, growing to +60pp in Catalan) than on Anthropic (modest, 0 to +20pp) - splitting the "which statistic do I compute" decision out into its own agent matters much more for a small model, which has less room to juggle several tool sets in one prompt. The two negative numbers (Anthropic Visualization English, from the §3.3 chart-grouping question; Ollama Spanish Data Query, -3.3pp) are single questions flipping at small n, not real reversals.
+Splitting the work up helps almost everywhere, but far more on Llama's Analysis (+20pp in English, growing to +60pp in Catalan) than on Anthropic (modest, 0 to +20pp) - splitting the "which statistic do I compute" decision out into its own agent matters much more for a small model, which has less room to juggle several tool sets in one prompt. The two negative numbers (Anthropic Visualization English, from the §3.3 chart-grouping question; Llama Spanish Data Query, -3.3pp) are single questions flipping at small n, not real reversals. Salamandra shows the same idea taken further (§5.9): its Data Query and Analysis decomposition values are consistently large and positive in every language, while Visualization's goes negative every time - the split helps most on exactly the categories where this particular model struggles most on its own.
 
-**By routing.** Overall: Anthropic 90.9-92.7% across languages, Ollama 56.4% (EN), 50.9% (ES), 52.7% (CA) - but the two models fail in opposite places:
+**By routing.** Overall: Anthropic 90.9-92.7% across languages, Llama 56.4% (EN), 50.9% (ES), 52.7% (CA), Salamandra 78.2% (EN), 78.2% (ES), 74.5% (CA) - and each of the three models fails in a different place:
 
-| | Anthropic EN/ES/CA | Ollama EN/ES/CA |
-|---|---|---|
-| Data Query | 100 / 100 / 96.7% | 20 / 20 / 20% |
-| Analysis | 66.7 / 73.3 / 73.3% | 100 / 86.7 / 86.7% |
-| Visualization | 100 / 100 / 100% | 100 / 90 / 100% |
+| | Anthropic EN/ES/CA | Llama EN/ES/CA | Salamandra EN/ES/CA |
+|---|---|---|---|
+| Data Query | 100 / 100 / 96.7% | 20 / 20 / 20% | 70.0 / 96.7 / 96.7% |
+| Analysis | 66.7 / 73.3 / 73.3% | 100 / 86.7 / 86.7% | 80.0 / 26.7 / 13.3% |
+| Visualization | 100 / 100 / 100% | 100 / 90 / 100% | 100 / 100 / 100% |
 
-Anthropic's weak spot (Analysis) barely matters - every misrouted question still got answered correctly by whichever agent got it (§2.2, §3.4). Ollama's weak spot (Data Query, stuck at exactly 20% in every language) is not harmless - most misrouted questions come back wrong, stated as if correct (§5.4). Same *kind* of mistake (mixing up two similar categories), very different consequences.
+Anthropic's weak spot (Analysis) barely matters - every misrouted question still got answered correctly by whichever agent got it (§2.2, §3.4). Llama's weak spot (Data Query, stuck at exactly 20% in every language) is not harmless - most misrouted questions come back wrong, stated as if correct (§5.4). Same *kind* of mistake (mixing up two similar categories), very different consequences. Salamandra's weak spot is Analysis, and it gets worse outside English (80% down to 13.3% in Catalan) rather than staying constant like Llama's Data Query problem - every one of those misroutes lands on Data Query instead (§5.9).
 
 **By latency.** Full-pipeline average (DQ/An/Viz), seconds:
 
 | | EN | ES | CA |
 |---|---|---|---|
 | Anthropic | 3.50 / 3.82 / 4.94 | 3.18 / 4.15 / 5.36 | 3.12 / 4.18 / 5.48 |
-| Ollama | 54.9 / 65.8 / 129.3 | 44.5 / 62.3 / 143.8 | 71.9 / 46.6 / 71.5 |
+| Llama | 54.9 / 65.8 / 129.3 | 44.5 / 62.3 / 143.8 | 71.9 / 46.6 / 71.5 |
+| Salamandra | 31.0 / 85.1 / 155.1 | 30.0 / 86.7 / 54.8 | 40.6 / 102.5 / 77.0 |
 
-Ollama is roughly 15-30x slower, expected for a small model doing CPU-only inference instead of calling a hosted API. Language barely changes Anthropic's latency; Ollama's numbers move around more (e.g. Catalan Analysis is actually the fastest of the three) - I don't have a confirmed reason, but it's more likely the laptop's own state at the time than Catalan being an easier language to process.
+Both local models are roughly 10-40x slower than Anthropic, expected for CPU-only inference instead of calling a hosted API. Language barely changes Anthropic's latency; both local models' numbers move around more between languages (e.g. Salamandra's Visualization time nearly triples from Spanish to English) - on this machine, that looks more like ordinary variation in the laptop's own state than a real language effect (§5.10).
 
-**On retries.** Fires far more often on Ollama (3.3-10% in at least one category per language) than Anthropic (once, ever, in the entire evaluation, and it fixed itself) - a smaller model produces more broken SQL/JSON to begin with. It's also less reliable once triggered: some Ollama retries fix the problem (English Visualization, 100% success), some don't (the K-Means/"describe" mix-up in §5.5 survived a retry and still failed). Real help on the weaker model, but not a substitute for actually understanding the question.
+**On retries.** Fires far more often on both local models (3.3-10% in at least one category per language for Llama, similar for Salamandra, §5.10) than on Anthropic (once, ever, in the entire evaluation, and it fixed itself) - a smaller model produces more broken SQL/JSON to begin with. It's also less reliable once triggered: some Llama retries fix the problem (English Visualization, 100% success), some don't (the K-Means/"describe" mix-up in §5.5 survived a retry and still failed). Real help on the weaker models, but not a substitute for actually understanding the question.
 
-**On honesty (Report Agent).** Same rubric, both models, normal sessions 1-5:
+**On honesty (Report Agent).** Same rubric, all three models, normal sessions 1-5:
 
 | | EN | ES | CA |
 |---|---|---|---|
 | Anthropic | 4.0 / 5.0 / 3.8 / 5.0 | 4.8 / 5.0 / 5.0 / 5.0 | 4.8 / 5.0 / 5.0 / 5.0 |
-| Ollama | 3.0 / 5.0 / 4.2 / 4.6 | 3.0 / 5.0 / 5.0 / 4.8 | 3.4 / 5.0 / 5.0 / 4.8 |
+| Llama | 3.0 / 5.0 / 4.2 / 4.6 | 3.0 / 5.0 / 5.0 / 4.8 | 3.4 / 5.0 / 5.0 / 4.8 |
+| Salamandra | 2.2 / 4.0 / 3.8 / 4.2 | 2.6 / 3.6 / 4.2 / 3.0 | 2.8 / 4.6 / 3.6 / 4.6 |
 
-Surprising: Ollama's no-fabrication score on normal sessions isn't worse than Anthropic's, sometimes a touch better - the accuracy gap is a routing problem, not an honesty problem: several Ollama sessions ask the Analysis agent something it simply can't do (§5.4), and the report faithfully relays that wrong answer without inventing anything. The picture flips on the session with impossible questions, where every question truly can't be answered: Ollama's no-fabrication score (1-2 across languages) drops below Anthropic's (2-3), and Ollama produced the worst fabrications found anywhere in the whole project - a confident, precise, entirely invented correlation number in all three languages (§5.7), a complete answer made up for a turn that had actually failed, and sample rows mislabeled as computed statistics (§5.7, Catalan). So a model can look equally honest on ordinary questions and still be much more willing to make something up the moment there is really nothing true to say.
+Surprising: Llama's no-fabrication score on normal sessions isn't worse than Anthropic's, sometimes a touch better - the accuracy gap is a routing problem, not an honesty problem: several Llama sessions ask the Analysis agent something it simply can't do (§5.4), and the report faithfully relays that wrong answer without inventing anything. The picture flips on the session with impossible questions, where every question truly can't be answered: Llama's no-fabrication score (1-2 across languages) drops below Anthropic's (2-3), with a confident, precise, invented correlation number in all three languages (§5.7), a complete answer made up for a turn that had actually failed, and sample rows mislabeled as computed statistics (§5.7, Catalan). Salamandra's Session 6 no-fabrication score is just as low, or lower, in every language (§5.12) - and worse in one specific way neither Anthropic nor Llama showed: the same wrong number standing in for different real answers across all three languages (§5.11). So a model can look equally honest on ordinary questions and still be much more willing to make something up the moment there is really nothing true to say - and which specific way it does that varies by model.
 
 **Does training a model on Spanish and Catalan close the language gap seen on Llama?** This was the actual reason Salamandra was added (§5.1) - Llama's small decline from English to Spanish to Catalan (§8, "By language" above) could not be told apart from ordinary run-to-run noise, and Salamandra, at almost the same parameter count but trained with Spanish and Catalan specifically emphasized, was picked to test that directly. The answer this evaluation found is clear, and it is not the one that framing predicted: Salamandra does not perform more consistently, or more honestly, in Spanish and Catalan than in English - if anything the opposite. Its worst behavior, found and detailed in §5.11 - a fixed wrong age ("42.5 years") replacing three different real answers, a real number from one question reused as the answer to an unrelated one, complete reports written in the wrong language despite an explicit instruction to match it - all of this happened in the Spanish and Catalan sessions, not the English ones. So the comparison this evaluation set out to make gives a real answer: for this task, language-specific training data did not translate into more reliable behavior in that language, at least not for this model at this size. What actually seems to matter more, based on comparing all three models, is how reliably a model follows instructions and stays grounded in what it was actually given - a property that has little to do with which languages it was trained on.
 
