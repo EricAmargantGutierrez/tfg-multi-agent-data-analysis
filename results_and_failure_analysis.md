@@ -91,6 +91,16 @@ One number worth calling out on its own, even without a dedicated column: the ba
 
 **Retries.** Data Query, Analysis, and Visualization share a self-correcting loop (`src/core/retry.py`): the LLM produces a SQL string or JSON plan, it runs, and if it errors, the error is fed back to the LLM and it tries again, up to 3 attempts. "Retry rate" is the fraction of questions where this fired at least once. It never fired on the 55-question English or Spanish benchmarks. Catalan's Analysis category is the only nonzero rate (6.7%) - and it's also the first and only time in this entire evaluation that a retry actually recovered: the plan came back as invalid JSON, the loop retried, and the second try was correct (`attempts: 2`, `correct: true`). The only other place retries ever fired on Anthropic at all was the session with impossible questions (§2.3), where it fired but didn't recover, since a missing column isn't something a retry can fix.
 
+**By difficulty.** The benchmark tags each question easy/medium/hard. Real-system vs. baseline correctness, averaged across the three languages:
+
+| | Easy: real / base | Medium: real / base | Hard: real / base |
+|---|---|---|---|
+| Data Query | 90.0% / 73.3% | 96.7% / 80.0% | 100% / 76.7% |
+| Analysis | 100% / 33.3% | 100% / 66.7% | 100% / 16.7% |
+| Visualization | 77.8% / 66.7% | 100% / 75.0% | 88.9% / 22.2% |
+
+**The real system is barely affected by difficulty at all** - it stays at 88.9-100% on every tier in every category (the one dip, Visualization easy at 77.8%, is the order-counting ambiguity above, not a real effect of difficulty). **The baseline loses the most ground on hard questions**, and that's exactly where the architecture earns its keep the most: it drops to 16.7-22.2% on hard Analysis/Visualization while the real system stays at 88.9-100%. One caveat on the Analysis "hard" tier specifically: that collapse is mostly about labeling, not pure difficulty - the hard-tier Analysis questions are exactly the ones needing regression, PCA, or K-Means, which SQL can't express regardless of how conceptually hard they are (§2.2). Data Query and Visualization hard questions are a fairer difficulty test, since the baseline *can* attempt them in SQL - and there the baseline still drops, just less steeply (73.3% to 76.7%, roughly flat). §4.2 compares this pattern against Llama's and Salamandra's own difficulty results.
+
 ### 2.2 Failure analysis
 
 Before looking at what the 55-question benchmark itself found, two real correctness bugs were caught and fixed while building the Analysis Agent, before any evaluation ever ran - there's no before/after benchmark data for these, since they were already fixed by the time scoring started, but they're worth knowing about because either one would have quietly corrupted results if it had gone unnoticed:
@@ -302,7 +312,23 @@ Accuracy stays low in both languages, for the same reason as before this fix: Ll
 
 No-fabrication for sessions 1-5 is better than the old English numbers, in both new languages - the wrong-answer cases from the routing problems above don't come with any extra made-up detail added on top this time. Session 6 tells a different story, and shows the worst problem found here isn't about report language at all: asked for the correlation between "marketing spend" and profit (a column that doesn't exist), the Analysis Agent quietly uses `discount` instead and reports a precise, confident correlation as if it were the real answer - `-0.219` in Spanish, `-0.22` in Catalan - in both new languages, exactly like before this fix. Every Anthropic run on this same question either failed with an error or refused to guess (§2.3). Spanish adds a second made-up claim on top: its report also says there is a "negative relationship" between the (made-up) "employee salary" and profit in the Q6 chart - but that chart doesn't show any such relationship either way, since it's really sales vs. profit. Catalan's report describes the same chart without making up a direction for the relationship.
 
-**What Llama's results show, overall.** The routing weakness and the marketing-spend fabrication above are two findings with no equivalent on Anthropic - real differences in what the models can do, since everything else about the pipeline is identical. Translations for all three languages, on all three models in this document, are one pass done by me, not independently checked.
+**By difficulty.** Real-system vs. baseline correctness, averaged across the three languages:
+
+| | Easy: real / base | Medium: real / base | Hard: real / base |
+|---|---|---|---|
+| Data Query | 90.0% / 60.0% | 73.3% / 30.0% | 66.7% / 16.7% |
+| Analysis | 88.9% / 44.4% | 100% / 38.9% | 94.4% / 0% |
+| Visualization | 100% / 100% | 100% / 75.0% | 77.8% / 33.3% |
+
+Unlike Anthropic, **Llama's real system visibly drops from easy to hard** on Data Query (90.0% to 66.7%) and Visualization (100% to 77.8%) - a real capability gap for a smaller model, matching the mistakes clustering on harder questions above. The baseline's floor is also lower than Anthropic's (0-33.3% vs. 16.7-22.2% on the hardest Analysis/Visualization questions), but the same shape holds: the architecture earns its keep most on exactly the questions the baseline struggles with most. §4.2 compares this directly against Anthropic's own difficulty pattern, and against Salamandra's - which breaks it entirely (§3.4).
+
+**What Llama's results show, overall.**
+
+- The real system stays close to Anthropic even on this much smaller local model (70-100% vs. 90-100% correctness), and the architecture still clearly beats the baseline in every language and every category.
+- **Its one real weak point is routing, not correctness** - Data Query is stuck at exactly 20% in every language, almost entirely misrouted to Analysis, and unlike Anthropic's harmless routing gaps, these misroutes produce answers a real user would see and believe as correct.
+- Splitting the work into separate agents (decomposition value) helps far more here than it does on Anthropic, especially on Analysis (+20pp English, growing to +60pp in Catalan) - a small model benefits much more from having one narrow job per agent than a strong one does.
+- The routing weakness and the marketing-spend fabrication (Report Agent, above) are two findings with no equivalent on Anthropic - real differences in what the models can do, since everything else about the pipeline is identical.
+- Translations for all three languages, on all three models in this document, are one pass done by me, not independently checked.
 
 ### 3.4 Salamandra 7B Instruct
 
@@ -399,7 +425,13 @@ Same 6 sessions and rubric as the Anthropic and Llama reviews above.
 
 Accuracy is the lowest of any model tested, in every language, for two different reasons: some answers are wrong because the underlying SQL or analysis step is wrong (the same kind of mistake seen on Llama), and some are wrong because the Report Agent changes a number that its own input turn already got right, for no clear reason (in the English Session 4, the turn names the wrong top-profit category and the report substitutes the correct one anyway - not a fix, just a different guess that happened to land right). No-fabrication is the weakest score of any model on Session 6 specifically, for the reason detailed above: this is the model most likely to turn an honest "I don't know" into a confident, wrong answer.
 
-**What Salamandra's results show, overall.** It adds a third, different set of weaknesses on top of Anthropic's and Llama's, rather than repeating either one - the recurring wrong numbers and the reused-answer pattern above have no equivalent on the other two models. And on the specific question it was added to answer - does language-specific training produce more reliable behavior in that language - the answer is no, not for this model: its worst failures happened in Spanish and Catalan, not English. §4.2 returns to this as one of the main conclusions of the whole evaluation.
+**What Salamandra's results show, overall.**
+
+- The core architecture claim still holds even on this weaker model: the real agent clearly beats the baseline on Data Query and Analysis, in every language - Visualization is the one category where it doesn't, with no consistent direction between languages.
+- **It adds a third, different set of weaknesses on top of Anthropic's and Llama's, rather than repeating either one** - the recurring wrong numbers and the reused-answer pattern in its Report Agent (above) have no equivalent on the other two models.
+- Its routing failure is close to a mirror image of Llama's: Llama gets stuck on Data Query in every language, Salamandra gets stuck on Analysis, and only in Spanish and Catalan, not English.
+- Its by-difficulty pattern is the one exception in the whole evaluation to "hard questions are harder" - Data Query "hard" scored better than "easy," the opposite of what both other models show.
+- **On the specific question it was added to answer - does language-specific training produce more reliable behavior in that language - the answer is no, not for this model.** Its worst failures happened in Spanish and Catalan, not English. §4.2 returns to this as one of the main conclusions of the whole evaluation.
 
 ### 3.5 Comparing all three models
 
@@ -451,6 +483,8 @@ Surprising: Llama's no-fabrication score on normal sessions isn't worse than Ant
 
 ## 4. Conclusions
 
+This section pulls together everything found across three models and three languages. It's long, because there's a lot to pull together - a short recap of the most important things is at the very end (§4.7), after everything below has actually been explained.
+
 ### 4.1 What's established, with real evidence
 
 - The specialized multi-agent architecture beats a minimal no-tools baseline, clearly, across all three categories, on Anthropic (§2.1).
@@ -462,20 +496,11 @@ Surprising: Llama's no-fabrication score on normal sessions isn't worse than Ant
 
 ### 4.2 Did we get the answers we expected?
 
-**By difficulty - yes, mostly, for two of the three models.** The benchmarks tag each question easy/medium/hard, and correctness by that tag was already in the raw output (`summary.csv`) but never pulled together for Anthropic and Llama until this section:
+**By difficulty - yes, mostly, for two of the three models, and no for the third.** The benchmark tags each question easy/medium/hard; each model's own by-difficulty table is in its own section (Anthropic: §2.1; Llama: §3.3; Salamandra: §3.4), so here is just the comparison across all three.
 
-| | Easy: real / base | Medium: real / base | Hard: real / base |
-|---|---|---|---|
-| Anthropic - Data Query | 90.0% / 73.3% | 96.7% / 80.0% | 100% / 76.7% |
-| Anthropic - Analysis | 100% / 33.3% | 100% / 66.7% | 100% / 16.7% |
-| Anthropic - Visualization | 77.8% / 66.7% | 100% / 75.0% | 88.9% / 22.2% |
-| Llama - Data Query | 90.0% / 60.0% | 73.3% / 30.0% | 66.7% / 16.7% |
-| Llama - Analysis | 88.9% / 44.4% | 100% / 38.9% | 94.4% / 0% |
-| Llama - Visualization | 100% / 100% | 100% / 75.0% | 77.8% / 33.3% |
+The expected pattern held for Anthropic and Llama: **the baseline loses the most ground on hard questions** - exactly where the architecture earns its keep the most - and Anthropic's real system is barely affected by difficulty at all, while Llama's visibly drops from easy to hard, a real capability gap for a smaller model. (The Analysis "hard" collapse specifically is mostly about labeling, not pure difficulty - those questions are exactly the ones needing regression, PCA, or K-Means, which SQL can't express regardless of how conceptually hard they are; Data Query and Visualization hard questions are a fairer test, and the baseline still drops there too, just less steeply for Anthropic than for Llama.)
 
-(Salamandra's own by-difficulty table is in §3.4 - it wasn't run back through this exact cut of the data until later, so it's shown separately rather than added to this one.)
-
-The expected pattern mostly held: **the baseline loses the most ground on hard questions** - exactly where the architecture earns its keep the most. Anthropic's baseline drops to 16.7-22.2% on hard Analysis/Visualization while the real system stays at 88.9-100%; same shape on Llama, lower floor (0-33.3% baseline). But the Analysis "hard" collapse is mostly about labeling, not pure difficulty - the hard-tier questions are exactly the ones needing regression, PCA, or K-Means, which SQL can't express regardless of how conceptually hard they are. Data Query and Visualization hard questions are a fairer difficulty test (the baseline *can* attempt them in SQL), and there it still drops (Anthropic roughly flat, 73.3% to 76.7%; Llama 60% to 16.7%, a real decline). Anthropic's real system is barely affected by difficulty at all (88.9-100% at every tier); Llama's real system visibly drops from easy to hard on Data Query and Visualization - a real capability gap for a smaller model. **Salamandra broke this expectation** - its Data Query "hard" tier scored much *better* than "easy" (83.3% vs. 46.7%, §3.4) - the one place in this whole evaluation where the difficulty tag didn't predict the result at all.
+**Salamandra broke this expectation** - its Data Query "hard" tier scored much *better* than "easy" (83.3% vs. 46.7%, §3.4) - the one place in this whole evaluation where the difficulty tag didn't predict the result at all.
 
 **By language - the expected decline showed up on one model, and Salamandra's result was the opposite of what we expected.** There was a real reason to expect a decline from English to Spanish to Catalan: English dominates LLM training text, Spanish has less, Catalan is a minority language with much less available anywhere. Anthropic is flat across all three (§2.1) - correctness, routing, and latency stay within a few points of each other, and every wrong answer traces to the two already-documented scoring ambiguities, not language struggle. So the expected decline doesn't show up on a strong hosted model - it seems to know each language well enough for this closed-world task. Llama does decline in that order on Data Query and the monolithic baseline (§3.3), and its worst fabrications happened on the Catalan run - matching the expected pattern, for what that's worth. But Catalan also had the highest pipeline failure count of the three, so some, but probably not all, of that decline may be hardware rather than language.
 
@@ -509,6 +534,16 @@ Salamandra was added specifically to test this properly (§3.1, §3.4): a model 
 ### 4.6 Bottom line
 
 The architecture's core promise - specialized agents with real tools beat one generic prompt - holds up everywhere this was tested: three languages, three different models. Splitting that same toolset across separate agents helps too, and it helps the weaker models more than the stronger one. What changes between models is everything that follows from those two points: which category the router gets wrong (and how much it costs when it does), how often self-correction is needed, how fast the answer comes back, and how the system behaves when a question truly cannot be answered. A smaller, free, local model is a real option for the core task, but both local models tested here need a better router and much closer supervision of their Report Agent before either could be trusted the way the hosted model was here - and picking a model trained specifically on the target language is not a reliable shortcut to that trust.
+
+### 4.7 In short - the five things to take away
+
+Everything above in full detail, condensed to the five things worth remembering:
+
+- **The architecture wins, everywhere, on every model** - specialized agents with real tools beat a plain single-prompt baseline, on Anthropic, Llama, and Salamandra, in every language tested, no exceptions (§4.1, §4.2).
+- **Splitting the work into separate agents helps too, and helps the weaker models far more than the strong one** - up to +60pp on Llama's Analysis, even more on Salamandra's, vs. a modest +20pp on Anthropic (§3.5, §4.2).
+- **The one hypothesis this evaluation set out to test that did *not* hold**: training a model specifically on Spanish and Catalan (Salamandra) did not make it more reliable in those languages - if anything, its worst and strangest failures happened there, not in English (§3.4, §4.2).
+- **Two real bugs were found and fixed during this evaluation, not just reported as limitations** - a wrong t-test implementation and a scoring-logic gap, both independently verified end to end (§2.2).
+- **The two local models are real, usable options for this task, but neither is close to trustworthy unsupervised yet** - both need a better router, and both need much closer supervision of their Report Agent, before either could be trusted the way the hosted model was here.
 
 ---
 
