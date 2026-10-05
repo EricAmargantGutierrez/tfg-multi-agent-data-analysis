@@ -10,44 +10,44 @@
   <rect x="0" y="0" width="1280" height="940" fill="#f8fafc"/>
 
   <!-- Title -->
-  <text x="640" y="36" text-anchor="middle" font-size="24" font-weight="700" fill="#0f172a">Multi-Agent Conversational Data Analysis System</text>
-  <text x="640" y="58" text-anchor="middle" font-size="14" fill="#64748b">Architecture Overview</text>
+  <text x="640" y="36" text-anchor="middle" font-size="25" font-weight="700" fill="#0f172a">Multi-Agent Conversational Data Analysis System</text>
+  <text x="640" y="58" text-anchor="middle" font-size="15" fill="#64748b">Architecture Overview</text>
 
   <!-- User -->
   <circle cx="640" cy="108" r="22" fill="#ffffff" stroke="#334155" stroke-width="2"/>
   <circle cx="640" cy="100" r="7" fill="#334155"/>
   <path d="M628,116 a12,10 0 0,1 24,0" fill="#334155"/>
-  <text x="640" y="146" text-anchor="middle" font-size="13" fill="#334155" font-weight="600">User</text>
+  <text x="640" y="146" text-anchor="middle" font-size="14" fill="#334155" font-weight="600">User</text>
 
   <path d="M640,131 L640,166" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
 
   <!-- REPL -->
   <rect x="540" y="168" width="200" height="56" rx="10" fill="#334155"/>
-  <text x="640" y="192" text-anchor="middle" font-size="15" font-weight="600" fill="#ffffff">REPL</text>
-  <text x="640" y="210" text-anchor="middle" font-size="10.5" fill="#cbd5e1">Interactive CLI</text>
+  <text x="640" y="192" text-anchor="middle" font-size="16" font-weight="600" fill="#ffffff">REPL</text>
+  <text x="640" y="211" text-anchor="middle" font-size="12.5" fill="#cbd5e1">Interactive CLI</text>
 
   <path d="M640,224 L640,253" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
 
   <!-- Orchestrator -->
   <rect x="390" y="255" width="500" height="128" rx="14" fill="#4338ca"/>
-  <text x="640" y="285" text-anchor="middle" font-size="18" font-weight="700" fill="#ffffff">LangGraph Orchestrator</text>
-  <text x="640" y="302" text-anchor="middle" font-size="10.5" fill="#c7d2fe">conversation state · MCP tool invocation · final response</text>
+  <text x="640" y="286" text-anchor="middle" font-size="19" font-weight="700" fill="#ffffff">LangGraph Orchestrator</text>
+  <text x="640" y="303" text-anchor="middle" font-size="12" fill="#c7d2fe">conversation state · MCP tool invocation · final response</text>
 
   <rect x="415" y="312" width="140" height="46" rx="8" fill="#6366f1"/>
-  <text x="485" y="331" text-anchor="middle" font-size="12.5" font-weight="600" fill="#ffffff">Router</text>
-  <text x="485" y="347" text-anchor="middle" font-size="9.5" fill="#e0e7ff">selects agent</text>
+  <text x="485" y="332" text-anchor="middle" font-size="14" font-weight="600" fill="#ffffff">Router</text>
+  <text x="485" y="348" text-anchor="middle" font-size="11.5" fill="#e0e7ff">selects agent</text>
 
   <rect x="570" y="312" width="140" height="46" rx="8" fill="#6366f1"/>
-  <text x="640" y="331" text-anchor="middle" font-size="12.5" font-weight="600" fill="#ffffff">Narrator</text>
-  <text x="640" y="347" text-anchor="middle" font-size="9.5" fill="#e0e7ff">structured → NL</text>
+  <text x="640" y="332" text-anchor="middle" font-size="14" font-weight="600" fill="#ffffff">Narrator</text>
+  <text x="640" y="348" text-anchor="middle" font-size="11.5" fill="#e0e7ff">structured → NL</text>
 
   <rect x="725" y="312" width="140" height="46" rx="8" fill="#6366f1"/>
-  <text x="795" y="331" text-anchor="middle" font-size="12.5" font-weight="600" fill="#ffffff">History</text>
-  <text x="795" y="347" text-anchor="middle" font-size="9.5" fill="#e0e7ff">session memory</text>
+  <text x="795" y="332" text-anchor="middle" font-size="14" font-weight="600" fill="#ffffff">History</text>
+  <text x="795" y="348" text-anchor="middle" font-size="11.5" fill="#e0e7ff">session memory</text>
 
   <!-- Grouping box for agents -->
   <rect x="70" y="410" width="1140" height="172" rx="16" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6,5"/>
-  <text x="640" y="400" text-anchor="middle" font-size="12.5" fill="#64748b" font-weight="600">Specialized MCP Agents — the router calls exactly one of these per question</text>
+  <text x="640" y="400" text-anchor="middle" font-size="13.5" fill="#64748b" font-weight="600">Specialized MCP Agents — the router calls exactly one of these per question</text>
 
   <!-- Fan-out arrows from orchestrator to agents (bidirectional) -->
   <path d="M640,383 L220,432" stroke="#475569" stroke-width="1.75" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
@@ -57,51 +57,51 @@
 
   <!-- Data Query Agent -->
   <rect x="90" y="432" width="260" height="130" rx="12" fill="#059669"/>
-  <text x="220" y="462" text-anchor="middle" font-size="14.5" font-weight="700" fill="#ffffff">Data Query Agent</text>
-  <text x="220" y="482" text-anchor="middle" font-size="10.5" fill="#d1fae5">NL → read-only SQL</text>
-  <text x="220" y="497" text-anchor="middle" font-size="10.5" fill="#d1fae5">validated by safety.py</text>
-  <text x="220" y="512" text-anchor="middle" font-size="10.5" fill="#d1fae5">reads via core/db.py</text>
-  <text x="220" y="527" text-anchor="middle" font-size="10.5" fill="#d1fae5">self-corrects, up to 3 tries</text>
+  <text x="220" y="463" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">Data Query Agent</text>
+  <text x="220" y="483" text-anchor="middle" font-size="12.5" fill="#d1fae5">NL → read-only SQL</text>
+  <text x="220" y="498" text-anchor="middle" font-size="12.5" fill="#d1fae5">validated by safety.py</text>
+  <text x="220" y="513" text-anchor="middle" font-size="12.5" fill="#d1fae5">reads via core/db.py</text>
+  <text x="220" y="528" text-anchor="middle" font-size="12.5" fill="#d1fae5">self-corrects, 3 tries</text>
 
   <!-- Analysis Agent -->
   <rect x="370" y="432" width="260" height="130" rx="12" fill="#d97706"/>
-  <text x="500" y="462" text-anchor="middle" font-size="14.5" font-weight="700" fill="#ffffff">Analysis Agent</text>
-  <text x="500" y="482" text-anchor="middle" font-size="10.5" fill="#ffedd5">plan (cols + filters) → DataFrame</text>
-  <text x="500" y="497" text-anchor="middle" font-size="10.5" fill="#ffedd5">1 of 15 fixed functions</text>
-  <text x="500" y="512" text-anchor="middle" font-size="10.5" fill="#ffedd5">reads via core/db.py</text>
-  <text x="500" y="527" text-anchor="middle" font-size="10.5" fill="#ffedd5">self-corrects, up to 3 tries</text>
+  <text x="500" y="463" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">Analysis Agent</text>
+  <text x="500" y="483" text-anchor="middle" font-size="12.5" fill="#ffedd5">cols + filters → DataFrame</text>
+  <text x="500" y="498" text-anchor="middle" font-size="12.5" fill="#ffedd5">1 of 15 fixed functions</text>
+  <text x="500" y="513" text-anchor="middle" font-size="12.5" fill="#ffedd5">reads via core/db.py</text>
+  <text x="500" y="528" text-anchor="middle" font-size="12.5" fill="#ffedd5">self-corrects, 3 tries</text>
 
   <!-- Visualization Agent -->
   <rect x="650" y="432" width="260" height="130" rx="12" fill="#7c3aed"/>
-  <text x="780" y="462" text-anchor="middle" font-size="14.5" font-weight="700" fill="#ffffff">Visualization Agent</text>
-  <text x="780" y="482" text-anchor="middle" font-size="10.5" fill="#ede9fe">NL request → SQL → chart</text>
-  <text x="780" y="497" text-anchor="middle" font-size="10.5" fill="#ede9fe">1 of 6 chart types, Matplotlib</text>
-  <text x="780" y="512" text-anchor="middle" font-size="10.5" fill="#ede9fe">reads via core/db.py · saves to results/</text>
-  <text x="780" y="527" text-anchor="middle" font-size="10.5" fill="#ede9fe">self-corrects, up to 3 tries</text>
+  <text x="780" y="463" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">Visualization Agent</text>
+  <text x="780" y="483" text-anchor="middle" font-size="12.5" fill="#ede9fe">NL request → SQL → chart</text>
+  <text x="780" y="498" text-anchor="middle" font-size="12.5" fill="#ede9fe">6 chart types, Matplotlib</text>
+  <text x="780" y="513" text-anchor="middle" font-size="12.5" fill="#ede9fe">reads db.py · writes results/</text>
+  <text x="780" y="528" text-anchor="middle" font-size="12.5" fill="#ede9fe">self-corrects, 3 tries</text>
 
   <!-- Report Agent -->
   <rect x="930" y="432" width="260" height="130" rx="12" fill="#e11d48"/>
-  <text x="1060" y="462" text-anchor="middle" font-size="14.5" font-weight="700" fill="#ffffff">Report Agent</text>
-  <text x="1060" y="482" text-anchor="middle" font-size="10.5" fill="#ffe4e6">reads full session history</text>
-  <text x="1060" y="497" text-anchor="middle" font-size="10.5" fill="#ffe4e6">one LLM call, no DB access</text>
-  <text x="1060" y="512" text-anchor="middle" font-size="10.5" fill="#ffe4e6">Markdown → results/</text>
-  <text x="1060" y="527" text-anchor="middle" font-size="10.5" fill="#ffe4e6">no retry loop (unlike the other three)</text>
+  <text x="1060" y="463" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">Report Agent</text>
+  <text x="1060" y="483" text-anchor="middle" font-size="12.5" fill="#ffe4e6">reads full session history</text>
+  <text x="1060" y="498" text-anchor="middle" font-size="12.5" fill="#ffe4e6">one LLM call, no DB access</text>
+  <text x="1060" y="513" text-anchor="middle" font-size="12.5" fill="#ffe4e6">Markdown → results/</text>
+  <text x="1060" y="528" text-anchor="middle" font-size="12.5" fill="#ffe4e6">no retry loop here</text>
 
   <!-- SQLite cylinder -->
   <g>
     <path d="M290,620 a70,14 0 1,0 140,0 a70,14 0 1,0 -140,0" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
     <path d="M290,620 L290,672 a70,14 0 0,0 140,0 L430,620" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
     <path d="M290,620 a70,14 0 0,0 140,0" fill="none" stroke="#475569" stroke-width="1.5"/>
-    <text x="360" y="652" text-anchor="middle" font-size="11.5" font-weight="600" fill="#334155">SQLite</text>
-    <text x="360" y="705" text-anchor="middle" font-size="11.5" fill="#475569" font-weight="600">Superstore Database</text>
-    <text x="360" y="722" text-anchor="middle" font-size="9.5" fill="#64748b">read-only, via src/core/db.py</text>
+    <text x="360" y="652" text-anchor="middle" font-size="13" font-weight="600" fill="#334155">SQLite</text>
+    <text x="360" y="705" text-anchor="middle" font-size="13" fill="#475569" font-weight="600">Superstore Database</text>
+    <text x="360" y="722" text-anchor="middle" font-size="11" fill="#64748b">read-only, via src/core/db.py</text>
   </g>
 
   <!-- Results folder -->
   <g>
     <path d="M865,608 h40 l10,12 h75 v55 h-125 z" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
-    <text x="920" y="652" text-anchor="middle" font-size="11.5" font-weight="600" fill="#334155">results/</text>
-    <text x="920" y="705" text-anchor="middle" font-size="11.5" fill="#475569" font-weight="600">charts &amp; reports</text>
+    <text x="920" y="652" text-anchor="middle" font-size="13" font-weight="600" fill="#334155">results/</text>
+    <text x="920" y="705" text-anchor="middle" font-size="13" fill="#475569" font-weight="600">charts &amp; reports</text>
   </g>
 
   <!-- Data Query Agent -> SQLite -->
@@ -117,27 +117,27 @@
 
   <!-- Legend -->
   <rect x="70" y="770" width="450" height="110" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-  <text x="90" y="795" font-size="12.5" font-weight="700" fill="#0f172a">Legend</text>
+  <text x="90" y="796" font-size="13.5" font-weight="700" fill="#0f172a">Legend</text>
 
-  <path d="M90,812 L130,812" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
-  <text x="140" y="816" font-size="11" fill="#334155">Invocation / structured result (orchestrator ⇄ agent)</text>
+  <path d="M90,814 L130,814" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="140" y="818" font-size="12" fill="#334155">Invocation / result (orchestrator ⇄ agent)</text>
 
-  <path d="M90,834 L130,834" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
-  <text x="140" y="838" font-size="11" fill="#334155">Read-only query, via the single src/core/db.py chokepoint</text>
+  <path d="M90,836 L130,836" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="140" y="840" font-size="12" fill="#334155">Read-only query, through the one db.py chokepoint</text>
 
-  <rect x="90" y="850" width="16" height="16" rx="3" fill="#4338ca"/>
-  <text x="115" y="862" font-size="11" fill="#334155">Orchestration layer</text>
+  <rect x="90" y="852" width="16" height="16" rx="3" fill="#4338ca"/>
+  <text x="115" y="864" font-size="12" fill="#334155">Orchestration layer</text>
 
-  <rect x="290" y="850" width="16" height="16" rx="3" fill="#059669"/>
-  <text x="315" y="862" font-size="11" fill="#334155">MCP agents (color-coded)</text>
+  <rect x="290" y="852" width="16" height="16" rx="3" fill="#059669"/>
+  <text x="315" y="864" font-size="12" fill="#334155">MCP agents (color-coded)</text>
 
   <!-- Flow steps note -->
   <rect x="560" y="770" width="650" height="110" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-  <text x="580" y="795" font-size="12.5" font-weight="700" fill="#0f172a">Typical Flow</text>
-  <text x="580" y="815" font-size="11" fill="#334155">1. User asks a question in the REPL → sent to the orchestrator</text>
-  <text x="580" y="833" font-size="11" fill="#334155">2. Router (LLM, keyword fallback) selects one of the four agents; agent runs its task</text>
-  <text x="580" y="851" font-size="11" fill="#334155">3. Narrator turns the structured result into natural language</text>
-  <text x="580" y="869" font-size="11" fill="#334155">4. On session end, the Report Agent writes a Markdown summary to results/</text>
+  <text x="580" y="796" font-size="13.5" font-weight="700" fill="#0f172a">Typical Flow</text>
+  <text x="580" y="816" font-size="12.5" fill="#334155">1. User asks a question in the REPL → sent to the orchestrator</text>
+  <text x="580" y="834" font-size="12.5" fill="#334155">2. Router (LLM + keyword fallback) picks one of the four agents</text>
+  <text x="580" y="852" font-size="12.5" fill="#334155">3. Narrator turns the structured result into natural language</text>
+  <text x="580" y="870" font-size="12.5" fill="#334155">4. At session end, the Report Agent writes a summary to results/</text>
 
-  <text x="640" y="915" text-anchor="middle" font-size="10.5" fill="#94a3b8">TFG: Multi-Agent Conversational Data Analysis System · UPF</text>
+  <text x="640" y="915" text-anchor="middle" font-size="11.5" fill="#94a3b8">TFG: Multi-Agent Conversational Data Analysis System · UPF</text>
 </svg>
