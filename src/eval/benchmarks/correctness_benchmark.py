@@ -10,8 +10,10 @@ Correctness comparison across three points, for all three categories:
     specialized agents combined (Data Query, Analysis, Visualization -
     the Report Agent has no tools of its own), deciding for itself
     which to use.
-    Isolates "does splitting tools across agents + routing add value,
-    beyond just having them available to one agent."
+    Isolates "does splitting the tools across specialized agents add
+    value, beyond just having them available to one agent." (This
+    benchmark forces routing on every side, including this one -- it
+    doesn't test routing itself; that's pipeline_benchmark.py.)
 
 Usage:
     python -m src.eval.benchmarks.correctness_benchmark [--side agent|baseline|monolithic] [--categories analysis]
