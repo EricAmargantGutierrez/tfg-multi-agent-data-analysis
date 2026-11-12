@@ -236,6 +236,33 @@ PYTHONPATH=. pytest tests/ -v
 
 ---
 
+## Use of AI tools
+
+Generative AI tools (Claude Code with the Sonnet 5 model, by Anthropic)
+were used as a supporting tool during this project, in the same way as
+declared in Appendix A of the thesis:
+
+- brainstorming ideas in the early stages of the project;
+- programming support: debugging, generating code and new functions,
+  finding edge cases, and improving code quality;
+- generating the result figures in `docs/figures/` from the real
+  evaluation results;
+- clarifying technical concepts;
+- revising the wording of the thesis and of the documentation in this
+  repository, and checking its numbers against the code and the
+  evaluation results.
+
+The planning of the project and all of its decisions were my own: the
+research question, the system architecture and the steps followed to
+build it, the evaluation design, the experiments, the analysis of the
+results, and the conclusions. The AI tools did not take or guide any of
+these decisions; their role was limited to helping implement and polish
+my plan. Every AI-generated suggestion, piece of code, and text was
+reviewed, verified, and adapted by me, and I take full responsibility for
+the content of this repository.
+
+---
+
 ## License
 
 Developed as part of a Bachelor's Thesis at Universitat Pompeu Fabra.
