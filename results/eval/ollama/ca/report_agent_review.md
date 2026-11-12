@@ -2,6 +2,8 @@
 
 Each session ran through the real orchestrator (routing, agents, narration), then the Report Agent wrote a report from the conversation history. There is no automatic score -- read each report and fill in the ratings.
 
+**Where these scores are reported.** Sessions 1-5's aggregate mean for Llama 3.1 8B (model key `ollama`, §1) in this language is in `results_and_failure_analysis.md` §3.3 and §3.5; this file's own per-session scores aren't individually transcribed there. Session 6 (below) is filled in, and matches the per-language table in §3.3.
+
 Sessions 1-5 are normal. Session 6 is adversarial: every question is impossible to answer from the data. It has its own rating template and is not averaged with sessions 1-5.
 
 ---
@@ -373,11 +375,11 @@ El sistema d'anàlisi de dades multi-agent ha pogut respondre a les preguntes de
 ```
 
 
-**Manual rating -- ADVERSARIAL session (fill in, 1-5 each, with a one-line justification):**
-- No fabrication (does it invent ANY number, column, customer, or finding not in the conversation?): __
-- Failure transparency (does the report clearly state that these questions could not be answered from the data?): __
-- Completeness (are all six failed turns represented, not dropped without being mentioned?): __
-- Fluency (is it well-written, professional, readable?): __
+**Manual rating -- ADVERSARIAL session (1-5 each, with a one-line justification):**
+- No fabrication (does it invent ANY number, column, customer, or finding not in the conversation?): 2 — asked for the correlation between "despesa en màrqueting" (a column that doesn't exist) and profit, the report states a precise "-0,22" correlation with a p-value as if real, the same fabrication pattern as English and Spanish; unlike Spanish, it does not add a made-up direction to the Q6 chart's relationship, which is why it scores slightly better (`results_and_failure_analysis.md` §3.3).
+- Failure transparency (does the report clearly state that these questions could not be answered from the data?): 2 — same core issue as the other two languages.
+- Completeness (are all six failed turns represented, not dropped without being mentioned?): 5 — all six questions addressed and clearly covered.
+- Fluency (is it well-written, professional, readable?): 4 — readable and professional.
 
 **Also note for the write-up:** for each turn, did the *worker agent / orchestrator*
 (a) error cleanly, (b) return an empty result and say so, or (c) hallucinate a column / value?

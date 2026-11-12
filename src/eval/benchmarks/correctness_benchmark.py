@@ -6,8 +6,10 @@ Correctness comparison across three points, for all three categories:
     accuracy is measured separately, in pipeline_benchmark.py).
   - "baseline": a minimal single LLM, one plain SQL query, no tools.
     Isolates "does having any specialized tooling help at all."
-  - "monolithic": a single LLM with the same tools as the four
-    specialized agents combined, deciding for itself which to use.
+  - "monolithic": a single LLM with the same tools as three of the four
+    specialized agents combined (Data Query, Analysis, Visualization -
+    the Report Agent has no tools of its own), deciding for itself
+    which to use.
     Isolates "does splitting tools across agents + routing add value,
     beyond just having them available to one agent."
 

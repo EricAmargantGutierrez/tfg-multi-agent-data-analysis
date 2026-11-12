@@ -93,7 +93,10 @@ def compute_ttest(df, group_column=None, group_values=None):
 
 def compute_regression(df, target=None):
     """target: column to predict (y); every other numeric column is a
-    predictor (X). Falls back to the last column if target is None."""
+    predictor (X). Falls back to the last column if target is None -
+    only reachable when this function is called directly; the
+    AnalysisPlan schema requires target for every regression plan that
+    goes through the normal pipeline."""
     numeric = _numeric(df)
     if numeric.shape[1] < 2:
         raise ValueError("Regression requires at least two numeric columns.")

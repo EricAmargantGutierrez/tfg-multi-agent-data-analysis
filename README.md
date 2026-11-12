@@ -30,6 +30,17 @@ compared to two simpler options: one LLM with a short, plain prompt and
 no tools, and one LLM with the same tools but not split into separate
 agents. The architecture was tested on several models.
 
+**Relation to the thesis.** This repository is the implementation and
+evaluation behind the thesis document. The system itself -
+[`docs/architecture.md`](docs/architecture.md) and the `src/` code - is
+what the thesis's system-design chapter describes; the evaluation
+method, every number, and the failure analysis in
+[`results_and_failure_analysis.md`](results_and_failure_analysis.md)
+back the thesis's Results chapter (Chapter 5) and the sections of the
+Conclusions chapter (Chapter 6) that discuss limitations and future
+work. Figures in [`docs/figures/`](docs/figures/) are numbered the same
+way as in the thesis.
+
 ---
 
 ## Architecture
@@ -109,9 +120,9 @@ pip install -r requirements.txt
 
 Copy `.env.example` to `.env` and add your provider key(s).
 
-Place the Superstore CSV at `data/superstore.csv`
-([Kaggle: vivek468/superstore-dataset-final](https://kaggle.com/datasets/vivek468/superstore-dataset-final)),
-then:
+The Superstore CSV is already included at `data/superstore.csv`
+([Kaggle: vivek468/superstore-dataset-final](https://kaggle.com/datasets/vivek468/superstore-dataset-final),
+kept for provenance), so just run:
 
 ```bash
 python -m src.ingest
@@ -190,15 +201,28 @@ All the numbers above are from Anthropic Haiku. I also ran two local
 models (`llama3.1:8b`, then `Salamandra-7b-instruct`, picked
 specifically for its Spanish/Catalan training focus, both run through
 Ollama) on the current system, in all three languages - their results
-are in §3. I also tried Groq, but decided not to pursue it after
-running into real infrastructure limits (a model retired mid-project,
-then a free-tier daily token limit too tight to finish a full run in
-reasonable time) - §3.1 explains what happened, but there are no Groq
-numbers to report.
+are in [`results_and_failure_analysis.md`](results_and_failure_analysis.md)
+§3. I also tried Groq, but decided not to pursue it after running into
+real infrastructure limits (a model retired mid-project, then a
+free-tier daily token limit too tight to finish a full run in
+reasonable time) -
+[`results_and_failure_analysis.md`](results_and_failure_analysis.md)
+§3.1 explains what happened, but there are no Groq numbers to report.
 
 I also ran the evaluation in **Spanish and Catalan on Anthropic Haiku**
 (same questions translated, same ground truth). Results are in
-`results/eval/anthropic/{en,es,ca}/` and §2 (which covers all three languages together, not as a separate section).
+`results/eval/anthropic/{en,es,ca}/` and
+[`results_and_failure_analysis.md`](results_and_failure_analysis.md) §2
+(which covers all three languages together, not as a separate section).
+
+**Pooled correctness across all three categories, by model and language**
+(exact per-category breakdown: §3.5):
+
+| | English | Spanish | Catalan |
+|---|---|---|---|
+| Claude Haiku 4.5 (`anthropic`) | 94.5% | 94.5% | 98.2% |
+| Llama 3.1 8B (`ollama`) | 90.9% | 83.6% | 80.0% |
+| Salamandra 7B Instruct (`salamandra`) | 65.5% | 61.8% | 60.0% |
 
 ---
 

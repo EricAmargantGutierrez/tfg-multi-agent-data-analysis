@@ -10,7 +10,8 @@ class SessionState(TypedDict):
     which only specifies history being handed to the Report Agent at the
     end of a session, not being fed back into per-turn routing/generation.
     Multi-turn reference resolution ("what about last year?") is out of
-    scope; see docs/architecture.md Future Extensions.
+    scope; see docs/architecture.md Current Limitations and
+    results_and_failure_analysis.md §5.2.
     """
     question: str
     route: str

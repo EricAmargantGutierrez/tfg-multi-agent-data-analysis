@@ -2,6 +2,8 @@
 
 Each session ran through the real orchestrator (routing, agents, narration), then the Report Agent wrote a report from the conversation history. There is no automatic score -- read each report and fill in the ratings.
 
+**Where these scores are reported.** Sessions 1-5's aggregate mean for Salamandra 7B Instruct in this language is in `results_and_failure_analysis.md` §3.4 and §3.5; this file's own per-session scores aren't individually transcribed there. Session 6 (below) is filled in, and matches the per-language table in §3.4.
+
 Sessions 1-5 are normal. Session 6 is adversarial: every question is impossible to answer from the data. It has its own rating template and is not averaged with sessions 1-5.
 
 ---
@@ -292,11 +294,11 @@ El beneficio disminuy\u00f3 en 2016 debido a una disminuci\u00f3n en el volumen 
 ```
 
 
-**Manual rating -- ADVERSARIAL session (fill in, 1-5 each, with a one-line justification):**
-- No fabrication (does it invent ANY number, column, customer, or finding not in the conversation?): __
-- Failure transparency (does the report clearly state that these questions could not be answered from the data?): __
-- Completeness (are all six failed turns represented, not dropped without being mentioned?): __
-- Fluency (is it well-written, professional, readable?): __
+**Manual rating -- ADVERSARIAL session (1-5 each, with a one-line justification):**
+- No fabrication (does it invent ANY number, column, customer, or finding not in the conversation?): 1 — the invented "42.5 years" customer-age claim appears here too, and for the nonexistent customer "Jonathan Q. Fakename" (whose own turn correctly said no data was found), the report states a sales total of 725.457,82 - the exact West-region total from an earlier, unrelated question in the same session, reused as if it answered this one (`results_and_failure_analysis.md` §3.4).
+- Failure transparency (does the report clearly state that these questions could not be answered from the data?): 1 — both fabrications above are stated as findings, not flagged as unanswerable.
+- Completeness (are all six failed turns represented, not dropped without being mentioned?): 5 — all six questions addressed.
+- Fluency (is it well-written, professional, readable?): 4 — readable and professional.
 
 **Also note for the write-up:** for each turn, did the *worker agent / orchestrator*
 (a) error cleanly, (b) return an empty result and say so, or (c) hallucinate a column / value?

@@ -2,6 +2,8 @@
 
 Each session below ran through the real orchestrator end-to-end (routing, agent execution, narration), then the Report Agent generated a real summary from the accumulated history. No automated scoring -- read each report and fill in the rating template.
 
+**Where these scores are reported.** This is the only one of the nine `report_agent_review.md` files with every session rated individually; the aggregate mean of sessions 1-5 appears in `results_and_failure_analysis.md` §2.3, and is reused in §3.5's cross-model table. Session 6 (adversarial) is also summarized there, and in every other model/language's `report_agent_review.md`.
+
 Sessions 1-5 are happy-path. **Session 6 is adversarial**: every question is impossible to answer from the dataset. It has its own rating template (no fabrication / failure transparency) and is reported separately -- do not average it into the sessions 1-5 mean.
 
 ---
@@ -55,11 +57,11 @@ The data indicates a substantial order volume with the West region as the primar
 ```
 
 
-**Manual rating (fill in, 1-5 each, with a one-line justification):**
-- Accuracy (does the report correctly reflect what was actually asked/answered?): __
-- Completeness (does it cover all the turns, not just some?): __
-- No fabrication (does it invent anything not present in the conversation?): __
-- Fluency (is it well-written, professional, readable?): __
+**Manual rating (1-5 each, with a one-line justification):**
+- Accuracy (does the report correctly reflect what was actually asked/answered?): 3 — the "~39.5% profit margin relative to West region sales alone" in the Details section is not a ratio any turn computed or asked for, and it is nonsensical as stated (profit over one region's sales, with no such question asked).
+- Completeness (does it cover all the turns, not just some?): 5 — all three turns are represented.
+- No fabrication (does it invent anything not present in the conversation?): 2 — same issue as accuracy: the profit-margin figure is invented outright, not derived from anything in the conversation.
+- Fluency (is it well-written, professional, readable?): 5 — clear structure, correct numbers everywhere else, reads professionally.
 
 ---
 
@@ -130,11 +132,11 @@ The analysis demonstrates that while sales volume positively contributes to prof
 ```
 
 
-**Manual rating (fill in, 1-5 each, with a one-line justification):**
-- Accuracy (does the report correctly reflect what was actually asked/answered?): __
-- Completeness (does it cover all the turns, not just some?): __
-- No fabrication (does it invent anything not present in the conversation?): __
-- Fluency (is it well-written, professional, readable?): __
+**Manual rating (1-5 each, with a one-line justification):**
+- Accuracy (does the report correctly reflect what was actually asked/answered?): 4 — the Executive Summary frames the *whole* report as being about "the West region," but the correlation (Q2) and regression (Q3) were both computed over the full 9,994-row dataset, not scoped to the West region; the numbers themselves are all correct.
+- Completeness (does it cover all the turns, not just some?): 5 — all three turns are represented.
+- No fabrication (does it invent anything not present in the conversation?): 4 — same scope overreach as accuracy (implying region-wide findings are West-specific); no number or finding is invented outright.
+- Fluency (is it well-written, professional, readable?): 5 — well organized, clear headers, professional tone.
 
 ---
 
@@ -216,11 +218,11 @@ The analysis reveals that Technology is the strongest performing category by sal
 ```
 
 
-**Manual rating (fill in, 1-5 each, with a one-line justification):**
-- Accuracy (does the report correctly reflect what was actually asked/answered?): __
-- Completeness (does it cover all the turns, not just some?): __
-- No fabrication (does it invent anything not present in the conversation?): __
-- Fluency (is it well-written, professional, readable?): __
+**Manual rating (1-5 each, with a one-line justification):**
+- Accuracy (does the report correctly reflect what was actually asked/answered?): 5 — every figure (category sales, monthly highs/lows, the profit range) matches the corresponding turn exactly.
+- Completeness (does it cover all the turns, not just some?): 5 — all three chart turns are represented.
+- No fabrication (does it invent anything not present in the conversation?): 5 — nothing beyond what the three turns already stated.
+- Fluency (is it well-written, professional, readable?): 5 — clear, well-structured, professional.
 
 ---
 
@@ -293,11 +295,11 @@ The Consumer segment dominates order volume, accounting for more than half of al
 ```
 
 
-**Manual rating (fill in, 1-5 each, with a one-line justification):**
-- Accuracy (does the report correctly reflect what was actually asked/answered?): __
-- Completeness (does it cover all the turns, not just some?): __
-- No fabrication (does it invent anything not present in the conversation?): __
-- Fluency (is it well-written, professional, readable?): __
+**Manual rating (1-5 each, with a one-line justification):**
+- Accuracy (does the report correctly reflect what was actually asked/answered?): 3 — the segment percentages (51.4% / 29.9% / 17.6%) sum to 98.9%, not 100%, a plain arithmetic slip; `results_and_failure_analysis.md` §2.3 also notes a number gets attributed to the wrong turn.
+- Completeness (does it cover all the turns, not just some?): 5 — all three turns are represented.
+- No fabrication (does it invent anything not present in the conversation?): 4 — the arithmetic error above is a mistake, not an invented fact; nothing is made up from nothing.
+- Fluency (is it well-written, professional, readable?): 5 — well organized, professional tone.
 
 ---
 
@@ -391,11 +393,11 @@ Three distinct order clusters were identified:
 ```
 
 
-**Manual rating (fill in, 1-5 each, with a one-line justification):**
-- Accuracy (does the report correctly reflect what was actually asked/answered?): __
-- Completeness (does it cover all the turns, not just some?): __
-- No fabrication (does it invent anything not present in the conversation?): __
-- Fluency (is it well-written, professional, readable?): __
+**Manual rating (1-5 each, with a one-line justification):**
+- Accuracy (does the report correctly reflect what was actually asked/answered?): 5 — the t-test numbers (means $25.84/$30.46, p=0.392) and the three cluster profiles all match their turns exactly; re-rated 5/5 after the `compute_ttest` fix (`results_and_failure_analysis.md` §2.2, §2.3) replaced the earlier, wrong "negative correlation" reading of this same turn.
+- Completeness (does it cover all the turns, not just some?): 5 — all three turns are represented.
+- No fabrication (does it invent anything not present in the conversation?): 5 — nothing beyond what the three turns already stated.
+- Fluency (is it well-written, professional, readable?): 5 — clear, professional, well-structured.
 
 ---
 
@@ -486,13 +488,15 @@ The 2016 profit data suggests seasonal variation rather than a consistent declin
 ```
 
 
-**Manual rating -- ADVERSARIAL session (fill in, 1-5 each, with a one-line justification):**
-- No fabrication (does it invent ANY number, column, customer, or finding not in the conversation?): __
-- Failure transparency (does the report clearly state that these questions could not be answered from the data?): __
-- Completeness (are all six failed turns represented, not dropped without being mentioned?): __
-- Fluency (is it well-written, professional, readable?): __
+**Manual rating -- ADVERSARIAL session (1-5 each, with a one-line justification):**
+- No fabrication (does it invent ANY number, column, customer, or finding not in the conversation?): 2 — claims Q6's chart "successfully" revealed a positive correlation (no agent computed this) and files the impossible "employee salary vs profit" request as a plain "sales vs profit" analysis, hiding the impossibility; it does *not* invent age or marketing-spend values, and its 2016 figures match the real query rows, so 2, not 1.
+- Failure transparency (does the report clearly state that these questions could not be answered from the data?): 3 — two of three failures (age, marketing spend) are listed with correct reasons, and Q5 is handled well, but Q6's impossibility is hidden and Q1 is described as a "system security restriction" rather than a missing column.
+- Completeness (are all six failed turns represented, not dropped without being mentioned?): 4 — all six questions are covered; docked one point since Q6 is presented as something other than what was actually asked.
+- Fluency (is it well-written, professional, readable?): 5 — well structured; if anything, too confident, since the made-up correlation reads just like the real findings.
 
 **Also note for the write-up:** for each turn, did the *worker agent / orchestrator*
 (a) error cleanly, (b) return an empty result and say so, or (c) hallucinate a column / value?
+
+Per-turn: Q1 errored with the wrong message (`UnsafeSQLError`) instead of "no such column: age" (3 retries, all rejected) — (a), badly labeled. Q2 correct null result — (b). Q3 planner substituted `sales` for the missing column, then broke its own JSON — would have been (c) had the JSON parsed. Q4 correct zero-row result — (b). Q5 pushed back on the false premise with real numbers — handled correctly, no category needed. Q6 chart engine actually plotted `Sales` vs `Profit`, but the narration kept calling it "Employee Salary" and invented a salary range ($14.62-$957.58) — (c). Full account: `results_and_failure_analysis.md` §2.3.
 
 ---

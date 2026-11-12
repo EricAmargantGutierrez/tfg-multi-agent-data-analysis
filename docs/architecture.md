@@ -39,13 +39,13 @@ else opens a connection to the database. Every connection is read-only,
 so a bug anywhere else in the code cannot change the database, no
 matter which agent caused it.
 
-This was not always true. Early on, each agent opened its own database
-connection separately, since each file had been written on its own -
-only one of the three was actually read-only, purely by accident of how
-each file happened to be written, not because it was checked or decided
-anywhere. Moving every connection into `src/core/db.py` fixed this for
-good: now there is exactly one place that opens the database, so there
-is exactly one place to check that every connection is read-only. Analysis never lets the LLM write raw
+This was not always true - early on, each agent opened its own
+connection separately, and only one of the three happened to be
+read-only. Moving every connection into `src/core/db.py` fixed that for
+good: now there is exactly one place that opens the database, and
+exactly one place to check it is read-only.
+
+Analysis never lets the LLM write raw
 SQL - instead, it produces a plan (columns, filters, and for a
 regression a target column, or for a t-test a grouping column and the
 two groups to compare). This plan is checked as a Pydantic
@@ -236,8 +236,8 @@ don't end up repeated in two files.
   (`src/agents/viz/engine.py::render()`) that only knows how to draw
   those 6. A question that needs a different kind of chart (a map, a
   heatmap, a Sankey diagram, ...) can't be answered.
-- One SQLite database, one table.
-- No memory of earlier turns when answering a new question.
+- **One SQLite database, one table.**
+- **No memory of earlier turns when answering a new question.**
 - **The router can't always tell Data Query and Analysis apart.** A
   question like "what is the average discount" can be answered
   correctly by either agent - a mean is just one SQL `AVG(...)`, and

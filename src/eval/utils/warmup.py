@@ -4,7 +4,7 @@ src/eval/utils/warmup.py
 Makes one throwaway call through the exact same code path as the real
 timed calls, before any real timing starts. Matters most for local
 models (Ollama), where the first call of a given kind pays a large
-cold-start cost (~90-180s) that a trivial "Say OK" call doesn't cover.
+cold-start cost (~160-340s) that a trivial "Say OK" call doesn't cover.
 
 There's no single "the model is warm now" -- each different function/
 code path needs its own warm-up, right before its own timed loop.

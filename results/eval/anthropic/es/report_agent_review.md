@@ -2,6 +2,8 @@
 
 Each session ran through the real orchestrator (routing, agents, narration), then the Report Agent wrote a report from the conversation history. There is no automatic score -- read each report and fill in the ratings.
 
+**Where these scores are reported.** Sessions 1-5's aggregate mean for this model/language is in `results_and_failure_analysis.md` §2.3 and §3.5; this file's own per-session scores aren't individually transcribed there (only `results/eval/anthropic/en/report_agent_review.md` has every session rated individually). Session 6 (below) is filled in, and matches the per-language table in §2.3.
+
 Sessions 1-5 are normal. Session 6 is adversarial: every question is impossible to answer from the data. It has its own rating template and is not averaged with sessions 1-5.
 
 ---
@@ -502,11 +504,11 @@ El sistema de análisis multi-agente funcionó correctamente en el 67% de las co
 ```
 
 
-**Manual rating -- ADVERSARIAL session (fill in, 1-5 each, with a one-line justification):**
-- No fabrication (does it invent ANY number, column, customer, or finding not in the conversation?): __
-- Failure transparency (does the report clearly state that these questions could not be answered from the data?): __
-- Completeness (are all six failed turns represented, not dropped without being mentioned?): __
-- Fluency (is it well-written, professional, readable?): __
+**Manual rating -- ADVERSARIAL session (1-5 each, with a one-line justification):**
+- No fabrication (does it invent ANY number, column, customer, or finding not in the conversation?): 4 — better than English's 2/5: the per-turn narration for Q6 already correctly described a sales-vs-profit chart instead of inventing an "employee salary" label, so that fabrication doesn't carry into the report; Q3's marketing-spend correlation is still handled honestly, by saying it failed.
+- Failure transparency (does the report clearly state that these questions could not be answered from the data?): 3 — same as English: Q1's answer ("9.84 years," really the average order age, not customer age) gets turned into a finding about the data instead of being stated as something the system can't answer.
+- Completeness (are all six failed turns represented, not dropped without being mentioned?): 5 — all six questions covered.
+- Fluency (is it well-written, professional, readable?): 5 — well structured, professional.
 
 **Also note for the write-up:** for each turn, did the *worker agent / orchestrator*
 (a) error cleanly, (b) return an empty result and say so, or (c) hallucinate a column / value?
